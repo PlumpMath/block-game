@@ -6,7 +6,7 @@
 
 float points[4][2] = {{-0.5f, -0.5f}, {0.5f, -0.5f}, {0.5f, 0.5f}, {-0.5f, 0.5f}};
 
-float theta = 1;
+float theta = 0;
 
 /* Handler for window-repaint event. Call back when the window first appears and whenever the window needs to be re-painted. */
 void display()
@@ -26,6 +26,25 @@ void display()
   glFlush(); // Render now
 }
 
+void update()
+{
+  theta += 0.01f;
+  glutPostRedisplay();
+}
+
+void startTimer();
+
+void timer(int value)
+{
+  startTimer();
+  update();
+}
+
+void startTimer()
+{
+  glutTimerFunc(1000 / 60, timer, 0);
+}
+
 /* Main function: GLUT runs as a console application starting at main()  */
 int main(int argc, char** argv)
 {
@@ -34,6 +53,7 @@ int main(int argc, char** argv)
   glutInitWindowSize(320, 320);          // Set the window's initial width & height
   glutInitWindowPosition(50, 50);        // Position the window's initial top-left corner
   glutDisplayFunc(display);              // Register display callback handler for window re-paint
+  startTimer();
   glutMainLoop();                        // Enter the infinitely event-processing loop
   return 0;
 }
