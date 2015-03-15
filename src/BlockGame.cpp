@@ -3,8 +3,7 @@
 #include <windows.h>
 #include <GL/glut.h>
 
-float points[4][2] = {{-0.5f, -0.5f}, {0.5f, -0.5f}, {0.5f, 0.5f}, {-0.5f, 0.5f}};
-
+float points[][2] = {{-0.5f, -0.5f}, {0.5f, -0.5f}, {0.5f, 0.5f}, {-0.5f, 0.5f}};
 float theta = 0;
 
 void display()
