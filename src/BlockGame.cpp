@@ -1,6 +1,12 @@
 /* BlockGame.cpp: Test OpenGL C/C++ Setup */
+#include <cmath>
+
 #include <windows.h> // For MS Windows
 #include <GL/glut.h> // GLUT, includes glu.h and gl.h
+
+float points[4][2] = {{-0.5f, -0.5f}, {0.5f, -0.5f}, {0.5f, 0.5f}, {-0.5f, 0.5f}};
+
+float theta = 1;
 
 /* Handler for window-repaint event. Call back when the window first appears and whenever the window needs to be re-painted. */
 void display()
@@ -11,10 +17,10 @@ void display()
   // Draw a Red 1x1 Square centered at origin
   glBegin(GL_QUADS);           // Each set of 4 vertices form a quad
   glColor3f(1.0f, 0.0f, 0.0f); // Red
-  glVertex2f(-0.5f, -0.5f);    // x, y
-  glVertex2f(0.5f, -0.5f);
-  glVertex2f(0.5f, 0.5f);
-  glVertex2f(-0.5f, 0.5f);
+  for (float* point : points)
+  {
+    glVertex2f(point[0] * cos(theta) - point[1] * sin(theta), point[0] * sin(theta) + point[1] * cos(theta));
+  }
   glEnd();
 
   glFlush(); // Render now
