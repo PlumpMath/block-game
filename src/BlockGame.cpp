@@ -43,8 +43,6 @@ int main(int argc, char** argv)
 {
   glutInit(&argc, argv);
   glutCreateWindow("BlockGame");
-  glutInitWindowSize(320, 320);
-  glutInitWindowPosition(50, 50);
   glutDisplayFunc(display);
   startTimer();
   glutMainLoop();
