@@ -1,8 +1,8 @@
 #include <cmath>
 #include <GL/glut.h>
 
-const float points[][2] = {{-0.5f, -0.5f}, {0.5f, -0.5f}, {0.5f, 0.5f}, {-0.5f, 0.5f}};
-float angle = 0;
+static const float points [][2] = {{-0.5f, -0.5f}, {0.5f, -0.5f}, {0.5f, 0.5f}, {-0.5f, 0.5f}};
+static float angle = 0;
 
 void Display()
 {
