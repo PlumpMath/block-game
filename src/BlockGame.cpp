@@ -46,5 +46,4 @@ int main(int argc, char** argv)
   glutDisplayFunc(display);
   startTimer();
   glutMainLoop();
-  return 0;
 }
