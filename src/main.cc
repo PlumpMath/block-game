@@ -2,7 +2,7 @@
 #include <GL/glut.h>
 
 float points[][2] = {{-0.5f, -0.5f}, {0.5f, -0.5f}, {0.5f, 0.5f}, {-0.5f, 0.5f}};
-float theta = 0;
+float angle = 0;
 
 void Display()
 {
@@ -13,7 +13,7 @@ void Display()
   glColor3f(1.0f, 0.0f, 0.0f);
   for (float* point : points)
   {
-    glVertex2f(point[0] * cos(theta) - point[1] * sin(theta), point[0] * sin(theta) + point[1] * cos(theta));
+    glVertex2f(point[0] * cos(angle) - point[1] * sin(angle), point[0] * sin(angle) + point[1] * cos(angle));
   }
   glEnd();
 
@@ -22,7 +22,7 @@ void Display()
 
 void Update()
 {
-  theta += 0.01f;
+  angle += 0.01f;
   glutPostRedisplay();
 }
 
