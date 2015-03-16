@@ -2,4 +2,5 @@
 .cproject
 /.settings/
 /Debug/
+/Release/
 OGLdpf.log
