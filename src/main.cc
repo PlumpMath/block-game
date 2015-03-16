@@ -4,7 +4,7 @@
 float points[][2] = {{-0.5f, -0.5f}, {0.5f, -0.5f}, {0.5f, 0.5f}, {-0.5f, 0.5f}};
 float theta = 0;
 
-void display()
+void Display()
 {
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT);
@@ -20,30 +20,30 @@ void display()
   glFlush();
 }
 
-void update()
+void Update()
 {
   theta += 0.01f;
   glutPostRedisplay();
 }
 
-void startTimer();
+void StartTimer();
 
-void timer(int value)
+void Timer(int value)
 {
-  startTimer();
-  update();
+  StartTimer();
+  Update();
 }
 
-void startTimer()
+void StartTimer()
 {
-  glutTimerFunc(1000 / 60, timer, 0);
+  glutTimerFunc(1000 / 60, Timer, 0);
 }
 
 int main(int argc, char** argv)
 {
   glutInit(&argc, argv);
   glutCreateWindow("BlockGame");
-  glutDisplayFunc(display);
-  startTimer();
+  glutDisplayFunc(Display);
+  StartTimer();
   glutMainLoop();
 }
