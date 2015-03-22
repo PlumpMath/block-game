@@ -6,4 +6,5 @@ BlockGame.vcxproj
 BlockGame.vcxproj.filters
 lib/
 Debug/
+Release/
 OGLdpf.log
