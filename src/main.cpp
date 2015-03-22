@@ -1,6 +1,6 @@
 #include <cmath>
 
-#include "../lib/freeglut/glut.h"
+#include "freeglut/glut.h"
 
 float angle = 0;
 
