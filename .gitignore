@@ -1,6 +1,9 @@
-.project
-.cproject
-/.settings/
-/Debug/
-/Release/
+BlockGame.opensdf
+BlockGame.sdf
+BlockGame.sln
+BlockGame.v12.suo
+BlockGame.vcxproj
+BlockGame.vcxproj.filters
+lib/
+Debug/
 OGLdpf.log
