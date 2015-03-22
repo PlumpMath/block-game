@@ -1,8 +1,7 @@
 #include <cmath>
-#include <GL/glut.h>
 
-namespace
-{
+#include "../lib/freeglut/glut.h"
+
 float angle = 0;
 
 void Display()
@@ -39,7 +38,6 @@ void Timer(const int value)
 void StartTimer()
 {
   glutTimerFunc(1000 / 60, Timer, 0);
-}
 }
 
 int main(int argc, char** argv)
