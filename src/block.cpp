@@ -11,17 +11,17 @@ namespace block_game
   {
   }
 
-  const float Block::radius() const
+  float Block::radius() const
   {
     return radius_;
   }
 
-  const Vector3D& Block::position() const
+  Vector3D& Block::position()
   {
     return position_;
   }
 
-  const Vector3D& Block::rotation() const
+  Vector3D& Block::rotation()
   {
     return rotation_;
   }

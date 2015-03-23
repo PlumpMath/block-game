@@ -10,16 +10,16 @@ namespace block_game
   public:
     Block(const float radius, const Vector3D& position, const Vector3D& direction);
 
-    const float radius() const;
-    const Vector3D& position() const;
-    const Vector3D& rotation() const;
+    float radius() const;
+    Vector3D& position();
+    Vector3D& rotation();
 
     void Draw() const;
 
   private:
     const float radius_;
-    const Vector3D position_;
-    const Vector3D rotation_;
+    Vector3D position_;
+    Vector3D rotation_;
   };
 }
 
