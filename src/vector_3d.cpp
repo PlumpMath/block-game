@@ -6,6 +6,11 @@ namespace block_game
   {
   }
 
+  Vector3D::Vector3D(const float xComponent, const float yComponent, const float zComponent)
+    : x(xComponent), y(yComponent), z(zComponent)
+  {
+  }
+
   float Vector3D::operator[](int i) const
   {
     return components[i];

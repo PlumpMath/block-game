@@ -9,6 +9,7 @@ namespace block_game
   {
   public:
     Vector3D();
+    Vector3D(const float xComponent, const float yComponent, const float zComponent);
 
     float operator[](int i) const;
     float& operator[](int i);
