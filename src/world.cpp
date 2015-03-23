@@ -6,7 +6,7 @@
 
 namespace block_game
 {
-  World::World() : block_(1.0F, Vector3D(0.0F, 0.0F, 0.0F), Vector3D(0.0F, 0.0F, 1.0F))
+  World::World() : block_(0.5F, Vector3D(0.0F, 0.0F, 0.0F), Vector3D(0.0F, 0.0F, 1.0F))
   {
   }
 

@@ -6,14 +6,14 @@
 
 namespace block_game
 {
-  Block::Block(const float side_length, const Vector3D& position, const Vector3D& rotation)
-    : side_length_(side_length), position_(position), rotation_(rotation)
+  Block::Block(const float radius, const Vector3D& position, const Vector3D& rotation)
+    : radius_(radius), position_(position), rotation_(rotation)
   {
   }
 
-  const float Block::side_length() const
+  const float Block::radius() const
   {
-    return side_length_;
+    return radius_;
   }
 
   const Vector3D& Block::position() const
@@ -30,7 +30,7 @@ namespace block_game
   {
     glBegin(GL_QUADS);
     glColor3f(1.0F, 0.0F, 0.0F);
-    static const float points[][2] = {{-0.5F, -0.5F}, {0.5F, -0.5F}, {0.5F, 0.5F}, {-0.5F, 0.5F}};
+    static const float points[][2] = {{-radius_, -radius_}, {radius_, -radius_}, {radius_, radius_}, {-radius_, radius_}};
     for (const float* point : points)
     {
       glVertex2f(point[0] * cos(rotation_.z) - point[1] * sin(rotation_.z), point[0] * sin(rotation_.z) + point[1] * cos(rotation_.z));
