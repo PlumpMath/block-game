@@ -2,8 +2,6 @@
 
 namespace block_game
 {
-  const int kDimensions = 3;
-
   Vector3D::Vector3D() : x(0.0F), y(0.0F), z(0.0F)
   {
   }

@@ -3,7 +3,7 @@
 
 namespace block_game
 {
-  extern const int kDimensions;
+  const int kDimensions = 3;
 
   struct Vector3D
   {
