@@ -4,13 +4,13 @@
 
 namespace block_game
 {
-  World::World() : block_(0.5F, Vector3D(0.0F, 0.0F, 0.0F), Vector3D(0.0F, 0.0F, 0.0F))
+  World::World() : block_(0.5F, Color3D(1.0F, 1.0F, 1.0F))
   {
   }
 
   void World::Update()
   {
-    block_.rotation().z += 0.01;
+    block_.rotation().z += 0.01F;
     glutPostRedisplay();
   }
 
