@@ -5,14 +5,18 @@ namespace block_game
 {
   const int kDimensions = 3;
 
-  union Vector3D
+  struct Vector3D
   {
-    float points[kDimensions];
-    struct
+  public:
+    union
     {
-      float x;
-      float y;
-      float z;
+      float points[kDimensions];
+      struct
+      {
+        float x;
+        float y;
+        float z;
+      };
     };
   };
 }
