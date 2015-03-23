@@ -1,7 +1,5 @@
 #include "world.h"
 
-#include <cmath>
-
 #include "freeglut/glut.h"
 
 namespace block_game
