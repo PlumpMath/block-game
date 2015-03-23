@@ -2,8 +2,8 @@
 
 namespace block_game
 {
-  Block::Block(const float side_length, const Vector3D& position, const Vector3D& direction)
-    : side_length_(side_length), position_(position), direction_(direction)
+  Block::Block(const float side_length, const Vector3D& position, const Vector3D& rotation)
+    : side_length_(side_length), position_(position), rotation_(rotation)
   {
   }
 
@@ -17,8 +17,13 @@ namespace block_game
     return position_;
   }
 
-  const Vector3D& Block::direction() const
+  const Vector3D& Block::rotation() const
   {
-    return direction_;
+    return rotation_;
+  }
+
+  void Block::Draw() const
+  {
+
   }
 }

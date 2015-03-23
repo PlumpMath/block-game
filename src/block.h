@@ -12,12 +12,14 @@ namespace block_game
 
     const float side_length() const;
     const Vector3D& position() const;
-    const Vector3D& direction() const;
+    const Vector3D& rotation() const;
+
+    void Draw() const;
 
   private:
     const float side_length_;
     const Vector3D position_;
-    const Vector3D direction_;
+    const Vector3D rotation_;
   };
 }
 
