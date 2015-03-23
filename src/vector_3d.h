@@ -3,11 +3,11 @@
 
 namespace block_game
 {
-  const int kDimensions = 3;
-
   struct Vector3D
   {
   public:
+    static const int kDimensions = 3;
+
     Vector3D();
     Vector3D(const float xComponent, const float yComponent, const float zComponent);
 
