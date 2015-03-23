@@ -1,6 +1,8 @@
 #ifndef BLOCK_GAME_WORLD_H_
 #define BLOCK_GAME_WORLD_H_
 
+#include "block.h"
+
 namespace block_game
 {
   class World
@@ -12,7 +14,7 @@ namespace block_game
     void Display() const;
 
   private:
-    float angle_;
+    Block block_;
   };
 }
 
