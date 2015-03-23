@@ -8,9 +8,14 @@ namespace block_game
   struct Vector3D
   {
   public:
+    Vector3D();
+
+    float operator[](int i) const;
+    float& operator[](int i);
+
     union
     {
-      float points[kDimensions];
+      float components[kDimensions];
       struct
       {
         float x;
