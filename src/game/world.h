@@ -1,7 +1,7 @@
-#ifndef BLOCK_GAME_WORLD_H_
-#define BLOCK_GAME_WORLD_H_
+#ifndef BLOCK_GAME_GAME_WORLD_H_
+#define BLOCK_GAME_GAME_WORLD_H_
 
-#include "block.h"
+#include "game/block.h"
 
 namespace block_game
 {

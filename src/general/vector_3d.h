@@ -1,5 +1,5 @@
-#ifndef BLOCK_GAME_VECTOR_3D_H_
-#define BLOCK_GAME_VECTOR_3D_H_
+#ifndef BLOCK_GAME_GENERAL_VECTOR_3D_H_
+#define BLOCK_GAME_GENERAL_VECTOR_3D_H_
 
 namespace block_game
 {

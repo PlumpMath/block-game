@@ -1,6 +1,6 @@
 #include "freeglut/glut.h"
 
-#include "world.h"
+#include "game/world.h"
 
 block_game::World world;
 

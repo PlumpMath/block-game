@@ -1,4 +1,4 @@
-#include "world.h"
+#include "game/world.h"
 
 #include "freeglut/glut.h"
 

@@ -1,8 +1,8 @@
-#ifndef BLOCK_GAME_BLOCK_H_
-#define BLOCK_GAME_BLOCK_H_
+#ifndef BLOCK_GAME_GAME_BLOCK_H_
+#define BLOCK_GAME_GAME_BLOCK_H_
 
-#include "color_3d.h"
-#include "vector_3d.h"
+#include "general/color_3d.h"
+#include "general/vector_3d.h"
 
 namespace block_game
 {
