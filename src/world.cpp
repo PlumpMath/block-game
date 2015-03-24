@@ -10,7 +10,7 @@ namespace block_game
 
   void World::Update()
   {
-    block_.rotation().z += 0.01F;
+    block_.Update();
     glutPostRedisplay();
   }
 

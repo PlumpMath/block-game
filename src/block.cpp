@@ -31,6 +31,11 @@ namespace block_game
     return rotation_;
   }
 
+  void Block::Update()
+  {
+    rotation_.z += 0.01F;
+  }
+
   void Block::Draw() const
   {
     glBegin(GL_QUADS);
