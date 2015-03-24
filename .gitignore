@@ -4,6 +4,7 @@ BlockGame.sln
 BlockGame.v12.suo
 BlockGame.vcxproj
 BlockGame.vcxproj.filters
+BlockGame.vcxproj.user
 lib/
 Debug/
 Release/
