@@ -43,8 +43,8 @@ namespace block_game
     static const float points[][2] = {{-radius_, -radius_}, {radius_, -radius_}, {radius_, radius_}, {-radius_, radius_}};
     for (const float* point : points)
     {
-      glVertex2f(point[0] * cos(rotation_.z) - point[1] * sin(rotation_.z),
-        point[0] * sin(rotation_.z) + point[1] * cos(rotation_.z));
+      glVertex2f(position_.x + point[0] * cos(rotation_.z) - point[1] * sin(rotation_.z),
+        position_.y + point[0] * sin(rotation_.z) + point[1] * cos(rotation_.z));
     }
     glEnd();
   }
