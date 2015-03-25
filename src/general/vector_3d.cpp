@@ -5,8 +5,7 @@ namespace block_game
   Vector3D::Vector3D() : x(0.0F), y(0.0F), z(0.0F)
   {}
 
-  Vector3D::Vector3D(const float xComponent, const float yComponent, const float zComponent)
-    : x(xComponent), y(yComponent), z(zComponent)
+  Vector3D::Vector3D(const float x, const float y, const float z) : x(x), y(y), z(z)
   {}
 
   float Vector3D::operator[](int i) const
