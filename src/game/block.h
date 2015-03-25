@@ -1,29 +1,29 @@
 #ifndef BLOCK_GAME_GAME_BLOCK_H_
 #define BLOCK_GAME_GAME_BLOCK_H_
 
-#include "general/color_3d.h"
-#include "general/vector_3d.h"
+#include "general/color_3f.h"
+#include "general/vector_3f.h"
 
 namespace block_game
 {
   class Block
   {
   public:
-    Block(const float, const Color3D&);
+    Block(const float, const Color3F&);
 
     float radius() const;
-    const Color3D& color() const;
-    Vector3D& position();
-    Vector3D& rotation();
+    const Color3F& color() const;
+    Vector3F& position();
+    Vector3F& rotation();
 
     void Update();
     void Draw() const;
 
   private:
     const float radius_;
-    const Color3D color_;
-    Vector3D position_;
-    Vector3D rotation_;
+    const Color3F color_;
+    Vector3F position_;
+    Vector3F rotation_;
   };
 }
 

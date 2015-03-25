@@ -1,15 +1,15 @@
-#ifndef BLOCK_GAME_GENERAL_COLOR_3D_H_
-#define BLOCK_GAME_GENERAL_COLOR_3D_H_
+#ifndef BLOCK_GAME_GENERAL_VECTOR_3F_H_
+#define BLOCK_GAME_GENERAL_VECTOR_3F_H_
 
 namespace block_game
 {
-  struct Color3D
+  struct Vector3F
   {
   public:
     static const int kDimensions = 3;
 
-    Color3D();
-    Color3D(const float, const float, const float);
+    Vector3F();
+    Vector3F(const float, const float, const float);
 
     float operator[](int) const;
     float& operator[](int);
@@ -19,9 +19,9 @@ namespace block_game
       float components[kDimensions];
       struct
       {
-        float r;
-        float g;
-        float b;
+        float x;
+        float y;
+        float z;
       };
     };
   };

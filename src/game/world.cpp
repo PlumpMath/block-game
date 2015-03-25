@@ -6,7 +6,7 @@ namespace block_game
 {
   World::World()
   {
-    blocks_.push_back(Block(0.5F, Color3D(1.0F, 1.0F, 1.0F)));
+    blocks_.push_back(Block(0.5F, Color3F(1.0F, 1.0F, 1.0F)));
   }
 
   void World::Update()
