@@ -42,7 +42,12 @@ namespace block_game
     {
       point.x *= radius_;
       point.y *= radius_;
+
       point.Rotate(rotation_.z);
+
+      point.x += position_.x;
+      point.y += position_.y;
+
       glVertex2f(point.x, point.y);
     }
     glEnd();
