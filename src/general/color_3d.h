@@ -9,10 +9,10 @@ namespace block_game
     static const int kDimensions = 3;
 
     Color3D();
-    Color3D(const float rComponent, const float gComponent, const float bComponent);
+    Color3D(const float, const float, const float);
 
-    float operator[](int i) const;
-    float& operator[](int i);
+    float operator[](int) const;
+    float& operator[](int);
 
     union
     {

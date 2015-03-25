@@ -9,7 +9,7 @@ namespace block_game
   class Block
   {
   public:
-    Block(const float radius, const Color3D& color);
+    Block(const float, const Color3D&);
 
     float radius() const;
     const Color3D& color() const;

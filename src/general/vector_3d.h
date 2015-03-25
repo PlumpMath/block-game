@@ -9,10 +9,10 @@ namespace block_game
     static const int kDimensions = 3;
 
     Vector3D();
-    Vector3D(const float xComponent, const float yComponent, const float zComponent);
+    Vector3D(const float, const float, const float);
 
-    float operator[](int i) const;
-    float& operator[](int i);
+    float operator[](int) const;
+    float& operator[](int);
 
     union
     {
