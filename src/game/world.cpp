@@ -4,13 +4,17 @@
 
 namespace block_game
 {
-  World::World() : block_(0.5F, Color3D(1.0F, 1.0F, 1.0F))
+  World::World()
   {
+    blocks_.push_back(Block(0.5F, Color3D(1.0F, 1.0F, 1.0F)));
   }
 
   void World::Update()
   {
-    block_.Update();
+    for (Block& block : blocks_)
+    {
+      block.Update();
+    }
     glutPostRedisplay();
   }
 
@@ -18,7 +22,10 @@ namespace block_game
   {
     glClearColor(0.0F, 0.0F, 0.0F, 1.0F);
     glClear(GL_COLOR_BUFFER_BIT);
-    block_.Draw();
+    for (const Block& block : blocks_)
+    {
+      block.Draw();
+    }
     glFlush();
   }
 }

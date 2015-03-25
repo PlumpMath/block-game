@@ -1,6 +1,8 @@
 #ifndef BLOCK_GAME_GAME_WORLD_H_
 #define BLOCK_GAME_GAME_WORLD_H_
 
+#include <vector>
+
 #include "game/block.h"
 
 namespace block_game
@@ -14,7 +16,7 @@ namespace block_game
     void Display() const;
 
   private:
-    Block block_;
+    std::vector<Block> blocks_;
   };
 }
 
