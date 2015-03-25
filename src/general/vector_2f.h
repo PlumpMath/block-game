@@ -14,6 +14,8 @@ namespace block_game
     float operator[](const int) const;
     float& operator[](const int);
 
+    void Rotate(const float);
+
     union
     {
       float components[kDimensions];
