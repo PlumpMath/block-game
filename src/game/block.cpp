@@ -6,8 +6,7 @@
 
 namespace block_game
 {
-  Block::Block(const float radius, const Color3D& color)
-    : radius_(radius), color_(color), position_(), rotation_()
+  Block::Block(const float radius, const Color3D& color) : radius_(radius), color_(color)
   {
   }
 
