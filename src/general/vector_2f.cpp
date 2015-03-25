@@ -41,8 +41,10 @@ namespace block_game
     // Caching sine and cosine yields 2x performance
     const float sine = sin(angle);
     const float cosine = cos(angle);
+
     const float new_x = x * cosine - y * sine;
     const float new_y = x * sine + y * cosine;
+
     x = new_x;
     y = new_y;
   }
