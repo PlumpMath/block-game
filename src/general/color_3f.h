@@ -11,8 +11,8 @@ namespace block_game
     Color3F();
     Color3F(const float, const float, const float);
 
-    float operator[](int) const;
-    float& operator[](int);
+    float operator[](const int) const;
+    float& operator[](const int);
 
     union
     {
