@@ -41,12 +41,8 @@ namespace block_game
     for (Vector2F point : points_)
     {
       point *= radius_;
-
       point.Rotate(rotation_.z);
-
-      point.x += position_.x;
-      point.y += position_.y;
-
+      point += {position_.x, position_.y};
       glVertex2f(point.x, point.y);
     }
     glEnd();

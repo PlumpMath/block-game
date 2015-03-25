@@ -14,6 +14,8 @@ namespace block_game
     float operator[](const int) const;
     float& operator[](const int);
 
+    Vector3F& operator+=(const Vector3F&);
+    Vector3F& operator-=(const Vector3F&);
     Vector3F& operator*=(const float);
     Vector3F& operator/=(const float);
 
