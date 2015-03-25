@@ -17,4 +17,22 @@ namespace block_game
   {
     return components[i];
   }
+
+  Vector3F& Vector3F::operator*=(const float scalar)
+  {
+    x *= scalar;
+    y *= scalar;
+    z *= scalar;
+
+    return *this;
+  }
+
+  Vector3F& Vector3F::operator/=(const float scalar)
+  {
+    x /= scalar;
+    y /= scalar;
+    z /= scalar;
+
+    return *this;
+  }
 }

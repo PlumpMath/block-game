@@ -40,8 +40,7 @@ namespace block_game
     glColor3f(color_.r, color_.g, color_.b);
     for (Vector2F point : points_)
     {
-      point.x *= radius_;
-      point.y *= radius_;
+      point *= radius_;
 
       point.Rotate(rotation_.z);
 

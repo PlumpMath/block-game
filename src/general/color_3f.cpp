@@ -17,4 +17,22 @@ namespace block_game
   {
     return components[i];
   }
+
+  Color3F& Color3F::operator*=(const float scalar)
+  {
+    r *= scalar;
+    g *= scalar;
+    b *= scalar;
+
+    return *this;
+  }
+
+  Color3F& Color3F::operator/=(const float scalar)
+  {
+    r /= scalar;
+    g /= scalar;
+    b /= scalar;
+
+    return *this;
+  }
 }

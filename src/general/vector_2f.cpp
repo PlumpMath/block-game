@@ -20,6 +20,22 @@ namespace block_game
     return components[i];
   }
 
+  Vector2F& Vector2F::operator*=(const float scalar)
+  {
+    x *= scalar;
+    y *= scalar;
+
+    return *this;
+  }
+
+  Vector2F& Vector2F::operator/=(const float scalar)
+  {
+    x /= scalar;
+    y /= scalar;
+
+    return *this;
+  }
+
   void Vector2F::Rotate(const float angle)
   {
     // Caching sine and cosine yields 2x performance

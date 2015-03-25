@@ -14,6 +14,9 @@ namespace block_game
     float operator[](const int) const;
     float& operator[](const int);
 
+    Vector3F& operator*=(const float);
+    Vector3F& operator/=(const float);
+
     union
     {
       float components[kDimensions];
