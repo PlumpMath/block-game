@@ -2,10 +2,10 @@
 
 #include "freeglut/glut.h"
 
-#include "general/vector_2f.h"
-
 namespace block_game
 {
+  const Vector2F Block::points_[] = {{-1, -1}, {1, -1}, {1, 1}, {-1, 1}};
+
   Block::Block(const float radius, const Color3F& color) : radius_(radius), color_(color)
   {}
 
@@ -38,9 +38,10 @@ namespace block_game
   {
     glBegin(GL_QUADS);
     glColor3f(color_.r, color_.g, color_.b);
-    static const Vector2F points[] = {{-radius_, -radius_}, {radius_, -radius_}, {radius_, radius_}, {-radius_, radius_}};
-    for (Vector2F point : points)
+    for (Vector2F point : points_)
     {
+      point.x *= radius_;
+      point.y *= radius_;
       point.Rotate(rotation_.z);
       glVertex2f(point.x, point.y);
     }
