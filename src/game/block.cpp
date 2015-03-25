@@ -1,8 +1,8 @@
 #include "game/block.h"
 
-#include <cmath>
-
 #include "freeglut/glut.h"
+
+#include "general/vector_2f.h"
 
 namespace block_game
 {
@@ -38,11 +38,11 @@ namespace block_game
   {
     glBegin(GL_QUADS);
     glColor3f(color_.r, color_.g, color_.b);
-    static const float points[][2] = {{-radius_, -radius_}, {radius_, -radius_}, {radius_, radius_}, {-radius_, radius_}};
-    for (const float* point : points)
+    static const Vector2F points[] = {{-radius_, -radius_}, {radius_, -radius_}, {radius_, radius_}, {-radius_, radius_}};
+    for (Vector2F point : points)
     {
-      glVertex2f(position_.x + point[0] * cos(rotation_.z) - point[1] * sin(rotation_.z),
-        position_.y + point[0] * sin(rotation_.z) + point[1] * cos(rotation_.z));
+      point.Rotate(rotation_.z);
+      glVertex2f(point.x, point.y);
     }
     glEnd();
   }
