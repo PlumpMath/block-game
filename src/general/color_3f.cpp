@@ -8,12 +8,12 @@ namespace block_game
   Color3F::Color3F(const float r, const float g, const float b) : r(r), g(g), b(b)
   {}
 
-  float Color3F::operator[](int i) const
+  float Color3F::operator[](const int i) const
   {
     return components[i];
   }
 
-  float& Color3F::operator[](int i)
+  float& Color3F::operator[](const int i)
   {
     return components[i];
   }

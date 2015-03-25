@@ -8,12 +8,12 @@ namespace block_game
   Vector3F::Vector3F(const float x, const float y, const float z) : x(x), y(y), z(z)
   {}
 
-  float Vector3F::operator[](int i) const
+  float Vector3F::operator[](const int i) const
   {
     return components[i];
   }
 
-  float& Vector3F::operator[](int i)
+  float& Vector3F::operator[](const int i)
   {
     return components[i];
   }
