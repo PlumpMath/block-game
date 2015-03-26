@@ -4,8 +4,38 @@
 
 namespace block_game
 {
-  const Vector3F Block::vertices_[] = {{-1, 1, 0}, {1, 1, 0}, {-1, -1, 0}, {1, -1, 0}};
-  const int Block::indices_[] = {0, 1, 2, 2, 3, 1};
+  const Vector3F Block::vertices_[] =
+  {
+    {-1, -1, -1},
+    {1, -1, -1},
+    {-1, 1, -1},
+    {1, 1, -1},
+    {-1, -1, 1},
+    {1, -1, 1},
+    {-1, 1, 1},
+    {1, 1, 1}
+  };
+  const int Block::indices_[] =
+  {
+    // Bottom
+    0, 1, 2,
+    1, 2, 3,
+    // Top
+    4, 5, 6,
+    5, 6, 7,
+    // South
+    0, 1, 4,
+    1, 4, 5,
+    // West
+    0, 2, 4,
+    2, 4, 6,
+    // East
+    1, 3, 5,
+    3, 5, 7,
+    // North
+    2, 3, 6,
+    3, 6, 7
+  };
 
   Block::Block(const float radius, const Color3F& color) : radius_(radius), color_(color)
   {}
