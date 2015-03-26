@@ -28,6 +28,26 @@ namespace block_game
     return {r - color_3f.r, g - color_3f.g, b - color_3f.b};
   }
 
+  Color3F Color3F::operator*(const float scalar) const
+  {
+    return {r * scalar, g * scalar, b * scalar};
+  }
+
+  Color3F Color3F::operator/(const float scalar) const
+  {
+    return {r / scalar, g / scalar, b / scalar};
+  }
+
+  Color3F operator*(const float scalar, const Color3F& color_3f)
+  {
+    return {scalar * color_3f.r, scalar * color_3f.g, scalar * color_3f.b};
+  }
+
+  Color3F operator/(const float scalar, const Color3F& color_3f)
+  {
+    return {scalar / color_3f.r, scalar / color_3f.g, scalar / color_3f.b};
+  }
+
   Color3F& Color3F::operator+=(const Color3F& color_3f)
   {
     r += color_3f.r;

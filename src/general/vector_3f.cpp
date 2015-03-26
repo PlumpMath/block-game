@@ -28,6 +28,26 @@ namespace block_game
     return {x - vector_3f.x, y - vector_3f.y, z - vector_3f.z};
   }
 
+  Vector3F Vector3F::operator*(const float scalar) const
+  {
+    return {x * scalar, y * scalar, z * scalar};
+  }
+
+  Vector3F Vector3F::operator/(const float scalar) const
+  {
+    return {x / scalar, y / scalar, z / scalar};
+  }
+
+  Vector3F operator*(const float scalar, const Vector3F& vector_3f)
+  {
+    return {scalar * vector_3f.x, scalar * vector_3f.y, scalar * vector_3f.z};
+  }
+
+  Vector3F operator/(const float scalar, const Vector3F& vector_3f)
+  {
+    return {scalar / vector_3f.x, scalar / vector_3f.y, scalar / vector_3f.z};
+  }
+
   Vector3F& Vector3F::operator+=(const Vector3F& vector_3f)
   {
     x += vector_3f.x;

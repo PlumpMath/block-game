@@ -30,6 +30,26 @@ namespace block_game
     return {x - vector_2f.x, y - vector_2f.y};
   }
 
+  Vector2F Vector2F::operator*(const float scalar) const
+  {
+    return {x * scalar, y * scalar};
+  }
+
+  Vector2F Vector2F::operator/(const float scalar) const
+  {
+    return {x / scalar, y / scalar};
+  }
+
+  Vector2F operator*(const float scalar, const Vector2F& vector_2f)
+  {
+    return {scalar * vector_2f.x, scalar * vector_2f.y};
+  }
+
+  Vector2F operator/(const float scalar, const Vector2F& vector_2f)
+  {
+    return {scalar / vector_2f.x, scalar / vector_2f.y};
+  }
+
   Vector2F& Vector2F::operator+=(const Vector2F& vector_2f)
   {
     x += vector_2f.x;
