@@ -27,6 +27,10 @@ namespace block_game
     Vector3F& operator*=(const float);
     Vector3F& operator/=(const float);
 
+    void RotateX(const float); // Rotate around the x-axis
+    void RotateY(const float); // Rotate around the y-axis
+    void RotateZ(const float); // Rotate around the z-axis
+
     union
     {
       float components[kDimensions];

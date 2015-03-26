@@ -1,5 +1,7 @@
 #include "general/vector_3f.h"
 
+#include <cmath>
+
 namespace block_game
 {
   Vector3F::Vector3F() : x(0.0F), y(0.0F), z(0.0F)
@@ -82,5 +84,44 @@ namespace block_game
     z /= scalar;
 
     return *this;
+  }
+
+  void Vector3F::RotateX(const float angle)
+  {
+    // Caching sine and cosine yields 2x performance
+    const float sine = sin(angle);
+    const float cosine = cos(angle);
+
+    const float new_y = y * cosine - z * sine;
+    const float new_z = y * sine + z * cosine;
+
+    y = new_y;
+    z = new_z;
+  }
+
+  void Vector3F::RotateY(const float angle)
+  {
+    // Caching sine and cosine yields 2x performance
+    const float sine = sin(angle);
+    const float cosine = cos(angle);
+
+    const float new_x = z * sine + x * cosine;
+    const float new_z = z * cosine - x * sine;
+
+    x = new_x;
+    z = new_z;
+  }
+
+  void Vector3F::RotateZ(const float angle)
+  {
+    // Caching sine and cosine yields 2x performance
+    const float sine = sin(angle);
+    const float cosine = cos(angle);
+
+    const float new_x = x * cosine - y * sine;
+    const float new_y = x * sine + y * cosine;
+
+    x = new_x;
+    y = new_y;
   }
 }

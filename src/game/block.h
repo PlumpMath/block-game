@@ -2,7 +2,6 @@
 #define BLOCK_GAME_GAME_BLOCK_H_
 
 #include "general/color_3f.h"
-#include "general/vector_2f.h"
 #include "general/vector_3f.h"
 
 namespace block_game
@@ -21,7 +20,7 @@ namespace block_game
     void Draw() const;
 
   private:
-    static const Vector2F points_[];
+    static const Vector3F points_[];
 
     const float radius_;
     const Color3F color_;
