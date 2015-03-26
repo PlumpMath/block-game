@@ -41,7 +41,7 @@ namespace block_game
     for (Vector3F point : points_)
     {
       point *= radius_;
-      // Assume the y-axis is "forward"
+      // Assume the positive y-axis is "forward"
       point.RotateY(rotation_.y); // Roll
       point.RotateX(rotation_.x); // Pitch
       point.RotateZ(rotation_.z); // Yaw
