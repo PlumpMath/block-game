@@ -41,10 +41,10 @@ namespace block_game
     for (Vector3F point : points_)
     {
       point *= radius_;
-      // Assuming the y-axis is "forward", apply yaw, pitch, and roll
-      point.RotateY(rotation_.y);
-      point.RotateX(rotation_.x);
-      point.RotateZ(rotation_.z);
+      // Assume the y-axis is "forward"
+      point.RotateY(rotation_.y); // Roll
+      point.RotateX(rotation_.x); // Pitch
+      point.RotateZ(rotation_.z); // Yaw
       point += position_;
       glVertex2f(point.x, point.y);
     }
