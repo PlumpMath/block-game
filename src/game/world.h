@@ -12,7 +12,7 @@ namespace block_game
   public:
     World();
 
-    void Update();
+    void Update(const double);
     void Display() const;
 
   private:

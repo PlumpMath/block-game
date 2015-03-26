@@ -1,6 +1,6 @@
 #include "game/block.h"
 
-#include "freeglut/glut.h"
+#include "glfw/glfw3.h"
 
 namespace block_game
 {
@@ -60,9 +60,11 @@ namespace block_game
     return rotation_;
   }
 
-  void Block::Update()
+  void Block::Update(const double delta)
   {
-    rotation_ += {0.01F, 0.01F, 0.01F};
+    rotation_.x += (float) delta;
+    rotation_.y += (float) delta;
+    rotation_.z += (float) delta;
   }
 
   void Block::Draw() const

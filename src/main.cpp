@@ -1,32 +1,47 @@
-#include "freeglut/glut.h"
+#include "glfw/glfw3.h"
 
 #include "game/world.h"
 
-block_game::World world;
-
-void Display()
+int main()
 {
-  world.Display();
-}
+  if (!glfwInit())
+  {
+    return -1;
+  }
 
-void StartTimer();
+  GLFWwindow* window = glfwCreateWindow(512, 512, "BlockGame", nullptr, nullptr);
+  if (!window)
+  {
+    glfwTerminate();
+    return -1;
+  }
 
-void Timer(const int value)
-{
-  StartTimer();
-  world.Update();
-}
+  glfwMakeContextCurrent(window);
 
-void StartTimer()
-{
-  glutTimerFunc(1000 / 60, Timer, 0);
-}
+  double time = 0;
+  double new_time;
+  double delta;
 
-int main(int argc, char** argv)
-{
-  glutInit(&argc, argv);
-  glutCreateWindow("BlockGame");
-  glutDisplayFunc(Display);
-  StartTimer();
-  glutMainLoop();
+  int width;
+  int height;
+
+  block_game::World world;
+
+  while (!glfwWindowShouldClose(window))
+  {
+    new_time = glfwGetTime();
+    delta = new_time - time;
+    time = new_time;
+    world.Update(delta);
+
+    glfwGetFramebufferSize(window, &width, &height);
+    glViewport(0, 0, width, height);
+    world.Display();
+
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+  }
+
+  glfwDestroyWindow(window);
+  glfwTerminate();
 }

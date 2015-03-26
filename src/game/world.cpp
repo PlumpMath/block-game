@@ -1,6 +1,6 @@
 #include "game/world.h"
 
-#include "freeglut/glut.h"
+#include "glfw/glfw3.h"
 
 namespace block_game
 {
@@ -9,23 +9,20 @@ namespace block_game
     blocks_.push_back(Block(0.5F, Color3F(1.0F, 1.0F, 1.0F)));
   }
 
-  void World::Update()
+  void World::Update(const double delta)
   {
     for (Block& block : blocks_)
     {
-      block.Update();
+      block.Update(delta);
     }
-    glutPostRedisplay();
   }
 
   void World::Display() const
   {
-    glClearColor(0.0F, 0.0F, 0.0F, 1.0F);
     glClear(GL_COLOR_BUFFER_BIT);
     for (const Block& block : blocks_)
     {
       block.Draw();
     }
-    glFlush();
   }
 }

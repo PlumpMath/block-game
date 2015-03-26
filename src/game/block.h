@@ -16,7 +16,7 @@ namespace block_game
     Vector3F& position();
     Vector3F& rotation();
 
-    void Update();
+    void Update(const double);
     void Draw() const;
 
   private:
