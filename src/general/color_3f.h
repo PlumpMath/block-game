@@ -14,6 +14,9 @@ namespace block_game
     float operator[](const int) const;
     float& operator[](const int);
 
+    Color3F operator+(const Color3F&) const;
+    Color3F operator-(const Color3F&) const;
+
     Color3F& operator+=(const Color3F&);
     Color3F& operator-=(const Color3F&);
     Color3F& operator*=(const float);

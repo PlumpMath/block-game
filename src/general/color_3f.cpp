@@ -18,6 +18,16 @@ namespace block_game
     return components[i];
   }
 
+  Color3F Color3F::operator+(const Color3F& color_3f) const
+  {
+    return {r + color_3f.r, g + color_3f.g, b + color_3f.b};
+  }
+
+  Color3F Color3F::operator-(const Color3F& color_3f) const
+  {
+    return {r - color_3f.r, g - color_3f.g, b - color_3f.b};
+  }
+
   Color3F& Color3F::operator+=(const Color3F& color_3f)
   {
     r += color_3f.r;

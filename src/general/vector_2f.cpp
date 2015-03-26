@@ -20,6 +20,16 @@ namespace block_game
     return components[i];
   }
 
+  Vector2F Vector2F::operator+(const Vector2F& vector_2f) const
+  {
+    return {x + vector_2f.x, y + vector_2f.y};
+  }
+
+  Vector2F Vector2F::operator-(const Vector2F& vector_2f) const
+  {
+    return {x - vector_2f.x, y - vector_2f.y};
+  }
+
   Vector2F& Vector2F::operator+=(const Vector2F& vector_2f)
   {
     x += vector_2f.x;
