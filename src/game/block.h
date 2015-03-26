@@ -20,7 +20,8 @@ namespace block_game
     void Draw() const;
 
   private:
-    static const Vector3F points_[];
+    static const Vector3F vertices_[];
+    static const int indices_[];
 
     const float radius_;
     const Color3F color_;

@@ -4,7 +4,8 @@
 
 namespace block_game
 {
-  const Vector3F Block::points_[] = {{-1, -1, 0}, {1, -1, 0}, {1, 1, 0}, {-1, 1, 0}};
+  const Vector3F Block::vertices_[] = {{-1, 1, 0}, {1, 1, 0}, {-1, -1, 0}, {1, -1, 0}};
+  const int Block::indices_[] = {0, 1, 2, 2, 3, 1};
 
   Block::Block(const float radius, const Color3F& color) : radius_(radius), color_(color)
   {}
@@ -36,17 +37,18 @@ namespace block_game
 
   void Block::Draw() const
   {
-    glBegin(GL_QUADS);
+    glBegin(GL_TRIANGLES);
     glColor3f(color_.r, color_.g, color_.b);
-    for (Vector3F point : points_)
+    for (const int index : indices_)
     {
-      point *= radius_;
+      Vector3F vertex = vertices_[index];
+      vertex *= radius_;
       // Assume the positive y-axis is "forward"
-      point.RotateY(rotation_.y); // Roll
-      point.RotateX(rotation_.x); // Pitch
-      point.RotateZ(rotation_.z); // Yaw
-      point += position_;
-      glVertex2f(point.x, point.y);
+      vertex.RotateY(rotation_.y); // Roll
+      vertex.RotateX(rotation_.x); // Pitch
+      vertex.RotateZ(rotation_.z); // Yaw
+      vertex += position_;
+      glVertex2f(vertex.x, vertex.y);
     }
     glEnd();
   }
