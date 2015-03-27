@@ -21,6 +21,7 @@ namespace block_game
 
   private:
     static const Vector3F vertices_[];
+    static const Vector3F normals_[];
     static const int indices_[];
 
     const float radius_;

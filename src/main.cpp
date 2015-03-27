@@ -41,7 +41,7 @@ void main(void)
 {
 	gl_Position = in_Position;
 
-	pass_Color = gl_Color;
+	pass_Color = gl_Color * vec4(gl_Normal.z, gl_Normal.z, gl_Normal.z, 1.0);
 }
   )";
 
@@ -52,7 +52,7 @@ varying vec4 pass_Color;
 
 void main(void)
 {
-	gl_FragColor = pass_Color;
+  gl_FragColor = pass_Color;
 }
   )";
 
@@ -71,6 +71,8 @@ void main(void)
   glLinkProgram(program_id);
   glValidateProgram(program_id);
 
+  glEnable(GL_CULL_FACE);
+
   while (!glfwWindowShouldClose(window))
   {
     new_time = glfwGetTime();
@@ -88,6 +90,8 @@ void main(void)
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
+
+  glDisable(GL_CULL_FACE);
 
   glDetachShader(program_id, vertex_id);
   glDetachShader(program_id, fragment_id);
