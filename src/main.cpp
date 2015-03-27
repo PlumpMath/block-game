@@ -89,8 +89,6 @@ void main(void)
     glfwPollEvents();
   }
 
-
-
   glDetachShader(program_id, vertex_id);
   glDetachShader(program_id, fragment_id);
 
