@@ -47,16 +47,16 @@ int main()
   glLinkProgram(program_id);
   glValidateProgram(program_id);
 
-  const float matrix[] =
+  const float matrix[][4] =
   {
-    1.0F, 0.0F, 0.0F, 0.0F,
-    0.0F, 1.0F, 0.0F, 0.0F,
-    0.0F, 0.0F, 1.0F, 0.0F,
-    0.0F, 0.0F, 0.0F, 1.0F
+    {1.0F, 0.0F, 0.0F, 0.0F},
+    {0.0F, 1.0F, 0.0F, 0.0F},
+    {0.0F, 0.0F, 1.0F, 0.0F},
+    {0.0F, 0.0F, 0.0F, 1.0F}
   };
 
   glUseProgram(program_id);
-  glUniformMatrix4fv(glGetUniformLocation(program_id, "matrix"), 1, false, matrix);
+  glUniformMatrix4fv(glGetUniformLocation(program_id, "matrix"), 1, false, *matrix);
 
   glEnable(GL_CULL_FACE);
 
