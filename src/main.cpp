@@ -51,7 +51,7 @@ int main()
   block_game::Matrix4F matrix;
 
   glUseProgram(program_id);
-  glUniformMatrix4fv(glGetUniformLocation(program_id, "matrix"), 1, false, *(matrix.elements));
+  glUniformMatrix4fv(glGetUniformLocation(program_id, "matrix"), 1, true, *(matrix.elements));
 
   glEnable(GL_CULL_FACE);
 
