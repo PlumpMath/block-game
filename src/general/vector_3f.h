@@ -5,7 +5,6 @@ namespace block_game
 {
   struct Vector3F
   {
-  public:
     static const int kDimensions = 3;
 
     Vector3F();
