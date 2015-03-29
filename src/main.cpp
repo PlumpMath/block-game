@@ -2,6 +2,7 @@
 #include "glfw/glfw3.h"
 
 #include "game/world.h"
+#include "general/matrix_4f.h"
 #include "shader/vertex.h"
 #include "shader/fragment.h"
 
@@ -47,16 +48,10 @@ int main()
   glLinkProgram(program_id);
   glValidateProgram(program_id);
 
-  const float matrix[][4] =
-  {
-    {1.0F, 0.0F, 0.0F, 0.0F},
-    {0.0F, 1.0F, 0.0F, 0.0F},
-    {0.0F, 0.0F, 1.0F, 0.0F},
-    {0.0F, 0.0F, 0.0F, 1.0F}
-  };
+  block_game::Matrix4F matrix;
 
   glUseProgram(program_id);
-  glUniformMatrix4fv(glGetUniformLocation(program_id, "matrix"), 1, false, *matrix);
+  glUniformMatrix4fv(glGetUniformLocation(program_id, "matrix"), 1, false, *(matrix.elements));
 
   glEnable(GL_CULL_FACE);
 
