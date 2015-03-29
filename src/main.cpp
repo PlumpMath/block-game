@@ -47,6 +47,17 @@ int main()
   glLinkProgram(program_id);
   glValidateProgram(program_id);
 
+  const float matrix[] =
+  {
+    1.0F, 0.0F, 0.0F, 0.0F,
+    0.0F, 1.0F, 0.0F, 0.0F,
+    0.0F, 0.0F, 1.0F, 0.0F,
+    0.0F, 0.0F, 0.0F, 1.0F
+  };
+
+  glUseProgram(program_id);
+  glUniformMatrix4fv(glGetUniformLocation(program_id, "matrix"), 1, false, matrix);
+
   glEnable(GL_CULL_FACE);
 
   while (!glfwWindowShouldClose(window))
@@ -59,15 +70,15 @@ int main()
     glfwGetFramebufferSize(window, &width, &height);
     glViewport(0, 0, width, height);
 
-    glUseProgram(program_id);
     world.Display();
-    glUseProgram(0);
 
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
 
   glDisable(GL_CULL_FACE);
+
+  glUseProgram(0);
 
   glDetachShader(program_id, vertex_id);
   glDetachShader(program_id, fragment_id);
