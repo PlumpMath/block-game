@@ -2,6 +2,8 @@
 #include "glfw/glfw3.h"
 
 #include "game/world.h"
+#include "shader/vertex.h"
+#include "shader/fragment.h"
 
 int main()
 {
@@ -30,38 +32,12 @@ int main()
 
   block_game::World world;
 
-  const char* vertex_source = R"(
-#version 110
-
-attribute vec4 in_Position;
-
-varying vec4 pass_Color;
-
-void main(void)
-{
-	gl_Position = in_Position;
-
-	pass_Color = gl_Color * vec4(gl_Normal.z, gl_Normal.z, gl_Normal.z, 1.0);
-}
-  )";
-
-  const char* fragment_source = R"(
-#version 110
-
-varying vec4 pass_Color;
-
-void main(void)
-{
-  gl_FragColor = pass_Color;
-}
-  )";
-
   const int vertex_id = glCreateShader(GL_VERTEX_SHADER);
-  glShaderSource(vertex_id, 1, &vertex_source, nullptr);
+  glShaderSource(vertex_id, 1, &block_game::vertex_glsl, nullptr);
   glCompileShader(vertex_id);
 
   const int fragment_id = glCreateShader(GL_FRAGMENT_SHADER);
-  glShaderSource(fragment_id, 1, &fragment_source, nullptr);
+  glShaderSource(fragment_id, 1, &block_game::fragment_glsl, nullptr);
   glCompileShader(fragment_id);
 
   const int program_id = glCreateProgram();
