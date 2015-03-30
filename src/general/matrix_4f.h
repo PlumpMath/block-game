@@ -13,8 +13,7 @@ namespace block_game
 
     float* operator[](const int);
 
-    Matrix4F operator+(const Vector3F&) const;
-    Matrix4F operator-(const Vector3F&) const;
+    void Translate(const Vector3F&);
 
     float elements[kDimensions][kDimensions];
   };
