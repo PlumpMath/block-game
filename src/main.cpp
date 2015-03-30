@@ -3,6 +3,7 @@
 
 #include "game/world.h"
 #include "general/matrix_4f.h"
+#include "opengl/program.h"
 #include "opengl/shader.h"
 #include "shader/vertex.h"
 #include "shader/fragment.h"
@@ -38,17 +39,10 @@ int main()
     const block_game::Shader vertex_shader(GL_VERTEX_SHADER, block_game::vertex_glsl);
     const block_game::Shader fragment_shader(GL_FRAGMENT_SHADER, block_game::fragment_glsl);
 
-    const int program_id = glCreateProgram();
-    vertex_shader.Attach(program_id);
-    fragment_shader.Attach(program_id);
+    block_game::Program program(vertex_shader, fragment_shader);
 
-    glLinkProgram(program_id);
-    glValidateProgram(program_id);
-
-    block_game::Matrix4F matrix;
-
-    glUseProgram(program_id);
-    glUniformMatrix4fv(glGetUniformLocation(program_id, "matrix"), 1, true, *(matrix.elements));
+    program.Use();
+    program.SetUniformMatrix4F("matrix", block_game::Matrix4F());
 
     glEnable(GL_CULL_FACE);
 
@@ -71,11 +65,6 @@ int main()
     glDisable(GL_CULL_FACE);
 
     glUseProgram(0);
-
-    vertex_shader.Detach(program_id);
-    fragment_shader.Detach(program_id);
-
-    glDeleteProgram(program_id);
   }
 
   glfwDestroyWindow(window);
