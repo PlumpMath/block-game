@@ -13,3 +13,5 @@ previous step. Be sure to leave the "Create directory for solution" box unchecke
 3. Download [GLEW](http://sourceforge.net/projects/glew/files/glew/1.12.0/glew-1.12.0-win32.zip/download) and
 [GLFW](http://sourceforge.net/projects/glfw/files/glfw/3.1.1/glfw-3.1.1.bin.WIN32.zip/download). Unzip them somewhere outside of
 your project directory.
+
+4. In your project directory, create directories `lib/glew` and `lib/glfw`.
