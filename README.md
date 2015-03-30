@@ -16,19 +16,19 @@ previous step. Be sure to leave the "Create directory for solution" box unchecke
 [GLFW](http://sourceforge.net/projects/glfw/files/glfw/3.1.1/glfw-3.1.1.bin.WIN32.zip/download). Unzip them somewhere outside of
 your project directory.
 
-5. In your project directory, create directories `lib/glew` and `lib/glfw`.
+6. Copy `bin/Release/Win32/glew32.dll` from your unzipped GLEW directory to your project root directory.
 
-6. Copy these files from your unzipped GLEW directory to `lib/glew`:
+6. In your project directory, create directories `lib/glew` and `lib/glfw`.
+
+7. Copy these files from your unzipped GLEW directory to `lib/glew`:
 
   * All files in `include/GL`
   * `lib/Release/Win32/glew32.lib`
 
-7. Copy these files from your unzipped GLFW directory to `lib/glfw`:
+8. Copy these files from your unzipped GLFW directory to `lib/glfw`:
 
   * All files in `include/GLFW`
   * `lib-vc2013/glfw3.lib`
-
-8. Copy `bin/Release/Win32/glew32.dll` from your unzipped GLEW directory to your project root directory.
 
 9. In Visual Studio, open your project property pages, set the configuration to "All Configurations", and go to Configuration
 Properties.
