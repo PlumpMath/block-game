@@ -1,6 +1,6 @@
 #include "game/world.h"
 
-#include "glfw/glfw3.h"
+#include "glew/glew.h"
 
 namespace block_game
 {
