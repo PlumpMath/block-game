@@ -15,3 +15,8 @@ previous step. Be sure to leave the "Create directory for solution" box unchecke
 your project directory.
 
 4. In your project directory, create directories `lib/glew` and `lib/glfw`.
+
+5. Copy these files from `glew-1.12.0` in your unzipped GLEW directory to `lib/glew`:
+
+  * All files in `include/GL`
+  * `lib/Release/Win32/glew32.lib`
