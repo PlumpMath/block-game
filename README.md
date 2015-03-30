@@ -30,10 +30,15 @@ your project directory.
 
 8. Copy `bin/Release/Win32/glew32.dll` from your unzipped GLEW directory to your project root directory.
 
-9. In Visual Studio, open your project property pages, set the configuration to "All Configurations", and go to Configuration Properties.
+9. In Visual Studio, open your project property pages, set the configuration to "All Configurations", and go to Configuration
+Properties.
 
   * Under Linker/General, set "Additional Library Directories" to `lib/glew;lib/glfw`.
   * Under Linker/Input, add `opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;` to the beginning of "Additional Dependencies".
   * Under VC++ Directories, add `src;lib;` to the beginning of "Include Directories".
-  * (Optional) Under Linker/System, set "SubSystem" to `Windows (/SUBSYSTEM:WINDOWS)`.
-  * (Optional) Under Linker/Advanced, set "Entry Point" to `mainCRTStartup`.
+
+10. (Optional) To prevent creation of a console window in Release configuration, set the property configuration to "Release",
+and go to Configuration Properties/Linker.
+
+  * Under System, set "SubSystem" to `Windows (/SUBSYSTEM:WINDOWS)`.
+  * Under Advanced, set "Entry Point" to `mainCRTStartup`.
