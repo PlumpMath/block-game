@@ -34,7 +34,7 @@ your project directory.
 Properties.
 
   * Under Linker/General, set "Additional Library Directories" to `lib/glew;lib/glfw`.
-  * Under Linker/Input, add `opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;` to the beginning of "Additional Dependencies".
+  * Under Linker/Input, add `opengl32.lib;glew32.lib;glfw3.lib;` to the beginning of "Additional Dependencies".
   * Under VC++ Directories, add `src;lib;` to the beginning of "Include Directories".
 
 10. (Optional) To prevent creation of a console window in Release configuration, set the property configuration to "Release",
