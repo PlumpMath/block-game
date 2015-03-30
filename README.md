@@ -10,7 +10,7 @@ the project in a location with whitespace in the path.
 2. In Visual Studio, create a new Visual C++ Empty Project, with the correct location and name according to what you did in the
 previous step. Be sure to leave the "Create directory for solution" box unchecked.
 
-3. In Visual Studio, click Show All Files in Solution Explorer. Right click `src`, then click Include In Project.
+3. In Visual Studio, click "Show All Files" in Solution Explorer. Right click `src`, then click "Include In Project".
 
 4. Download [GLEW](http://sourceforge.net/projects/glew/files/glew/1.12.0/glew-1.12.0-win32.zip/download) and
 [GLFW](http://sourceforge.net/projects/glfw/files/glfw/3.1.1/glfw-3.1.1.bin.WIN32.zip/download). Unzip them somewhere outside of
@@ -32,5 +32,5 @@ your project directory.
 
 9. In Visual Studio, open your project property pages, and go to Configuration Properties/Linker.
 
-  * Under General, set Additional Library Directories to `lib/glew;lib/glfw`.
-  * Under Input, add `opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;` to the beginning of Additional Dependencies.
+  * Under General, set "Additional Library Directories" to `lib/glew;lib/glfw`.
+  * Under Input, add `opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;` to the beginning of "Additional Dependencies".
