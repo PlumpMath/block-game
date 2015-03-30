@@ -16,7 +16,12 @@ your project directory.
 
 4. In your project directory, create directories `lib/glew` and `lib/glfw`.
 
-5. Copy these files from `glew-1.12.0` in your unzipped GLEW directory to `lib/glew`:
+5. Copy these files from your unzipped GLEW directory to `lib/glew`:
 
   * All files in `include/GL`
   * `lib/Release/Win32/glew32.lib`
+
+6. Copy these files from your unzipped GLFW directory to `lib/glfw`:
+
+  * All files in `include/GLFW`
+  * `lib-vc2013/glfw3.lib`
