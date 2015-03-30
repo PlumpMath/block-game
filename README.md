@@ -35,3 +35,5 @@ your project directory.
   * Under Linker/General, set "Additional Library Directories" to `lib/glew;lib/glfw`.
   * Under Linker/Input, add `opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;` to the beginning of "Additional Dependencies".
   * Under VC++ Directories, add `src;lib;` to the beginning of "Include Directories".
+  * (Optional) Under Linker/System, set "SubSystem" to `Windows (/SUBSYSTEM:WINDOWS)`.
+  * (Optional) Under Linker/Advanced, set "Entry Point" to `mainCRTStartup`.
