@@ -27,21 +27,26 @@ namespace block_game
     elements[3][3] = 1.0F;
   }
 
+  float* Matrix4F::operator[](const int i)
+  {
+    return elements[i];
+  }
+
   Matrix4F Matrix4F::operator+(const Vector3F& vector_3f) const
   {
     Matrix4F matrix_4f(*this);
-    matrix_4f.elements[0][3] += vector_3f.x;
-    matrix_4f.elements[1][3] += vector_3f.y;
-    matrix_4f.elements[2][3] += vector_3f.z;
+    matrix_4f[0][3] += vector_3f.x;
+    matrix_4f[1][3] += vector_3f.y;
+    matrix_4f[2][3] += vector_3f.z;
     return matrix_4f;
   }
 
   Matrix4F Matrix4F::operator-(const Vector3F& vector_3f) const
   {
     Matrix4F matrix_4f(*this);
-    matrix_4f.elements[0][3] -= vector_3f.x;
-    matrix_4f.elements[1][3] -= vector_3f.y;
-    matrix_4f.elements[2][3] -= vector_3f.z;
+    matrix_4f[0][3] -= vector_3f.x;
+    matrix_4f[1][3] -= vector_3f.y;
+    matrix_4f[2][3] -= vector_3f.z;
     return matrix_4f;
   }
 }

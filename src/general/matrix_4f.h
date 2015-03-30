@@ -11,6 +11,8 @@ namespace block_game
 
     Matrix4F();
 
+    float* operator[](const int);
+
     Matrix4F operator+(const Vector3F&) const;
     Matrix4F operator-(const Vector3F&) const;
 
