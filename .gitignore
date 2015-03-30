@@ -8,4 +8,5 @@ BlockGame.vcxproj.user
 lib/
 Debug/
 Release/
+glew32.dll
 OGLdpf.log
