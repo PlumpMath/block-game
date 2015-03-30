@@ -25,3 +25,5 @@ your project directory.
 
   * All files in `include/GLFW`
   * `lib-vc2013/glfw3.lib`
+
+7. Copy `bin/Release/Win32/glew32.dll` from your unzipped GLEW directory to your project root directory.
