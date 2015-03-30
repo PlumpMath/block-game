@@ -16,7 +16,7 @@ previous step. Be sure to leave the "Create directory for solution" box unchecke
 [GLFW](http://sourceforge.net/projects/glfw/files/glfw/3.1.1/glfw-3.1.1.bin.WIN32.zip/download). Unzip them somewhere outside of
 your project directory.
 
-6. Copy `bin/Release/Win32/glew32.dll` from your unzipped GLEW directory to your project root directory.
+5. Copy `bin/Release/Win32/glew32.dll` from your unzipped GLEW directory to your project root directory.
 
 6. In your project directory, create directories `lib/glew` and `lib/glfw`.
 
