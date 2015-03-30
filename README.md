@@ -27,3 +27,8 @@ your project directory.
   * `lib-vc2013/glfw3.lib`
 
 7. Copy `bin/Release/Win32/glew32.dll` from your unzipped GLEW directory to your project root directory.
+
+8. In Visual Studio, open your project property pages, and go to Configuration Properties/Linker.
+
+  * Under General, set Additional Library Directories to `lib/glew;lib/glfw`.
+  * Under Input, add `opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;` to the beginning of Additional Dependencies.
