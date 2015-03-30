@@ -4,6 +4,8 @@
 #include <vector>
 
 #include "game/block.h"
+#include "opengl/shader.h"
+#include "opengl/program.h"
 
 namespace block_game
 {
@@ -17,6 +19,10 @@ namespace block_game
 
   private:
     std::vector<Block> blocks_;
+
+    const Shader vertex_shader_;
+    const Shader fragment_shader_;
+    Program program_;
   };
 }
 
