@@ -40,16 +40,6 @@ namespace block_game
     return {x / scalar, y / scalar};
   }
 
-  Vector2F operator*(const float scalar, const Vector2F& vector_2f)
-  {
-    return {scalar * vector_2f.x, scalar * vector_2f.y};
-  }
-
-  Vector2F operator/(const float scalar, const Vector2F& vector_2f)
-  {
-    return {scalar / vector_2f.x, scalar / vector_2f.y};
-  }
-
   Vector2F& Vector2F::operator+=(const Vector2F& vector_2f)
   {
     x += vector_2f.x;
@@ -93,5 +83,15 @@ namespace block_game
 
     x = new_x;
     y = new_y;
+  }
+
+  Vector2F operator*(const float scalar, const Vector2F& vector_2f)
+  {
+    return {scalar * vector_2f.x, scalar * vector_2f.y};
+  }
+
+  Vector2F operator/(const float scalar, const Vector2F& vector_2f)
+  {
+    return {scalar / vector_2f.x, scalar / vector_2f.y};
   }
 }

@@ -18,9 +18,6 @@ namespace block_game
     Color3F operator*(const float) const;
     Color3F operator/(const float) const;
 
-    friend Color3F operator*(const float, const Color3F&);
-    friend Color3F operator/(const float, const Color3F&);
-
     Color3F& operator+=(const Color3F&);
     Color3F& operator-=(const Color3F&);
     Color3F& operator*=(const float);
@@ -37,6 +34,9 @@ namespace block_game
       };
     };
   };
+
+  Color3F operator*(const float, const Color3F&);
+  Color3F operator/(const float, const Color3F&);
 }
 
 #endif

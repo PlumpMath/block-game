@@ -18,9 +18,6 @@ namespace block_game
     Vector3F operator*(const float) const;
     Vector3F operator/(const float) const;
 
-    friend Vector3F operator*(const float, const Vector3F&);
-    friend Vector3F operator/(const float, const Vector3F&);
-
     Vector3F& operator+=(const Vector3F&);
     Vector3F& operator-=(const Vector3F&);
     Vector3F& operator*=(const float);
@@ -41,6 +38,9 @@ namespace block_game
       };
     };
   };
+
+  Vector3F operator*(const float, const Vector3F&);
+  Vector3F operator/(const float, const Vector3F&);
 }
 
 #endif
