@@ -4,11 +4,10 @@ A C++ OpenGL game that involves blocks.
 
 ## Setup instructions (Visual Studio 2013)
 
-1. Clone this repository to your machine. I have not personally tested this, but I remember reading that you should not place
-the project in a location with whitespace in the path.
+1. Clone this repository to your machine.
 
-2. In Visual Studio, create a new Visual C++ Empty Project, with the correct location and name according to what you did in the
-previous step. Be sure to leave the "Create directory for solution" box unchecked.
+2. In Visual Studio, create a new Visual C++ Empty Project, with the correct location and name according to the previous step.
+Be sure to leave the "Create directory for solution" box unchecked.
 
 3. In Visual Studio, click "Show All Files" in Solution Explorer. Right click `src`, then click "Include In Project".
 
