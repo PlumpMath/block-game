@@ -3,6 +3,7 @@
 #include "glew/glew.h"
 
 #include "general/matrix_4f.h"
+#include "general/vector_3f.h"
 #include "opengl/shader.h"
 
 namespace block_game
@@ -28,6 +29,16 @@ namespace block_game
   void Program::Use() const
   {
     glUseProgram(id_);
+  }
+
+  void Program::SetUniformFloat(const char* name, const float value)
+  {
+    glUniform1f(glGetUniformLocation(id_, name), value);
+  }
+
+  void Program::SetUniformVector3F(const char* name, const Vector3F& vector_3f)
+  {
+    glUniform3f(glGetUniformLocation(id_, name), vector_3f.x, vector_3f.y, vector_3f.z);
   }
 
   void Program::SetUniformMatrix4F(const char* name, const Matrix4F& matrix_4f)
