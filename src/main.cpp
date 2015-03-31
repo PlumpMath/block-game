@@ -19,7 +19,12 @@ int main()
 
   glfwMakeContextCurrent(window);
 
-  glewInit();
+  if (glewInit() != GLEW_OK)
+  {
+    glfwDestroyWindow(window);
+    glfwTerminate();
+    return -1;
+  }
 
   double time = 0;
   double new_time;
