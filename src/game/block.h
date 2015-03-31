@@ -6,6 +6,8 @@
 
 namespace block_game
 {
+  class Program;
+
   class Block
   {
   public:
@@ -17,7 +19,7 @@ namespace block_game
     const Vector3F& rotation() const;
 
     void Update(const double);
-    void Draw() const;
+    void Draw(Program&) const;
 
   private:
     static const Vector3F vertices_[];

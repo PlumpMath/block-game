@@ -2,6 +2,9 @@
 
 #include "glew/glew.h"
 
+#include "general/matrix_3f.h"
+#include "opengl/program.h"
+
 namespace block_game
 {
   const Vector3F Block::vertices_[] =
@@ -76,8 +79,18 @@ namespace block_game
     rotation_.z += (float) delta;
   }
 
-  void Block::Draw() const
+  void Block::Draw(Program& program) const
   {
+    Matrix3F rotation;
+    rotation.RotateY(rotation_.y);
+    rotation.RotateX(rotation_.x);
+    rotation.RotateZ(rotation_.z);
+
+    program.SetUniformFloat("radius", radius_);
+    program.SetUniformVector3F("color", {color_.r, color_.g, color_.b});
+    program.SetUniformVector3F("position", position_);
+    program.SetUniformMatrix3F("rotation", rotation);
+
     glBegin(GL_TRIANGLES);
 
     for (int i = 0; i < 6; ++i)
