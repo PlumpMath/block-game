@@ -4,20 +4,26 @@ const char* block_game::vertex_glsl = R"(
 
 #version 110
 
-uniform mat4 position_Matrix;
-uniform mat4 normal_Matrix;
+uniform float radius;
+uniform vec3 color;
+uniform vec3 position;
+uniform mat4 rotation;
 
-attribute vec4 in_Position;
+attribute vec3 in_Position;
 
 varying vec4 pass_Color;
 
 void main(void)
 {
-  gl_Position = position_Matrix * in_Position;
+  gl_Position.xyz = radius * in_Position;
+  gl_Position.w = 1.0;
+  gl_Position = rotation * gl_Position;
+  gl_Position += position;
 
-  vec4 transformed_Normal = normal_Matrix * vec4(gl_Normal.x, gl_Normal.y, gl_Normal.z, 1.0);
-
-  pass_Color = gl_Color * vec4(transformed_Normal.z, transformed_Normal.z, transformed_Normal.z, 1.0);
+  pass_Color.xyz = gl_Normal;
+  pass_Color = rotation * pass_Color;
+  pass_Color.xy = pass_Color.zz;
+  pass_Color *= color;
 }
 
 )";

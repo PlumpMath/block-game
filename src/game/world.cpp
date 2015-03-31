@@ -30,19 +30,15 @@ namespace block_game
 
     for (const Block& block : blocks_)
     {
-      Matrix4F position_matrix;
-      position_matrix.Scale(block.radius());
-      position_matrix.RotateY(block.rotation().y);
-      position_matrix.RotateX(block.rotation().x);
-      position_matrix.RotateZ(block.rotation().z);
-      position_matrix.Translate(block.position());
-      program_.SetUniformMatrix4F("position_Matrix", position_matrix);
+      Matrix4F rotation;
+      rotation.RotateY(block.rotation().y);
+      rotation.RotateX(block.rotation().x);
+      rotation.RotateZ(block.rotation().z);
 
-      Matrix4F normal_matrix;
-      normal_matrix.RotateY(block.rotation().y);
-      normal_matrix.RotateX(block.rotation().x);
-      normal_matrix.RotateZ(block.rotation().z);
-      program_.SetUniformMatrix4F("normal_Matrix", normal_matrix);
+      program_.SetUniformFloat("radius", block.radius());
+      program_.SetUniformVector3F("color", {block.color().r, block.color().g, block.color().b});
+      program_.SetUniformVector3F("position", block.position());
+      program_.SetUniformMatrix4F("rotation", rotation);
 
       block.Draw();
     }

@@ -79,7 +79,6 @@ namespace block_game
   void Block::Draw() const
   {
     glBegin(GL_TRIANGLES);
-    glColor3f(color_.r, color_.g, color_.b);
 
     for (int i = 0; i < 6; ++i)
     {
