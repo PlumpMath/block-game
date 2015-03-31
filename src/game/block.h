@@ -13,11 +13,6 @@ namespace block_game
   public:
     Block(const float, const Color3F&);
 
-    float radius() const;
-    const Color3F& color() const;
-    const Vector3F& position() const;
-    const Vector3F& rotation() const;
-
     void Update(const double);
     void Draw(Program&) const;
 

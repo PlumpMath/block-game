@@ -52,26 +52,6 @@ namespace block_game
   Block::Block(const float radius, const Color3F& color) : radius_(radius), color_(color)
   {}
 
-  float Block::radius() const
-  {
-    return radius_;
-  }
-
-  const Color3F& Block::color() const
-  {
-    return color_;
-  }
-
-  const Vector3F& Block::position() const
-  {
-    return position_;
-  }
-
-  const Vector3F& Block::rotation() const
-  {
-    return rotation_;
-  }
-
   void Block::Update(const double delta)
   {
     rotation_.x += (float) delta;
