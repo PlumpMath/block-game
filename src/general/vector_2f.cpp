@@ -74,7 +74,6 @@ namespace block_game
 
   void Vector2F::Rotate(const float angle)
   {
-    // Caching sine and cosine yields 2x performance
     const float sine = sin(angle);
     const float cosine = cos(angle);
 

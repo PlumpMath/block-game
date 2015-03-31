@@ -78,7 +78,6 @@ namespace block_game
 
   void Vector3F::RotateX(const float angle)
   {
-    // Caching sine and cosine yields 2x performance
     const float sine = sin(angle);
     const float cosine = cos(angle);
 
@@ -91,7 +90,6 @@ namespace block_game
 
   void Vector3F::RotateY(const float angle)
   {
-    // Caching sine and cosine yields 2x performance
     const float sine = sin(angle);
     const float cosine = cos(angle);
 
@@ -104,7 +102,6 @@ namespace block_game
 
   void Vector3F::RotateZ(const float angle)
   {
-    // Caching sine and cosine yields 2x performance
     const float sine = sin(angle);
     const float cosine = cos(angle);
 
