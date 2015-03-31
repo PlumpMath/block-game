@@ -80,24 +80,19 @@ namespace block_game
   {
     glBegin(GL_TRIANGLES);
     glColor3f(color_.r, color_.g, color_.b);
+
     for (int i = 0; i < 6; ++i)
     {
-      Vector3F normal = normals_[i];
-      // Assume the positive y-axis is "forward"
-      normal.RotateY(rotation_.y); // Roll
-      normal.RotateX(rotation_.x); // Pitch
-      normal.RotateZ(rotation_.z); // Yaw
+      const Vector3F& normal = normals_[i];
       glNormal3f(normal.x, normal.y, normal.z);
+
       for (int j = 6 * i; j < 6 * (i + 1); ++j)
       {
-        Vector3F vertex = vertices_[indices_[j]];
-        // Assume the positive y-axis is "forward"
-        vertex.RotateY(rotation_.y); // Roll
-        vertex.RotateX(rotation_.x); // Pitch
-        vertex.RotateZ(rotation_.z); // Yaw
-        glVertex2f(vertex.x, vertex.y);
+        const Vector3F& vertex = vertices_[indices_[j]];
+        glVertex3f(vertex.x, vertex.y, vertex.z);
       }
     }
+
     glEnd();
   }
 }
