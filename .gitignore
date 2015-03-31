@@ -7,7 +7,7 @@ BlockGame.vcxproj
 BlockGame.vcxproj.filters
 BlockGame.vcxproj.user
 
-# Dependencies
+# Dependency
 lib
 glew32.dll
 
