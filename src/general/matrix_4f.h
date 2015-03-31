@@ -22,6 +22,7 @@ namespace block_game
     Matrix4F& operator-=(const Matrix4F&);
 
     void Translate(const Vector3F&);
+    void Scale(const float);
 
     float elements[kDimensions][kDimensions];
   };

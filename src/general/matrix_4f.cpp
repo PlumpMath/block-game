@@ -109,4 +109,14 @@ namespace block_game
     elements[1][3] += vector_3f.y;
     elements[2][3] += vector_3f.z;
   }
+
+  void Matrix4F::Scale(const float scale)
+  {
+    for (int i = 0; i < kDimensions; ++i)
+    {
+      elements[0][i] *= scale;
+      elements[1][i] *= scale;
+      elements[2][i] *= scale;
+    }
+  }
 }
