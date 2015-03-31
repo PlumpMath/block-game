@@ -6,25 +6,13 @@ namespace block_game
 {
   Matrix4F::Matrix4F()
   {
-    elements[0][0] = 1.0F;
-    elements[0][1] = 0.0F;
-    elements[0][2] = 0.0F;
-    elements[0][3] = 0.0F;
-
-    elements[1][0] = 0.0F;
-    elements[1][1] = 1.0F;
-    elements[1][2] = 0.0F;
-    elements[1][3] = 0.0F;
-
-    elements[2][0] = 0.0F;
-    elements[2][1] = 0.0F;
-    elements[2][2] = 1.0F;
-    elements[2][3] = 0.0F;
-
-    elements[3][0] = 0.0F;
-    elements[3][1] = 0.0F;
-    elements[3][2] = 0.0F;
-    elements[3][3] = 1.0F;
+    for (int i = 0; i < kDimensions; ++i)
+    {
+      for (int j = 0; j < kDimensions; ++j)
+      {
+        elements[i][j] = i == j ? 1.0F : 0.0F;
+      }
+    }
   }
 
   const float* Matrix4F::operator[](const int i) const
