@@ -11,6 +11,7 @@ namespace block_game
 
     Matrix4F();
 
+    const float* operator[](const int) const;
     float* operator[](const int);
 
     void Translate(const Vector3F&);

@@ -27,6 +27,11 @@ namespace block_game
     elements[3][3] = 1.0F;
   }
 
+  const float* Matrix4F::operator[](const int i) const
+  {
+    return elements[i];
+  }
+
   float* Matrix4F::operator[](const int i)
   {
     return elements[i];
