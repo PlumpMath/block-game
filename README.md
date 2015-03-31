@@ -9,7 +9,7 @@ A C++ OpenGL game that involves blocks.
 2. In Visual Studio, create a new Visual C++ Empty Project, with the correct location and name according to the previous step.
 Be sure to leave the "Create directory for solution" box unchecked.
 
-3. In Visual Studio, click "Show All Files" in Solution Explorer. Right-click `src`, then click "Include In Project".
+3. Click "Show All Files" in Solution Explorer. Right-click `src`, then click "Include In Project".
 
 4. Download [GLEW](http://sourceforge.net/projects/glew/files/glew/1.12.0/glew-1.12.0-win32.zip/download) and
 [GLFW](http://sourceforge.net/projects/glfw/files/glfw/3.1.1/glfw-3.1.1.bin.WIN32.zip/download). Unzip them somewhere outside of
