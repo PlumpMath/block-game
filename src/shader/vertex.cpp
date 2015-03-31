@@ -15,15 +15,8 @@ varying vec4 pass_Color;
 
 void main()
 {
-  gl_Position.xyz = radius * in_Position;
-  gl_Position.w = 1.0;
-  gl_Position = rotation * gl_Position;
-  gl_Position += position;
-
-  pass_Color.xyz = gl_Normal;
-  pass_Color = rotation * pass_Color;
-  pass_Color.xy = pass_Color.zz;
-  pass_Color *= color;
+  gl_Position = position + rotation * vec4(radius * in_Position, 1.0);
+  pass_Color = color * vec4((rotation * vec4(gl_Normal, 1.0)).zzz, 1.0);
 }
 
 )";
