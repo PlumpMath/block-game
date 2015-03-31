@@ -14,6 +14,9 @@ namespace block_game
     const float* operator[](const int) const;
     float* operator[](const int);
 
+    Matrix4F operator+(const Matrix4F&) const;
+    Matrix4F operator-(const Matrix4F&) const;
+
     void Translate(const Vector3F&);
 
     float elements[kDimensions][kDimensions];
