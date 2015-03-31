@@ -12,10 +12,6 @@ namespace block_game
     program_(vertex_shader_, fragment_shader_)
   {
     blocks_.push_back(Block(0.5F, Color3F(1.0F, 1.0F, 1.0F)));
-
-    program_.Use();
-    program_.SetUniformMatrix4F("matrix", Matrix4F());
-    glUseProgram(0);
   }
 
   void World::Update(const double delta)
@@ -26,7 +22,7 @@ namespace block_game
     }
   }
 
-  void World::Display() const
+  void World::Display()
   {
     glClear(GL_COLOR_BUFFER_BIT);
     glEnable(GL_CULL_FACE);
@@ -34,6 +30,11 @@ namespace block_game
 
     for (const Block& block : blocks_)
     {
+      Matrix4F matrix;
+      matrix.Scale(block.radius());
+      matrix.Translate(block.position());
+      program_.SetUniformMatrix4F("matrix", matrix);
+
       block.Draw();
     }
 

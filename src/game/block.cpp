@@ -91,12 +91,10 @@ namespace block_game
       for (int j = 6 * i; j < 6 * (i + 1); ++j)
       {
         Vector3F vertex = vertices_[indices_[j]];
-        vertex *= radius_;
         // Assume the positive y-axis is "forward"
         vertex.RotateY(rotation_.y); // Roll
         vertex.RotateX(rotation_.x); // Pitch
         vertex.RotateZ(rotation_.z); // Yaw
-        vertex += position_;
         glVertex2f(vertex.x, vertex.y);
       }
     }
