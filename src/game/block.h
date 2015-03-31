@@ -13,8 +13,8 @@ namespace block_game
 
     float radius() const;
     const Color3F& color() const;
-    Vector3F& position();
-    Vector3F& rotation();
+    const Vector3F& position() const;
+    const Vector3F& rotation() const;
 
     void Update(const double);
     void Draw() const;

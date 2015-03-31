@@ -59,12 +59,12 @@ namespace block_game
     return color_;
   }
 
-  Vector3F& Block::position()
+  const Vector3F& Block::position() const
   {
     return position_;
   }
 
-  Vector3F& Block::rotation()
+  const Vector3F& Block::rotation() const
   {
     return rotation_;
   }
