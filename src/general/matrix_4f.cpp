@@ -69,7 +69,7 @@ namespace block_game
       {
         for (int k = 0; k < kDimensions; ++k)
         {
-          result[i][j] += elements[i][k] + matrix_4f[k][j];
+          result[i][j] += elements[i][k] * matrix_4f[k][j];
         }
       }
     }
