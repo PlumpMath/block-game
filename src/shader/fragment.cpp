@@ -6,7 +6,7 @@ const char* block_game::fragment_glsl = R"(
 
 varying vec4 pass_Color;
 
-void main(void)
+void main()
 {
   gl_FragColor = pass_Color;
 }

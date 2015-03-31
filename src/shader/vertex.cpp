@@ -13,7 +13,7 @@ attribute vec3 in_Position;
 
 varying vec4 pass_Color;
 
-void main(void)
+void main()
 {
   gl_Position.xyz = radius * in_Position;
   gl_Position.w = 1.0;
