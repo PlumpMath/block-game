@@ -23,6 +23,9 @@ namespace block_game
 
     void Translate(const Vector3F&);
     void Scale(const float);
+    void RotateX(const float);
+    void RotateY(const float);
+    void RotateZ(const float);
 
     float elements[kDimensions][kDimensions];
   };

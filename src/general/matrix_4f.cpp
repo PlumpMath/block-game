@@ -1,5 +1,7 @@
 #include "general/matrix_4f.h"
 
+#include <cmath>
+
 #include "general/vector_3f.h"
 
 namespace block_game
@@ -118,5 +120,47 @@ namespace block_game
       elements[1][i] *= scale;
       elements[2][i] *= scale;
     }
+  }
+
+  void Matrix4F::RotateX(const float angle)
+  {
+    const float sine = sin(angle);
+    const float cosine = cos(angle);
+
+    Matrix4F rotation;
+    rotation[1][1] = cosine;
+    rotation[1][2] = -sine;
+    rotation[2][1] = sine;
+    rotation[2][2] = cosine;
+
+    *this = rotation * *this;
+  }
+
+  void Matrix4F::RotateY(const float angle)
+  {
+    const float sine = sin(angle);
+    const float cosine = cos(angle);
+
+    Matrix4F rotation;
+    rotation[0][0] = cosine;
+    rotation[0][2] = sine;
+    rotation[2][0] = -sine;
+    rotation[2][2] = cosine;
+
+    *this = rotation * *this;
+  }
+
+  void Matrix4F::RotateZ(const float angle)
+  {
+    const float sine = sin(angle);
+    const float cosine = cos(angle);
+
+    Matrix4F rotation;
+    rotation[0][0] = cosine;
+    rotation[0][1] = -sine;
+    rotation[1][0] = sine;
+    rotation[1][1] = cosine;
+
+    *this = rotation * *this;
   }
 }
