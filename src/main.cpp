@@ -1,3 +1,7 @@
+#if _DEBUG
+#include <iostream>
+#endif
+
 #include "glew/glew.h"
 #include "glfw/glfw3.h"
 
@@ -18,6 +22,13 @@ int main()
   }
 
   glfwMakeContextCurrent(window);
+
+#if _DEBUG
+  std::cout << "OpenGL vendor: " << glGetString(GL_VENDOR) << std::endl;
+  std::cout << "OpenGL renderer: " << glGetString(GL_RENDERER) << std::endl;
+  std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
+  std::cout << "GLSL version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+#endif
 
   if (glewInit() != GLEW_OK)
   {
