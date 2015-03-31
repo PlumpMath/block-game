@@ -2,7 +2,7 @@
 
 #include "glew/glew.h"
 
-#include "general/matrix_4f.h"
+#include "general/matrix_3f.h"
 #include "shader/vertex.h"
 #include "shader/fragment.h"
 
@@ -30,7 +30,7 @@ namespace block_game
 
     for (const Block& block : blocks_)
     {
-      Matrix4F rotation;
+      Matrix3F rotation;
       rotation.RotateY(block.rotation().y);
       rotation.RotateX(block.rotation().x);
       rotation.RotateZ(block.rotation().z);
@@ -38,7 +38,7 @@ namespace block_game
       program_.SetUniformFloat("radius", block.radius());
       program_.SetUniformVector3F("color", {block.color().r, block.color().g, block.color().b});
       program_.SetUniformVector3F("position", block.position());
-      program_.SetUniformMatrix4F("rotation", rotation);
+      program_.SetUniformMatrix3F("rotation", rotation);
 
       block.Draw();
     }
