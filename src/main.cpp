@@ -1,11 +1,11 @@
-#if _DEBUG
-#include <iostream>
-#endif
-
 #include "glew/glew.h"
 #include "glfw/glfw3.h"
 
 #include "game/world.h"
+
+#if _DEBUG
+#include <iostream>
+#endif
 
 int main()
 {
