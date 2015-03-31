@@ -11,12 +11,12 @@ uniform mat4 rotation;
 
 attribute vec3 in_Position;
 
-varying vec4 pass_Color;
+varying vec3 pass_Color;
 
 void main()
 {
   gl_Position = position + rotation * vec4(radius * in_Position, 1.0);
-  pass_Color = color * vec4((rotation * vec4(gl_Normal, 1.0)).zzz, 1.0);
+  pass_Color = color * (rotation * vec4(gl_Normal, 1.0)).zzz;
 }
 
 )";
