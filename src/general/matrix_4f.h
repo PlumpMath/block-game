@@ -16,6 +16,7 @@ namespace block_game
 
     Matrix4F operator+(const Matrix4F&) const;
     Matrix4F operator-(const Matrix4F&) const;
+    Matrix4F operator*(const Matrix4F&) const;
 
     Matrix4F& operator+=(const Matrix4F&);
     Matrix4F& operator-=(const Matrix4F&);

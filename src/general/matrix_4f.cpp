@@ -55,6 +55,28 @@ namespace block_game
     return result;
   }
 
+  Matrix4F Matrix4F::operator*(const Matrix4F& matrix_4f) const
+  {
+    Matrix4F result;
+    for (int i = 0; i < kDimensions; ++i)
+    {
+      result[i][i] = 0.0F;
+    }
+
+    for (int i = 0; i < kDimensions; ++i)
+    {
+      for (int j = 0; j < kDimensions; ++j)
+      {
+        for (int k = 0; k < kDimensions; ++k)
+        {
+          result[i][j] += elements[i][k] + matrix_4f[k][j];
+        }
+      }
+    }
+
+    return result;
+  }
+
   Matrix4F& Matrix4F::operator+=(const Matrix4F& matrix_4f)
   {
     for (int i = 0; i < kDimensions; ++i)
