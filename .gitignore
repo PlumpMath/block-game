@@ -1,3 +1,4 @@
+# IDE
 BlockGame.opensdf
 BlockGame.sdf
 BlockGame.sln
@@ -5,8 +6,12 @@ BlockGame.v12.suo
 BlockGame.vcxproj
 BlockGame.vcxproj.filters
 BlockGame.vcxproj.user
-lib/
-Debug/
-Release/
+
+# Dependencies
+lib
 glew32.dll
+
+# Build
+Debug
+Release
 OGLdpf.log
