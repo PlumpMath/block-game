@@ -3,8 +3,7 @@
 
 namespace block_game
 {
-  template <int order>
-  struct Matrix
+  template<int order> struct Matrix
   {
     Matrix()
     {

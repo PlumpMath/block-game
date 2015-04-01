@@ -3,9 +3,7 @@
 
 namespace block_game
 {
-  template<int order>
-  struct Matrix;
-
+  template<int> struct Matrix;
   struct Vector2F;
   struct Vector3F;
   class Shader;
