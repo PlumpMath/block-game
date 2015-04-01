@@ -4,9 +4,8 @@
 namespace block_game
 {
   template <int order>
-  class Matrix
+  struct Matrix
   {
-  public:
     Matrix()
     {
       for (int i = 0; i < order; ++i)
@@ -106,7 +105,6 @@ namespace block_game
       return *this;
     }
 
-  private:
     float elements[order][order];
   };
 }
