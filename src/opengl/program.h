@@ -6,6 +6,7 @@ namespace block_game
   template<int order>
   struct Matrix;
 
+  struct Vector2F;
   struct Vector3F;
   class Shader;
 
@@ -18,7 +19,9 @@ namespace block_game
     void Use() const;
 
     void SetUniformFloat(const char*, const float);
+    void SetUniformVector2F(const char*, const Vector2F&);
     void SetUniformVector3F(const char*, const Vector3F&);
+    void SetUniformMatrix2(const char*, const Matrix<2>&);
     void SetUniformMatrix3(const char*, const Matrix<3>&);
     void SetUniformMatrix4(const char*, const Matrix<4>&);
 

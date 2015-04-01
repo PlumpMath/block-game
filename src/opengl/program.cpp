@@ -3,6 +3,7 @@
 #include "glew/glew.h"
 
 #include "general/matrix.h"
+#include "general/vector_2f.h"
 #include "general/vector_3f.h"
 #include "opengl/shader.h"
 
@@ -36,9 +37,19 @@ namespace block_game
     glUniform1f(glGetUniformLocation(id_, name), value);
   }
 
+  void Program::SetUniformVector2F(const char* name, const Vector2F& vector_2f)
+  {
+    glUniform2f(glGetUniformLocation(id_, name), vector_2f.x, vector_2f.y);
+  }
+
   void Program::SetUniformVector3F(const char* name, const Vector3F& vector_3f)
   {
     glUniform3f(glGetUniformLocation(id_, name), vector_3f.x, vector_3f.y, vector_3f.z);
+  }
+
+  void Program::SetUniformMatrix2(const char* name, const Matrix<2>& matrix)
+  {
+    glUniformMatrix2fv(glGetUniformLocation(id_, name), 1, true, *(matrix.elements));
   }
   
   void Program::SetUniformMatrix3(const char* name, const Matrix<3>& matrix)
