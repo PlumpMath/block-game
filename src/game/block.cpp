@@ -31,22 +31,22 @@ namespace block_game
   };
   const int Block::indices_[] =
   {
-    // Bottom
+    // -z
     0, 2, 3,
     3, 1, 0,
-    // Top
+    // +z
     6, 4, 5,
     5, 7, 6,
-    // South
+    // -y
     4, 0, 1,
     1, 5, 4,
-    // West
+    // -x
     6, 2, 0,
     0, 4, 6,
-    // East
+    // +x
     5, 1, 3,
     3, 7, 5,
-    // North
+    // +y
     7, 3, 2,
     2, 6, 7
   };
