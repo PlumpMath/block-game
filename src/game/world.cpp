@@ -23,8 +23,10 @@ namespace block_game
 
   void World::Display()
   {
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     glEnable(GL_CULL_FACE);
+    glEnable(GL_DEPTH_TEST);
     program_.Use();
 
     for (const Block& block : blocks_)
@@ -33,6 +35,7 @@ namespace block_game
     }
 
     glUseProgram(0);
+    glDisable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);
   }
 }
