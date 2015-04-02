@@ -32,23 +32,23 @@ namespace block_game
   const int Block::indices_[] =
   {
     // -x
-    6, 2, 0,
-    0, 4, 6,
+    0, 2, 6,
+    0, 6, 4,
     // +x
-    5, 1, 3,
-    3, 7, 5,
+    1, 5, 7,
+    1, 7, 3,
     // -y
-    4, 0, 1,
-    1, 5, 4,
+    0, 4, 5,
+    0, 5, 1,
     // +y
-    7, 3, 2,
-    2, 6, 7,
+    2, 3, 7,
+    2, 7, 6,
     // -z
-    0, 2, 3,
-    3, 1, 0,
+    0, 1, 3,
+    0, 3, 2,
     // +z
-    6, 4, 5,
-    5, 7, 6
+    4, 6, 7,
+    4, 7, 5
   };
 
   Block::Block(const float radius, const Color3F& color) : radius_(radius), color_(color)
