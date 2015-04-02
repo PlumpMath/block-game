@@ -22,33 +22,33 @@ namespace block_game
   };
   const Vector3F Block::normals_[] =
   {
-    {0.0F, 0.0F, -1.0F},
-    {0.0F, 0.0F, 1.0F},
-    {0.0F, -1.0F, 0.0F},
     {-1.0F, 0.0F, 0.0F},
     {1.0F, 0.0F, 0.0F},
-    {0.0F, 1.0F, 0.0F}
+    {0.0F, -1.0F, 0.0F},
+    {0.0F, 1.0F, 0.0F},
+    {0.0F, 0.0F, -1.0F},
+    {0.0F, 0.0F, 1.0F}
   };
   const int Block::indices_[] =
   {
-    // -z
-    0, 2, 3,
-    3, 1, 0,
-    // +z
-    6, 4, 5,
-    5, 7, 6,
-    // -y
-    4, 0, 1,
-    1, 5, 4,
     // -x
     6, 2, 0,
     0, 4, 6,
     // +x
     5, 1, 3,
     3, 7, 5,
+    // -y
+    4, 0, 1,
+    1, 5, 4,
     // +y
     7, 3, 2,
-    2, 6, 7
+    2, 6, 7,
+    // -z
+    0, 2, 3,
+    3, 1, 0,
+    // +z
+    6, 4, 5,
+    5, 7, 6
   };
 
   Block::Block(const float radius, const Color3F& color) : radius_(radius), color_(color)
