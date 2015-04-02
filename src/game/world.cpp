@@ -20,7 +20,7 @@ namespace block_game
     const float tau = 8.0F * atan(1.0F);
     const float distance = 0.375F;
 
-    for (int i = 0; i < blocks_.size(); ++i)
+    for (size_t i = 0; i < blocks_.size(); ++i)
     {
       blocks_.at(i).position().x = distance * cos((i / (float) blocks_.size()) * tau);
       blocks_.at(i).position().y = distance * sin((i / (float) blocks_.size()) * tau);
