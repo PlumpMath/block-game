@@ -1,5 +1,8 @@
 #include "game/world.h"
 
+#define _USE_MATH_DEFINES
+#include <cmath>
+
 #include "glew/glew.h"
 
 #include "shader/vertex.h"
@@ -10,7 +13,18 @@ namespace block_game
   World::World() : vertex_shader_(GL_VERTEX_SHADER, vertex_glsl), fragment_shader_(GL_FRAGMENT_SHADER, fragment_glsl),
     program_(vertex_shader_, fragment_shader_)
   {
-    blocks_.push_back(Block(0.5F, Color3F(1.0F, 1.0F, 1.0F)));
+    blocks_.push_back(Block(0.5F, Color3F(1.0F, 0.0F, 0.0F)));
+    blocks_.push_back(Block(0.5F, Color3F(0.0F, 1.0F, 0.0F)));
+    blocks_.push_back(Block(0.5F, Color3F(0.0F, 0.0F, 1.0F)));
+
+    const float tau = 8.0F * atan(1.0F);
+    const float distance = 0.375F;
+
+    for (int i = 0; i < blocks_.size(); ++i)
+    {
+      blocks_.at(i).position().x = distance * cos((i / (float) blocks_.size()) * tau);
+      blocks_.at(i).position().y = distance * sin((i / (float) blocks_.size()) * tau);
+    }
   }
 
   void World::Update(const double delta)

@@ -86,9 +86,11 @@ namespace block_game
 
   void Block::Update(const double delta)
   {
-    rotation_.x += (float) delta;
-    rotation_.y += (float) delta;
-    rotation_.z += (float) delta;
+    position_.RotateZ((float) delta);
+
+    rotation_.x += (1 - color_.r) * (float) delta;
+    rotation_.y += (1 - color_.g) * (float) delta;
+    rotation_.z += (1 - color_.b) * (float) delta;
   }
 
   void Block::Draw(Program& program) const
