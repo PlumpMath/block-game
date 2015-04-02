@@ -74,6 +74,16 @@ namespace block_game
     return rotation_;
   }
 
+  Vector3F& Block::position()
+  {
+    return position_;
+  }
+
+  Vector3F& Block::rotation()
+  {
+    return rotation_;
+  }
+
   void Block::Update(const double delta)
   {
     rotation_.x += (float) delta;

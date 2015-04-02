@@ -18,6 +18,9 @@ namespace block_game
     const Vector3F& position() const;
     const Vector3F& rotation() const;
 
+    Vector3F& position();
+    Vector3F& rotation();
+
     void Update(const double);
     void Draw(Program&) const;
 
