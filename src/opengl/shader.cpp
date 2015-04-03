@@ -4,7 +4,7 @@
 
 namespace block_game
 {
-  Shader::Shader(const unsigned int type, const char* source) : id_(glCreateShader(type))
+  Shader::Shader(const GLenum type, const GLchar* source) : id_(glCreateShader(type))
   {
     glShaderSource(id_, 1, &source, nullptr);
     glCompileShader(id_);
@@ -15,12 +15,12 @@ namespace block_game
     glDeleteShader(id_);
   }
 
-  void Shader::Attach(const unsigned int program_id) const
+  void Shader::Attach(const GLuint program_id) const
   {
     glAttachShader(program_id, id_);
   }
 
-  void Shader::Detach(const unsigned int program_id) const
+  void Shader::Detach(const GLuint program_id) const
   {
     glDetachShader(program_id, id_);
   }

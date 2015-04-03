@@ -1,19 +1,21 @@
 #ifndef BLOCK_GAME_OPENGL_SHADER_H_
 #define BLOCK_GAME_OPENGL_SHADER_H_
 
+#include "glew/glew.h"
+
 namespace block_game
 {
   class Shader
   {
   public:
-    Shader(const unsigned int, const char*);
+    Shader(const GLenum, const GLchar*);
     ~Shader();
 
-    void Attach(const unsigned int) const;
-    void Detach(const unsigned int) const;
+    void Attach(const GLuint) const;
+    void Detach(const GLuint) const;
 
   private:
-    const unsigned int id_;
+    const GLuint id_;
   };
 }
 

@@ -1,6 +1,8 @@
 #ifndef BLOCK_GAME_OPENGL_PROGRAM_H_
 #define BLOCK_GAME_OPENGL_PROGRAM_H_
 
+#include "glew/glew.h"
+
 namespace block_game
 {
   template<int> struct Matrix;
@@ -16,15 +18,15 @@ namespace block_game
 
     void Use() const;
 
-    void SetUniformFloat(const char*, const float);
-    void SetUniformVector2F(const char*, const Vector2F&);
-    void SetUniformVector3F(const char*, const Vector3F&);
-    void SetUniformMatrix2(const char*, const Matrix<2>&);
-    void SetUniformMatrix3(const char*, const Matrix<3>&);
-    void SetUniformMatrix4(const char*, const Matrix<4>&);
+    void SetUniformFloat(const GLchar*, const GLfloat);
+    void SetUniformVector2F(const GLchar*, const Vector2F&);
+    void SetUniformVector3F(const GLchar*, const Vector3F&);
+    void SetUniformMatrix2(const GLchar*, const Matrix<2>&);
+    void SetUniformMatrix3(const GLchar*, const Matrix<3>&);
+    void SetUniformMatrix4(const GLchar*, const Matrix<4>&);
 
   private:
-    const unsigned int id_;
+    const GLuint id_;
 
     const Shader& vertex_shader_;
     const Shader& fragment_shader_;
