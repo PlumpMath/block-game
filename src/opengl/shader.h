@@ -6,7 +6,7 @@ namespace block_game
   class Shader
   {
   public:
-    Shader(const int, const char*);
+    Shader(const unsigned int, const char*);
     ~Shader();
 
     void Attach(const unsigned int) const;

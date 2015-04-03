@@ -4,7 +4,7 @@
 
 namespace block_game
 {
-  Shader::Shader(const int type, const char* source) : id_(glCreateShader(type))
+  Shader::Shader(const unsigned int type, const char* source) : id_(glCreateShader(type))
   {
     glShaderSource(id_, 1, &source, nullptr);
     glCompileShader(id_);
