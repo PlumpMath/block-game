@@ -25,9 +25,14 @@ namespace block_game
     glDeleteProgram(id_);
   }
 
-  void Program::Use() const
+  void Program::Bind() const
   {
     glUseProgram(id_);
+  }
+
+  void Program::Unbind()
+  {
+    glUseProgram(0);
   }
 
   void Program::SetUniformFloat(const GLchar* name, const GLfloat value)

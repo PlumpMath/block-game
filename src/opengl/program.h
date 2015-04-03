@@ -16,7 +16,8 @@ namespace block_game
     Program(const Shader&, const Shader&);
     ~Program();
 
-    void Use() const;
+    void Bind() const;
+    static void Unbind();
 
     void SetUniformFloat(const GLchar*, const GLfloat);
     void SetUniformVector2F(const GLchar*, const Vector2F&);

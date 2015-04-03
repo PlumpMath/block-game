@@ -41,14 +41,14 @@ namespace block_game
 
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
-    program_.Use();
+    program_.Bind();
 
     for (const Block& block : blocks_)
     {
       block.Draw(program_);
     }
 
-    glUseProgram(0);
+    Program::Unbind();
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);
   }
