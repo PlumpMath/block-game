@@ -9,50 +9,71 @@
 
 namespace block_game
 {
-  const Vector3F Block::vertices_[] =
-  {
-    {-1.0F, -1.0F, -1.0F},
-    {1.0F, -1.0F, -1.0F},
-    {-1.0F, 1.0F, -1.0F},
-    {1.0F, 1.0F, -1.0F},
-    {-1.0F, -1.0F, 1.0F},
-    {1.0F, -1.0F, 1.0F},
-    {-1.0F, 1.0F, 1.0F},
-    {1.0F, 1.0F, 1.0F}
-  };
-  const Vector3F Block::normals_[] =
-  {
-    {-1.0F, 0.0F, 0.0F},
-    {1.0F, 0.0F, 0.0F},
-    {0.0F, -1.0F, 0.0F},
-    {0.0F, 1.0F, 0.0F},
-    {0.0F, 0.0F, -1.0F},
-    {0.0F, 0.0F, 1.0F}
-  };
-  const int Block::indices_[] =
+  const Vector3F Block::vertices_[][2] =
   {
     // -x
-    0, 2, 6,
-    0, 6, 4,
+    {{-1.0F, -1.0F, -1.0F}, {-1.0F, 0.0F, 0.0F}},
+    {{-1.0F, 1.0F, -1.0F}, {-1.0F, 0.0F, 0.0F}},
+    {{-1.0F, -1.0F, 1.0F}, {-1.0F, 0.0F, 0.0F}},
+    {{-1.0F, 1.0F, 1.0F}, {-1.0F, 0.0F, 0.0F}},
     // +x
-    1, 5, 7,
-    1, 7, 3,
+    {{1.0F, -1.0F, -1.0F}, {1.0F, 0.0F, 0.0F}},
+    {{1.0F, 1.0F, -1.0F}, {1.0F, 0.0F, 0.0F}},
+    {{1.0F, -1.0F, 1.0F}, {1.0F, 0.0F, 0.0F}},
+    {{1.0F, 1.0F, 1.0F}, {1.0F, 0.0F, 0.0F}},
     // -y
-    0, 4, 5,
-    0, 5, 1,
+    {{-1.0F, -1.0F, -1.0F}, {0.0F, -1.0F, 0.0F}},
+    {{1.0F, -1.0F, -1.0F}, {0.0F, -1.0F, 0.0F}},
+    {{-1.0F, -1.0F, 1.0F}, {0.0F, -1.0F, 0.0F}},
+    {{1.0F, -1.0F, 1.0F}, {0.0F, -1.0F, 0.0F}},
     // +y
-    2, 3, 7,
-    2, 7, 6,
+    {{-1.0F, 1.0F, -1.0F}, {0.0F, 1.0F, 0.0F}},
+    {{1.0F, 1.0F, -1.0F}, {0.0F, 1.0F, 0.0F}},
+    {{-1.0F, 1.0F, 1.0F}, {0.0F, 1.0F, 0.0F}},
+    {{1.0F, 1.0F, 1.0F}, {0.0F, 1.0F, 0.0F}},
     // -z
+    {{-1.0F, -1.0F, -1.0F}, {0.0F, 0.0F, -1.0F}},
+    {{1.0F, -1.0F, -1.0F}, {0.0F, 0.0F, -1.0F}},
+    {{-1.0F, 1.0F, -1.0F}, {0.0F, 0.0F, -1.0F}},
+    {{1.0F, 1.0F, -1.0F}, {0.0F, 0.0F, -1.0F}},
+    // +z
+    {{-1.0F, -1.0F, 1.0F}, {0.0F, 0.0F, 1.0F}},
+    {{1.0F, -1.0F, 1.0F}, {0.0F, 0.0F, 1.0F}},
+    {{-1.0F, 1.0F, 1.0F}, {0.0F, 0.0F, 1.0F}},
+    {{1.0F, 1.0F, 1.0F}, {0.0F, 0.0F, 1.0F}}
+  };
+  const unsigned char Block::indices_[] =
+  {
+    // -x
     0, 1, 3,
     0, 3, 2,
-    // +z
+    // +x
     4, 6, 7,
-    4, 7, 5
+    4, 7, 5,
+    // -y
+    8, 10, 11,
+    8, 11, 9,
+    // +y
+    12, 13, 15,
+    12, 15, 14,
+    // -z
+    16, 17, 19,
+    16, 19, 18,
+    // +z
+    20, 22, 23,
+    20, 23, 21
   };
 
   Block::Block(const float radius, const Color3F& color) : radius_(radius), color_(color)
-  {}
+  {
+    vertex_buffer_.Bind();
+    vertex_buffer_.SetData(sizeof vertices_, vertices_, GL_STATIC_DRAW);
+    VertexBuffer::Unbind();
+
+    index_buffer_.Bind();
+    index_buffer_.SetData(sizeof indices_, indices_, GL_STATIC_DRAW);
+    IndexBuffer::Unbind();
+  }
 
   float Block::radius() const
   {
@@ -127,20 +148,19 @@ namespace block_game
     program.SetUniformVector3F("position", position_);
     program.SetUniformMatrix3("rotation", rotation_z * rotation_x * rotation_y);
 
-    glBegin(GL_TRIANGLES);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_NORMAL_ARRAY);
 
-    for (int i = 0; i < 6; ++i)
-    {
-      const Vector3F& normal = normals_[i];
-      glNormal3f(normal.x, normal.y, normal.z);
+    vertex_buffer_.Bind();
+    glVertexPointer(Vector3F::kDimensions, GL_FLOAT, 2 * sizeof(Vector3F), (void*) 0);
+    glNormalPointer(GL_FLOAT, 2 * sizeof(Vector3F), (void*) sizeof(Vector3F));
+    VertexBuffer::Unbind();
 
-      for (int j = 6 * i; j < 6 * (i + 1); ++j)
-      {
-        const Vector3F& vertex = vertices_[indices_[j]];
-        glVertex3f(vertex.x, vertex.y, vertex.z);
-      }
-    }
+    index_buffer_.Bind();
+    index_buffer_.Draw(36, GL_UNSIGNED_BYTE);
+    IndexBuffer::Unbind();
 
-    glEnd();
+    glDisableClientState(GL_NORMAL_ARRAY);
+    glDisableClientState(GL_VERTEX_ARRAY);
   }
 }
