@@ -1,11 +1,11 @@
 # IDE
-BlockGame.opensdf
-BlockGame.sdf
-BlockGame.sln
-BlockGame.v12.suo
-BlockGame.vcxproj
-BlockGame.vcxproj.filters
-BlockGame.vcxproj.user
+block-game.opensdf
+block-game.sdf
+block-game.sln
+block-game.v12.suo
+block-game.vcxproj
+block-game.vcxproj.filters
+block-game.vcxproj.user
 
 # Dependency
 lib

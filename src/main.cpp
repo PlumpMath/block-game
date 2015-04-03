@@ -14,7 +14,7 @@ int main()
     return -1;
   }
 
-  GLFWwindow* window = glfwCreateWindow(512, 512, "BlockGame", nullptr, nullptr);
+  GLFWwindow* window = glfwCreateWindow(512, 512, "Block Game", nullptr, nullptr);
   if (!window)
   {
     glfwTerminate();

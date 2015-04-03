@@ -1,4 +1,4 @@
-# BlockGame
+# Block Game
 
 A C++ OpenGL game that involves blocks.
 
