@@ -148,9 +148,6 @@ namespace block_game
     program.SetUniformVector3F("position", position_);
     program.SetUniformMatrix3("rotation", rotation_z * rotation_x * rotation_y);
 
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_NORMAL_ARRAY);
-
     vertex_buffer_.Bind();
     glVertexPointer(Vector3F::kDimensions, GL_FLOAT, 2 * sizeof(Vector3F), (void*) 0);
     glNormalPointer(GL_FLOAT, 2 * sizeof(Vector3F), (void*) sizeof(Vector3F));
@@ -159,8 +156,5 @@ namespace block_game
     index_buffer_.Bind();
     index_buffer_.Draw(36, GL_UNSIGNED_BYTE);
     IndexBuffer::Unbind();
-
-    glDisableClientState(GL_NORMAL_ARRAY);
-    glDisableClientState(GL_VERTEX_ARRAY);
   }
 }

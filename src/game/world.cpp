@@ -40,6 +40,10 @@ namespace block_game
 
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
+
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_NORMAL_ARRAY);
+
     program_.Bind();
 
     for (const Block& block : blocks_)
@@ -48,6 +52,10 @@ namespace block_game
     }
 
     Program::Unbind();
+
+    glDisableClientState(GL_NORMAL_ARRAY);
+    glDisableClientState(GL_VERTEX_ARRAY);
+
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);
   }
