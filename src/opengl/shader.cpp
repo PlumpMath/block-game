@@ -1,7 +1,5 @@
 #include "opengl/shader.h"
 
-#include "glew/glew.h"
-
 namespace block_game
 {
   Shader::Shader(const GLenum type, const GLchar* source) : id_(glCreateShader(type))
