@@ -2,7 +2,7 @@
 
 const char* block_game::fragment_glsl = R"(
 
-#version 110
+#version 120
 
 varying vec3 pass_Color;
 

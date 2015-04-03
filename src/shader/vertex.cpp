@@ -2,7 +2,7 @@
 
 const char* block_game::vertex_glsl = R"(
 
-#version 110
+#version 120
 
 uniform float radius;
 uniform vec3 color;
