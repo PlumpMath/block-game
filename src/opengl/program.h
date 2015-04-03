@@ -24,7 +24,7 @@ namespace block_game
     void SetUniformMatrix4(const char*, const Matrix<4>&);
 
   private:
-    const int id_;
+    const unsigned int id_;
 
     const Shader& vertex_shader_;
     const Shader& fragment_shader_;

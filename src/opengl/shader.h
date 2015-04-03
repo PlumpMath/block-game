@@ -13,7 +13,7 @@ namespace block_game
     void Detach(const int) const;
 
   private:
-    const int id_;
+    const unsigned int id_;
   };
 }
 
