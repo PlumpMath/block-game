@@ -1,6 +1,5 @@
 #include "game/world.h"
 
-#define _USE_MATH_DEFINES
 #include <cmath>
 
 #include "glew/glew.h"
