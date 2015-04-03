@@ -15,12 +15,12 @@ namespace block_game
     glDeleteShader(id_);
   }
 
-  void Shader::Attach(const int program_id) const
+  void Shader::Attach(const unsigned int program_id) const
   {
     glAttachShader(program_id, id_);
   }
 
-  void Shader::Detach(const int program_id) const
+  void Shader::Detach(const unsigned int program_id) const
   {
     glDetachShader(program_id, id_);
   }

@@ -9,8 +9,8 @@ namespace block_game
     Shader(const int, const char*);
     ~Shader();
 
-    void Attach(const int) const;
-    void Detach(const int) const;
+    void Attach(const unsigned int) const;
+    void Detach(const unsigned int) const;
 
   private:
     const unsigned int id_;
