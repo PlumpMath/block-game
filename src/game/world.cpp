@@ -41,8 +41,8 @@ namespace block_game
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
 
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_NORMAL_ARRAY);
+    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
 
     program_.Bind();
 
@@ -53,8 +53,8 @@ namespace block_game
 
     Program::Unbind();
 
-    glDisableClientState(GL_NORMAL_ARRAY);
-    glDisableClientState(GL_VERTEX_ARRAY);
+    glDisableVertexAttribArray(1);
+    glDisableVertexAttribArray(0);
 
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);

@@ -9,12 +9,15 @@ uniform vec3 color;
 uniform vec3 position;
 uniform mat3 rotation;
 
-varying vec3 pass_Color;
+in vec3 in_Vertex;
+in vec3 in_Normal;
+
+out vec3 pass_Color;
 
 void main()
 {
-  gl_Position = vec4(position + rotation * (radius * gl_Vertex.xyz), 1.0);
-  pass_Color = color * -(rotation * gl_Normal).zzz;
+  gl_Position = vec4(position + rotation * (radius * in_Vertex), 1.0);
+  pass_Color = color * -(rotation * in_Normal).zzz;
 }
 
 )";
