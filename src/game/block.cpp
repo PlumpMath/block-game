@@ -1,7 +1,5 @@
 #include "game/block.h"
 
-#include <cmath>
-
 #include "glew/glew.h"
 
 #include "general/matrix.h"
@@ -116,37 +114,15 @@ namespace block_game
 
   void Block::Draw(Program& program) const
   {
-    const float sine_x = sin(rotation_.x);
-    const float cosine_x = cos(rotation_.x);
-
-    const float sine_y = sin(rotation_.y);
-    const float cosine_y = cos(rotation_.y);
-
-    const float sine_z = sin(rotation_.z);
-    const float cosine_z = cos(rotation_.z);
-
-    Matrix<3> rotation_x;
-    rotation_x[1][1] = cosine_x;
-    rotation_x[1][2] = -sine_x;
-    rotation_x[2][1] = sine_x;
-    rotation_x[2][2] = cosine_x;
-
-    Matrix<3> rotation_y;
-    rotation_y[0][0] = cosine_y;
-    rotation_y[0][2] = sine_y;
-    rotation_y[2][0] = -sine_y;
-    rotation_y[2][2] = cosine_y;
-
-    Matrix<3> rotation_z;
-    rotation_z[0][0] = cosine_z;
-    rotation_z[0][1] = -sine_z;
-    rotation_z[1][0] = sine_z;
-    rotation_z[1][1] = cosine_z;
+    Matrix<3> rotation;
+    rotation.RotateY(rotation_.y);
+    rotation.RotateX(rotation_.x);
+    rotation.RotateZ(rotation_.z);
 
     program.SetUniformFloat("radius", radius_);
     program.SetUniformVector3F("color", {color_.r, color_.g, color_.b});
     program.SetUniformVector3F("position", position_);
-    program.SetUniformMatrix3("rotation", rotation_z * rotation_x * rotation_y);
+    program.SetUniformMatrix3("rotation", rotation);
 
     vertex_buffer_.Bind();
     glVertexAttribPointer(0, Vector3F::kDimensions, GL_FLOAT, GL_TRUE, 2 * sizeof(Vector3F), (void*) 0);

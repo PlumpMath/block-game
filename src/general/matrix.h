@@ -1,6 +1,8 @@
 #ifndef BLOCK_GAME_GENERAL_MATRIX_H_
 #define BLOCK_GAME_GENERAL_MATRIX_H_
 
+#include <cmath>
+
 namespace block_game
 {
   template<int order> struct Matrix
@@ -102,6 +104,48 @@ namespace block_game
       }
 
       return *this;
+    }
+
+    void RotateX(const float angle)
+    {
+      const float sine = sin(angle);
+      const float cosine = cos(angle);
+
+      Matrix<order> rotation;
+      rotation[1][1] = cosine;
+      rotation[1][2] = -sine;
+      rotation[2][1] = sine;
+      rotation[2][2] = cosine;
+
+      *this = rotation * *this;
+    }
+
+    void RotateY(const float angle)
+    {
+      const float sine = sin(angle);
+      const float cosine = cos(angle);
+
+      Matrix<order> rotation;
+      rotation[0][0] = cosine;
+      rotation[0][2] = sine;
+      rotation[2][0] = -sine;
+      rotation[2][2] = cosine;
+
+      *this = rotation * *this;
+    }
+
+    void RotateZ(const float angle)
+    {
+      const float sine = sin(angle);
+      const float cosine = cos(angle);
+
+      Matrix<order> rotation;
+      rotation[0][0] = cosine;
+      rotation[0][1] = -sine;
+      rotation[1][0] = sine;
+      rotation[1][1] = cosine;
+
+      *this = rotation * *this;
     }
 
     float elements[order][order];
