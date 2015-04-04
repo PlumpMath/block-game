@@ -55,9 +55,8 @@ int main()
     world.Update(delta);
 
     glfwGetFramebufferSize(window, &width, &height);
-    glViewport(0, 0, width, height);
 
-    world.Display();
+    world.Display(width, height);
 
     glfwSwapBuffers(window);
     glfwPollEvents();

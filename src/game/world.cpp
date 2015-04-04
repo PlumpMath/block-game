@@ -4,6 +4,7 @@
 
 #include "glew/glew.h"
 
+#include "general/matrix.h"
 #include "shader/vertex.h"
 #include "shader/fragment.h"
 
@@ -34,8 +35,9 @@ namespace block_game
     }
   }
 
-  void World::Display()
+  void World::Display(const int width, const int height)
   {
+    glViewport(0, 0, width, height);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glEnable(GL_CULL_FACE);
@@ -45,6 +47,19 @@ namespace block_game
     glEnableVertexAttribArray(1);
 
     program_.Bind();
+
+    Matrix<4> view_projection;
+
+    if (width > height)
+    {
+      view_projection[0][0] = height / (float) width;
+    }
+    else
+    {
+      view_projection[1][1] = width / (float) height;
+    }
+
+    program_.SetUniformMatrix4("viewProjection", view_projection);
 
     for (const Block& block : blocks_)
     {

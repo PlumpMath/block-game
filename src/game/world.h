@@ -15,7 +15,7 @@ namespace block_game
     World();
 
     void Update(const double);
-    void Display();
+    void Display(const int, const int);
 
   private:
     std::vector<Block> blocks_;
