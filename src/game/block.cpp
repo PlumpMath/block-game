@@ -154,7 +154,7 @@ namespace block_game
     VertexBuffer::Unbind();
 
     index_buffer_.Bind();
-    index_buffer_.Draw(36, GL_UNSIGNED_BYTE);
+    index_buffer_.Draw(sizeof indices_, GL_UNSIGNED_BYTE);
     IndexBuffer::Unbind();
   }
 }
