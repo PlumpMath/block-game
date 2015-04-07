@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-#include "glew/glew.h"
+#include <GL/glew.h>
 
 #include "general/matrix.h"
 #include "shader/vertex.h"

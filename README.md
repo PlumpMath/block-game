@@ -27,14 +27,14 @@ your project directory.
 
 5. Copy `bin/Release/Win32/glew32.dll` from your unzipped GLEW directory to your project root directory.
 
-6. In your project directory, create directories `lib/glew` and `lib/glfw`.
+6. In your project directory, create directories `lib/GL` and `lib/GLFW`.
 
-7. Copy these files from your unzipped GLEW directory to `lib/glew`:
+7. Copy these files from your unzipped GLEW directory to `lib/GL`:
 
   * All files in `include/GL`
   * `lib/Release/Win32/glew32.lib`
 
-8. Copy these files from your unzipped GLFW directory to `lib/glfw`:
+8. Copy these files from your unzipped GLFW directory to `lib/GLFW`:
 
   * All files in `include/GLFW`
   * `lib-vc2013/glfw3.lib`
@@ -46,7 +46,7 @@ Properties.
 
 10. Go to Linker.
 
-  * Under General, set "Additional Library Directories" to `lib/glew;lib/glfw`.
+  * Under General, set "Additional Library Directories" to `lib/GL;lib/GLFW`.
   * Under Input, add `opengl32.lib;glew32.lib;glfw3.lib;` to the beginning of "Additional Dependencies".
 
 11. (Optional) To prevent creation of a console window in Release configuration, set the configuration to "Release".

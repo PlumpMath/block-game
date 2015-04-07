@@ -1,7 +1,7 @@
 #ifndef BLOCK_GAME_OPENGL_SHADER_H_
 #define BLOCK_GAME_OPENGL_SHADER_H_
 
-#include "glew/glew.h"
+#include <GL/glew.h>
 
 namespace block_game
 {

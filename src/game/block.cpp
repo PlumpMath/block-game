@@ -1,6 +1,6 @@
 #include "game/block.h"
 
-#include "glew/glew.h"
+#include <GL/glew.h>
 
 #include "general/matrix.h"
 #include "opengl/program.h"
