@@ -56,7 +56,7 @@ file(APPEND ${GLAD_CMAKE_LISTS})
 add_subdirectory(${GLAD_SOURCE} ${GLAD_BINARY})
 include_directories(${GLAD_INCLUDE})
 
-set_property(GLOBAL APPEND PROPERTY SOURCE_PROPERTY
+set_property(GLOBAL PROPERTY SOURCE_PROPERTY
   ${GLAD_SOURCE}/src/glad.c
   ${GLAD_INCLUDE}/glad/glad.h
   ${GLAD_INCLUDE}/KHR/khrplatform.h
