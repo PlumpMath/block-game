@@ -1,7 +1,7 @@
 #ifndef BLOCK_GAME_OPENGL_VERTEX_BUFFER_H_
 #define BLOCK_GAME_OPENGL_VERTEX_BUFFER_H_
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 namespace block_game
 {
