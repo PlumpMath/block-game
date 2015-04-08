@@ -9,3 +9,7 @@ this project to support, create a pull request with at least the appropriate add
 work with you to add support for that platform.
 
 * Visual Studio 2013
+
+## Updating dependencies
+
+To update your local version of any library this project uses, delete its folder under `lib` and CMake will do the rest.

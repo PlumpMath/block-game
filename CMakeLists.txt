@@ -24,6 +24,7 @@ if(NOT EXISTS ${GLFW_CMAKE_LISTS})
 
 endif()
 
+file(APPEND ${GLFW_CMAKE_LISTS})
 add_subdirectory(${GLFW_SOURCE} ${GLFW_BINARY})
 include_directories(${GLFW_INCLUDE})
 
