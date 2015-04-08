@@ -22,6 +22,7 @@ int main()
   }
 
   glfwMakeContextCurrent(window);
+  gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
 
 #if _DEBUG
   std::cout << "OpenGL vendor: " << glGetString(GL_VENDOR) << std::endl;
@@ -30,13 +31,6 @@ int main()
   std::cout << "GLSL version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
   std::cout << std::endl;
 #endif
-
-  if (glewInit() != GLEW_OK)
-  {
-    glfwDestroyWindow(window);
-    glfwTerminate();
-    return -1;
-  }
 
   double time = 0;
   double new_time;
