@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.2.1 FATAL_ERROR)
-
 project("Block Game")
-
 set(LIBRARY_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 set(GLFW_URL          https://github.com/glfw/glfw/archive/master.tar.gz)
@@ -14,6 +12,7 @@ set(GLFW_INCLUDE      ${GLFW_SOURCE}/include)
 set(GLFW_BINARY       ${GLFW_DIRECTORY}/bin)
 
 if(NOT EXISTS ${GLFW_CMAKE_LISTS})
+
   message(STATUS "Downloading ${GLFW_URL}")
   file(DOWNLOAD ${GLFW_URL} ${GLFW_TGZ_ABSOLUTE})
 
@@ -22,6 +21,7 @@ if(NOT EXISTS ${GLFW_CMAKE_LISTS})
     COMMAND ${CMAKE_COMMAND} -E tar xzf ${GLFW_TGZ}
     WORKING_DIRECTORY ${GLFW_DIRECTORY}
   )
+
 endif()
 
 add_subdirectory(${GLFW_SOURCE} ${GLFW_BINARY})
@@ -37,6 +37,7 @@ set(GLAD_INCLUDE      ${GLAD_SOURCE}/include)
 set(GLAD_BINARY       ${GLAD_DIRECTORY}/bin)
 
 if(NOT EXISTS ${GLAD_CMAKE_LISTS})
+
   message(STATUS "Downloading ${GLAD_URL}")
   file(DOWNLOAD ${GLAD_URL} ${GLAD_TGZ_ABSOLUTE})
 
@@ -45,13 +46,12 @@ if(NOT EXISTS ${GLAD_CMAKE_LISTS})
     COMMAND ${CMAKE_COMMAND} -E tar xzf ${GLAD_TGZ}
     WORKING_DIRECTORY ${GLAD_DIRECTORY}
   )
+
 endif()
 
 file(APPEND ${GLAD_CMAKE_LISTS})
 add_subdirectory(${GLAD_SOURCE} ${GLAD_BINARY})
 include_directories(${GLAD_INCLUDE})
-
-include_directories(src)
 
 set_property(GLOBAL APPEND PROPERTY SOURCE_PROPERTY
   ${GLAD_SOURCE}/src/glad.c
@@ -60,6 +60,7 @@ set_property(GLOBAL APPEND PROPERTY SOURCE_PROPERTY
 )
 
 add_subdirectory(src)
+include_directories(src)
 
 get_property(SOURCE GLOBAL PROPERTY SOURCE_PROPERTY)
 add_executable(block_game ${SOURCE})
