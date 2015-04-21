@@ -5,7 +5,7 @@ namespace block_game
 {
   struct Vector2F
   {
-    static const int kDimensions = 2;
+    static const int kDimensions{2};
 
     Vector2F();
     Vector2F(const float, const float);

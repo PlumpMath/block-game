@@ -14,7 +14,7 @@ int main()
     return -1;
   }
 
-  GLFWwindow* window = glfwCreateWindow(512, 512, "Block Game", nullptr, nullptr);
+  GLFWwindow* window{glfwCreateWindow(512, 512, "Block Game", nullptr, nullptr)};
   if (!window)
   {
     glfwTerminate();
@@ -32,7 +32,7 @@ int main()
   std::cout << std::endl;
 #endif
 
-  double time = 0;
+  double time{0.0};
   double new_time;
   double delta;
 

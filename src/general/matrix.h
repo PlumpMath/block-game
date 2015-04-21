@@ -108,8 +108,8 @@ namespace block_game
 
     void RotateX(const float angle)
     {
-      const float sine = sin(angle);
-      const float cosine = cos(angle);
+      const float sine{sin(angle)};
+      const float cosine{cos(angle)};
 
       Matrix<order> rotation;
       rotation[1][1] = cosine;
@@ -122,8 +122,8 @@ namespace block_game
 
     void RotateY(const float angle)
     {
-      const float sine = sin(angle);
-      const float cosine = cos(angle);
+      const float sine{sin(angle)};
+      const float cosine{cos(angle)};
 
       Matrix<order> rotation;
       rotation[0][0] = cosine;
@@ -136,8 +136,8 @@ namespace block_game
 
     void RotateZ(const float angle)
     {
-      const float sine = sin(angle);
-      const float cosine = cos(angle);
+      const float sine{sin(angle)};
+      const float cosine{cos(angle)};
 
       Matrix<order> rotation;
       rotation[0][0] = cosine;

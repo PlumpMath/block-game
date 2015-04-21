@@ -5,7 +5,7 @@ namespace block_game
 {
   struct Vector3F
   {
-    static const int kDimensions = 3;
+    static const int kDimensions{3};
 
     Vector3F();
     Vector3F(const float, const float, const float);

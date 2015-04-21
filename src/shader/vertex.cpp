@@ -1,6 +1,6 @@
 #include "shader/vertex.h"
 
-const char* block_game::vertex_glsl = R"(
+const char* block_game::vertex_glsl{R"(
 
 #version 120
 
@@ -21,4 +21,4 @@ void main()
   pass_Color = color * -(rotation * in_Normal).zzz;
 }
 
-)";
+)"};

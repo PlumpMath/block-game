@@ -2,10 +2,10 @@
 
 namespace block_game
 {
-  Color3F::Color3F() : r(0.0F), g(0.0F), b(0.0F)
+  Color3F::Color3F() : r{0.0F}, g{0.0F}, b{0.0F}
   {}
 
-  Color3F::Color3F(const float r, const float g, const float b) : r(r), g(g), b(b)
+  Color3F::Color3F(const float r, const float g, const float b) : r{r}, g{g}, b{b}
   {}
 
   float Color3F::operator[](const int i) const
@@ -20,22 +20,22 @@ namespace block_game
 
   Color3F Color3F::operator+(const Color3F& color_3f) const
   {
-    return {r + color_3f.r, g + color_3f.g, b + color_3f.b};
+    return Color3F{r + color_3f.r, g + color_3f.g, b + color_3f.b};
   }
 
   Color3F Color3F::operator-(const Color3F& color_3f) const
   {
-    return {r - color_3f.r, g - color_3f.g, b - color_3f.b};
+    return Color3F{r - color_3f.r, g - color_3f.g, b - color_3f.b};
   }
 
   Color3F Color3F::operator*(const float scalar) const
   {
-    return {r * scalar, g * scalar, b * scalar};
+    return Color3F{r * scalar, g * scalar, b * scalar};
   }
 
   Color3F Color3F::operator/(const float scalar) const
   {
-    return {r / scalar, g / scalar, b / scalar};
+    return Color3F{r / scalar, g / scalar, b / scalar};
   }
 
   Color3F& Color3F::operator+=(const Color3F& color_3f)
@@ -76,11 +76,11 @@ namespace block_game
 
   Color3F operator*(const float scalar, const Color3F& color_3f)
   {
-    return {scalar * color_3f.r, scalar * color_3f.g, scalar * color_3f.b};
+    return Color3F{scalar * color_3f.r, scalar * color_3f.g, scalar * color_3f.b};
   }
 
   Color3F operator/(const float scalar, const Color3F& color_3f)
   {
-    return {scalar / color_3f.r, scalar / color_3f.g, scalar / color_3f.b};
+    return Color3F{scalar / color_3f.r, scalar / color_3f.g, scalar / color_3f.b};
   }
 }
