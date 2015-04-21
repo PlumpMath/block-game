@@ -10,6 +10,14 @@ namespace block_game
   public:
     Camera();
 
+    const Vector3F& position() const;
+    const Vector3F& rotation() const;
+
+    float field_of_view() const;
+    float z_near() const;
+    float z_far() const;
+    float aspect_ratio() const;
+
   private:
     Vector3F position_;
     Vector3F rotation_;
