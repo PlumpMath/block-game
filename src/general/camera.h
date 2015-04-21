@@ -18,6 +18,14 @@ namespace block_game
     float z_far() const;
     float aspect_ratio() const;
 
+    Vector3F& position();
+    Vector3F& rotation();
+
+    void set_field_of_view(const float);
+    void set_z_near(const float);
+    void set_z_far(const float);
+    void set_aspect_ratio(const float);
+
   private:
     Vector3F position_;
     Vector3F rotation_;
