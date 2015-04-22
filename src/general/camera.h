@@ -12,7 +12,10 @@ namespace block_game
     Camera();
 
     const Vector3F& position() const;
-    const Vector3F& rotation() const;
+
+    float yaw() const;
+    float pitch() const;
+    float roll() const;
 
     float field_of_view() const;
     float z_near() const;
@@ -20,7 +23,10 @@ namespace block_game
     float aspect_ratio() const;
 
     Vector3F& position();
-    Vector3F& rotation();
+
+    void set_yaw(const float);
+    void set_pitch(const float);
+    void set_roll(const float);
 
     void set_field_of_view(const float);
     void set_z_near(const float);
@@ -31,7 +37,10 @@ namespace block_game
 
   private:
     Vector3F position_;
-    Vector3F rotation_;
+
+    float yaw_;
+    float pitch_;
+    float roll_;
 
     float field_of_view_;
     float z_near_;

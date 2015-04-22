@@ -10,7 +10,7 @@
 
 namespace block_game
 {
-  World::World() : camera_rotation_z_{0.0F},
+  World::World() : camera_delta_yaw_{0.0F}, camera_delta_pitch_{0.0F}, camera_delta_roll_{0.0F},
     vertex_shader_{GL_VERTEX_SHADER, vertex_glsl},
     fragment_shader_{GL_FRAGMENT_SHADER, fragment_glsl},
     program_{vertex_shader_, fragment_shader_}
@@ -32,9 +32,19 @@ namespace block_game
     camera_.set_z_far(10.0F);
   }
 
-  void World::set_camera_rotation_z(const float camera_rotation_z)
+  void World::set_camera_delta_yaw(const float camera_delta_yaw)
   {
-    camera_rotation_z_ = camera_rotation_z;
+    camera_delta_yaw_ = camera_delta_yaw;
+  }
+
+  void World::set_camera_delta_pitch(const float camera_delta_pitch)
+  {
+    camera_delta_pitch_ = camera_delta_pitch;
+  }
+
+  void World::set_camera_delta_roll(const float camera_delta_roll)
+  {
+    camera_delta_roll_ = camera_delta_roll;
   }
 
   void World::Update(const double delta)
@@ -44,7 +54,9 @@ namespace block_game
       block.Update(delta);
     }
 
-    camera_.rotation().z += camera_rotation_z_ * (float) delta;
+    camera_.set_yaw(camera_.yaw() + camera_delta_yaw_ * (float) delta);
+    camera_.set_pitch(camera_.pitch() + camera_delta_pitch_ * (float) delta);
+    camera_.set_roll(camera_.roll() + camera_delta_roll_ * (float) delta);
   }
 
   void World::Display(const int width, const int height)

@@ -15,7 +15,9 @@ namespace block_game
   public:
     World();
 
-    void set_camera_rotation_z(const float);
+    void set_camera_delta_yaw(const float);
+    void set_camera_delta_pitch(const float);
+    void set_camera_delta_roll(const float);
 
     void Update(const double);
     void Display(const int, const int);
@@ -24,7 +26,9 @@ namespace block_game
     std::vector<Block> blocks_;
 
     Camera camera_;
-    float camera_rotation_z_;
+    float camera_delta_yaw_;
+    float camera_delta_pitch_;
+    float camera_delta_roll_;
 
     const Shader vertex_shader_;
     const Shader fragment_shader_;

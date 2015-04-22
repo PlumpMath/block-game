@@ -7,7 +7,8 @@
 
 namespace block_game
 {
-  Camera::Camera() : field_of_view_{1.0F}, z_near_{0.1F}, z_far_{1.0F}, aspect_ratio_{1.0F}
+  Camera::Camera() : yaw_{0.0F}, pitch_{0.0F}, roll_{0.0F},
+    field_of_view_{1.0F}, z_near_{0.1F}, z_far_{1.0F}, aspect_ratio_{1.0F}
   {}
 
   const Vector3F& Camera::position() const
@@ -15,9 +16,19 @@ namespace block_game
     return position_;
   }
 
-  const Vector3F& Camera::rotation() const
+  float Camera::yaw() const
   {
-    return rotation_;
+    return yaw_;
+  }
+
+  float Camera::pitch() const
+  {
+    return pitch_;
+  }
+
+  float Camera::roll() const
+  {
+    return roll_;
   }
 
   float Camera::field_of_view() const
@@ -45,9 +56,19 @@ namespace block_game
     return position_;
   }
 
-  Vector3F& Camera::rotation()
+  void Camera::set_yaw(const float yaw)
   {
-    return rotation_;
+    yaw_ = yaw;
+  }
+
+  void Camera::set_pitch(const float pitch)
+  {
+    pitch_ = pitch;
+  }
+
+  void Camera::set_roll(const float roll)
+  {
+    roll_ = roll;
   }
 
   void Camera::set_field_of_view(const float field_of_view)
@@ -83,9 +104,9 @@ namespace block_game
     translate[2][3] = -position_.z;
 
     Matrix<4> rotate;
-    rotate.RotateZ(-rotation_.z);
-    rotate.RotateX(-rotation_.x);
-    rotate.RotateY(-rotation_.y);
+    rotate.RotateZ(-yaw_);
+    rotate.RotateX(-pitch_);
+    rotate.RotateZ(-roll_);
 
     Matrix<4> scale;
     scale[0][0] = x_scale;

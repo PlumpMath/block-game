@@ -15,18 +15,42 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
   {
     if (key == GLFW_KEY_LEFT_BRACKET)
     {
-      world->set_camera_rotation_z(1.0F);
+      world->set_camera_delta_roll(1.0F);
     }
     else if (key == GLFW_KEY_RIGHT_BRACKET)
     {
-      world->set_camera_rotation_z(-1.0F);
+      world->set_camera_delta_roll(-1.0F);
+    }
+    else if (key == GLFW_KEY_UP)
+    {
+      world->set_camera_delta_pitch(-1.0F);
+    }
+    else if (key == GLFW_KEY_DOWN)
+    {
+      world->set_camera_delta_pitch(1.0F);
+    }
+    else if (key == GLFW_KEY_LEFT)
+    {
+      world->set_camera_delta_yaw(-1.0F);
+    }
+    else if (key == GLFW_KEY_RIGHT)
+    {
+      world->set_camera_delta_yaw(1.0F);
     }
   }
   else if (action == GLFW_RELEASE)
   {
     if (key == GLFW_KEY_LEFT_BRACKET || key == GLFW_KEY_RIGHT_BRACKET)
     {
-      world->set_camera_rotation_z(0.0F);
+      world->set_camera_delta_roll(0.0F);
+    }
+    else if (key == GLFW_KEY_UP || key == GLFW_KEY_DOWN)
+    {
+      world->set_camera_delta_pitch(0.0F);
+    }
+    else if (key == GLFW_KEY_LEFT || key == GLFW_KEY_RIGHT)
+    {
+      world->set_camera_delta_yaw(0.0F);
     }
   }
 }
