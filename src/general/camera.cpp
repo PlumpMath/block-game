@@ -1,5 +1,6 @@
 #include "general/camera.h"
 
+#include <algorithm>
 #include <cmath>
 
 #include "general/matrix.h"
@@ -58,17 +59,17 @@ namespace block_game
 
   void Camera::set_yaw(const float yaw)
   {
-    yaw_ = yaw;
+    yaw_ = fmod(yaw, 8.0F * atan(1.0F));
   }
 
   void Camera::set_pitch(const float pitch)
   {
-    pitch_ = pitch;
+    pitch_ = std::min<float>(4.0F * atan(1.0F), std::max<float>(0.0F, pitch));
   }
 
   void Camera::set_roll(const float roll)
   {
-    roll_ = roll;
+    roll_ = fmod(roll, 8.0F * atan(1.0F));
   }
 
   void Camera::set_field_of_view(const float field_of_view)
