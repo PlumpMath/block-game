@@ -43,17 +43,16 @@ int main()
 
   while (!glfwWindowShouldClose(window))
   {
+    glfwPollEvents();
+
     new_time = glfwGetTime();
     delta = new_time - time;
     time = new_time;
     world.Update(delta);
 
     glfwGetFramebufferSize(window, &width, &height);
-
     world.Display(width, height);
-
     glfwSwapBuffers(window);
-    glfwPollEvents();
   }
 
   glfwDestroyWindow(window);
