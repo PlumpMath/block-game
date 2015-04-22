@@ -31,11 +31,11 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
     }
     else if (key == GLFW_KEY_LEFT)
     {
-      world->set_camera_delta_yaw(-1.0F);
+      world->set_camera_delta_yaw(1.0F);
     }
     else if (key == GLFW_KEY_RIGHT)
     {
-      world->set_camera_delta_yaw(1.0F);
+      world->set_camera_delta_yaw(-1.0F);
     }
   }
   else if (action == GLFW_RELEASE)
