@@ -7,6 +7,8 @@
 #include <iostream>
 #endif
 
+block_game::World* world;
+
 int main()
 {
   if (!glfwInit())
@@ -39,7 +41,7 @@ int main()
   int width;
   int height;
 
-  block_game::World world;
+  world = new block_game::World;
 
   while (!glfwWindowShouldClose(window))
   {
@@ -48,12 +50,14 @@ int main()
     new_time = glfwGetTime();
     delta = new_time - time;
     time = new_time;
-    world.Update(delta);
+    world->Update(delta);
 
     glfwGetFramebufferSize(window, &width, &height);
-    world.Display(width, height);
+    world->Display(width, height);
     glfwSwapBuffers(window);
   }
+
+  delete world;
 
   glfwDestroyWindow(window);
   glfwTerminate();
