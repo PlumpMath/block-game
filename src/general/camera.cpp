@@ -1,5 +1,8 @@
 #include "general/camera.h"
 
+#include <cmath>
+
+#include "general/matrix.h"
 #include "general/vector_3f.h"
 
 namespace block_game
@@ -65,5 +68,39 @@ namespace block_game
   void Camera::set_aspect_ratio(const float aspect_ratio)
   {
     aspect_ratio_ = aspect_ratio;
+  }
+
+  Matrix<4> Camera::GetMatrix() const
+  {
+    const float x_scale{1 / tan(field_of_view_ / 2)};
+    const float y_scale{aspect_ratio_ * x_scale};
+    const float z_average{(z_near_ + z_far_) / 2};
+    const float z_half_distance{(z_far_ - z_near_) / 2};
+
+    Matrix<4> translate;
+    translate[0][3] = -position_.x;
+    translate[1][3] = -position_.y;
+    translate[2][3] = -position_.z;
+
+    Matrix<4> rotate;
+    rotate.RotateZ(-rotation_.z);
+    rotate.RotateX(-rotation_.x);
+    rotate.RotateY(-rotation_.y);
+
+    Matrix<4> scale;
+    scale[0][0] = x_scale;
+    scale[1][1] = y_scale;
+
+    Matrix<4> z_translate;
+    z_translate[2][3] = -z_average;
+
+    Matrix<4> z_scale;
+    z_scale[2][2] = 1 / z_half_distance;
+
+    Matrix<4> project;
+    project[3][2] = z_average;
+    project[3][3] = z_half_distance;
+
+    return project * z_scale * z_translate * scale * rotate * translate;
   }
 }

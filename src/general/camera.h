@@ -1,6 +1,7 @@
 #ifndef BLOCK_GAME_GENERAL_CAMERA_H_
 #define BLOCK_GAME_GENERAL_CAMERA_H_
 
+#include "general/matrix.h"
 #include "general/vector_3f.h"
 
 namespace block_game
@@ -25,6 +26,8 @@ namespace block_game
     void set_z_near(const float);
     void set_z_far(const float);
     void set_aspect_ratio(const float);
+
+    Matrix<4> GetMatrix() const;
 
   private:
     Vector3F position_;
