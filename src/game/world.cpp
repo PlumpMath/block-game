@@ -10,7 +10,9 @@
 
 namespace block_game
 {
-  World::World() : vertex_shader_{GL_VERTEX_SHADER, vertex_glsl}, fragment_shader_{GL_FRAGMENT_SHADER, fragment_glsl},
+  World::World() : camera_rotation_z_{0.0F},
+    vertex_shader_{GL_VERTEX_SHADER, vertex_glsl},
+    fragment_shader_{GL_FRAGMENT_SHADER, fragment_glsl},
     program_{vertex_shader_, fragment_shader_}
   {
     blocks_.emplace_back(0.5F, Color3F{1.0F, 0.0F, 0.0F});
@@ -30,12 +32,19 @@ namespace block_game
     camera_.set_z_far(10.0F);
   }
 
+  void World::set_camera_rotation_z(const float camera_rotation_z)
+  {
+    camera_rotation_z_ = camera_rotation_z;
+  }
+
   void World::Update(const double delta)
   {
     for (Block& block : blocks_)
     {
       block.Update(delta);
     }
+
+    camera_.rotation().z += camera_rotation_z_ * (float) delta;
   }
 
   void World::Display(const int width, const int height)

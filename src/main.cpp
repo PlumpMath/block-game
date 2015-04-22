@@ -9,6 +9,28 @@
 
 block_game::World* world;
 
+void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+  if (action == GLFW_PRESS)
+  {
+    if (key == GLFW_KEY_LEFT_BRACKET)
+    {
+      world->set_camera_rotation_z(1.0F);
+    }
+    else if (key == GLFW_KEY_RIGHT_BRACKET)
+    {
+      world->set_camera_rotation_z(-1.0F);
+    }
+  }
+  else if (action == GLFW_RELEASE)
+  {
+    if (key == GLFW_KEY_LEFT_BRACKET || key == GLFW_KEY_RIGHT_BRACKET)
+    {
+      world->set_camera_rotation_z(0.0F);
+    }
+  }
+}
+
 int main()
 {
   if (!glfwInit())
@@ -42,6 +64,8 @@ int main()
   int height;
 
   world = new block_game::World;
+
+  glfwSetKeyCallback(window, KeyCallback);
 
   while (!glfwWindowShouldClose(window))
   {
