@@ -120,8 +120,8 @@ namespace block_game
     z_scale[2][2] = 1 / z_half_distance;
 
     Matrix<4> project;
-    project[3][2] = z_average;
-    project[3][3] = z_half_distance;
+    project[3][2] = z_half_distance;
+    project[3][3] = z_average;
 
     return project * z_scale * z_translate * scale * rotate * translate;
   }
