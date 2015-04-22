@@ -7,7 +7,7 @@
 
 namespace block_game
 {
-  Camera::Camera() : field_of_view_{0.0F}, z_near_{0.0F}, z_far_{0.0F}, aspect_ratio_{0.0F}
+  Camera::Camera() : field_of_view_{1.0F}, z_near_{0.1F}, z_far_{1.0F}, aspect_ratio_{1.0F}
   {}
 
   const Vector3F& Camera::position() const
