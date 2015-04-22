@@ -5,6 +5,7 @@
 #include <glad/glad.h>
 
 #include "general/camera.h"
+#include "general/vector_2f.h"
 #include "shader/vertex.h"
 #include "shader/fragment.h"
 
@@ -70,9 +71,18 @@ namespace block_game
       block.Update(delta);
     }
 
+    Vector2F camera_forward_direction{0.0F, -1.0F};
+    Vector2F camera_strafe_direction{1.0F, 0.0F};
+    camera_forward_direction.Rotate(camera_.yaw());
+    camera_strafe_direction.Rotate(camera_.yaw());
+
+    camera_.position().x += camera_delta_forward_ * camera_forward_direction.x * (float) delta;
+    camera_.position().y += camera_delta_forward_ * camera_forward_direction.y * (float) delta;
+
+    camera_.position().x += camera_delta_strafe_ * camera_strafe_direction.x * (float) delta;
+    camera_.position().y += camera_delta_strafe_ * camera_strafe_direction.y * (float) delta;
+
     camera_.position().z += camera_delta_vertical_ * (float) delta;
-    camera_.position().y += camera_delta_forward_ * (float) delta;
-    camera_.position().x += camera_delta_strafe_ * (float) delta;
 
     camera_.set_yaw(camera_.yaw() + camera_delta_yaw_ * (float) delta);
     camera_.set_pitch(camera_.pitch() + camera_delta_pitch_ * (float) delta);
