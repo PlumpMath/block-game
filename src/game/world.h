@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "game/block.h"
+#include "general/camera.h"
 #include "opengl/shader.h"
 #include "opengl/program.h"
 
@@ -19,6 +20,7 @@ namespace block_game
 
   private:
     std::vector<Block> blocks_;
+    Camera camera_;
 
     const Shader vertex_shader_;
     const Shader fragment_shader_;

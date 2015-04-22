@@ -4,7 +4,7 @@
 
 #include <glad/glad.h>
 
-#include "general/matrix.h"
+#include "general/camera.h"
 #include "shader/vertex.h"
 #include "shader/fragment.h"
 
@@ -25,6 +25,9 @@ namespace block_game
       blocks_.at(i).position().x = distance * cos((i / (float) blocks_.size()) * tau);
       blocks_.at(i).position().y = distance * sin((i / (float) blocks_.size()) * tau);
     }
+
+    camera_.position().z = -5.0F;
+    camera_.set_z_far(10.0F);
   }
 
   void World::Update(const double delta)
@@ -48,18 +51,8 @@ namespace block_game
 
     program_.Bind();
 
-    Matrix<4> view_projection;
-
-    if (width > height)
-    {
-      view_projection[0][0] = height / (float) width;
-    }
-    else
-    {
-      view_projection[1][1] = width / (float) height;
-    }
-
-    program_.SetUniformMatrix4("viewProjection", view_projection);
+    camera_.set_aspect_ratio(width / (float) height);
+    program_.SetUniformMatrix4("viewProjection", camera_.GetMatrix());
 
     for (const Block& block : blocks_)
     {
