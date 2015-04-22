@@ -13,7 +13,31 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 {
   if (action == GLFW_PRESS)
   {
-    if (key == GLFW_KEY_LEFT_BRACKET)
+    if (key == GLFW_KEY_MINUS)
+    {
+      world->set_camera_delta_vertical(-1.0F);
+    }
+    else if (key == GLFW_KEY_EQUAL)
+    {
+      world->set_camera_delta_vertical(1.0F);
+    }
+    else if (key == GLFW_KEY_W)
+    {
+      world->set_camera_delta_forward(1.0F);
+    }
+    else if (key == GLFW_KEY_S)
+    {
+      world->set_camera_delta_forward(-1.0F);
+    }
+    else if (key == GLFW_KEY_A)
+    {
+      world->set_camera_delta_strafe(-1.0F);
+    }
+    else if (key == GLFW_KEY_D)
+    {
+      world->set_camera_delta_strafe(1.0F);
+    }
+    else if (key == GLFW_KEY_LEFT_BRACKET)
     {
       world->set_camera_delta_roll(1.0F);
     }
@@ -40,7 +64,19 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
   }
   else if (action == GLFW_RELEASE)
   {
-    if (key == GLFW_KEY_LEFT_BRACKET || key == GLFW_KEY_RIGHT_BRACKET)
+    if (key == GLFW_KEY_MINUS || key == GLFW_KEY_EQUAL)
+    {
+      world->set_camera_delta_vertical(0.0F);
+    }
+    else if (key == GLFW_KEY_W || key == GLFW_KEY_S)
+    {
+      world->set_camera_delta_forward(0.0F);
+    }
+    else if (key == GLFW_KEY_A || key == GLFW_KEY_D)
+    {
+      world->set_camera_delta_strafe(0.0F);
+    }
+    else if (key == GLFW_KEY_LEFT_BRACKET || key == GLFW_KEY_RIGHT_BRACKET)
     {
       world->set_camera_delta_roll(0.0F);
     }
