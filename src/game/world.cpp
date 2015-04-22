@@ -22,8 +22,8 @@ namespace block_game
 
     for (size_t i = 0; i < blocks_.size(); ++i)
     {
-      blocks_.at(i).position().x = distance * cos((i / (float) blocks_.size()) * tau);
-      blocks_.at(i).position().y = distance * sin((i / (float) blocks_.size()) * tau);
+      blocks_[i].position().x = distance * cos((i / (float) blocks_.size()) * tau);
+      blocks_[i].position().y = distance * sin((i / (float) blocks_.size()) * tau);
     }
   }
 
