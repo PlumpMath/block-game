@@ -1,13 +1,13 @@
-set_property(GLOBAL APPEND PROPERTY HEADERS_PROPERTY
-  ${CMAKE_CURRENT_SOURCE_DIR}/index_buffer.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/program.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/shader.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/vertex_buffer.h
+add_headers(
+  index_buffer.h
+  program.h
+  shader.h
+  vertex_buffer.h
 )
 
-set_property(GLOBAL APPEND PROPERTY SOURCE_PROPERTY
-  ${CMAKE_CURRENT_SOURCE_DIR}/index_buffer.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/program.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/shader.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/vertex_buffer.cpp
+add_sources(
+  index_buffer.cpp
+  program.cpp
+  shader.cpp
+  vertex_buffer.cpp
 )

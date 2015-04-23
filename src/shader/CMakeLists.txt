@@ -1,9 +1,9 @@
-set_property(GLOBAL APPEND PROPERTY HEADERS_PROPERTY
-  ${CMAKE_CURRENT_SOURCE_DIR}/fragment.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/vertex.h
+add_headers(
+  fragment.h
+  vertex.h
 )
 
-set_property(GLOBAL APPEND PROPERTY SOURCE_PROPERTY
-  ${CMAKE_CURRENT_SOURCE_DIR}/fragment.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/vertex.cpp
+add_sources(
+  fragment.cpp
+  vertex.cpp
 )

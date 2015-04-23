@@ -1,9 +1,9 @@
-set_property(GLOBAL APPEND PROPERTY HEADERS_PROPERTY
-  ${CMAKE_CURRENT_SOURCE_DIR}/block.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/world.h
+add_headers(
+  block.h
+  world.h
 )
 
-set_property(GLOBAL APPEND PROPERTY SOURCE_PROPERTY
-  ${CMAKE_CURRENT_SOURCE_DIR}/block.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/world.cpp
+add_sources(
+  block.cpp
+  world.cpp
 )

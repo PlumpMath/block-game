@@ -56,16 +56,43 @@ file(APPEND ${GLAD_CMAKE_LISTS})
 add_subdirectory(${GLAD_SOURCE} ${GLAD_BINARY})
 include_directories(${GLAD_INCLUDE})
 
-set_property(GLOBAL PROPERTY SOURCE_PROPERTY
-  ${GLAD_SOURCE}/src/glad.c
+macro(add_headers)
+  file(RELATIVE_PATH REL_PATH "${CMAKE_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}")
+  foreach(HEADER ${ARGN})
+    if(REL_PATH)
+      list(APPEND HEADERS "${REL_PATH}/${HEADER}")
+    else()
+      list(APPEND HEADERS "${HEADER}")
+    endif()
+  endforeach()
+  set_property(GLOBAL APPEND PROPERTY HEADERS_PROPERTY ${HEADERS})
+endmacro()
+
+macro(add_sources)
+  file(RELATIVE_PATH REL_PATH "${CMAKE_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}")
+  foreach(SOURCE ${ARGN})
+    if(REL_PATH)
+      list(APPEND SOURCES "${REL_PATH}/${SOURCE}")
+    else()
+      list(APPEND SOURCES "${SOURCE}")
+    endif()
+  endforeach()
+  set_property(GLOBAL APPEND PROPERTY SOURCES_PROPERTY ${SOURCES})
+endmacro()
+
+add_headers(
   ${GLAD_INCLUDE}/glad/glad.h
   ${GLAD_INCLUDE}/KHR/khrplatform.h
+)
+
+add_sources(
+  ${GLAD_SOURCE}/src/glad.c
 )
 
 add_subdirectory(src)
 include_directories(src)
 
-get_property(HEADERS GLOBAL PROPERTY HEADERS_PROPERTY)
-get_property(SOURCE GLOBAL PROPERTY SOURCE_PROPERTY)
-add_executable(block_game ${HEADERS} ${SOURCE})
+get_property(FINAL_HEADERS GLOBAL PROPERTY HEADERS_PROPERTY)
+get_property(FINAL_SOURCES GLOBAL PROPERTY SOURCES_PROPERTY)
+add_executable(block_game ${FINAL_HEADERS} ${FINAL_SOURCES})
 target_link_libraries(block_game glfw ${GLFW_LIBRARIES})
