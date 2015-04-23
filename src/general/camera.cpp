@@ -94,35 +94,24 @@ namespace block_game
 
   Matrix<4> Camera::GetMatrix() const
   {
-    const float x_scale{1 / tan(field_of_view_ / 2)};
-    const float y_scale{aspect_ratio_ * x_scale};
-    const float z_average{(z_near_ + z_far_) / 2};
-    const float z_half_distance{(z_far_ - z_near_) / 2};
+    Matrix<4> translation;
+    translation[0][3] = -position_.x;
+    translation[1][3] = -position_.y;
+    translation[2][3] = -position_.z;
 
-    Matrix<4> translate;
-    translate[0][3] = -position_.x;
-    translate[1][3] = -position_.y;
-    translate[2][3] = -position_.z;
+    Matrix<4> rotation;
+    rotation.RotateZ(-yaw_);
+    rotation.RotateX(-pitch_);
+    rotation.RotateZ(-roll_);
 
-    Matrix<4> rotate;
-    rotate.RotateZ(-yaw_);
-    rotate.RotateX(-pitch_);
-    rotate.RotateZ(-roll_);
+    Matrix<4> projection;
+    projection[0][0] = 1 / tan(field_of_view_ / 2);
+    projection[1][1] = aspect_ratio_ / tan(field_of_view_ / 2);
+    projection[2][2] = (z_far_ + z_near_) / (z_far_ - z_near_);
+    projection[2][3] = -(2 * z_far_ * z_near_) / (z_far_ - z_near_);
+    projection[3][2] = 1.0F;
+    projection[3][3] = 0.0F;
 
-    Matrix<4> scale;
-    scale[0][0] = x_scale;
-    scale[1][1] = y_scale;
-
-    Matrix<4> z_translate;
-    z_translate[2][3] = -z_average;
-
-    Matrix<4> z_scale;
-    z_scale[2][2] = 1 / z_half_distance;
-
-    Matrix<4> project;
-    project[3][2] = z_half_distance;
-    project[3][3] = z_average;
-
-    return project * z_scale * z_translate * scale * rotate * translate;
+    return projection * rotation * translation;
   }
 }
