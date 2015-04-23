@@ -13,7 +13,7 @@ block_game::Vector2F previous_cursor_pos;
 
 block_game::World* world;
 
-void CursorPosCallback(GLFWwindow* window, double x_pos, double y_pos)
+void CursorPosCallback(GLFWwindow* window, const double x_pos, const double y_pos)
 {
   if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED)
   {
@@ -26,7 +26,7 @@ void CursorPosCallback(GLFWwindow* window, double x_pos, double y_pos)
   previous_cursor_pos.y = y_pos;
 }
 
-void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+void KeyCallback(GLFWwindow* window, const int key, const int scancode, const int action, const int mods)
 {
   if (action == GLFW_PRESS)
   {
