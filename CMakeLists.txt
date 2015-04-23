@@ -65,6 +65,7 @@ set_property(GLOBAL PROPERTY SOURCE_PROPERTY
 add_subdirectory(src)
 include_directories(src)
 
+get_property(HEADERS GLOBAL PROPERTY HEADERS_PROPERTY)
 get_property(SOURCE GLOBAL PROPERTY SOURCE_PROPERTY)
-add_executable(block_game ${SOURCE})
+add_executable(block_game ${HEADERS} ${SOURCE})
 target_link_libraries(block_game glfw ${GLFW_LIBRARIES})
