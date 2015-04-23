@@ -12,7 +12,7 @@
 namespace block_game
 {
   World::World() : camera_delta_vertical_{0.0F}, camera_delta_forward_{0.0F}, camera_delta_strafe_{0.0F},
-    camera_delta_yaw_{0.0F}, camera_delta_pitch_{0.0F}, camera_delta_roll_{0.0F},
+    camera_delta_roll_{0.0F},
     vertex_shader_{GL_VERTEX_SHADER, vertex_glsl},
     fragment_shader_{GL_FRAGMENT_SHADER, fragment_glsl},
     program_{vertex_shader_, fragment_shader_}
@@ -34,6 +34,11 @@ namespace block_game
     camera_.set_z_far(10.0F);
   }
 
+  Camera& World::camera()
+  {
+    return camera_;
+  }
+
   void World::set_camera_delta_vertical(const float camera_delta_vertical)
   {
     camera_delta_vertical_ = camera_delta_vertical;
@@ -47,16 +52,6 @@ namespace block_game
   void World::set_camera_delta_strafe(const float camera_delta_strafe)
   {
     camera_delta_strafe_ = camera_delta_strafe;
-  }
-
-  void World::set_camera_delta_yaw(const float camera_delta_yaw)
-  {
-    camera_delta_yaw_ = camera_delta_yaw;
-  }
-
-  void World::set_camera_delta_pitch(const float camera_delta_pitch)
-  {
-    camera_delta_pitch_ = camera_delta_pitch;
   }
 
   void World::set_camera_delta_roll(const float camera_delta_roll)
@@ -84,8 +79,6 @@ namespace block_game
 
     camera_.position().z += camera_delta_vertical_ * (float) delta;
 
-    camera_.set_yaw(camera_.yaw() + camera_delta_yaw_ * (float) delta);
-    camera_.set_pitch(camera_.pitch() + camera_delta_pitch_ * (float) delta);
     camera_.set_roll(camera_.roll() + camera_delta_roll_ * (float) delta);
   }
 

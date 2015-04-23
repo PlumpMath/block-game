@@ -2,17 +2,39 @@
 #include <GLFW/glfw3.h>
 
 #include "game/world.h"
+#include "general/camera.h"
+#include "general/vector_2f.h"
 
 #if _DEBUG
 #include <iostream>
 #endif
 
+block_game::Vector2F previous_cursor_pos;
+
 block_game::World* world;
+
+void CursorPosCallback(GLFWwindow* window, double x_pos, double y_pos)
+{
+  if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED)
+  {
+    block_game::Camera& camera{world->camera()};
+    camera.set_yaw(camera.yaw() + 0.001F * (((float) x_pos) - previous_cursor_pos.x));
+    camera.set_pitch(camera.pitch() + 0.001F * (((float) y_pos) - previous_cursor_pos.y));
+  }
+
+  previous_cursor_pos.x = x_pos;
+  previous_cursor_pos.y = y_pos;
+}
 
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
   if (action == GLFW_PRESS)
   {
+    if (key == GLFW_KEY_ESCAPE)
+    {
+      glfwSetInputMode(window, GLFW_CURSOR,
+        glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_NORMAL ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
+    }
     if (key == GLFW_KEY_MINUS)
     {
       world->set_camera_delta_vertical(-1.0F);
@@ -45,22 +67,6 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
     {
       world->set_camera_delta_roll(-1.0F);
     }
-    else if (key == GLFW_KEY_UP)
-    {
-      world->set_camera_delta_pitch(-1.0F);
-    }
-    else if (key == GLFW_KEY_DOWN)
-    {
-      world->set_camera_delta_pitch(1.0F);
-    }
-    else if (key == GLFW_KEY_LEFT)
-    {
-      world->set_camera_delta_yaw(-1.0F);
-    }
-    else if (key == GLFW_KEY_RIGHT)
-    {
-      world->set_camera_delta_yaw(1.0F);
-    }
   }
   else if (action == GLFW_RELEASE)
   {
@@ -79,14 +85,6 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
     else if (key == GLFW_KEY_LEFT_BRACKET || key == GLFW_KEY_RIGHT_BRACKET)
     {
       world->set_camera_delta_roll(0.0F);
-    }
-    else if (key == GLFW_KEY_UP || key == GLFW_KEY_DOWN)
-    {
-      world->set_camera_delta_pitch(0.0F);
-    }
-    else if (key == GLFW_KEY_LEFT || key == GLFW_KEY_RIGHT)
-    {
-      world->set_camera_delta_yaw(0.0F);
     }
   }
 }
@@ -126,6 +124,7 @@ int main()
   world = new block_game::World;
 
   glfwSetKeyCallback(window, KeyCallback);
+  glfwSetCursorPosCallback(window, CursorPosCallback);
 
   while (!glfwWindowShouldClose(window))
   {

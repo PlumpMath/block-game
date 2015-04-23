@@ -15,12 +15,10 @@ namespace block_game
   public:
     World();
 
+    Camera& camera();
     void set_camera_delta_vertical(const float);
     void set_camera_delta_forward(const float);
     void set_camera_delta_strafe(const float);
-
-    void set_camera_delta_yaw(const float);
-    void set_camera_delta_pitch(const float);
     void set_camera_delta_roll(const float);
 
     void Update(const double);
@@ -30,13 +28,9 @@ namespace block_game
     std::vector<Block> blocks_;
 
     Camera camera_;
-
     float camera_delta_vertical_;
     float camera_delta_forward_;
     float camera_delta_strafe_;
-
-    float camera_delta_yaw_;
-    float camera_delta_pitch_;
     float camera_delta_roll_;
 
     const Shader vertex_shader_;
