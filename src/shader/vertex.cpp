@@ -13,7 +13,7 @@ uniform mat4 viewProjection;
 in vec3 in_Vertex;
 in vec3 in_Normal;
 
-out vec3 pass_Color;
+varying vec3 pass_Color;
 
 void main()
 {
