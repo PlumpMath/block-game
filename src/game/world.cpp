@@ -5,6 +5,7 @@
 #include <glad/glad.h>
 
 #include "general/camera.h"
+#include "general/math.h"
 #include "general/vector_2f.h"
 #include "shader/vertex.h"
 #include "shader/fragment.h"
@@ -21,13 +22,10 @@ namespace block_game
     blocks_.emplace_back(0.5F, Color3F{0.0F, 1.0F, 0.0F});
     blocks_.emplace_back(0.5F, Color3F{0.0F, 0.0F, 1.0F});
 
-    const float tau{8.0F * atan(1.0F)};
-    const float distance{0.375F};
-
     for (size_t i = 0; i < blocks_.size(); ++i)
     {
-      blocks_[i].position().x = distance * cos((i / (float) blocks_.size()) * tau);
-      blocks_[i].position().y = distance * sin((i / (float) blocks_.size()) * tau);
+      blocks_[i].position().x = 0.375F * cos((i / (float) blocks_.size()) * 2 * kPiF);
+      blocks_[i].position().y = 0.375F * sin((i / (float) blocks_.size()) * 2 * kPiF);
     }
 
     camera_.position().z = -5.0F;
