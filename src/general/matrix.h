@@ -21,9 +21,9 @@ namespace block_game
     Matrix<order>& operator+=(const Matrix<order>& matrix);
     Matrix<order>& operator-=(const Matrix<order>& matrix);
 
-    void RotateX(const float angle);
-    void RotateY(const float angle);
-    void RotateZ(const float angle);
+    void RotateX(const float angle); // Rotate around the x-axis
+    void RotateY(const float angle); // Rotate around the y-axis
+    void RotateZ(const float angle); // Rotate around the z-axis
 
     float elements[order][order];
   };
