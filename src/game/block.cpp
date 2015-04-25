@@ -129,10 +129,8 @@ namespace block_game
     program.SetUniformMatrix3("rotation", rotation);
 
     vertex_buffer_.Bind();
-    glVertexAttribPointer(0, Vector3F::kDimensions, GL_FLOAT, GL_TRUE,
-      2 * sizeof(Vector3F), 0);
-    glVertexAttribPointer(1, Vector3F::kDimensions, GL_FLOAT, GL_TRUE,
-      2 * sizeof(Vector3F), reinterpret_cast<void*>(sizeof(Vector3F)));
+    glVertexAttribPointer(0, Vector3F::kDimensions, GL_FLOAT, GL_TRUE, 2 * sizeof(Vector3F), 0);
+    glVertexAttribPointer(1, Vector3F::kDimensions, GL_FLOAT, GL_TRUE, 2 * sizeof(Vector3F), (void*) sizeof(Vector3F));
     VertexBuffer::Unbind();
 
     index_buffer_.Bind();
