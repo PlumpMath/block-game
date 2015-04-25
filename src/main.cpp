@@ -1,13 +1,11 @@
+#include <iostream>
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include "game/world.h"
 #include "general/camera.h"
 #include "general/vector_2f.h"
-
-#if _DEBUG
-#include <iostream>
-#endif
 
 block_game::Vector2F previous_cursor_pos;
 
@@ -106,13 +104,11 @@ int main()
   glfwMakeContextCurrent(window);
   gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
 
-#if _DEBUG
-  std::cout << "OpenGL vendor: " << glGetString(GL_VENDOR) << std::endl;
-  std::cout << "OpenGL renderer: " << glGetString(GL_RENDERER) << std::endl;
-  std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
-  std::cout << "GLSL version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
-  std::cout << std::endl;
-#endif
+  std::clog << "OpenGL vendor: " << glGetString(GL_VENDOR) << std::endl;
+  std::clog << "OpenGL renderer: " << glGetString(GL_RENDERER) << std::endl;
+  std::clog << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
+  std::clog << "GLSL version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+  std::clog << std::endl;
 
   double time{0.0};
   double new_time;
