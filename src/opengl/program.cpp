@@ -1,5 +1,7 @@
 #include "opengl/program.h"
 
+#include <glad/glad.h>
+
 #include "general/matrix.h"
 #include "general/vector_2f.h"
 #include "general/vector_3f.h"

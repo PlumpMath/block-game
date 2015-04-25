@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string>
 
+#include <glad/glad.h>
+
 namespace block_game
 {
   Shader::Shader(const GLenum type, const GLchar* source) : id_{glCreateShader(type)}

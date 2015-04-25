@@ -1,5 +1,7 @@
 #include "opengl/index_buffer.h"
 
+#include <glad/glad.h>
+
 namespace block_game
 {
   IndexBuffer::IndexBuffer()

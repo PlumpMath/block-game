@@ -5,8 +5,8 @@
 
 #include "game/block.h"
 #include "general/camera.h"
-#include "opengl/shader.h"
 #include "opengl/program.h"
+#include "opengl/shader.h"
 
 namespace block_game
 {

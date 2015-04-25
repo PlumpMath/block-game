@@ -2,8 +2,12 @@
 
 #include <glad/glad.h>
 
+#include "general/color_3f.h"
 #include "general/matrix.h"
+#include "general/vector_3f.h"
+#include "opengl/index_buffer.h"
 #include "opengl/program.h"
+#include "opengl/vertex_buffer.h"
 
 namespace block_game
 {

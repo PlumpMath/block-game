@@ -1,14 +1,19 @@
 #include "game/world.h"
 
 #include <cmath>
+#include <vector>
 
 #include <glad/glad.h>
 
+#include "game/block.h"
 #include "general/camera.h"
+#include "general/color_3f.h"
 #include "general/math.h"
 #include "general/vector_2f.h"
-#include "shader/vertex.h"
+#include "opengl/program.h"
+#include "opengl/shader.h"
 #include "shader/fragment.h"
+#include "shader/vertex.h"
 
 namespace block_game
 {

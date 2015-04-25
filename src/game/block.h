@@ -3,8 +3,8 @@
 
 #include "general/color_3f.h"
 #include "general/vector_3f.h"
-#include "opengl/vertex_buffer.h"
 #include "opengl/index_buffer.h"
+#include "opengl/vertex_buffer.h"
 
 namespace block_game
 {

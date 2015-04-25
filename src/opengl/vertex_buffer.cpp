@@ -1,5 +1,7 @@
 #include "opengl/vertex_buffer.h"
 
+#include <glad/glad.h>
+
 namespace block_game
 {
   VertexBuffer::VertexBuffer()
