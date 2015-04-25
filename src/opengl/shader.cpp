@@ -1,7 +1,7 @@
 #include "opengl/shader.h"
 
 #include <iostream>
-#include <vector>
+#include <string>
 
 namespace block_game
 {
@@ -10,24 +10,21 @@ namespace block_game
     glShaderSource(id_, 1, &source, nullptr);
     glCompileShader(id_);
 
-    int is_compiled;
+    GLint is_compiled;
     glGetShaderiv(id_, GL_COMPILE_STATUS, &is_compiled);
     if (!is_compiled)
     {
-      int max_length;
+      GLint max_length;
       glGetShaderiv(id_, GL_INFO_LOG_LENGTH, &max_length);
 
-      std::vector<const char> error_log(max_length);
+      std::string error_log(max_length, '\0');
       glGetShaderInfoLog(id_, max_length, &max_length, &error_log[0]);
 
-      std::cerr << "Shader failed to compile! Source:";
+      std::cerr << "Shader failed to compile as type " << type << "! Source:";
       std::cerr << source;
       std::cerr << "Error log:" << std::endl;
       std::cerr << std::endl;
-      for (const char character : error_log)
-      {
-        std::cerr << character;
-      }
+      std::cerr << error_log;
       std::cerr << std::endl;
       std::cerr << std::endl;
       std::cerr << "End of error log." << std::endl;
