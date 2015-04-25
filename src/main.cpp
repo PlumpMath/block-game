@@ -20,8 +20,8 @@ void CursorPosCallback(GLFWwindow* window, const double x_pos, const double y_po
     camera.set_pitch(camera.pitch() + 0.001F * (((float) y_pos) - previous_cursor_pos.y));
   }
 
-  previous_cursor_pos.x = x_pos;
-  previous_cursor_pos.y = y_pos;
+  previous_cursor_pos.x = (float) x_pos;
+  previous_cursor_pos.y = (float) y_pos;
 }
 
 void KeyCallback(GLFWwindow* window, const int key, const int scancode, const int action, const int mods)
