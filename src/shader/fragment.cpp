@@ -4,7 +4,7 @@ const char* block_game::fragment_glsl{R"(
 
 #version 120
 
-in vec3 pass_Color;
+varying vec3 pass_Color;
 
 void main()
 {

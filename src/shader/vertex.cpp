@@ -10,8 +10,8 @@ uniform vec3 position;
 uniform mat3 rotation;
 uniform mat4 viewProjection;
 
-in vec3 in_Vertex;
-in vec3 in_Normal;
+attribute vec3 in_Vertex;
+attribute vec3 in_Normal;
 
 varying vec3 pass_Color;
 
