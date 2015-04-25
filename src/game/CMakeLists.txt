@@ -1,5 +1,6 @@
 add_headers(
   block.h
+  grid.h
   world.h
 )
 
