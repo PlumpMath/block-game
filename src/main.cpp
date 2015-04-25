@@ -16,12 +16,12 @@ void CursorPosCallback(GLFWwindow* window, const double x_pos, const double y_po
   if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED)
   {
     block_game::Camera& camera{world->camera()};
-    camera.set_yaw(camera.yaw() + 0.001F * (((float) x_pos) - previous_cursor_pos.x));
-    camera.set_pitch(camera.pitch() + 0.001F * (((float) y_pos) - previous_cursor_pos.y));
+    camera.set_yaw(static_cast<float>(camera.yaw() + 0.001F * (x_pos - previous_cursor_pos.x)));
+    camera.set_pitch(static_cast<float>(camera.pitch() + 0.001F * (y_pos - previous_cursor_pos.y)));
   }
 
-  previous_cursor_pos.x = (float) x_pos;
-  previous_cursor_pos.y = (float) y_pos;
+  previous_cursor_pos.x = static_cast<float>(x_pos);
+  previous_cursor_pos.y = static_cast<float>(y_pos);
 }
 
 void KeyCallback(GLFWwindow* window, const int key, const int scancode, const int action, const int mods)

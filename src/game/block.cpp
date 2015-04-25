@@ -109,11 +109,11 @@ namespace block_game
 
   void Block::Update(const double delta)
   {
-    position_.RotateZ((float) delta);
+    position_.RotateZ(static_cast<float>(delta));
 
-    rotation_.x += (1 - color_.r) * (float) delta;
-    rotation_.y += (1 - color_.g) * (float) delta;
-    rotation_.z += (1 - color_.b) * (float) delta;
+    rotation_.x += static_cast<float>((1 - color_.r) * delta);
+    rotation_.y += static_cast<float>((1 - color_.g) * delta);
+    rotation_.z += static_cast<float>((1 - color_.b) * delta);
   }
 
   void Block::Draw(Program& program) const
@@ -129,8 +129,10 @@ namespace block_game
     program.SetUniformMatrix3("rotation", rotation);
 
     vertex_buffer_.Bind();
-    glVertexAttribPointer(0, Vector3F::kDimensions, GL_FLOAT, GL_TRUE, 2 * sizeof(Vector3F), (void*) 0);
-    glVertexAttribPointer(1, Vector3F::kDimensions, GL_FLOAT, GL_TRUE, 2 * sizeof(Vector3F), (void*) sizeof(Vector3F));
+    glVertexAttribPointer(0, Vector3F::kDimensions, GL_FLOAT, GL_TRUE,
+      2 * sizeof(Vector3F), 0);
+    glVertexAttribPointer(1, Vector3F::kDimensions, GL_FLOAT, GL_TRUE,
+      2 * sizeof(Vector3F), reinterpret_cast<void*>(sizeof(Vector3F)));
     VertexBuffer::Unbind();
 
     index_buffer_.Bind();

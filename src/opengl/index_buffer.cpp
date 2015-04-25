@@ -31,6 +31,6 @@ namespace block_game
 
   void IndexBuffer::Draw(const GLsizei count, const GLenum type) const
   {
-    glDrawElements(GL_TRIANGLES, count, type, (void*) 0);
+    glDrawElements(GL_TRIANGLES, count, type, 0);
   }
 }

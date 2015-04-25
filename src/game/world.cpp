@@ -29,8 +29,8 @@ namespace block_game
 
     for (size_t i = 0; i < blocks_.size(); ++i)
     {
-      blocks_[i].position().x = 0.375F * cos((i / (float) blocks_.size()) * 2 * kPiF);
-      blocks_[i].position().y = 0.375F * sin((i / (float) blocks_.size()) * 2 * kPiF);
+      blocks_[i].position().x = 0.375F * cos((i / static_cast<float>(blocks_.size())) * 2 * kPiF);
+      blocks_[i].position().y = 0.375F * sin((i / static_cast<float>(blocks_.size())) * 2 * kPiF);
     }
 
     camera_.position().z = -5.0F;
@@ -74,15 +74,15 @@ namespace block_game
     camera_forward_direction.Rotate(camera_.yaw());
     camera_strafe_direction.Rotate(camera_.yaw());
 
-    camera_.position().x += camera_delta_forward_ * camera_forward_direction.x * (float) delta;
-    camera_.position().y += camera_delta_forward_ * camera_forward_direction.y * (float) delta;
+    camera_.position().x += static_cast<float>(camera_delta_forward_ * camera_forward_direction.x * delta);
+    camera_.position().y += static_cast<float>(camera_delta_forward_ * camera_forward_direction.y * delta);
 
-    camera_.position().x += camera_delta_strafe_ * camera_strafe_direction.x * (float) delta;
-    camera_.position().y += camera_delta_strafe_ * camera_strafe_direction.y * (float) delta;
+    camera_.position().x += static_cast<float>(camera_delta_strafe_ * camera_strafe_direction.x * delta);
+    camera_.position().y += static_cast<float>(camera_delta_strafe_ * camera_strafe_direction.y * delta);
 
-    camera_.position().z += camera_delta_vertical_ * (float) delta;
+    camera_.position().z += static_cast<float>(camera_delta_vertical_ * delta);
 
-    camera_.set_roll(camera_.roll() + camera_delta_roll_ * (float) delta);
+    camera_.set_roll(static_cast<float>(camera_.roll() + camera_delta_roll_ * delta));
   }
 
   void World::Display(const int width, const int height)
@@ -98,7 +98,7 @@ namespace block_game
 
     program_.Bind();
 
-    camera_.set_aspect_ratio(width / (float) height);
+    camera_.set_aspect_ratio(width / static_cast<float>(height));
     program_.SetUniformMatrix4("viewProjection", camera_.GetMatrix());
 
     for (const Block& block : blocks_)
