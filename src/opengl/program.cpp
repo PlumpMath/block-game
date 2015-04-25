@@ -8,7 +8,7 @@
 namespace block_game
 {
   Program::Program(const Shader& vertex_shader, const Shader& fragment_shader)
-    : id_(glCreateProgram()), vertex_shader_(vertex_shader), fragment_shader_(fragment_shader)
+    : id_{glCreateProgram()}, vertex_shader_{vertex_shader}, fragment_shader_{fragment_shader}
   {
     vertex_shader_.Attach(id_);
     fragment_shader_.Attach(id_);

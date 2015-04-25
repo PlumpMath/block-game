@@ -5,7 +5,7 @@ namespace block_game
 {
   struct Color3F
   {
-    static const int kDimensions = 3;
+    static const int kDimensions{3};
 
     Color3F();
     Color3F(const float, const float, const float);
