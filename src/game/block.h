@@ -13,17 +13,14 @@ namespace block_game
   class Block
   {
   public:
-    Block(const float, const Color3F&);
+    Block(const float, const Color3F&, const Vector3F&);
 
     float radius() const;
     const Color3F& color() const;
     const Vector3F& position() const;
-    const Vector3F& rotation() const;
 
     Vector3F& position();
-    Vector3F& rotation();
 
-    void Update(const double);
     void Draw(Program&) const;
 
   private:
@@ -32,8 +29,7 @@ namespace block_game
 
     const float radius_;
     const Color3F color_;
-    Vector3F position_;
-    Vector3F rotation_;
+    const Vector3F position_;
 
     VertexBuffer vertex_buffer_;
     IndexBuffer index_buffer_;

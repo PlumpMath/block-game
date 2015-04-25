@@ -6,5 +6,6 @@ add_headers(
 
 add_sources(
   block.cpp
+  grid.cpp
   world.cpp
 )

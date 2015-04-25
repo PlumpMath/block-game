@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "game/block.h"
+#include "game/grid.h"
 #include "general/camera.h"
 #include "opengl/program.h"
 #include "opengl/shader.h"
@@ -25,7 +25,7 @@ namespace block_game
     void Display(const int, const int);
 
   private:
-    std::vector<Block> blocks_;
+    std::vector<Grid> grids_;
 
     Camera camera_;
     float camera_delta_vertical_;

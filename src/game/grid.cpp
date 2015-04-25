@@ -1,8 +1,7 @@
-#include "game/block.h"
-
-#include <glad/glad.h>
+#include "game/grid.h"
 
 #include "general/color_3f.h"
+#include "general/matrix.h"
 #include "general/vector_3f.h"
 #include "opengl/index_buffer.h"
 #include "opengl/program.h"
@@ -10,7 +9,7 @@
 
 namespace block_game
 {
-  const Vector3F Block::vertices_[][2]
+  const Vector3F vertices_[][2]
   {
     // -x
     {{-1.0F, -1.0F, -1.0F}, {-1.0F, 0.0F, 0.0F}},
@@ -43,7 +42,7 @@ namespace block_game
     {{-1.0F, 1.0F, 1.0F}, {0.0F, 0.0F, 1.0F}},
     {{1.0F, 1.0F, 1.0F}, {0.0F, 0.0F, 1.0F}}
   };
-  const unsigned char Block::indices_[]
+  const unsigned char indices_[]
   {
     // -x
     0, 1, 3,
@@ -65,51 +64,55 @@ namespace block_game
       20, 23, 21
   };
 
-  Block::Block(const float radius, const Color3F& color, const Vector3F& position)
-    : radius_{radius}, color_{color}, position_{position}
-  {
-    Vector3F vertices[24][2];
-    for (int i = 0; i < 24; ++i)
-    {
-      vertices[i][0] = position + vertices_[i][0];
-      vertices[i][1] = vertices_[i][1];
-    }
+  Grid::Grid(const float radius, const Color3F& color)
+    : radius_{radius}, block_{radius, color, Vector3F{1.0F, 1.0F, 1.0F}}
+  {}
 
-    vertex_buffer_.Bind();
-    vertex_buffer_.SetData(sizeof vertices, vertices, GL_STATIC_DRAW);
-    VertexBuffer::Unbind();
-
-    index_buffer_.Bind();
-    index_buffer_.SetData(sizeof indices_, indices_, GL_STATIC_DRAW);
-    IndexBuffer::Unbind();
-  }
-
-  float Block::radius() const
+  float Grid::radius() const
   {
     return radius_;
   }
 
-  const Color3F& Block::color() const
-  {
-    return color_;
-  }
-
-  const Vector3F& Block::position() const
+  const Vector3F& Grid::position() const
   {
     return position_;
   }
 
-  void Block::Draw(Program& program) const
+  const Vector3F& Grid::rotation() const
   {
-    program.SetUniformVector3F("color", {color_.r, color_.g, color_.b});
+    return rotation_;
+  }
 
-    vertex_buffer_.Bind();
-    glVertexAttribPointer(0, Vector3F::kDimensions, GL_FLOAT, GL_TRUE, 2 * sizeof(Vector3F), 0);
-    glVertexAttribPointer(1, Vector3F::kDimensions, GL_FLOAT, GL_TRUE, 2 * sizeof(Vector3F), (void*) sizeof(Vector3F));
-    VertexBuffer::Unbind();
+  Vector3F& Grid::position()
+  {
+    return position_;
+  }
 
-    index_buffer_.Bind();
-    index_buffer_.Draw(sizeof indices_, GL_UNSIGNED_BYTE);
-    IndexBuffer::Unbind();
+  Vector3F& Grid::rotation()
+  {
+    return rotation_;
+  }
+
+  void Grid::Update(const double delta)
+  {
+    position_.RotateZ(static_cast<float>(delta));
+
+    rotation_.x += static_cast<float>((1 - block_.color().r) * delta);
+    rotation_.y += static_cast<float>((1 - block_.color().g) * delta);
+    rotation_.z += static_cast<float>((1 - block_.color().b) * delta);
+  }
+
+  void Grid::Draw(Program& program) const
+  {
+    Matrix<3> rotation;
+    rotation.RotateY(rotation_.y);
+    rotation.RotateX(rotation_.x);
+    rotation.RotateZ(rotation_.z);
+
+    program.SetUniformFloat("radius", radius_);
+    program.SetUniformVector3F("position", position_);
+    program.SetUniformMatrix3("rotation", rotation);
+
+    block_.Draw(program);
   }
 }
