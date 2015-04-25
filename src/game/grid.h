@@ -16,7 +16,6 @@ namespace block_game
   public:
     Grid(const float, const Color3F&);
 
-    float radius() const;
     const Vector3F& position() const;
     const Vector3F& rotation() const;
 
@@ -27,11 +26,10 @@ namespace block_game
     void Draw(Program&) const;
 
   private:
-    const float radius_;
     Vector3F position_;
     Vector3F rotation_;
 
-    Block block_;
+    Block root_;
   };
 }
 
