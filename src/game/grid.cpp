@@ -15,20 +15,7 @@
 namespace block_game
 {
   Grid::Grid(const float radius) : root_{nullptr, radius, {0.0F, 0.0F, 0.0F}}
-  {
-    std::vector<const BlockVertex> vertices;
-    std::vector<const unsigned char> indices;
-    root_.BuildDraw(vertices, indices);
-    num_indices_ = indices.size();
-
-    vertex_buffer_.Bind();
-    vertex_buffer_.SetData(sizeof(BlockVertex) * vertices.size(), &vertices[0], GL_STATIC_DRAW);
-    VertexBuffer::Unbind();
-
-    index_buffer_.Bind();
-    index_buffer_.SetData(indices.size(), &indices[0], GL_STATIC_DRAW);
-    IndexBuffer::Unbind();
-  }
+  {}
 
   const Vector3F& Grid::position() const
   {
@@ -67,6 +54,22 @@ namespace block_game
     rotation_.x += static_cast<float>((1 - root_.color().r) * delta);
     rotation_.y += static_cast<float>((1 - root_.color().g) * delta);
     rotation_.z += static_cast<float>((1 - root_.color().b) * delta);
+  }
+
+  void Grid::RebuildDraw()
+  {
+    std::vector<const BlockVertex> vertices;
+    std::vector<const unsigned char> indices;
+    root_.BuildDraw(vertices, indices);
+    num_indices_ = indices.size();
+
+    vertex_buffer_.Bind();
+    vertex_buffer_.SetData(sizeof(BlockVertex) * vertices.size(), &vertices[0], GL_STATIC_DRAW);
+    VertexBuffer::Unbind();
+
+    index_buffer_.Bind();
+    index_buffer_.SetData(indices.size(), &indices[0], GL_STATIC_DRAW);
+    IndexBuffer::Unbind();
   }
 
   void Grid::Draw(Program& program) const

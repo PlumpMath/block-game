@@ -26,6 +26,7 @@ namespace block_game
     Block& root();
 
     void Update(const double);
+    void RebuildDraw();
     void Draw(Program&) const;
 
   private:

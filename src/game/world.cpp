@@ -31,6 +31,7 @@ namespace block_game
       grids_[i].position().x = cos((i / static_cast<float>(grids_.size())) * 2 * kPiF);
       grids_[i].position().y = sin((i / static_cast<float>(grids_.size())) * 2 * kPiF);
       grids_[i].root().color()[i] = 1.0F;
+      grids_[i].RebuildDraw();
     }
 
     camera_.position().z = -10.0F;
