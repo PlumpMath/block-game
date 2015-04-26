@@ -103,6 +103,11 @@ namespace block_game
     return children[z][y][x];
   }
 
+  Block* Block::Child(const int x, const int y, const int z)
+  {
+    return children[z][y][x];
+  }
+
   const Color3F& Block::color() const
   {
     return color_;

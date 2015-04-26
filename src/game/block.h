@@ -22,6 +22,7 @@ namespace block_game
     bool is_leaf() const;
 
     const Block* Child(const int, const int, const int) const;
+    Block* Child(const int, const int, const int);
 
     const Color3F& color() const;
     Color3F& color();
