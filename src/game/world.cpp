@@ -32,6 +32,10 @@ namespace block_game
       grids_[i].position().x = cos((i / static_cast<float>(grids_.size())) * 2 * kPiF);
       grids_[i].position().y = sin((i / static_cast<float>(grids_.size())) * 2 * kPiF);
       grids_[i].root().color()[i] = 1.0F;
+      grids_[i].root().Split();
+      grids_[i].root().Child(1, 0, 0)->color().r = 1.0F;
+      grids_[i].root().Child(1, 0, 0)->color().g = 1.0F;
+      grids_[i].root().Child(1, 0, 0)->color().b = 1.0F;
       grids_[i].RebuildDraw();
     }
 
