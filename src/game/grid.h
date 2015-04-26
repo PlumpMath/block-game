@@ -4,7 +4,6 @@
 #include <glad/glad.h>
 
 #include "game/block.h"
-#include "general/color_3f.h"
 #include "general/vector_3f.h"
 #include "opengl/index_buffer.h"
 #include "opengl/vertex_buffer.h"
