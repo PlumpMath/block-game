@@ -26,6 +26,9 @@ namespace block_game
     const Color3F& color() const;
     Color3F& color();
 
+    void Merge();
+    void Split();
+
     void BuildDraw(std::vector<const BlockVertex>&, std::vector<const unsigned char>&);
     void Draw(Program&) const;
 

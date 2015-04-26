@@ -65,7 +65,18 @@ namespace block_game
 
   Block::Block(const Block* parent, const float radius, const Vector3F& position)
     : parent_{parent}, radius_{radius}, position_{position}, is_leaf_{true}
-  {}
+  {
+    for (int z = 0; z < 2; ++z)
+    {
+      for (int y = 0; y < 2; ++y)
+      {
+        for (int x = 0; x < 2; ++x)
+        {
+          children[z][y][x] = nullptr;
+        }
+      }
+    }
+  }
 
   const Block* Block::parent() const
   {
@@ -100,6 +111,43 @@ namespace block_game
   Color3F& Block::color()
   {
     return color_;
+  }
+
+  void Block::Merge()
+  {
+    is_leaf_ = true;
+
+    for (int z = 0; z < 2; ++z)
+    {
+      for (int y = 0; y < 2; ++y)
+      {
+        for (int x = 0; x < 2; ++x)
+        {
+          delete children[z][y][x];
+          children[z][y][x] = nullptr;
+        }
+      }
+    }
+  }
+
+  void Block::Split()
+  {
+    is_leaf_ = false;
+
+    for (int z = 0; z < 2; ++z)
+    {
+      for (int y = 0; y < 2; ++y)
+      {
+        for (int x = 0; x < 2; ++x)
+        {
+          children[z][y][x] = new Block{this, radius_ / 2, position_ + radius_ * Vector3F{x - 0.5F, y - 0.5F, z - 0.5F}};
+          Color3F& child_color = children[z][y][x]->color();
+          child_color.r = color_.r;
+          child_color.g = color_.g;
+          child_color.b = color_.b;
+        }
+      }
+    }
   }
 
   void Block::BuildDraw(std::vector<const BlockVertex>& vertices, std::vector<const unsigned char>& indices)
