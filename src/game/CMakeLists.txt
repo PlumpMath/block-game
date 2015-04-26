@@ -7,6 +7,7 @@ add_headers(
 
 add_sources(
   block.cpp
+  block_vertex.cpp
   grid.cpp
   world.cpp
 )
