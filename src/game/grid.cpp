@@ -1,5 +1,10 @@
 #include "game/grid.h"
 
+#include <vector>
+
+#include <glad/glad.h>
+
+#include "game/block_vertex.h"
 #include "general/color_3f.h"
 #include "general/matrix.h"
 #include "general/vector_3f.h"
@@ -10,7 +15,20 @@
 namespace block_game
 {
   Grid::Grid(const float radius) : root_{nullptr, radius, {0.0F, 0.0F, 0.0F}}
-  {}
+  {
+    std::vector<const BlockVertex> vertices;
+    std::vector<const unsigned char> indices;
+    root_.BuildDraw(vertices, indices);
+    num_indices_ = indices.size();
+
+    vertex_buffer_.Bind();
+    vertex_buffer_.SetData(sizeof(BlockVertex) * vertices.size(), &vertices[0], GL_STATIC_DRAW);
+    VertexBuffer::Unbind();
+
+    index_buffer_.Bind();
+    index_buffer_.SetData(indices.size(), &indices[0], GL_STATIC_DRAW);
+    IndexBuffer::Unbind();
+  }
 
   const Vector3F& Grid::position() const
   {
@@ -58,9 +76,17 @@ namespace block_game
     rotation.RotateX(rotation_.x);
     rotation.RotateZ(rotation_.z);
 
+    program.SetUniformVector3F("color", {root_.color().r, root_.color().g, root_.color().b});
     program.SetUniformVector3F("position", position_);
     program.SetUniformMatrix3("rotation", rotation);
 
-    root_.Draw(program);
+    vertex_buffer_.Bind();
+    glVertexAttribPointer(0, Vector3F::kDimensions, GL_FLOAT, GL_TRUE, 2 * sizeof(Vector3F), 0);
+    glVertexAttribPointer(1, Vector3F::kDimensions, GL_FLOAT, GL_TRUE, 2 * sizeof(Vector3F), (void*) sizeof(Vector3F));
+    VertexBuffer::Unbind();
+
+    index_buffer_.Bind();
+    index_buffer_.Draw(num_indices_, GL_UNSIGNED_BYTE);
+    IndexBuffer::Unbind();
   }
 }

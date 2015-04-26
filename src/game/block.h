@@ -1,11 +1,11 @@
 #ifndef BLOCK_GAME_GAME_BLOCK_H_
 #define BLOCK_GAME_GAME_BLOCK_H_
 
+#include <vector>
+
 #include "game/block_vertex.h"
 #include "general/color_3f.h"
 #include "general/vector_3f.h"
-#include "opengl/index_buffer.h"
-#include "opengl/vertex_buffer.h"
 
 namespace block_game
 {
@@ -26,6 +26,7 @@ namespace block_game
     const Color3F& color() const;
     Color3F& color();
 
+    void BuildDraw(std::vector<const BlockVertex>&, std::vector<const unsigned char>&);
     void Draw(Program&) const;
 
   private:
@@ -40,8 +41,6 @@ namespace block_game
     Block* children[2][2][2];
 
     Color3F color_;
-    VertexBuffer vertex_buffer_;
-    IndexBuffer index_buffer_;
   };
 }
 

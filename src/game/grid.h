@@ -1,6 +1,8 @@
 #ifndef BLOCK_GAME_GAME_GRID_H_
 #define BLOCK_GAME_GAME_GRID_H_
 
+#include <glad/glad.h>
+
 #include "game/block.h"
 #include "general/color_3f.h"
 #include "general/vector_3f.h"
@@ -31,6 +33,10 @@ namespace block_game
     Vector3F position_;
     Vector3F rotation_;
     Block root_;
+
+    VertexBuffer vertex_buffer_;
+    IndexBuffer index_buffer_;
+    GLsizei num_indices_;
   };
 }
 

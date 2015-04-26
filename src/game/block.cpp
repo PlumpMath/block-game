@@ -5,9 +5,6 @@
 #include "game/block_vertex.h"
 #include "general/color_3f.h"
 #include "general/vector_3f.h"
-#include "opengl/index_buffer.h"
-#include "opengl/program.h"
-#include "opengl/vertex_buffer.h"
 
 namespace block_game
 {
@@ -68,22 +65,7 @@ namespace block_game
 
   Block::Block(const Block* parent, const float radius, const Vector3F& position)
     : parent_{parent}, radius_{radius}, position_{position}, is_leaf_{true}
-  {
-    BlockVertex vertices[24];
-    for (int i = 0; i < 24; ++i)
-    {
-      vertices[i].position = position + radius * vertices_[i].position;
-      vertices[i].normal = vertices_[i].normal;
-    }
-
-    vertex_buffer_.Bind();
-    vertex_buffer_.SetData(sizeof vertices, vertices, GL_STATIC_DRAW);
-    VertexBuffer::Unbind();
-
-    index_buffer_.Bind();
-    index_buffer_.SetData(sizeof indices_, indices_, GL_STATIC_DRAW);
-    IndexBuffer::Unbind();
-  }
+  {}
 
   const Block* Block::parent() const
   {
@@ -120,17 +102,31 @@ namespace block_game
     return color_;
   }
 
-  void Block::Draw(Program& program) const
+  void Block::BuildDraw(std::vector<const BlockVertex>& vertices, std::vector<const unsigned char>& indices)
   {
-    program.SetUniformVector3F("color", {color_.r, color_.g, color_.b});
-
-    vertex_buffer_.Bind();
-    glVertexAttribPointer(0, Vector3F::kDimensions, GL_FLOAT, GL_TRUE, 2 * sizeof(Vector3F), 0);
-    glVertexAttribPointer(1, Vector3F::kDimensions, GL_FLOAT, GL_TRUE, 2 * sizeof(Vector3F), (void*) sizeof(Vector3F));
-    VertexBuffer::Unbind();
-
-    index_buffer_.Bind();
-    index_buffer_.Draw(sizeof indices_, GL_UNSIGNED_BYTE);
-    IndexBuffer::Unbind();
+    if (is_leaf_)
+    {
+      for (int i = 0; i < 24; ++i)
+      {
+        vertices.emplace_back(position_ + radius_ * vertices_[i].position, vertices_[i].normal);
+      }
+      for (int i = 0; i < 36; ++i)
+      {
+        indices.emplace_back(indices_[i]);
+      }
+    }
+    else
+    {
+      for (auto& four : children)
+      {
+        for (auto& two : four)
+        {
+          for (auto& child : two)
+          {
+            child->BuildDraw(vertices, indices);
+          }
+        }
+      }
+    }
   }
 }
