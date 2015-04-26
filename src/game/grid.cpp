@@ -79,13 +79,20 @@ namespace block_game
     rotation.RotateX(rotation_.x);
     rotation.RotateZ(rotation_.z);
 
-    program.SetUniformVector3F("color", {root_.color().r, root_.color().g, root_.color().b});
     program.SetUniformVector3F("position", position_);
     program.SetUniformMatrix3("rotation", rotation);
 
     vertex_buffer_.Bind();
-    glVertexAttribPointer(0, Vector3F::kDimensions, GL_FLOAT, GL_TRUE, 2 * sizeof(Vector3F), 0);
-    glVertexAttribPointer(1, Vector3F::kDimensions, GL_FLOAT, GL_TRUE, 2 * sizeof(Vector3F), (void*) sizeof(Vector3F));
+
+    glVertexAttribPointer(program.GetAttribLocation("in_Vertex"), Vector3F::kDimensions,
+      GL_FLOAT, GL_TRUE, sizeof(BlockVertex), 0);
+
+    glVertexAttribPointer(program.GetAttribLocation("in_Normal"), Vector3F::kDimensions,
+      GL_FLOAT, GL_TRUE, sizeof(BlockVertex), (void*) (1 * sizeof(Vector3F)));
+
+    glVertexAttribPointer(program.GetAttribLocation("in_Color"), Color3F::kDimensions,
+      GL_FLOAT, GL_TRUE, sizeof(BlockVertex), (void*) (2 * sizeof(Vector3F)));
+
     VertexBuffer::Unbind();
 
     index_buffer_.Bind();

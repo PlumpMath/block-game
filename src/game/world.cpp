@@ -22,6 +22,7 @@ namespace block_game
     fragment_shader_{GL_FRAGMENT_SHADER, fragment_glsl},
     program_{vertex_shader_, fragment_shader_}
   {
+    grids_.reserve(3);
     grids_.emplace_back(1.0F);
     grids_.emplace_back(1.0F);
     grids_.emplace_back(1.0F);
@@ -96,6 +97,7 @@ namespace block_game
 
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(2);
 
     program_.Bind();
 
@@ -109,6 +111,7 @@ namespace block_game
 
     Program::Unbind();
 
+    glDisableVertexAttribArray(2);
     glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(0);
 

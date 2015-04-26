@@ -37,6 +37,11 @@ namespace block_game
     glUseProgram(0);
   }
 
+  GLint Program::GetAttribLocation(const GLchar* name)
+  {
+    return glGetAttribLocation(id_, name);
+  }
+
   void Program::SetUniformFloat(const GLchar* name, const GLfloat value)
   {
     glUniform1f(glGetUniformLocation(id_, name), value);
@@ -56,7 +61,7 @@ namespace block_game
   {
     glUniformMatrix2fv(glGetUniformLocation(id_, name), 1, true, *(matrix.elements));
   }
-  
+
   void Program::SetUniformMatrix3(const GLchar* name, const Matrix<3>& matrix)
   {
     glUniformMatrix3fv(glGetUniformLocation(id_, name), 1, true, *(matrix.elements));
