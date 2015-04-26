@@ -159,13 +159,14 @@ namespace block_game
   {
     if (is_leaf_)
     {
+      for (int i = 0; i < 36; ++i)
+      {
+        indices.emplace_back(vertices.size() + indices_[i]);
+      }
+
       for (int i = 0; i < 24; ++i)
       {
         vertices.emplace_back(position_ + radius_ * vertices_[i].position, vertices_[i].normal, color_);
-      }
-      for (int i = 0; i < 36; ++i)
-      {
-        indices.emplace_back(indices_[i]);
       }
     }
     else
