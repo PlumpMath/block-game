@@ -2,6 +2,7 @@
 
 #include <glad/glad.h>
 
+#include "game/block_vertex.h"
 #include "general/color_3f.h"
 #include "general/vector_3f.h"
 #include "opengl/index_buffer.h"
@@ -10,7 +11,7 @@
 
 namespace block_game
 {
-  const Vector3F Block::vertices_[][2]
+  const BlockVertex Block::vertices_[]
   {
     // -x
     {{-1.0F, -1.0F, -1.0F}, {-1.0F, 0.0F, 0.0F}},
@@ -68,11 +69,11 @@ namespace block_game
   Block::Block(const Block* parent, const float radius, const Vector3F& position)
     : parent_{parent}, radius_{radius}, position_{position}, is_leaf_{true}
   {
-    Vector3F vertices[24][2];
+    BlockVertex vertices[24];
     for (int i = 0; i < 24; ++i)
     {
-      vertices[i][0] = position + radius * vertices_[i][0];
-      vertices[i][1] = vertices_[i][1];
+      vertices[i].position = position + radius * vertices_[i].position;
+      vertices[i].normal = vertices_[i].normal;
     }
 
     vertex_buffer_.Bind();

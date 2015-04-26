@@ -1,6 +1,7 @@
 #ifndef BLOCK_GAME_GAME_BLOCK_H_
 #define BLOCK_GAME_GAME_BLOCK_H_
 
+#include "game/block_vertex.h"
 #include "general/color_3f.h"
 #include "general/vector_3f.h"
 #include "opengl/index_buffer.h"
@@ -28,7 +29,7 @@ namespace block_game
     void Draw(Program&) const;
 
   private:
-    static const Vector3F vertices_[][2];
+    static const BlockVertex vertices_[];
     static const unsigned char indices_[];
 
     const Block* parent_;
