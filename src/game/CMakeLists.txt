@@ -1,5 +1,6 @@
 add_headers(
   block.h
+  block_vertex.h
   grid.h
   world.h
 )
