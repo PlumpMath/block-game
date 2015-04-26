@@ -20,6 +20,8 @@ namespace block_game
     void Bind() const;
     static void Unbind();
 
+    GLint GetAttribLocation(const GLchar*);
+
     void SetUniformFloat(const GLchar*, const GLfloat);
     void SetUniformVector2F(const GLchar*, const Vector2F&);
     void SetUniformVector3F(const GLchar*, const Vector3F&);
