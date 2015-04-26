@@ -24,7 +24,9 @@ namespace block_game
     const Block* Child(const int, const int, const int) const;
     Block* Child(const int, const int, const int);
 
+    bool is_solid() const;
     const Color3F& color() const;
+    void set_is_solid(const bool);
     Color3F& color();
 
     void Merge();
@@ -44,6 +46,7 @@ namespace block_game
 
     Block* children[2][2][2];
 
+    bool is_solid_;
     Color3F color_;
   };
 }

@@ -64,7 +64,8 @@ namespace block_game
   };
 
   Block::Block(const Block* parent, const float radius, const Vector3F& position)
-    : parent_{parent}, radius_{radius}, position_{position}, is_leaf_{true}
+    : parent_{parent}, radius_{radius}, position_{position}, is_leaf_{true},
+    is_solid_{false}
   {
     for (int z = 0; z < 2; ++z)
     {
@@ -108,9 +109,19 @@ namespace block_game
     return children[z][y][x];
   }
 
+  bool Block::is_solid() const
+  {
+    return is_solid_;
+  }
+
   const Color3F& Block::color() const
   {
     return color_;
+  }
+
+  void Block::set_is_solid(const bool is_solid)
+  {
+    is_solid_ = is_solid;
   }
 
   Color3F& Block::color()
@@ -146,6 +157,7 @@ namespace block_game
         for (int x = 0; x < 2; ++x)
         {
           children[z][y][x] = new Block{this, radius_ / 2, position_ + radius_ * Vector3F{x - 0.5F, y - 0.5F, z - 0.5F}};
+          children[z][y][x]->set_is_solid(is_solid_);
           Color3F& child_color = children[z][y][x]->color();
           child_color.r = color_.r;
           child_color.g = color_.g;
@@ -159,14 +171,17 @@ namespace block_game
   {
     if (is_leaf_)
     {
-      for (int i = 0; i < 36; ++i)
+      if (is_solid_)
       {
-        indices.emplace_back(vertices.size() + indices_[i]);
-      }
+        for (int i = 0; i < 36; ++i)
+        {
+          indices.emplace_back(vertices.size() + indices_[i]);
+        }
 
-      for (int i = 0; i < 24; ++i)
-      {
-        vertices.emplace_back(position_ + radius_ * vertices_[i].position, vertices_[i].normal, color_);
+        for (int i = 0; i < 24; ++i)
+        {
+          vertices.emplace_back(position_ + radius_ * vertices_[i].position, vertices_[i].normal, color_);
+        }
       }
     }
     else
