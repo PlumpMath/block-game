@@ -13,13 +13,17 @@ namespace block_game
   class Block
   {
   public:
-    Block(const float, const Color3F&, const Vector3F&);
+    Block(const Block*, const float, const Vector3F&);
 
+    const Block* parent() const;
     float radius() const;
-    const Color3F& color() const;
     const Vector3F& position() const;
+    bool is_leaf() const;
 
-    Vector3F& position();
+    const Block* Child(const int, const int, const int) const;
+
+    const Color3F& color() const;
+    Color3F& color();
 
     void Draw(Program&) const;
 
@@ -27,10 +31,14 @@ namespace block_game
     static const Vector3F vertices_[][2];
     static const unsigned char indices_[];
 
+    const Block* parent_;
     const float radius_;
-    const Color3F color_;
     const Vector3F position_;
+    bool is_leaf_;
 
+    Block* children[2][2][2];
+
+    Color3F color_;
     VertexBuffer vertex_buffer_;
     IndexBuffer index_buffer_;
   };

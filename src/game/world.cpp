@@ -22,18 +22,19 @@ namespace block_game
     fragment_shader_{GL_FRAGMENT_SHADER, fragment_glsl},
     program_{vertex_shader_, fragment_shader_}
   {
-    grids_.emplace_back(0.5F, Color3F{1.0F, 0.0F, 0.0F});
-    grids_.emplace_back(0.5F, Color3F{0.0F, 1.0F, 0.0F});
-    grids_.emplace_back(0.5F, Color3F{0.0F, 0.0F, 1.0F});
+    grids_.emplace_back(1.0F);
+    grids_.emplace_back(1.0F);
+    grids_.emplace_back(1.0F);
 
     for (size_t i = 0; i < grids_.size(); ++i)
     {
-      grids_[i].position().x = 0.375F * cos((i / static_cast<float>(grids_.size())) * 2 * kPiF);
-      grids_[i].position().y = 0.375F * sin((i / static_cast<float>(grids_.size())) * 2 * kPiF);
+      grids_[i].position().x = cos((i / static_cast<float>(grids_.size())) * 2 * kPiF);
+      grids_[i].position().y = sin((i / static_cast<float>(grids_.size())) * 2 * kPiF);
+      grids_[i].root().color()[i] = 1.0F;
     }
 
-    camera_.position().z = -5.0F;
-    camera_.set_z_far(10.0F);
+    camera_.position().z = -10.0F;
+    camera_.set_z_far(100.0F);
   }
 
   Camera& World::camera()

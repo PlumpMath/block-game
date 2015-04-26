@@ -65,13 +65,13 @@ namespace block_game
       20, 23, 21
   };
 
-  Block::Block(const float radius, const Color3F& color, const Vector3F& position)
-    : radius_{radius}, color_{color}, position_{position}
+  Block::Block(const Block* parent, const float radius, const Vector3F& position)
+    : parent_{parent}, radius_{radius}, position_{position}, is_leaf_{true}
   {
     Vector3F vertices[24][2];
     for (int i = 0; i < 24; ++i)
     {
-      vertices[i][0] = position + vertices_[i][0];
+      vertices[i][0] = position + radius * vertices_[i][0];
       vertices[i][1] = vertices_[i][1];
     }
 
@@ -84,9 +84,29 @@ namespace block_game
     IndexBuffer::Unbind();
   }
 
+  const Block* Block::parent() const
+  {
+    return parent_;
+  }
+
   float Block::radius() const
   {
     return radius_;
+  }
+
+  const Vector3F& Block::position() const
+  {
+    return position_;
+  }
+
+  bool Block::is_leaf() const
+  {
+    return is_leaf_;
+  }
+
+  const Block* Block::Child(const int x, const int y, const int z) const
+  {
+    return children[z][y][x];
   }
 
   const Color3F& Block::color() const
@@ -94,9 +114,9 @@ namespace block_game
     return color_;
   }
 
-  const Vector3F& Block::position() const
+  Color3F& Block::color()
   {
-    return position_;
+    return color_;
   }
 
   void Block::Draw(Program& program) const

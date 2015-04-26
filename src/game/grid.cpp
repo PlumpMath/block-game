@@ -9,7 +9,7 @@
 
 namespace block_game
 {
-  Grid::Grid(const float radius, const Color3F& color) : root_{radius, color, Vector3F{1.0F, 1.0F, 1.0F}}
+  Grid::Grid(const float radius) : root_{nullptr, radius, {0.0F, 0.0F, 0.0F}}
   {}
 
   const Vector3F& Grid::position() const
@@ -22,6 +22,11 @@ namespace block_game
     return rotation_;
   }
 
+  const Block& Grid::root() const
+  {
+    return root_;
+  }
+
   Vector3F& Grid::position()
   {
     return position_;
@@ -30,6 +35,11 @@ namespace block_game
   Vector3F& Grid::rotation()
   {
     return rotation_;
+  }
+
+  Block& Grid::root()
+  {
+    return root_;
   }
 
   void Grid::Update(const double delta)
@@ -48,7 +58,6 @@ namespace block_game
     rotation.RotateX(rotation_.x);
     rotation.RotateZ(rotation_.z);
 
-    program.SetUniformFloat("radius", root_.radius());
     program.SetUniformVector3F("position", position_);
     program.SetUniformMatrix3("rotation", rotation);
 

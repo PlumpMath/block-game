@@ -14,13 +14,15 @@ namespace block_game
   class Grid
   {
   public:
-    Grid(const float, const Color3F&);
+    Grid(const float);
 
     const Vector3F& position() const;
     const Vector3F& rotation() const;
+    const Block& root() const;
 
     Vector3F& position();
     Vector3F& rotation();
+    Block& root();
 
     void Update(const double);
     void Draw(Program&) const;
@@ -28,7 +30,6 @@ namespace block_game
   private:
     Vector3F position_;
     Vector3F rotation_;
-
     Block root_;
   };
 }
