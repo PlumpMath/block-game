@@ -19,14 +19,14 @@ namespace block_game
     const Block* parent() const;
     float radius() const;
     const Vector3F& position() const;
-    bool is_leaf() const;
+    bool leaf() const;
 
     const Block* Child(const int, const int, const int) const;
     Block* Child(const int, const int, const int);
 
-    bool is_solid() const;
+    bool solid() const;
     const Color3F& color() const;
-    void set_is_solid(const bool);
+    void set_solid(const bool);
     Color3F& color();
 
     void Merge();
@@ -42,11 +42,11 @@ namespace block_game
     const Block* parent_;
     const float radius_;
     const Vector3F position_;
-    bool is_leaf_;
+    bool leaf_;
 
     Block* children[2][2][2];
 
-    bool is_solid_;
+    bool solid_;
     Color3F color_;
   };
 }

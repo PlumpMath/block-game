@@ -64,8 +64,8 @@ namespace block_game
   };
 
   Block::Block(const Block* parent, const float radius, const Vector3F& position)
-    : parent_{parent}, radius_{radius}, position_{position}, is_leaf_{true},
-    is_solid_{false}
+    : parent_{parent}, radius_{radius}, position_{position}, leaf_{true},
+    solid_{false}
   {
     for (int z = 0; z < 2; ++z)
     {
@@ -94,9 +94,9 @@ namespace block_game
     return position_;
   }
 
-  bool Block::is_leaf() const
+  bool Block::leaf() const
   {
-    return is_leaf_;
+    return leaf_;
   }
 
   const Block* Block::Child(const int x, const int y, const int z) const
@@ -109,9 +109,9 @@ namespace block_game
     return children[z][y][x];
   }
 
-  bool Block::is_solid() const
+  bool Block::solid() const
   {
-    return is_solid_;
+    return solid_;
   }
 
   const Color3F& Block::color() const
@@ -119,9 +119,9 @@ namespace block_game
     return color_;
   }
 
-  void Block::set_is_solid(const bool is_solid)
+  void Block::set_solid(const bool is_solid)
   {
-    is_solid_ = is_solid;
+    solid_ = is_solid;
   }
 
   Color3F& Block::color()
@@ -131,7 +131,7 @@ namespace block_game
 
   void Block::Merge()
   {
-    is_leaf_ = true;
+    leaf_ = true;
 
     for (int z = 0; z < 2; ++z)
     {
@@ -148,7 +148,7 @@ namespace block_game
 
   void Block::Split()
   {
-    is_leaf_ = false;
+    leaf_ = false;
 
     for (int z = 0; z < 2; ++z)
     {
@@ -157,7 +157,7 @@ namespace block_game
         for (int x = 0; x < 2; ++x)
         {
           children[z][y][x] = new Block{this, radius_ / 2, position_ + radius_ * Vector3F{x - 0.5F, y - 0.5F, z - 0.5F}};
-          children[z][y][x]->set_is_solid(is_solid_);
+          children[z][y][x]->set_solid(solid_);
           Color3F& child_color = children[z][y][x]->color();
           child_color.r = color_.r;
           child_color.g = color_.g;
@@ -169,9 +169,9 @@ namespace block_game
 
   void Block::BuildDraw(std::vector<const BlockVertex>& vertices, std::vector<const unsigned char>& indices)
   {
-    if (is_leaf_)
+    if (leaf_)
     {
-      if (is_solid_)
+      if (solid_)
       {
         for (int i = 0; i < 36; ++i)
         {
