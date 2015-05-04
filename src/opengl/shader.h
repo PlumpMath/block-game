@@ -11,11 +11,17 @@ namespace block_game
     Shader(const GLenum, const GLchar*);
     ~Shader();
 
+    // The source Shader points to nothing after copy/move
+    Shader(Shader&);
+    Shader(Shader&&);
+    Shader& operator=(Shader&);
+    Shader& operator=(Shader&&);
+
     void Attach(const GLuint) const;
     void Detach(const GLuint) const;
 
   private:
-    const GLuint id_;
+    GLuint id_;
   };
 }
 

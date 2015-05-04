@@ -14,6 +14,30 @@ namespace block_game
     glDeleteBuffers(1, &id_);
   }
 
+  VertexBuffer::VertexBuffer(VertexBuffer& vertex_buffer) : id_{vertex_buffer.id_}
+  {
+    vertex_buffer.id_ = 0;
+  }
+
+  VertexBuffer::VertexBuffer(VertexBuffer&& vertex_buffer) : id_{vertex_buffer.id_}
+  {
+    vertex_buffer.id_ = 0;
+  }
+
+  VertexBuffer& VertexBuffer::operator=(VertexBuffer& vertex_buffer)
+  {
+    id_ = vertex_buffer.id_;
+    vertex_buffer.id_ = 0;
+    return *this;
+  }
+
+  VertexBuffer& VertexBuffer::operator=(VertexBuffer&& vertex_buffer)
+  {
+    id_ = vertex_buffer.id_;
+    vertex_buffer.id_ = 0;
+    return *this;
+  }
+
   void VertexBuffer::Bind() const
   {
     glBindBuffer(GL_ARRAY_BUFFER, id_);

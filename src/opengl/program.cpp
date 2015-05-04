@@ -27,6 +27,32 @@ namespace block_game
     glDeleteProgram(id_);
   }
 
+  Program::Program(Program& program)
+    : id_{program.id_}, vertex_shader_{program.vertex_shader_}, fragment_shader_{program.fragment_shader_}
+  {
+    program.id_ = 0;
+  }
+
+  Program::Program(Program&& program)
+    : id_{program.id_}, vertex_shader_{program.vertex_shader_}, fragment_shader_{program.fragment_shader_}
+  {
+    program.id_ = 0;
+  }
+
+  Program& Program::operator=(Program& program)
+  {
+    id_ = program.id_;
+    program.id_ = 0;
+    return *this;
+  }
+
+  Program& Program::operator=(Program&& program)
+  {
+    id_ = program.id_;
+    program.id_ = 0;
+    return *this;
+  }
+
   void Program::Bind() const
   {
     glUseProgram(id_);

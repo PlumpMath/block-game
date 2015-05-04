@@ -39,6 +39,30 @@ namespace block_game
     glDeleteShader(id_);
   }
 
+  Shader::Shader(Shader& shader) : id_{shader.id_}
+  {
+    shader.id_ = 0;
+  }
+
+  Shader::Shader(Shader&& shader) : id_{shader.id_}
+  {
+    shader.id_ = 0;
+  }
+
+  Shader& Shader::operator=(Shader& shader)
+  {
+    id_ = shader.id_;
+    shader.id_ = 0;
+    return *this;
+  }
+
+  Shader& Shader::operator=(Shader&& shader)
+  {
+    id_ = shader.id_;
+    shader.id_ = 0;
+    return *this;
+  }
+
   void Shader::Attach(const GLuint program_id) const
   {
     glAttachShader(program_id, id_);

@@ -17,6 +17,12 @@ namespace block_game
     Program(const Shader&, const Shader&);
     ~Program();
 
+    // The source Program points to nothing after copy/move
+    Program(Program&);
+    Program(Program&&);
+    Program& operator=(Program&);
+    Program& operator=(Program&&);
+
     void Bind() const;
     static void Unbind();
 
@@ -30,7 +36,7 @@ namespace block_game
     void SetUniformMatrix4(const GLchar*, const Matrix<4>&);
 
   private:
-    const GLuint id_;
+    GLuint id_;
 
     const Shader& vertex_shader_;
     const Shader& fragment_shader_;

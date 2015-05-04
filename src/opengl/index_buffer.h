@@ -11,6 +11,12 @@ namespace block_game
     IndexBuffer();
     ~IndexBuffer();
 
+    // The source IndexBuffer points to nothing after copy/move
+    IndexBuffer(IndexBuffer&);
+    IndexBuffer(IndexBuffer&&);
+    IndexBuffer& operator=(IndexBuffer&);
+    IndexBuffer& operator=(IndexBuffer&&);
+
     void Bind() const;
     static void Unbind();
 

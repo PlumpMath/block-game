@@ -22,7 +22,6 @@ namespace block_game
     fragment_shader_{GL_FRAGMENT_SHADER, fragment_glsl},
     program_{vertex_shader_, fragment_shader_}
   {
-    grids_.reserve(3);
     grids_.emplace_back(1.0F);
     grids_.emplace_back(1.0F);
     grids_.emplace_back(1.0F);

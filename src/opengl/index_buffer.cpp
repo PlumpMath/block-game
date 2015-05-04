@@ -14,6 +14,30 @@ namespace block_game
     glDeleteBuffers(1, &id_);
   }
 
+  IndexBuffer::IndexBuffer(IndexBuffer& index_buffer) : id_{index_buffer.id_}
+  {
+    index_buffer.id_ = 0;
+  }
+
+  IndexBuffer::IndexBuffer(IndexBuffer&& index_buffer) : id_{index_buffer.id_}
+  {
+    index_buffer.id_ = 0;
+  }
+
+  IndexBuffer& IndexBuffer::operator=(IndexBuffer& index_buffer)
+  {
+    id_ = index_buffer.id_;
+    index_buffer.id_ = 0;
+    return *this;
+  }
+
+  IndexBuffer& IndexBuffer::operator=(IndexBuffer&& index_buffer)
+  {
+    id_ = index_buffer.id_;
+    index_buffer.id_ = 0;
+    return *this;
+  }
+
   void IndexBuffer::Bind() const
   {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_);

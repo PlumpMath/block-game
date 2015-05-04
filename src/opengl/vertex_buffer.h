@@ -11,6 +11,12 @@ namespace block_game
     VertexBuffer();
     ~VertexBuffer();
 
+    // The source VertexBuffer points to nothing after copy/move
+    VertexBuffer(VertexBuffer&);
+    VertexBuffer(VertexBuffer&&);
+    VertexBuffer& operator=(VertexBuffer&);
+    VertexBuffer& operator=(VertexBuffer&&);
+
     void Bind() const;
     static void Unbind();
 
