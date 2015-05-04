@@ -1,10 +1,11 @@
 #ifndef BLOCK_GAME_GAME_BLOCK_H_
 #define BLOCK_GAME_GAME_BLOCK_H_
 
+#include <vector>
+
+#include "game/block_vertex.h"
 #include "general/color_3f.h"
 #include "general/vector_3f.h"
-#include "opengl/index_buffer.h"
-#include "opengl/vertex_buffer.h"
 
 namespace block_game
 {
@@ -13,30 +14,44 @@ namespace block_game
   class Block
   {
   public:
-    Block(const float, const Color3F&);
+    Block(const Block*, const float, const Vector3F&);
 
+    const Block* parent() const;
     float radius() const;
-    const Color3F& color() const;
     const Vector3F& position() const;
-    const Vector3F& rotation() const;
+    bool leaf() const;
 
-    Vector3F& position();
-    Vector3F& rotation();
+    // leaf_ == false
+    const Block* Child(const int, const int, const int) const;
+    Block* Child(const int, const int, const int);
 
-    void Update(const double);
+    // leaf_ == true
+    bool solid() const;
+    const Color3F& color() const;
+    void set_solid(const bool);
+    Color3F& color();
+
+    void Merge();
+    void Split();
+
+    void BuildDraw(std::vector<const BlockVertex>&, std::vector<const unsigned char>&);
     void Draw(Program&) const;
 
   private:
-    static const Vector3F vertices_[][2];
+    static const BlockVertex vertices_[];
     static const unsigned char indices_[];
 
+    const Block* parent_;
     const float radius_;
-    const Color3F color_;
-    Vector3F position_;
-    Vector3F rotation_;
+    const Vector3F position_;
+    bool leaf_;
 
-    VertexBuffer vertex_buffer_;
-    IndexBuffer index_buffer_;
+    // leaf_ == false
+    Block* children[2][2][2];
+
+    // leaf_ == true
+    bool solid_;
+    Color3F color_;
   };
 }
 

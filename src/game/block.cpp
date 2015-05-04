@@ -1,48 +1,45 @@
 #include "game/block.h"
 
-#include <glad/glad.h>
+#include <vector>
 
+#include "game/block_vertex.h"
 #include "general/color_3f.h"
-#include "general/matrix.h"
 #include "general/vector_3f.h"
-#include "opengl/index_buffer.h"
-#include "opengl/program.h"
-#include "opengl/vertex_buffer.h"
 
 namespace block_game
 {
-  const Vector3F Block::vertices_[][2]
+  const BlockVertex Block::vertices_[]
   {
     // -x
-    {{-1.0F, -1.0F, -1.0F}, {-1.0F, 0.0F, 0.0F}},
-    {{-1.0F, 1.0F, -1.0F}, {-1.0F, 0.0F, 0.0F}},
-    {{-1.0F, -1.0F, 1.0F}, {-1.0F, 0.0F, 0.0F}},
-    {{-1.0F, 1.0F, 1.0F}, {-1.0F, 0.0F, 0.0F}},
+    {{-1.0F, -1.0F, -1.0F}, {-1.0F, 0.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
+    {{-1.0F, 1.0F, -1.0F}, {-1.0F, 0.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
+    {{-1.0F, -1.0F, 1.0F}, {-1.0F, 0.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
+    {{-1.0F, 1.0F, 1.0F}, {-1.0F, 0.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
     // +x
-    {{1.0F, -1.0F, -1.0F}, {1.0F, 0.0F, 0.0F}},
-    {{1.0F, 1.0F, -1.0F}, {1.0F, 0.0F, 0.0F}},
-    {{1.0F, -1.0F, 1.0F}, {1.0F, 0.0F, 0.0F}},
-    {{1.0F, 1.0F, 1.0F}, {1.0F, 0.0F, 0.0F}},
+    {{1.0F, -1.0F, -1.0F}, {1.0F, 0.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
+    {{1.0F, 1.0F, -1.0F}, {1.0F, 0.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
+    {{1.0F, -1.0F, 1.0F}, {1.0F, 0.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
+    {{1.0F, 1.0F, 1.0F}, {1.0F, 0.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
     // -y
-    {{-1.0F, -1.0F, -1.0F}, {0.0F, -1.0F, 0.0F}},
-    {{1.0F, -1.0F, -1.0F}, {0.0F, -1.0F, 0.0F}},
-    {{-1.0F, -1.0F, 1.0F}, {0.0F, -1.0F, 0.0F}},
-    {{1.0F, -1.0F, 1.0F}, {0.0F, -1.0F, 0.0F}},
+    {{-1.0F, -1.0F, -1.0F}, {0.0F, -1.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
+    {{1.0F, -1.0F, -1.0F}, {0.0F, -1.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
+    {{-1.0F, -1.0F, 1.0F}, {0.0F, -1.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
+    {{1.0F, -1.0F, 1.0F}, {0.0F, -1.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
     // +y
-    {{-1.0F, 1.0F, -1.0F}, {0.0F, 1.0F, 0.0F}},
-    {{1.0F, 1.0F, -1.0F}, {0.0F, 1.0F, 0.0F}},
-    {{-1.0F, 1.0F, 1.0F}, {0.0F, 1.0F, 0.0F}},
-    {{1.0F, 1.0F, 1.0F}, {0.0F, 1.0F, 0.0F}},
+    {{-1.0F, 1.0F, -1.0F}, {0.0F, 1.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
+    {{1.0F, 1.0F, -1.0F}, {0.0F, 1.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
+    {{-1.0F, 1.0F, 1.0F}, {0.0F, 1.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
+    {{1.0F, 1.0F, 1.0F}, {0.0F, 1.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
     // -z
-    {{-1.0F, -1.0F, -1.0F}, {0.0F, 0.0F, -1.0F}},
-    {{1.0F, -1.0F, -1.0F}, {0.0F, 0.0F, -1.0F}},
-    {{-1.0F, 1.0F, -1.0F}, {0.0F, 0.0F, -1.0F}},
-    {{1.0F, 1.0F, -1.0F}, {0.0F, 0.0F, -1.0F}},
+    {{-1.0F, -1.0F, -1.0F}, {0.0F, 0.0F, -1.0F}, {1.0F, 1.0F, 1.0F}},
+    {{1.0F, -1.0F, -1.0F}, {0.0F, 0.0F, -1.0F}, {1.0F, 1.0F, 1.0F}},
+    {{-1.0F, 1.0F, -1.0F}, {0.0F, 0.0F, -1.0F}, {1.0F, 1.0F, 1.0F}},
+    {{1.0F, 1.0F, -1.0F}, {0.0F, 0.0F, -1.0F}, {1.0F, 1.0F, 1.0F}},
     // +z
-    {{-1.0F, -1.0F, 1.0F}, {0.0F, 0.0F, 1.0F}},
-    {{1.0F, -1.0F, 1.0F}, {0.0F, 0.0F, 1.0F}},
-    {{-1.0F, 1.0F, 1.0F}, {0.0F, 0.0F, 1.0F}},
-    {{1.0F, 1.0F, 1.0F}, {0.0F, 0.0F, 1.0F}}
+    {{-1.0F, -1.0F, 1.0F}, {0.0F, 0.0F, 1.0F}, {1.0F, 1.0F, 1.0F}},
+    {{1.0F, -1.0F, 1.0F}, {0.0F, 0.0F, 1.0F}, {1.0F, 1.0F, 1.0F}},
+    {{-1.0F, 1.0F, 1.0F}, {0.0F, 0.0F, 1.0F}, {1.0F, 1.0F, 1.0F}},
+    {{1.0F, 1.0F, 1.0F}, {0.0F, 0.0F, 1.0F}, {1.0F, 1.0F, 1.0F}}
   };
   const unsigned char Block::indices_[]
   {
@@ -66,15 +63,25 @@ namespace block_game
       20, 23, 21
   };
 
-  Block::Block(const float radius, const Color3F& color) : radius_{radius}, color_{color}
+  Block::Block(const Block* parent, const float radius, const Vector3F& position)
+    : parent_{parent}, radius_{radius}, position_{position}, leaf_{true},
+    solid_{false}
   {
-    vertex_buffer_.Bind();
-    vertex_buffer_.SetData(sizeof vertices_, vertices_, GL_STATIC_DRAW);
-    VertexBuffer::Unbind();
+    for (int z = 0; z < 2; ++z)
+    {
+      for (int y = 0; y < 2; ++y)
+      {
+        for (int x = 0; x < 2; ++x)
+        {
+          children[z][y][x] = nullptr;
+        }
+      }
+    }
+  }
 
-    index_buffer_.Bind();
-    index_buffer_.SetData(sizeof indices_, indices_, GL_STATIC_DRAW);
-    IndexBuffer::Unbind();
+  const Block* Block::parent() const
+  {
+    return parent_;
   }
 
   float Block::radius() const
@@ -82,61 +89,113 @@ namespace block_game
     return radius_;
   }
 
-  const Color3F& Block::color() const
-  {
-    return color_;
-  }
-
   const Vector3F& Block::position() const
   {
     return position_;
   }
 
-  const Vector3F& Block::rotation() const
+  bool Block::leaf() const
   {
-    return rotation_;
+    return leaf_;
   }
 
-  Vector3F& Block::position()
+  const Block* Block::Child(const int x, const int y, const int z) const
   {
-    return position_;
+    return children[z][y][x];
   }
 
-  Vector3F& Block::rotation()
+  Block* Block::Child(const int x, const int y, const int z)
   {
-    return rotation_;
+    return children[z][y][x];
   }
 
-  void Block::Update(const double delta)
+  bool Block::solid() const
   {
-    position_.RotateZ(static_cast<float>(delta));
-
-    rotation_.x += static_cast<float>((1 - color_.r) * delta);
-    rotation_.y += static_cast<float>((1 - color_.g) * delta);
-    rotation_.z += static_cast<float>((1 - color_.b) * delta);
+    return solid_;
   }
 
-  void Block::Draw(Program& program) const
+  const Color3F& Block::color() const
   {
-    Matrix<3> rotation;
-    rotation.RotateY(rotation_.y);
-    rotation.RotateX(rotation_.x);
-    rotation.RotateZ(rotation_.z);
+    return color_;
+  }
 
-    program.SetUniformFloat("radius", radius_);
-    program.SetUniformVector3F("color", {color_.r, color_.g, color_.b});
-    program.SetUniformVector3F("position", position_);
-    program.SetUniformMatrix3("rotation", rotation);
+  void Block::set_solid(const bool is_solid)
+  {
+    solid_ = is_solid;
+  }
 
-    vertex_buffer_.Bind();
-    glVertexAttribPointer(program.GetAttribLocation("in_Vertex"), Vector3F::kDimensions,
-      GL_FLOAT, GL_TRUE, 2 * sizeof(Vector3F), 0);
-    glVertexAttribPointer(program.GetAttribLocation("in_Normal"), Vector3F::kDimensions,
-      GL_FLOAT, GL_TRUE, 2 * sizeof(Vector3F), (void*) sizeof(Vector3F));
-    VertexBuffer::Unbind();
+  Color3F& Block::color()
+  {
+    return color_;
+  }
 
-    index_buffer_.Bind();
-    index_buffer_.Draw(sizeof indices_, GL_UNSIGNED_BYTE);
-    IndexBuffer::Unbind();
+  void Block::Merge()
+  {
+    leaf_ = true;
+
+    for (int z = 0; z < 2; ++z)
+    {
+      for (int y = 0; y < 2; ++y)
+      {
+        for (int x = 0; x < 2; ++x)
+        {
+          delete children[z][y][x];
+          children[z][y][x] = nullptr;
+        }
+      }
+    }
+  }
+
+  void Block::Split()
+  {
+    leaf_ = false;
+
+    for (int z = 0; z < 2; ++z)
+    {
+      for (int y = 0; y < 2; ++y)
+      {
+        for (int x = 0; x < 2; ++x)
+        {
+          children[z][y][x] = new Block{this, radius_ / 2, position_ + radius_ * Vector3F{x - 0.5F, y - 0.5F, z - 0.5F}};
+          children[z][y][x]->set_solid(solid_);
+          Color3F& child_color = children[z][y][x]->color();
+          child_color.r = color_.r;
+          child_color.g = color_.g;
+          child_color.b = color_.b;
+        }
+      }
+    }
+  }
+
+  void Block::BuildDraw(std::vector<const BlockVertex>& vertices, std::vector<const unsigned char>& indices)
+  {
+    if (leaf_)
+    {
+      if (solid_)
+      {
+        for (int i = 0; i < 36; ++i)
+        {
+          indices.emplace_back(vertices.size() + indices_[i]);
+        }
+
+        for (int i = 0; i < 24; ++i)
+        {
+          vertices.emplace_back(position_ + radius_ * vertices_[i].position, vertices_[i].normal, color_);
+        }
+      }
+    }
+    else
+    {
+      for (auto& four : children)
+      {
+        for (auto& two : four)
+        {
+          for (auto& child : two)
+          {
+            child->BuildDraw(vertices, indices);
+          }
+        }
+      }
+    }
   }
 }

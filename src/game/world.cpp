@@ -5,7 +5,6 @@
 
 #include <glad/glad.h>
 
-#include "game/block.h"
 #include "general/camera.h"
 #include "general/color_3f.h"
 #include "general/math.h"
@@ -23,18 +22,25 @@ namespace block_game
     fragment_shader_{GL_FRAGMENT_SHADER, fragment_glsl},
     program_{vertex_shader_, fragment_shader_}
   {
-    blocks_.emplace_back(0.5F, Color3F{1.0F, 0.0F, 0.0F});
-    blocks_.emplace_back(0.5F, Color3F{0.0F, 1.0F, 0.0F});
-    blocks_.emplace_back(0.5F, Color3F{0.0F, 0.0F, 1.0F});
+    grids_.reserve(3);
+    grids_.emplace_back(1.0F);
+    grids_.emplace_back(1.0F);
+    grids_.emplace_back(1.0F);
 
-    for (size_t i = 0; i < blocks_.size(); ++i)
+    for (size_t i = 0; i < grids_.size(); ++i)
     {
-      blocks_[i].position().x = 0.375F * cos((i / static_cast<float>(blocks_.size())) * 2 * kPiF);
-      blocks_[i].position().y = 0.375F * sin((i / static_cast<float>(blocks_.size())) * 2 * kPiF);
+      grids_[i].position().x = cos((i / static_cast<float>(grids_.size())) * 2 * kPiF);
+      grids_[i].position().y = sin((i / static_cast<float>(grids_.size())) * 2 * kPiF);
+      grids_[i].root().set_solid(true);
+      grids_[i].root().color()[i] = 1.0F;
+      grids_[i].root().Split();
+      grids_[i].root().Child(0, 0, 0)->set_solid(false);
+      grids_[i].root().Child(1, 1, 1)->set_solid(false);
+      grids_[i].RebuildDraw();
     }
 
-    camera_.position().z = -5.0F;
-    camera_.set_z_far(10.0F);
+    camera_.position().z = -10.0F;
+    camera_.set_z_far(100.0F);
   }
 
   Camera& World::camera()
@@ -64,9 +70,9 @@ namespace block_game
 
   void World::Update(const double delta)
   {
-    for (Block& block : blocks_)
+    for (Grid& grid : grids_)
     {
-      block.Update(delta);
+      grid.Update(delta);
     }
 
     Vector2F camera_forward_direction{0.0F, -1.0F};
@@ -95,19 +101,21 @@ namespace block_game
 
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(2);
 
     program_.Bind();
 
     camera_.set_aspect_ratio(width / static_cast<float>(height));
     program_.SetUniformMatrix4("viewProjection", camera_.GetMatrix());
 
-    for (const Block& block : blocks_)
+    for (const Grid& grid : grids_)
     {
-      block.Draw(program_);
+      grid.Draw(program_);
     }
 
     Program::Unbind();
 
+    glDisableVertexAttribArray(2);
     glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(0);
 
