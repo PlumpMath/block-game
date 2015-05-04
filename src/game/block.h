@@ -21,9 +21,11 @@ namespace block_game
     const Vector3F& position() const;
     bool leaf() const;
 
+    // leaf_ == false
     const Block* Child(const int, const int, const int) const;
     Block* Child(const int, const int, const int);
 
+    // leaf_ == true
     bool solid() const;
     const Color3F& color() const;
     void set_solid(const bool);
@@ -44,8 +46,10 @@ namespace block_game
     const Vector3F position_;
     bool leaf_;
 
+    // leaf_ == false
     Block* children[2][2][2];
 
+    // leaf_ == true
     bool solid_;
     Color3F color_;
   };
