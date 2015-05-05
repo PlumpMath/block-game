@@ -33,11 +33,11 @@ void KeyCallback(GLFWwindow* window, const int key, const int scancode, const in
       glfwSetInputMode(window, GLFW_CURSOR,
         glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_NORMAL ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
     }
-    if (key == GLFW_KEY_MINUS)
+    if (key == GLFW_KEY_LEFT_CONTROL)
     {
       world->set_camera_delta_vertical(-10.0F);
     }
-    else if (key == GLFW_KEY_EQUAL)
+    else if (key == GLFW_KEY_SPACE)
     {
       world->set_camera_delta_vertical(10.0F);
     }
@@ -68,7 +68,7 @@ void KeyCallback(GLFWwindow* window, const int key, const int scancode, const in
   }
   else if (action == GLFW_RELEASE)
   {
-    if (key == GLFW_KEY_MINUS || key == GLFW_KEY_EQUAL)
+    if (key == GLFW_KEY_LEFT_CONTROL || key == GLFW_KEY_SPACE)
     {
       world->set_camera_delta_vertical(0.0F);
     }
