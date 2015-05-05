@@ -35,27 +35,27 @@ void KeyCallback(GLFWwindow* window, const int key, const int scancode, const in
     }
     if (key == GLFW_KEY_MINUS)
     {
-      world->set_camera_delta_vertical(-1.0F);
+      world->set_camera_delta_vertical(-10.0F);
     }
     else if (key == GLFW_KEY_EQUAL)
     {
-      world->set_camera_delta_vertical(1.0F);
+      world->set_camera_delta_vertical(10.0F);
     }
     else if (key == GLFW_KEY_W)
     {
-      world->set_camera_delta_forward(1.0F);
+      world->set_camera_delta_forward(10.0F);
     }
     else if (key == GLFW_KEY_S)
     {
-      world->set_camera_delta_forward(-1.0F);
+      world->set_camera_delta_forward(-10.0F);
     }
     else if (key == GLFW_KEY_A)
     {
-      world->set_camera_delta_strafe(-1.0F);
+      world->set_camera_delta_strafe(-10.0F);
     }
     else if (key == GLFW_KEY_D)
     {
-      world->set_camera_delta_strafe(1.0F);
+      world->set_camera_delta_strafe(10.0F);
     }
     else if (key == GLFW_KEY_LEFT_BRACKET)
     {
