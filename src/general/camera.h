@@ -2,7 +2,7 @@
 #define BLOCK_GAME_GENERAL_CAMERA_H_
 
 #include "general/matrix.h"
-#include "general/vector_3f.h"
+#include "general/vector.h"
 
 namespace block_game
 {
@@ -11,7 +11,7 @@ namespace block_game
   public:
     Camera();
 
-    const Vector3F& position() const;
+    const Vector<3>& position() const;
 
     float yaw() const;
     float pitch() const;
@@ -22,7 +22,7 @@ namespace block_game
     float z_far() const;
     float aspect_ratio() const;
 
-    Vector3F& position();
+    Vector<3>& position();
 
     void set_yaw(const float);
     void set_pitch(const float);
@@ -36,7 +36,7 @@ namespace block_game
     Matrix<4> GetMatrix() const;
 
   private:
-    Vector3F position_;
+    Vector<3> position_;
 
     float yaw_;
     float pitch_;

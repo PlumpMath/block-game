@@ -1,18 +1,18 @@
 #ifndef BLOCK_GAME_GAME_BLOCK_VERTEX_H_
 #define BLOCK_GAME_GAME_BLOCK_VERTEX_H_
 
-#include "general/vector_3f.h"
+#include "general/vector.h"
 
 namespace block_game
 {
   struct BlockVertex
   {
     BlockVertex();
-    BlockVertex(const Vector3F&, const Vector3F&, const Vector3F&);
+    BlockVertex(const Vector<3>&, const Vector<3>&, const Vector<3>&);
 
-    Vector3F position;
-    Vector3F normal;
-    Vector3F color;
+    Vector<3> position;
+    Vector<3> normal;
+    Vector<3> color;
   };
 }
 

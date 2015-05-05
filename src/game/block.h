@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "game/block_vertex.h"
-#include "general/vector_3f.h"
+#include "general/vector.h"
 
 namespace block_game
 {
@@ -13,11 +13,11 @@ namespace block_game
   class Block
   {
   public:
-    Block(const Block*, const float, const Vector3F&);
+    Block(const Block*, const float, const Vector<3>&);
 
     const Block* parent() const;
     float radius() const;
-    const Vector3F& position() const;
+    const Vector<3>& position() const;
     bool leaf() const;
 
     // leaf_ == false
@@ -26,9 +26,9 @@ namespace block_game
 
     // leaf_ == true
     bool solid() const;
-    const Vector3F& color() const;
+    const Vector<3>& color() const;
     void set_solid(const bool);
-    Vector3F& color();
+    Vector<3>& color();
 
     void Merge();
     void Split();
@@ -42,7 +42,7 @@ namespace block_game
 
     const Block* parent_;
     const float radius_;
-    const Vector3F position_;
+    const Vector<3> position_;
     bool leaf_;
 
     // leaf_ == false
@@ -50,7 +50,7 @@ namespace block_game
 
     // leaf_ == true
     bool solid_;
-    Vector3F color_;
+    Vector<3> color_;
   };
 }
 

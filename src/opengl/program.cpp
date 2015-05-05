@@ -3,8 +3,7 @@
 #include <glad/glad.h>
 
 #include "general/matrix.h"
-#include "general/vector_2f.h"
-#include "general/vector_3f.h"
+#include "general/vector.h"
 #include "opengl/shader.h"
 
 namespace block_game
@@ -73,14 +72,14 @@ namespace block_game
     glUniform1f(glGetUniformLocation(id_, name), value);
   }
 
-  void Program::SetUniformVector2F(const GLchar* name, const Vector2F& vector_2f)
+  void Program::SetUniformVector2(const GLchar* name, const Vector<2>& vector_2)
   {
-    glUniform2f(glGetUniformLocation(id_, name), vector_2f.x, vector_2f.y);
+    glUniform2f(glGetUniformLocation(id_, name), vector_2[0], vector_2[1]);
   }
 
-  void Program::SetUniformVector3F(const GLchar* name, const Vector3F& vector_3f)
+  void Program::SetUniformVector3(const GLchar* name, const Vector<3>& vector_3)
   {
-    glUniform3f(glGetUniformLocation(id_, name), vector_3f.x, vector_3f.y, vector_3f.z);
+    glUniform3f(glGetUniformLocation(id_, name), vector_3[0], vector_3[1], vector_3[2]);
   }
 
   void Program::SetUniformMatrix2(const GLchar* name, const Matrix<2>& matrix)

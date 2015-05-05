@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "game/block_vertex.h"
-#include "general/vector_3f.h"
+#include "general/vector.h"
 
 namespace block_game
 {
@@ -62,8 +62,8 @@ namespace block_game
       20, 23, 21
   };
 
-  Block::Block(const Block* parent, const float radius, const Vector3F& position)
-    : parent_{parent}, radius_{radius}, position_{position}, leaf_{true},
+  Block::Block(const Block* parent, const float radius, const Vector<3>& position)
+    : parent_{parent}, radius_{radius}, position_(position), leaf_{true},
     solid_{false}
   {
     for (int z = 0; z < 2; ++z)
@@ -88,7 +88,7 @@ namespace block_game
     return radius_;
   }
 
-  const Vector3F& Block::position() const
+  const Vector<3>& Block::position() const
   {
     return position_;
   }
@@ -113,7 +113,7 @@ namespace block_game
     return solid_;
   }
 
-  const Vector3F& Block::color() const
+  const Vector<3>& Block::color() const
   {
     return color_;
   }
@@ -123,7 +123,7 @@ namespace block_game
     solid_ = is_solid;
   }
 
-  Vector3F& Block::color()
+  Vector<3>& Block::color()
   {
     return color_;
   }
@@ -155,12 +155,12 @@ namespace block_game
       {
         for (int x = 0; x < 2; ++x)
         {
-          children[z][y][x] = new Block{this, radius_ / 2, position_ + radius_ * Vector3F{x - 0.5F, y - 0.5F, z - 0.5F}};
+          children[z][y][x] = new Block{this, radius_ / 2, position_ + radius_ * Vector<3>{x - 0.5F, y - 0.5F, z - 0.5F}};
           children[z][y][x]->set_solid(solid_);
-          Vector3F& child_color = children[z][y][x]->color();
-          child_color.x = color_.x;
-          child_color.y = color_.y;
-          child_color.z = color_.z;
+          Vector<3>& child_color = children[z][y][x]->color();
+          child_color[0] = color_[0];
+          child_color[1] = color_[1];
+          child_color[2] = color_[2];
         }
       }
     }

@@ -4,7 +4,7 @@
 #include <glad/glad.h>
 
 #include "game/block.h"
-#include "general/vector_3f.h"
+#include "general/vector.h"
 #include "opengl/index_buffer.h"
 #include "opengl/vertex_buffer.h"
 
@@ -17,12 +17,12 @@ namespace block_game
   public:
     Grid(const float);
 
-    const Vector3F& position() const;
-    const Vector3F& rotation() const;
+    const Vector<3>& position() const;
+    const Vector<3>& rotation() const;
     const Block& root() const;
 
-    Vector3F& position();
-    Vector3F& rotation();
+    Vector<3>& position();
+    Vector<3>& rotation();
     Block& root();
 
     void Update(const double);
@@ -30,8 +30,8 @@ namespace block_game
     void Draw(Program&) const;
 
   private:
-    Vector3F position_;
-    Vector3F rotation_;
+    Vector<3> position_;
+    Vector<3> rotation_;
     Block root_;
 
     VertexBuffer vertex_buffer_;

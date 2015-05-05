@@ -7,7 +7,7 @@
 
 #include "general/camera.h"
 #include "general/math.h"
-#include "general/vector_2f.h"
+#include "general/vector.h"
 #include "opengl/program.h"
 #include "opengl/shader.h"
 #include "shader/fragment.h"
@@ -27,8 +27,8 @@ namespace block_game
 
     for (size_t i = 0; i < grids_.size(); ++i)
     {
-      grids_[i].position().x = cos((i / static_cast<float>(grids_.size())) * 2 * kPiF);
-      grids_[i].position().y = sin((i / static_cast<float>(grids_.size())) * 2 * kPiF);
+      grids_[i].position()[0] = cos((i / static_cast<float>(grids_.size())) * 2 * kPiF);
+      grids_[i].position()[1] = sin((i / static_cast<float>(grids_.size())) * 2 * kPiF);
       grids_[i].root().set_solid(true);
       grids_[i].root().color()[i] = 1.0F;
       grids_[i].root().Split();
@@ -37,7 +37,7 @@ namespace block_game
       grids_[i].RebuildDraw();
     }
 
-    camera_.position().z = -10.0F;
+    camera_.position()[2] = -10.0F;
     camera_.set_z_far(100.0F);
   }
 
@@ -73,18 +73,18 @@ namespace block_game
       grid.Update(delta);
     }
 
-    Vector2F camera_forward_direction{0.0F, -1.0F};
-    Vector2F camera_strafe_direction{1.0F, 0.0F};
-    camera_forward_direction.Rotate(camera_.yaw());
-    camera_strafe_direction.Rotate(camera_.yaw());
+    Vector<2> camera_forward_direction{0.0F, -1.0F};
+    Vector<2> camera_strafe_direction{1.0F, 0.0F};
+    camera_forward_direction.RotateZ(camera_.yaw());
+    camera_strafe_direction.RotateZ(camera_.yaw());
 
-    camera_.position().x += static_cast<float>(camera_delta_forward_ * camera_forward_direction.x * delta);
-    camera_.position().y += static_cast<float>(camera_delta_forward_ * camera_forward_direction.y * delta);
+    camera_.position()[0] += static_cast<float>(camera_delta_forward_ * camera_forward_direction[0] * delta);
+    camera_.position()[1] += static_cast<float>(camera_delta_forward_ * camera_forward_direction[1] * delta);
 
-    camera_.position().x += static_cast<float>(camera_delta_strafe_ * camera_strafe_direction.x * delta);
-    camera_.position().y += static_cast<float>(camera_delta_strafe_ * camera_strafe_direction.y * delta);
+    camera_.position()[0] += static_cast<float>(camera_delta_strafe_ * camera_strafe_direction[0] * delta);
+    camera_.position()[1] += static_cast<float>(camera_delta_strafe_ * camera_strafe_direction[1] * delta);
 
-    camera_.position().z += static_cast<float>(camera_delta_vertical_ * delta);
+    camera_.position()[2] += static_cast<float>(camera_delta_vertical_ * delta);
 
     camera_.set_roll(static_cast<float>(camera_.roll() + camera_delta_roll_ * delta));
   }

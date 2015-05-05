@@ -5,7 +5,7 @@
 
 #include "general/math.h"
 #include "general/matrix.h"
-#include "general/vector_3f.h"
+#include "general/vector.h"
 
 namespace block_game
 {
@@ -13,7 +13,7 @@ namespace block_game
     field_of_view_{1.0F}, z_near_{0.1F}, z_far_{1.0F}, aspect_ratio_{1.0F}
   {}
 
-  const Vector3F& Camera::position() const
+  const Vector<3>& Camera::position() const
   {
     return position_;
   }
@@ -53,7 +53,7 @@ namespace block_game
     return aspect_ratio_;
   }
 
-  Vector3F& Camera::position()
+  Vector<3>& Camera::position()
   {
     return position_;
   }
@@ -96,9 +96,9 @@ namespace block_game
   Matrix<4> Camera::GetMatrix() const
   {
     Matrix<4> translation;
-    translation[0][3] = -position_.x;
-    translation[1][3] = -position_.y;
-    translation[2][3] = -position_.z;
+    translation[0][3] = -position_[0];
+    translation[1][3] = -position_[1];
+    translation[2][3] = -position_[2];
 
     Matrix<4> rotation;
     rotation.RotateZ(-yaw_);

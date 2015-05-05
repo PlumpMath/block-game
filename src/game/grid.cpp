@@ -6,7 +6,7 @@
 
 #include "game/block_vertex.h"
 #include "general/matrix.h"
-#include "general/vector_3f.h"
+#include "general/vector.h"
 #include "opengl/index_buffer.h"
 #include "opengl/program.h"
 #include "opengl/vertex_buffer.h"
@@ -16,12 +16,12 @@ namespace block_game
   Grid::Grid(const float radius) : root_{nullptr, radius, {0.0F, 0.0F, 0.0F}}
   {}
 
-  const Vector3F& Grid::position() const
+  const Vector<3>& Grid::position() const
   {
     return position_;
   }
 
-  const Vector3F& Grid::rotation() const
+  const Vector<3>& Grid::rotation() const
   {
     return rotation_;
   }
@@ -31,12 +31,12 @@ namespace block_game
     return root_;
   }
 
-  Vector3F& Grid::position()
+  Vector<3>& Grid::position()
   {
     return position_;
   }
 
-  Vector3F& Grid::rotation()
+  Vector<3>& Grid::rotation()
   {
     return rotation_;
   }
@@ -50,9 +50,9 @@ namespace block_game
   {
     position_.RotateZ(static_cast<float>(delta));
 
-    rotation_.x += static_cast<float>((1 - root_.color().x) * delta);
-    rotation_.y += static_cast<float>((1 - root_.color().y) * delta);
-    rotation_.z += static_cast<float>((1 - root_.color().z) * delta);
+    rotation_[0] += static_cast<float>((1 - root_.color()[0]) * delta);
+    rotation_[1] += static_cast<float>((1 - root_.color()[1]) * delta);
+    rotation_[2] += static_cast<float>((1 - root_.color()[2]) * delta);
   }
 
   void Grid::RebuildDraw()
@@ -74,23 +74,23 @@ namespace block_game
   void Grid::Draw(Program& program) const
   {
     Matrix<3> rotation;
-    rotation.RotateY(rotation_.y);
-    rotation.RotateX(rotation_.x);
-    rotation.RotateZ(rotation_.z);
+    rotation.RotateY(rotation_[1]);
+    rotation.RotateX(rotation_[0]);
+    rotation.RotateZ(rotation_[2]);
 
-    program.SetUniformVector3F("position", position_);
+    program.SetUniformVector3("position", position_);
     program.SetUniformMatrix3("rotation", rotation);
 
     vertex_buffer_.Bind();
 
-    glVertexAttribPointer(program.GetAttribLocation("in_Vertex"), Vector3F::kDimensions,
+    glVertexAttribPointer(program.GetAttribLocation("in_Vertex"), 3,
       GL_FLOAT, GL_TRUE, sizeof(BlockVertex), 0);
 
-    glVertexAttribPointer(program.GetAttribLocation("in_Normal"), Vector3F::kDimensions,
-      GL_FLOAT, GL_TRUE, sizeof(BlockVertex), (void*) (1 * sizeof(Vector3F)));
+    glVertexAttribPointer(program.GetAttribLocation("in_Normal"), 3,
+      GL_FLOAT, GL_TRUE, sizeof(BlockVertex), (void*) (1 * sizeof(Vector<3>)));
 
-    glVertexAttribPointer(program.GetAttribLocation("in_Color"), Vector3F::kDimensions,
-      GL_FLOAT, GL_TRUE, sizeof(BlockVertex), (void*) (2 * sizeof(Vector3F)));
+    glVertexAttribPointer(program.GetAttribLocation("in_Color"), 3,
+      GL_FLOAT, GL_TRUE, sizeof(BlockVertex), (void*) (2 * sizeof(Vector<3>)));
 
     VertexBuffer::Unbind();
 

@@ -8,8 +8,8 @@ namespace block_game
   template<int>
   struct Matrix;
   class Shader;
-  struct Vector2F;
-  struct Vector3F;
+  template<int>
+  struct Vector;
 
   class Program
   {
@@ -29,8 +29,8 @@ namespace block_game
     GLint GetAttribLocation(const GLchar*);
 
     void SetUniformFloat(const GLchar*, const GLfloat);
-    void SetUniformVector2F(const GLchar*, const Vector2F&);
-    void SetUniformVector3F(const GLchar*, const Vector3F&);
+    void SetUniformVector2(const GLchar*, const Vector<2>&);
+    void SetUniformVector3(const GLchar*, const Vector<3>&);
     void SetUniformMatrix2(const GLchar*, const Matrix<2>&);
     void SetUniformMatrix3(const GLchar*, const Matrix<3>&);
     void SetUniformMatrix4(const GLchar*, const Matrix<4>&);
