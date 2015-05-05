@@ -5,7 +5,6 @@
 #include <glad/glad.h>
 
 #include "game/block_vertex.h"
-#include "general/color_3f.h"
 #include "general/matrix.h"
 #include "general/vector_3f.h"
 #include "opengl/index_buffer.h"
@@ -51,9 +50,9 @@ namespace block_game
   {
     position_.RotateZ(static_cast<float>(delta));
 
-    rotation_.x += static_cast<float>((1 - root_.color().r) * delta);
-    rotation_.y += static_cast<float>((1 - root_.color().g) * delta);
-    rotation_.z += static_cast<float>((1 - root_.color().b) * delta);
+    rotation_.x += static_cast<float>((1 - root_.color().x) * delta);
+    rotation_.y += static_cast<float>((1 - root_.color().y) * delta);
+    rotation_.z += static_cast<float>((1 - root_.color().z) * delta);
   }
 
   void Grid::RebuildDraw()
@@ -90,7 +89,7 @@ namespace block_game
     glVertexAttribPointer(program.GetAttribLocation("in_Normal"), Vector3F::kDimensions,
       GL_FLOAT, GL_TRUE, sizeof(BlockVertex), (void*) (1 * sizeof(Vector3F)));
 
-    glVertexAttribPointer(program.GetAttribLocation("in_Color"), Color3F::kDimensions,
+    glVertexAttribPointer(program.GetAttribLocation("in_Color"), Vector3F::kDimensions,
       GL_FLOAT, GL_TRUE, sizeof(BlockVertex), (void*) (2 * sizeof(Vector3F)));
 
     VertexBuffer::Unbind();

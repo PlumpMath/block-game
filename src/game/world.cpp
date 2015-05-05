@@ -6,7 +6,6 @@
 #include <glad/glad.h>
 
 #include "general/camera.h"
-#include "general/color_3f.h"
 #include "general/math.h"
 #include "general/vector_2f.h"
 #include "opengl/program.h"

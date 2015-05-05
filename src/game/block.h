@@ -4,7 +4,6 @@
 #include <vector>
 
 #include "game/block_vertex.h"
-#include "general/color_3f.h"
 #include "general/vector_3f.h"
 
 namespace block_game
@@ -27,9 +26,9 @@ namespace block_game
 
     // leaf_ == true
     bool solid() const;
-    const Color3F& color() const;
+    const Vector3F& color() const;
     void set_solid(const bool);
-    Color3F& color();
+    Vector3F& color();
 
     void Merge();
     void Split();
@@ -51,7 +50,7 @@ namespace block_game
 
     // leaf_ == true
     bool solid_;
-    Color3F color_;
+    Vector3F color_;
   };
 }
 

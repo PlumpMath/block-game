@@ -3,7 +3,6 @@
 #include <vector>
 
 #include "game/block_vertex.h"
-#include "general/color_3f.h"
 #include "general/vector_3f.h"
 
 namespace block_game
@@ -114,7 +113,7 @@ namespace block_game
     return solid_;
   }
 
-  const Color3F& Block::color() const
+  const Vector3F& Block::color() const
   {
     return color_;
   }
@@ -124,7 +123,7 @@ namespace block_game
     solid_ = is_solid;
   }
 
-  Color3F& Block::color()
+  Vector3F& Block::color()
   {
     return color_;
   }
@@ -158,10 +157,10 @@ namespace block_game
         {
           children[z][y][x] = new Block{this, radius_ / 2, position_ + radius_ * Vector3F{x - 0.5F, y - 0.5F, z - 0.5F}};
           children[z][y][x]->set_solid(solid_);
-          Color3F& child_color = children[z][y][x]->color();
-          child_color.r = color_.r;
-          child_color.g = color_.g;
-          child_color.b = color_.b;
+          Vector3F& child_color = children[z][y][x]->color();
+          child_color.x = color_.x;
+          child_color.y = color_.y;
+          child_color.z = color_.z;
         }
       }
     }
