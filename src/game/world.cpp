@@ -123,6 +123,7 @@ namespace block_game
       camera_position[1] += static_cast<float>(camera_delta_strafe_ * camera_strafe_direction[1] * delta);
 
       camera_position[2] += static_cast<float>(camera_delta_vertical_ * delta);
+      camera_.SetPosition(camera_position);
 
       camera_.SetRoll(static_cast<float>(camera_.GetRoll() + camera_delta_roll_ * delta));
     }
