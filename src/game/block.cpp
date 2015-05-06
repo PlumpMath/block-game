@@ -138,7 +138,7 @@ namespace block_game
 
   bool Block::IsRoot() const
   {
-    return parent_ == nullptr;
+    return !parent_;
   }
 
   const Block& Block::GetParent() const

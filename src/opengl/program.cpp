@@ -64,43 +64,43 @@ namespace block_game
 
   GLint Program::GetAttribLocation(const GLchar* name)
   {
-    assert(name != nullptr);
+    assert(name);
     return glGetAttribLocation(id_, name);
   }
 
   void Program::SetUniformFloat(const GLchar* name, const GLfloat value)
   {
-    assert(name != nullptr);
+    assert(name);
     glUniform1f(glGetUniformLocation(id_, name), value);
   }
 
   void Program::SetUniformVector2(const GLchar* name, const Vector<2>& vector_2)
   {
-    assert(name != nullptr);
+    assert(name);
     glUniform2f(glGetUniformLocation(id_, name), vector_2[0], vector_2[1]);
   }
 
   void Program::SetUniformVector3(const GLchar* name, const Vector<3>& vector_3)
   {
-    assert(name != nullptr);
+    assert(name);
     glUniform3f(glGetUniformLocation(id_, name), vector_3[0], vector_3[1], vector_3[2]);
   }
 
   void Program::SetUniformMatrix2(const GLchar* name, const Matrix<2>& matrix)
   {
-    assert(name != nullptr);
+    assert(name);
     glUniformMatrix2fv(glGetUniformLocation(id_, name), 1, true, *(matrix.elements));
   }
 
   void Program::SetUniformMatrix3(const GLchar* name, const Matrix<3>& matrix)
   {
-    assert(name != nullptr);
+    assert(name);
     glUniformMatrix3fv(glGetUniformLocation(id_, name), 1, true, *(matrix.elements));
   }
 
   void Program::SetUniformMatrix4(const GLchar* name, const Matrix<4>& matrix)
   {
-    assert(name != nullptr);
+    assert(name);
     glUniformMatrix4fv(glGetUniformLocation(id_, name), 1, true, *(matrix.elements));
   }
 }

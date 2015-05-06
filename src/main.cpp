@@ -14,7 +14,7 @@ block_game::World* world;
 
 void CursorPosCallback(GLFWwindow* window, const double x_pos, const double y_pos)
 {
-  assert(world != nullptr);
+  assert(world);
 
   if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED)
   {
@@ -29,7 +29,7 @@ void CursorPosCallback(GLFWwindow* window, const double x_pos, const double y_po
 
 void KeyCallback(GLFWwindow* window, const int key, const int scancode, const int action, const int mods)
 {
-  assert(world != nullptr);
+  assert(world);
 
   if (action == GLFW_PRESS)
   {

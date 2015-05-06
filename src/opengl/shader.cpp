@@ -10,7 +10,7 @@ namespace block_game
 {
   Shader::Shader(const GLenum type, const GLchar* source) : id_{glCreateShader(type)}
   {
-    assert(source != nullptr);
+    assert(source);
 
     glShaderSource(id_, 1, &source, nullptr);
     glCompileShader(id_);

@@ -52,7 +52,7 @@ namespace block_game
 
   void VertexBuffer::SetData(const GLsizeiptr size, const GLvoid* data, const GLenum usage)
   {
-    assert(size >= 0 && data != nullptr);
+    assert(size >= 0 && data);
     glBufferData(GL_ARRAY_BUFFER, size, data, usage);
   }
 }
