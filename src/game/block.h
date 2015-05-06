@@ -20,14 +20,15 @@ namespace block_game
     Block(Block&);
     Block(Block&&);
 
-    const Block* parent() const;
+    bool IsRoot() const;
+    const Block& parent() const;
     float radius() const;
     const Vector<3>& position() const;
     bool leaf() const;
 
     // leaf_ == false
-    const Block* Child(const int, const int, const int) const;
-    Block* Child(const int, const int, const int);
+    const Block& Child(const int, const int, const int) const;
+    Block& Child(const int, const int, const int);
 
     // leaf_ == true
     bool solid() const;

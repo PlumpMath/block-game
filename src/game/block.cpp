@@ -117,9 +117,14 @@ namespace block_game
     }
   }
 
-  const Block* Block::parent() const
+  bool Block::IsRoot() const
   {
-    return parent_;
+    return parent_ == nullptr;
+  }
+
+  const Block& Block::parent() const
+  {
+    return *parent_;
   }
 
   float Block::radius() const
@@ -137,16 +142,16 @@ namespace block_game
     return leaf_;
   }
 
-  const Block* Block::Child(const int x, const int y, const int z) const
+  const Block& Block::Child(const int x, const int y, const int z) const
   {
-    assert(x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 2);
-    return children[z][y][x].get();
+    assert(!leaf_ && x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 2);
+    return *children[z][y][x];
   }
 
-  Block* Block::Child(const int x, const int y, const int z)
+  Block& Block::Child(const int x, const int y, const int z)
   {
-    assert(x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 2);
-    return children[z][y][x].get();
+    assert(!leaf_ && x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 2);
+    return *children[z][y][x];
   }
 
   bool Block::solid() const

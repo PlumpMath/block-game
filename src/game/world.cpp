@@ -32,8 +32,8 @@ namespace block_game
       grids_[i].root().set_solid(true);
       grids_[i].root().color()[i] = 1.0F;
       grids_[i].root().Split();
-      grids_[i].root().Child(0, 0, 0)->set_solid(false);
-      grids_[i].root().Child(1, 1, 1)->set_solid(false);
+      grids_[i].root().Child(0, 0, 0).set_solid(false);
+      grids_[i].root().Child(1, 1, 1).set_solid(false);
       grids_[i].RebuildDraw();
     }
 
