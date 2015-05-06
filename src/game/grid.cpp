@@ -10,6 +10,7 @@
 #include "general/vector.h"
 #include "opengl/buffer.h"
 #include "opengl/program.h"
+#include "opengl/vertex_attribute.h"
 
 namespace block_game
 {
