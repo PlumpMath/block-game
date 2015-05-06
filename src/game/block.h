@@ -51,7 +51,7 @@ namespace block_game
     bool leaf_;
 
     // leaf_ == false
-    std::unique_ptr<Block> children[2][2][2];
+    std::unique_ptr<Block> children_[2][2][2];
 
     // leaf_ == true
     bool solid_;

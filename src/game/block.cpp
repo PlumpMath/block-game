@@ -107,7 +107,7 @@ namespace block_game
         {
           for (int x = 0; x < 2; ++x)
           {
-            children[z][y][x] = std::move(block.children[z][y][x]);
+            children_[z][y][x] = std::move(block.children_[z][y][x]);
           }
         }
       }
@@ -129,7 +129,7 @@ namespace block_game
         {
           for (int x = 0; x < 2; ++x)
           {
-            children[z][y][x] = std::move(block.children[z][y][x]);
+            children_[z][y][x] = std::move(block.children_[z][y][x]);
           }
         }
       }
@@ -169,13 +169,13 @@ namespace block_game
   const Block& Block::GetChild(const int x, const int y, const int z) const
   {
     assert(!leaf_ && x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 2);
-    return *children[z][y][x];
+    return *children_[z][y][x];
   }
 
   Block& Block::GetChild(const int x, const int y, const int z)
   {
     assert(!leaf_ && x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 2);
-    return *children[z][y][x];
+    return *children_[z][y][x];
   }
 
   bool Block::IsSolid() const
@@ -208,7 +208,7 @@ namespace block_game
       {
         for (int x = 0; x < 2; ++x)
         {
-          children[z][y][x].reset();
+          children_[z][y][x].reset();
         }
       }
     }
@@ -224,10 +224,10 @@ namespace block_game
       {
         for (int x = 0; x < 2; ++x)
         {
-          children[z][y][x] = std::make_unique<Block>(this, radius_ / 2,
+          children_[z][y][x] = std::make_unique<Block>(this, radius_ / 2,
             position_ + radius_ * Vector<3>{x - 0.5F, y - 0.5F, z - 0.5F});
-          children[z][y][x]->SetSolid(solid_);
-          children[z][y][x]->SetColor(color_);
+          children_[z][y][x]->SetSolid(solid_);
+          children_[z][y][x]->SetColor(color_);
         }
       }
     }
@@ -252,7 +252,7 @@ namespace block_game
     }
     else
     {
-      for (auto& four : children)
+      for (auto& four : children_)
       {
         for (auto& two : four)
         {
