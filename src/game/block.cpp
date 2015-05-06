@@ -180,21 +180,25 @@ namespace block_game
 
   bool Block::IsSolid() const
   {
+    assert(leaf_);
     return solid_;
   }
 
   Vector<3> Block::GetColor() const
   {
+    assert(leaf_);
     return color_;
   }
 
   void Block::SetSolid(const bool solid)
   {
+    assert(leaf_);
     solid_ = solid;
   }
 
   void Block::SetColor(const Vector<3>& color)
   {
+    assert(leaf_);
     color_ = color;
   }
 

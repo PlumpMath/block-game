@@ -21,12 +21,10 @@ namespace block_game
     fragment_shader_{GL_FRAGMENT_SHADER, fragment_glsl},
     program_{vertex_shader_, fragment_shader_}
   {
-    grids_.emplace_back(1.0F);
-    grids_.emplace_back(1.0F);
-    grids_.emplace_back(1.0F);
-
-    for (size_t i = 0; i < grids_.size(); ++i)
+    for (size_t i = 0; i < 3; ++i)
     {
+      grids_.emplace_back(1.0F);
+
       Grid& grid = grids_[i];
       grid.SetPosition({cos((i / static_cast<float>(grids_.size())) * 2 * kPiF),
         sin((i / static_cast<float>(grids_.size())) * 2 * kPiF),

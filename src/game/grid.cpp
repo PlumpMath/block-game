@@ -55,7 +55,13 @@ namespace block_game
     if (delta > 0.0)
     {
       position_.RotateZ(static_cast<float>(delta));
-      rotation_ += (Vector<3>{1.0F, 1.0F, 1.0f} - root_.GetColor()) * static_cast<float>(delta);
+
+      const Block* color_block{&root_};
+      while (!color_block->IsLeaf())
+      {
+        color_block = &color_block->GetChild(0, 0, 0);
+      }
+      rotation_ += (Vector<3>{1.0F, 1.0F, 1.0f} - color_block->GetColor()) * static_cast<float>(delta);
     }
   }
 
