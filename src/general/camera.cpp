@@ -14,85 +14,85 @@ namespace block_game
     field_of_view_{1.0F}, z_near_{0.1F}, z_far_{1.0F}, aspect_ratio_{1.0F}
   {}
 
-  const Vector<3>& Camera::position() const
+  Vector<3> Camera::GetPosition() const
   {
     return position_;
   }
 
-  float Camera::yaw() const
+  float Camera::GetYaw() const
   {
     return yaw_;
   }
 
-  float Camera::pitch() const
+  float Camera::GetPitch() const
   {
     return pitch_;
   }
 
-  float Camera::roll() const
+  float Camera::GetRoll() const
   {
     return roll_;
   }
 
-  float Camera::field_of_view() const
+  float Camera::GetFieldOfView() const
   {
     return field_of_view_;
   }
 
-  float Camera::z_near() const
+  float Camera::GetZNear() const
   {
     return z_near_;
   }
 
-  float Camera::z_far() const
+  float Camera::GetZFar() const
   {
     return z_far_;
   }
 
-  float Camera::aspect_ratio() const
+  float Camera::GetAspectRatio() const
   {
     return aspect_ratio_;
   }
 
-  Vector<3>& Camera::position()
+  void Camera::SetPosition(const Vector<3>& position)
   {
-    return position_;
+    position_ = position;
   }
 
-  void Camera::set_yaw(const float yaw)
+  void Camera::SetYaw(const float yaw)
   {
     yaw_ = fmod(yaw, 2 * kPiF);
   }
 
-  void Camera::set_pitch(const float pitch)
+  void Camera::SetPitch(const float pitch)
   {
     pitch_ = std::min<float>(kPiF, std::max<float>(0.0F, pitch));
   }
 
-  void Camera::set_roll(const float roll)
+  void Camera::SetRoll(const float roll)
   {
     roll_ = fmod(roll, 2 * kPiF);
   }
 
-  void Camera::set_field_of_view(const float field_of_view)
+  void Camera::SetFieldOfView(const float field_of_view)
   {
     assert(field_of_view > 0.0F && field_of_view < kPiF);
     field_of_view_ = field_of_view;
   }
 
-  void Camera::set_z_near(const float z_near)
+  void Camera::SetZNear(const float z_near)
   {
     assert(z_near > 0.0F);
     z_near_ = z_near;
   }
 
-  void Camera::set_z_far(const float z_far)
+  void Camera::SetZFar(const float z_far)
   {
     assert(z_far > 0.0F);
     z_far_ = z_far;
   }
 
-  void Camera::set_aspect_ratio(const float aspect_ratio)
+  void Camera::SetAspectRatio(const float aspect_ratio)
   {
     assert(aspect_ratio > 0.0F);
     aspect_ratio_ = aspect_ratio;

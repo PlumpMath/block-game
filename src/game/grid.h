@@ -17,13 +17,14 @@ namespace block_game
   public:
     Grid(const float);
 
-    const Vector<3>& position() const;
-    const Vector<3>& rotation() const;
-    const Block& root() const;
+    Vector<3> GetPosition() const;
+    Vector<3> GetRotation() const;
 
-    Vector<3>& position();
-    Vector<3>& rotation();
-    Block& root();
+    void SetPosition(const Vector<3>&);
+    void SetRotation(const Vector<3>&);
+
+    const Block& GetRoot() const;
+    Block& GetRoot();
 
     void Update(const double);
     void RebuildDraw();

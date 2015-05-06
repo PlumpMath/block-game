@@ -19,32 +19,32 @@ namespace block_game
     assert(radius > 0.0F);
   }
 
-  const Vector<3>& Grid::position() const
+  Vector<3> Grid::GetPosition() const
   {
     return position_;
   }
 
-  const Vector<3>& Grid::rotation() const
+  Vector<3> Grid::GetRotation() const
   {
     return rotation_;
   }
 
-  const Block& Grid::root() const
+  void Grid::SetPosition(const Vector<3>& position)
+  {
+    position_ = position;
+  }
+
+  void Grid::SetRotation(const Vector<3>& rotation)
+  {
+    rotation_ = rotation;
+  }
+
+  const Block& Grid::GetRoot() const
   {
     return root_;
   }
 
-  Vector<3>& Grid::position()
-  {
-    return position_;
-  }
-
-  Vector<3>& Grid::rotation()
-  {
-    return rotation_;
-  }
-
-  Block& Grid::root()
+  Block& Grid::GetRoot()
   {
     return root_;
   }
@@ -55,10 +55,7 @@ namespace block_game
     if (delta > 0.0)
     {
       position_.RotateZ(static_cast<float>(delta));
-
-      rotation_[0] += static_cast<float>((1 - root_.color()[0]) * delta);
-      rotation_[1] += static_cast<float>((1 - root_.color()[1]) * delta);
-      rotation_[2] += static_cast<float>((1 - root_.color()[2]) * delta);
+      rotation_ += (Vector<3>{1.0F, 1.0F, 1.0f} - root_.GetColor()) * static_cast<float>(delta);
     }
   }
 

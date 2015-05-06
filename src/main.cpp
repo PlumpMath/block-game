@@ -15,9 +15,9 @@ void CursorPosCallback(GLFWwindow* window, const double x_pos, const double y_po
 {
   if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED)
   {
-    block_game::Camera& camera{world->camera()};
-    camera.set_yaw(static_cast<float>(camera.yaw() + 0.001F * (x_pos - previous_cursor_pos[0])));
-    camera.set_pitch(static_cast<float>(camera.pitch() + 0.001F * (y_pos - previous_cursor_pos[1])));
+    block_game::Camera& camera{world->GetCamera()};
+    camera.SetYaw(static_cast<float>(camera.GetYaw() + 0.001F * (x_pos - previous_cursor_pos[0])));
+    camera.SetPitch(static_cast<float>(camera.GetPitch() + 0.001F * (y_pos - previous_cursor_pos[1])));
   }
 
   previous_cursor_pos[0] = static_cast<float>(x_pos);
@@ -35,54 +35,54 @@ void KeyCallback(GLFWwindow* window, const int key, const int scancode, const in
     }
     if (key == GLFW_KEY_LEFT_CONTROL)
     {
-      world->set_camera_delta_vertical(-10.0F);
+      world->SetCameraDeltaVertical(-10.0F);
     }
     else if (key == GLFW_KEY_SPACE)
     {
-      world->set_camera_delta_vertical(10.0F);
+      world->SetCameraDeltaVertical(10.0F);
     }
     else if (key == GLFW_KEY_W)
     {
-      world->set_camera_delta_forward(10.0F);
+      world->SetCameraDeltaForward(10.0F);
     }
     else if (key == GLFW_KEY_S)
     {
-      world->set_camera_delta_forward(-10.0F);
+      world->SetCameraDeltaForward(-10.0F);
     }
     else if (key == GLFW_KEY_A)
     {
-      world->set_camera_delta_strafe(-10.0F);
+      world->SetCameraDeltaStrafe(-10.0F);
     }
     else if (key == GLFW_KEY_D)
     {
-      world->set_camera_delta_strafe(10.0F);
+      world->SetCameraDeltaStrafe(10.0F);
     }
     else if (key == GLFW_KEY_LEFT_BRACKET)
     {
-      world->set_camera_delta_roll(1.0F);
+      world->SetCameraDeltaRoll(1.0F);
     }
     else if (key == GLFW_KEY_RIGHT_BRACKET)
     {
-      world->set_camera_delta_roll(-1.0F);
+      world->SetCameraDeltaRoll(-1.0F);
     }
   }
   else if (action == GLFW_RELEASE)
   {
     if (key == GLFW_KEY_LEFT_CONTROL || key == GLFW_KEY_SPACE)
     {
-      world->set_camera_delta_vertical(0.0F);
+      world->SetCameraDeltaVertical(0.0F);
     }
     else if (key == GLFW_KEY_W || key == GLFW_KEY_S)
     {
-      world->set_camera_delta_forward(0.0F);
+      world->SetCameraDeltaForward(0.0F);
     }
     else if (key == GLFW_KEY_A || key == GLFW_KEY_D)
     {
-      world->set_camera_delta_strafe(0.0F);
+      world->SetCameraDeltaStrafe(0.0F);
     }
     else if (key == GLFW_KEY_LEFT_BRACKET || key == GLFW_KEY_RIGHT_BRACKET)
     {
-      world->set_camera_delta_roll(0.0F);
+      world->SetCameraDeltaRoll(0.0F);
     }
   }
 }

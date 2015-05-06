@@ -14,27 +14,29 @@ namespace block_game
   class Block
   {
   public:
-    Block(const Block*, const float, const Vector<3>&);
+    Block(Block* const, const float, const Vector<3>&);
     ~Block();
 
     Block(Block&);
     Block(Block&&);
 
     bool IsRoot() const;
-    const Block& parent() const;
-    float radius() const;
-    const Vector<3>& position() const;
-    bool leaf() const;
+    const Block& GetParent() const;
+    Block& GetParent();
+
+    float GetRadius() const;
+    Vector<3> GetPosition() const;
+    bool IsLeaf() const;
 
     // leaf_ == false
-    const Block& Child(const int, const int, const int) const;
-    Block& Child(const int, const int, const int);
+    const Block& GetChild(const int, const int, const int) const;
+    Block& GetChild(const int, const int, const int);
 
     // leaf_ == true
-    bool solid() const;
-    const Vector<3>& color() const;
-    void set_solid(const bool);
-    Vector<3>& color();
+    bool IsSolid() const;
+    Vector<3> GetColor() const;
+    void SetSolid(const bool);
+    void SetColor(const Vector<3>&);
 
     void Merge();
     void Split();
@@ -46,7 +48,7 @@ namespace block_game
     static const BlockVertex vertices_[];
     static const unsigned char indices_[];
 
-    const Block* parent_;
+    Block* const parent_;
     const float radius_;
     const Vector<3> position_;
     bool leaf_;

@@ -27,41 +27,75 @@ namespace block_game
 
     for (size_t i = 0; i < grids_.size(); ++i)
     {
-      grids_[i].position()[0] = cos((i / static_cast<float>(grids_.size())) * 2 * kPiF);
-      grids_[i].position()[1] = sin((i / static_cast<float>(grids_.size())) * 2 * kPiF);
-      grids_[i].root().set_solid(true);
-      grids_[i].root().color()[i] = 1.0F;
-      grids_[i].root().Split();
-      grids_[i].root().Child(0, 0, 0).set_solid(false);
-      grids_[i].root().Child(1, 1, 1).set_solid(false);
-      grids_[i].RebuildDraw();
+      Grid& grid = grids_[i];
+      grid.SetPosition({cos((i / static_cast<float>(grids_.size())) * 2 * kPiF),
+        sin((i / static_cast<float>(grids_.size())) * 2 * kPiF),
+        0.0F});
+
+      Block& root = grid.GetRoot();
+      root.SetSolid(true);
+
+      Vector<3> root_color = root.GetColor();
+      root_color[i] = 1.0F;
+      root.SetColor(root_color);
+
+      root.Split();
+      root.GetChild(0, 0, 0).SetSolid(false);
+      root.GetChild(1, 1, 1).SetSolid(false);
+
+      grid.RebuildDraw();
     }
 
-    camera_.position()[2] = -10.0F;
-    camera_.set_z_far(100.0F);
+    camera_.SetPosition({0.0F, 0.0F, -10.0F});
+    camera_.SetZFar(100.0F);
   }
 
-  Camera& World::camera()
+  const Camera& World::GetCamera() const
   {
     return camera_;
   }
 
-  void World::set_camera_delta_vertical(const float camera_delta_vertical)
+  Camera& World::GetCamera()
+  {
+    return camera_;
+  }
+
+  float World::GetCameraDeltaVertical() const
+  {
+    return camera_delta_vertical_;
+  }
+
+  float World::GetCameraDeltaForward() const
+  {
+    return camera_delta_forward_;
+  }
+
+  float World::GetCameraDeltaStrafe() const
+  {
+    return camera_delta_strafe_;
+  }
+
+  float World::GetCameraDeltaRoll() const
+  {
+    return camera_delta_roll_;
+  }
+
+  void World::SetCameraDeltaVertical(const float camera_delta_vertical)
   {
     camera_delta_vertical_ = camera_delta_vertical;
   }
 
-  void World::set_camera_delta_forward(const float camera_delta_forward)
+  void World::SetCameraDeltaForward(const float camera_delta_forward)
   {
     camera_delta_forward_ = camera_delta_forward;
   }
 
-  void World::set_camera_delta_strafe(const float camera_delta_strafe)
+  void World::SetCameraDeltaStrafe(const float camera_delta_strafe)
   {
     camera_delta_strafe_ = camera_delta_strafe;
   }
 
-  void World::set_camera_delta_roll(const float camera_delta_roll)
+  void World::SetCameraDeltaRoll(const float camera_delta_roll)
   {
     camera_delta_roll_ = camera_delta_roll;
   }
@@ -78,18 +112,19 @@ namespace block_game
 
       Vector<2> camera_forward_direction{0.0F, -1.0F};
       Vector<2> camera_strafe_direction{1.0F, 0.0F};
-      camera_forward_direction.RotateZ(camera_.yaw());
-      camera_strafe_direction.RotateZ(camera_.yaw());
+      camera_forward_direction.RotateZ(camera_.GetYaw());
+      camera_strafe_direction.RotateZ(camera_.GetYaw());
 
-      camera_.position()[0] += static_cast<float>(camera_delta_forward_ * camera_forward_direction[0] * delta);
-      camera_.position()[1] += static_cast<float>(camera_delta_forward_ * camera_forward_direction[1] * delta);
+      Vector<3> camera_position = camera_.GetPosition();
+      camera_position[0] += static_cast<float>(camera_delta_forward_ * camera_forward_direction[0] * delta);
+      camera_position[1] += static_cast<float>(camera_delta_forward_ * camera_forward_direction[1] * delta);
 
-      camera_.position()[0] += static_cast<float>(camera_delta_strafe_ * camera_strafe_direction[0] * delta);
-      camera_.position()[1] += static_cast<float>(camera_delta_strafe_ * camera_strafe_direction[1] * delta);
+      camera_position[0] += static_cast<float>(camera_delta_strafe_ * camera_strafe_direction[0] * delta);
+      camera_position[1] += static_cast<float>(camera_delta_strafe_ * camera_strafe_direction[1] * delta);
 
-      camera_.position()[2] += static_cast<float>(camera_delta_vertical_ * delta);
+      camera_position[2] += static_cast<float>(camera_delta_vertical_ * delta);
 
-      camera_.set_roll(static_cast<float>(camera_.roll() + camera_delta_roll_ * delta));
+      camera_.SetRoll(static_cast<float>(camera_.GetRoll() + camera_delta_roll_ * delta));
     }
   }
 
@@ -111,7 +146,7 @@ namespace block_game
 
       program_.Bind();
 
-      camera_.set_aspect_ratio(width / static_cast<float>(height));
+      camera_.SetAspectRatio(width / static_cast<float>(height));
       program_.SetUniformMatrix4("viewProjection", camera_.GetMatrix());
 
       for (const Grid& grid : grids_)

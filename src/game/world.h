@@ -15,11 +15,18 @@ namespace block_game
   public:
     World();
 
-    Camera& camera();
-    void set_camera_delta_vertical(const float);
-    void set_camera_delta_forward(const float);
-    void set_camera_delta_strafe(const float);
-    void set_camera_delta_roll(const float);
+    const Camera& GetCamera() const;
+    Camera& GetCamera();
+
+    float GetCameraDeltaVertical() const;
+    float GetCameraDeltaForward() const;
+    float GetCameraDeltaStrafe() const;
+    float GetCameraDeltaRoll() const;
+
+    void SetCameraDeltaVertical(const float);
+    void SetCameraDeltaForward(const float);
+    void SetCameraDeltaStrafe(const float);
+    void SetCameraDeltaRoll(const float);
 
     void Update(const double);
     void Display(const int, const int);

@@ -63,7 +63,7 @@ namespace block_game
     20, 23, 21
   };
 
-  Block::Block(const Block* parent, const float radius, const Vector<3>& position)
+  Block::Block(Block* const parent, const float radius, const Vector<3>& position)
     : parent_{parent}, radius_{radius}, position_(position), leaf_{true},
     solid_{false}
   {
@@ -122,56 +122,61 @@ namespace block_game
     return parent_ == nullptr;
   }
 
-  const Block& Block::parent() const
+  const Block& Block::GetParent() const
   {
     return *parent_;
   }
 
-  float Block::radius() const
+  Block& Block::GetParent()
+  {
+    return *parent_;
+  }
+
+  float Block::GetRadius() const
   {
     return radius_;
   }
 
-  const Vector<3>& Block::position() const
+  Vector<3> Block::GetPosition() const
   {
     return position_;
   }
 
-  bool Block::leaf() const
+  bool Block::IsLeaf() const
   {
     return leaf_;
   }
 
-  const Block& Block::Child(const int x, const int y, const int z) const
+  const Block& Block::GetChild(const int x, const int y, const int z) const
   {
     assert(!leaf_ && x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 2);
     return *children[z][y][x];
   }
 
-  Block& Block::Child(const int x, const int y, const int z)
+  Block& Block::GetChild(const int x, const int y, const int z)
   {
     assert(!leaf_ && x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 2);
     return *children[z][y][x];
   }
 
-  bool Block::solid() const
+  bool Block::IsSolid() const
   {
     return solid_;
   }
 
-  const Vector<3>& Block::color() const
+  Vector<3> Block::GetColor() const
   {
     return color_;
   }
 
-  void Block::set_solid(const bool is_solid)
+  void Block::SetSolid(const bool solid)
   {
-    solid_ = is_solid;
+    solid_ = solid;
   }
 
-  Vector<3>& Block::color()
+  void Block::SetColor(const Vector<3>& color)
   {
-    return color_;
+    color_ = color;
   }
 
   void Block::Merge()
@@ -202,11 +207,8 @@ namespace block_game
         {
           children[z][y][x] = std::make_unique<Block>(this, radius_ / 2,
             position_ + radius_ * Vector<3>{x - 0.5F, y - 0.5F, z - 0.5F});
-          children[z][y][x]->set_solid(solid_);
-          Vector<3>& child_color = children[z][y][x]->color();
-          child_color[0] = color_[0];
-          child_color[1] = color_[1];
-          child_color[2] = color_[2];
+          children[z][y][x]->SetSolid(solid_);
+          children[z][y][x]->SetColor(color_);
         }
       }
     }
