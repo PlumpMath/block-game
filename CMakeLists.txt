@@ -2,33 +2,6 @@ cmake_minimum_required(VERSION 2.8.9)
 project("Block Game")
 set(LIBRARY_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
-set(GLFW_NAME         3.1.1)
-set(GLFW_URL          https://github.com/glfw/glfw/archive/${GLFW_NAME}.tar.gz)
-set(GLFW_DIRECTORY    ${LIBRARY_DIRECTORY}/glfw)
-set(GLFW_TGZ          glfw.tgz)
-set(GLFW_TGZ_ABSOLUTE ${GLFW_DIRECTORY}/${GLFW_TGZ})
-set(GLFW_SOURCE       ${GLFW_DIRECTORY}/glfw-${GLFW_NAME})
-set(GLFW_CMAKE_LISTS  ${GLFW_SOURCE}/CMakeLists.txt)
-set(GLFW_INCLUDE      ${GLFW_SOURCE}/include)
-set(GLFW_BINARY       ${GLFW_DIRECTORY}/bin)
-
-if(NOT EXISTS ${GLFW_CMAKE_LISTS})
-
-  message(STATUS "Downloading ${GLFW_URL}")
-  file(DOWNLOAD ${GLFW_URL} ${GLFW_TGZ_ABSOLUTE})
-
-  message(STATUS "Opening ${GLFW_TGZ}")
-  execute_process(
-    COMMAND ${CMAKE_COMMAND} -E tar xzf ${GLFW_TGZ}
-    WORKING_DIRECTORY ${GLFW_DIRECTORY}
-  )
-
-endif()
-
-file(APPEND ${GLFW_CMAKE_LISTS})
-add_subdirectory(${GLFW_SOURCE} ${GLFW_BINARY})
-include_directories(${GLFW_INCLUDE})
-
 set(GLAD_NAME         c)
 set(GLAD_URL          https://github.com/Dav1dde/glad/archive/${GLAD_NAME}.tar.gz)
 set(GLAD_DIRECTORY    ${LIBRARY_DIRECTORY}/glad)
@@ -61,6 +34,33 @@ add_library(glad
 )
 include_directories(${GLAD_INCLUDE})
 
+set(GLFW_NAME         3.1.1)
+set(GLFW_URL          https://github.com/glfw/glfw/archive/${GLFW_NAME}.tar.gz)
+set(GLFW_DIRECTORY    ${LIBRARY_DIRECTORY}/glfw)
+set(GLFW_TGZ          glfw.tgz)
+set(GLFW_TGZ_ABSOLUTE ${GLFW_DIRECTORY}/${GLFW_TGZ})
+set(GLFW_SOURCE       ${GLFW_DIRECTORY}/glfw-${GLFW_NAME})
+set(GLFW_CMAKE_LISTS  ${GLFW_SOURCE}/CMakeLists.txt)
+set(GLFW_INCLUDE      ${GLFW_SOURCE}/include)
+set(GLFW_BINARY       ${GLFW_DIRECTORY}/bin)
+
+if(NOT EXISTS ${GLFW_CMAKE_LISTS})
+
+  message(STATUS "Downloading ${GLFW_URL}")
+  file(DOWNLOAD ${GLFW_URL} ${GLFW_TGZ_ABSOLUTE})
+
+  message(STATUS "Opening ${GLFW_TGZ}")
+  execute_process(
+    COMMAND ${CMAKE_COMMAND} -E tar xzf ${GLFW_TGZ}
+    WORKING_DIRECTORY ${GLFW_DIRECTORY}
+  )
+
+endif()
+
+file(APPEND ${GLFW_CMAKE_LISTS})
+add_subdirectory(${GLFW_SOURCE} ${GLFW_BINARY})
+include_directories(${GLFW_INCLUDE})
+
 macro(add_headers)
   file(RELATIVE_PATH REL_PATH "${CMAKE_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}")
   foreach(HEADER ${ARGN})
@@ -91,4 +91,4 @@ include_directories(src)
 get_property(FINAL_HEADERS GLOBAL PROPERTY HEADERS_PROPERTY)
 get_property(FINAL_SOURCES GLOBAL PROPERTY SOURCES_PROPERTY)
 add_executable(block_game ${FINAL_HEADERS} ${FINAL_SOURCES})
-target_link_libraries(block_game glfw ${GLFW_LIBRARIES} glad)
+target_link_libraries(block_game glad glfw ${GLFW_LIBRARIES})
