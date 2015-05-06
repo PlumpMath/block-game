@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.9)
+cmake_minimum_required(VERSION 3.0)
 project("Block Game")
 set(LIBRARY_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
