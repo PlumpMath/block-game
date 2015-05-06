@@ -40,19 +40,23 @@ namespace block_game
     return *this;
   }
 
-  void VertexBuffer::Bind() const
+  void VertexBuffer::Bind()
   {
     glBindBuffer(GL_ARRAY_BUFFER, id_);
+    bound_ = this;
   }
 
   void VertexBuffer::Unbind()
   {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+    bound_ = nullptr;
   }
 
   void VertexBuffer::SetData(const GLsizeiptr size, const GLvoid* data, const GLenum usage)
   {
-    assert(size >= 0 && data);
+    assert(bound_ == this && size >= 0 && data);
     glBufferData(GL_ARRAY_BUFFER, size, data, usage);
   }
+
+  VertexBuffer* VertexBuffer::bound_{nullptr};
 }

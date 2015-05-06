@@ -28,7 +28,7 @@ namespace block_game
 
     void Update(const double);
     void RebuildDraw();
-    void Draw(Program&) const;
+    void Draw(Program&);
 
   private:
     Vector<3> position_;

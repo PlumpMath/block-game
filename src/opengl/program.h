@@ -23,7 +23,7 @@ namespace block_game
     Program& operator=(Program&);
     Program& operator=(Program&&);
 
-    void Bind() const;
+    void Bind();
     static void Unbind();
 
     GLint GetAttribLocation(const GLchar*);
@@ -36,6 +36,8 @@ namespace block_game
     void SetUniformMatrix4(const GLchar*, const Matrix<4>&);
 
   private:
+    static Program* bound_;
+
     GLuint id_;
 
     const Shader& vertex_shader_;

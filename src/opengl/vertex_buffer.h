@@ -17,12 +17,14 @@ namespace block_game
     VertexBuffer& operator=(VertexBuffer&);
     VertexBuffer& operator=(VertexBuffer&&);
 
-    void Bind() const;
+    void Bind();
     static void Unbind();
 
     void SetData(const GLsizeiptr size, const GLvoid* data, const GLenum usage);
 
   private:
+    static VertexBuffer* bound_;
+
     GLuint id_;
   };
 }

@@ -81,7 +81,7 @@ namespace block_game
     IndexBuffer::Unbind();
   }
 
-  void Grid::Draw(Program& program) const
+  void Grid::Draw(Program& program)
   {
     Matrix<3> rotation;
     rotation.RotateY(rotation_[1]);

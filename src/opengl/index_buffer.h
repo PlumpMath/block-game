@@ -11,13 +11,12 @@ namespace block_game
     IndexBuffer();
     ~IndexBuffer();
 
-    // The source IndexBuffer points to nothing after copy/move
     IndexBuffer(IndexBuffer&);
     IndexBuffer(IndexBuffer&&);
     IndexBuffer& operator=(IndexBuffer&);
     IndexBuffer& operator=(IndexBuffer&&);
 
-    void Bind() const;
+    void Bind();
     static void Unbind();
 
     void SetData(const GLsizeiptr size, const GLvoid* data, const GLenum usage);
@@ -25,6 +24,8 @@ namespace block_game
     void Draw(const GLsizei, const GLenum) const;
 
   private:
+    static IndexBuffer* bound_;
+
     GLuint id_;
   };
 }

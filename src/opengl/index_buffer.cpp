@@ -40,25 +40,29 @@ namespace block_game
     return *this;
   }
 
-  void IndexBuffer::Bind() const
+  void IndexBuffer::Bind()
   {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_);
+    bound_ = this;
   }
 
   void IndexBuffer::Unbind()
   {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    bound_ = nullptr;
   }
 
   void IndexBuffer::SetData(const GLsizeiptr size, const GLvoid* data, const GLenum usage)
   {
-    assert(size >= 0 && data);
+    assert(bound_ == this && size >= 0 && data);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, usage);
   }
 
   void IndexBuffer::Draw(const GLsizei count, const GLenum type) const
   {
-    assert(count >= 0);
+    assert(bound_ == this && count >= 0);
     glDrawElements(GL_TRIANGLES, count, type, 0);
   }
+
+  IndexBuffer* IndexBuffer::bound_{nullptr};
 }

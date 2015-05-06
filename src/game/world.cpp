@@ -148,7 +148,7 @@ namespace block_game
       camera_.SetAspectRatio(width / static_cast<float>(height));
       program_.SetUniformMatrix4("viewProjection", camera_.GetMatrix());
 
-      for (const Grid& grid : grids_)
+      for (Grid& grid : grids_)
       {
         grid.Draw(program_);
       }
