@@ -73,11 +73,11 @@ namespace block_game
     num_indices_ = indices.size();
 
     vertex_buffer_.Bind();
-    vertex_buffer_.SetData(sizeof(BlockVertex) * vertices.size(), &vertices[0], GL_STATIC_DRAW);
+    vertex_buffer_.SetData(sizeof(BlockVertex) * vertices.size(), &vertices[0]);
     VertexBuffer::Unbind();
 
     index_buffer_.Bind();
-    index_buffer_.SetData(indices.size(), &indices[0], GL_STATIC_DRAW);
+    index_buffer_.SetData(indices.size(), &indices[0]);
     IndexBuffer::Unbind();
   }
 

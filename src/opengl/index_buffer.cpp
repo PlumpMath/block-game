@@ -52,10 +52,10 @@ namespace block_game
     bound_ = nullptr;
   }
 
-  void IndexBuffer::SetData(const GLsizeiptr size, const GLvoid* data, const GLenum usage)
+  void IndexBuffer::SetData(const GLsizeiptr size, const GLvoid* data)
   {
     assert(bound_ == this && size >= 0 && data);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, usage);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
   }
 
   void IndexBuffer::Draw(const GLsizei count, const GLenum type) const

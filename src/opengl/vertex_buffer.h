@@ -20,7 +20,7 @@ namespace block_game
     void Bind();
     static void Unbind();
 
-    void SetData(const GLsizeiptr size, const GLvoid* data, const GLenum usage);
+    void SetData(const GLsizeiptr, const GLvoid*);
 
   private:
     static VertexBuffer* bound_;
