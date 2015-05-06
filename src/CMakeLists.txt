@@ -1,5 +1,5 @@
 add_sources(
-  main.cpp
+  main
 )
 
 add_subdirectory(game)

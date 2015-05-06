@@ -1,9 +1,9 @@
 add_headers(
-  fragment.h
-  vertex.h
+  fragment
+  vertex
 )
 
 add_sources(
-  fragment.cpp
-  vertex.cpp
+  fragment
+  vertex
 )

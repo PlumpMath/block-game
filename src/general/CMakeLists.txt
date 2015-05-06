@@ -1,11 +1,11 @@
 add_headers(
-  camera.h
-  math.h
-  matrix.h
-  vector.h
+  camera
+  math
+  matrix
+  vector
 )
 
 add_sources(
-  camera.cpp
-  math.cpp
+  camera
+  math
 )

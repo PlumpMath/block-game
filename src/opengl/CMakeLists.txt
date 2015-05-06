@@ -1,13 +1,13 @@
 add_headers(
-  index_buffer.h
-  program.h
-  shader.h
-  vertex_buffer.h
+  index_buffer
+  program
+  shader
+  vertex_buffer
 )
 
 add_sources(
-  index_buffer.cpp
-  program.cpp
-  shader.cpp
-  vertex_buffer.cpp
+  index_buffer
+  program
+  shader
+  vertex_buffer
 )

@@ -1,13 +1,13 @@
 add_headers(
-  block.h
-  block_vertex.h
-  grid.h
-  world.h
+  block
+  block_vertex
+  grid
+  world
 )
 
 add_sources(
-  block.cpp
-  block_vertex.cpp
-  grid.cpp
-  world.cpp
+  block
+  block_vertex
+  grid
+  world
 )
