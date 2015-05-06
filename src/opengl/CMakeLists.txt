@@ -1,13 +1,13 @@
 add_headers(
-  index_buffer
+  buffer
   program
   shader
-  vertex_buffer
+  vertex_attribute
 )
 
 add_sources(
-  index_buffer
+  buffer
   program
   shader
-  vertex_buffer
+  vertex_attribute
 )

@@ -1,12 +1,9 @@
 #ifndef BLOCK_GAME_GAME_GRID_H_
 #define BLOCK_GAME_GAME_GRID_H_
 
-#include <glad/glad.h>
-
 #include "game/block.h"
 #include "general/vector.h"
-#include "opengl/index_buffer.h"
-#include "opengl/vertex_buffer.h"
+#include "opengl/buffer.h"
 
 namespace block_game
 {
@@ -35,9 +32,8 @@ namespace block_game
     Vector<3> rotation_;
     Block root_;
 
-    VertexBuffer vertex_buffer_;
-    IndexBuffer index_buffer_;
-    GLsizei num_indices_;
+    Buffer vertex_buffer_;
+    Buffer index_buffer_;
   };
 }
 
