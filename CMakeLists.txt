@@ -13,16 +13,13 @@ set(GLAD_INCLUDE      ${GLAD_SOURCE}/include)
 set(GLAD_BINARY       ${GLAD_DIRECTORY}/bin)
 
 if(NOT EXISTS ${GLAD_CMAKE_LISTS})
-
   message(STATUS "Downloading ${GLAD_URL}")
   file(DOWNLOAD ${GLAD_URL} ${GLAD_TGZ_ABSOLUTE})
-
   message(STATUS "Opening ${GLAD_TGZ}")
   execute_process(
     COMMAND ${CMAKE_COMMAND} -E tar xzf ${GLAD_TGZ}
     WORKING_DIRECTORY ${GLAD_DIRECTORY}
   )
-
 endif()
 
 file(APPEND ${GLAD_CMAKE_LISTS})
@@ -45,16 +42,13 @@ set(GLFW_INCLUDE      ${GLFW_SOURCE}/include)
 set(GLFW_BINARY       ${GLFW_DIRECTORY}/bin)
 
 if(NOT EXISTS ${GLFW_CMAKE_LISTS})
-
   message(STATUS "Downloading ${GLFW_URL}")
   file(DOWNLOAD ${GLFW_URL} ${GLFW_TGZ_ABSOLUTE})
-
   message(STATUS "Opening ${GLFW_TGZ}")
   execute_process(
     COMMAND ${CMAKE_COMMAND} -E tar xzf ${GLFW_TGZ}
     WORKING_DIRECTORY ${GLFW_DIRECTORY}
   )
-
 endif()
 
 file(APPEND ${GLFW_CMAKE_LISTS})
