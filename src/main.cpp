@@ -1,3 +1,4 @@
+#include <cassert>
 #include <iostream>
 
 #include <glad/glad.h>
@@ -13,6 +14,8 @@ block_game::World* world;
 
 void CursorPosCallback(GLFWwindow* window, const double x_pos, const double y_pos)
 {
+  assert(world != nullptr);
+
   if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED)
   {
     block_game::Camera& camera{world->GetCamera()};
@@ -26,6 +29,8 @@ void CursorPosCallback(GLFWwindow* window, const double x_pos, const double y_po
 
 void KeyCallback(GLFWwindow* window, const int key, const int scancode, const int action, const int mods)
 {
+  assert(world != nullptr);
+
   if (action == GLFW_PRESS)
   {
     if (key == GLFW_KEY_ESCAPE)
