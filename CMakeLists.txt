@@ -54,6 +54,11 @@ endif()
 
 file(APPEND ${GLAD_CMAKE_LISTS})
 add_subdirectory(${GLAD_SOURCE} ${GLAD_BINARY})
+add_library(glad
+  ${GLAD_INCLUDE}/glad/glad.h
+  ${GLAD_INCLUDE}/KHR/khrplatform.h
+  ${GLAD_SOURCE}/src/glad.c
+)
 include_directories(${GLAD_INCLUDE})
 
 macro(add_headers)
@@ -80,19 +85,10 @@ macro(add_sources)
   set_property(GLOBAL APPEND PROPERTY SOURCES_PROPERTY ${SOURCES})
 endmacro()
 
-add_headers(
-  ${GLAD_INCLUDE}/glad/glad.h
-  ${GLAD_INCLUDE}/KHR/khrplatform.h
-)
-
-add_sources(
-  ${GLAD_SOURCE}/src/glad.c
-)
-
 add_subdirectory(src)
 include_directories(src)
 
 get_property(FINAL_HEADERS GLOBAL PROPERTY HEADERS_PROPERTY)
 get_property(FINAL_SOURCES GLOBAL PROPERTY SOURCES_PROPERTY)
 add_executable(block_game ${FINAL_HEADERS} ${FINAL_SOURCES})
-target_link_libraries(block_game glfw ${GLFW_LIBRARIES})
+target_link_libraries(block_game glfw ${GLFW_LIBRARIES} glad)
