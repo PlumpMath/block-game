@@ -52,12 +52,14 @@ namespace block_game
   void Grid::Update(const double delta)
   {
     assert(delta >= 0.0);
+    if (delta > 0.0)
+    {
+      position_.RotateZ(static_cast<float>(delta));
 
-    position_.RotateZ(static_cast<float>(delta));
-
-    rotation_[0] += static_cast<float>((1 - root_.color()[0]) * delta);
-    rotation_[1] += static_cast<float>((1 - root_.color()[1]) * delta);
-    rotation_[2] += static_cast<float>((1 - root_.color()[2]) * delta);
+      rotation_[0] += static_cast<float>((1 - root_.color()[0]) * delta);
+      rotation_[1] += static_cast<float>((1 - root_.color()[1]) * delta);
+      rotation_[2] += static_cast<float>((1 - root_.color()[2]) * delta);
+    }
   }
 
   void Grid::RebuildDraw()

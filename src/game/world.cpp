@@ -69,60 +69,64 @@ namespace block_game
   void World::Update(const double delta)
   {
     assert(delta >= 0.0);
-
-    for (Grid& grid : grids_)
+    if (delta > 0.0)
     {
-      grid.Update(delta);
+      for (Grid& grid : grids_)
+      {
+        grid.Update(delta);
+      }
+
+      Vector<2> camera_forward_direction{0.0F, -1.0F};
+      Vector<2> camera_strafe_direction{1.0F, 0.0F};
+      camera_forward_direction.RotateZ(camera_.yaw());
+      camera_strafe_direction.RotateZ(camera_.yaw());
+
+      camera_.position()[0] += static_cast<float>(camera_delta_forward_ * camera_forward_direction[0] * delta);
+      camera_.position()[1] += static_cast<float>(camera_delta_forward_ * camera_forward_direction[1] * delta);
+
+      camera_.position()[0] += static_cast<float>(camera_delta_strafe_ * camera_strafe_direction[0] * delta);
+      camera_.position()[1] += static_cast<float>(camera_delta_strafe_ * camera_strafe_direction[1] * delta);
+
+      camera_.position()[2] += static_cast<float>(camera_delta_vertical_ * delta);
+
+      camera_.set_roll(static_cast<float>(camera_.roll() + camera_delta_roll_ * delta));
     }
-
-    Vector<2> camera_forward_direction{0.0F, -1.0F};
-    Vector<2> camera_strafe_direction{1.0F, 0.0F};
-    camera_forward_direction.RotateZ(camera_.yaw());
-    camera_strafe_direction.RotateZ(camera_.yaw());
-
-    camera_.position()[0] += static_cast<float>(camera_delta_forward_ * camera_forward_direction[0] * delta);
-    camera_.position()[1] += static_cast<float>(camera_delta_forward_ * camera_forward_direction[1] * delta);
-
-    camera_.position()[0] += static_cast<float>(camera_delta_strafe_ * camera_strafe_direction[0] * delta);
-    camera_.position()[1] += static_cast<float>(camera_delta_strafe_ * camera_strafe_direction[1] * delta);
-
-    camera_.position()[2] += static_cast<float>(camera_delta_vertical_ * delta);
-
-    camera_.set_roll(static_cast<float>(camera_.roll() + camera_delta_roll_ * delta));
   }
 
   void World::Display(const int width, const int height)
   {
     assert(width >= 0 && height >= 0);
-
-    glViewport(0, 0, width, height);
-    glClearColor(0.5F, 0.5F, 1.0F, 1.0F);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    glEnable(GL_CULL_FACE);
-    glEnable(GL_DEPTH_TEST);
-
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
-    glEnableVertexAttribArray(2);
-
-    program_.Bind();
-
-    camera_.set_aspect_ratio(width / static_cast<float>(height));
-    program_.SetUniformMatrix4("viewProjection", camera_.GetMatrix());
-
-    for (const Grid& grid : grids_)
+    if (width > 0 && height > 0)
     {
-      grid.Draw(program_);
+      glViewport(0, 0, width, height);
+      glClearColor(0.5F, 0.5F, 1.0F, 1.0F);
+      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+      glEnable(GL_CULL_FACE);
+      glEnable(GL_DEPTH_TEST);
+
+      glEnableVertexAttribArray(0);
+      glEnableVertexAttribArray(1);
+      glEnableVertexAttribArray(2);
+
+      program_.Bind();
+
+      camera_.set_aspect_ratio(width / static_cast<float>(height));
+      program_.SetUniformMatrix4("viewProjection", camera_.GetMatrix());
+
+      for (const Grid& grid : grids_)
+      {
+        grid.Draw(program_);
+      }
+
+      Program::Unbind();
+
+      glDisableVertexAttribArray(2);
+      glDisableVertexAttribArray(1);
+      glDisableVertexAttribArray(0);
+
+      glDisable(GL_DEPTH_TEST);
+      glDisable(GL_CULL_FACE);
     }
-
-    Program::Unbind();
-
-    glDisableVertexAttribArray(2);
-    glDisableVertexAttribArray(1);
-    glDisableVertexAttribArray(0);
-
-    glDisable(GL_DEPTH_TEST);
-    glDisable(GL_CULL_FACE);
   }
 }
