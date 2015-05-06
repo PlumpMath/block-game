@@ -1,5 +1,6 @@
 #include "game/block.h"
 
+#include <memory>
 #include <vector>
 
 #include "game/block_vertex.h"
@@ -67,14 +68,50 @@ namespace block_game
     solid_{false}
   {
     assert(radius > 0.0F);
+  }
 
-    for (int z = 0; z < 2; ++z)
+  Block::~Block()
+  {}
+
+  Block::Block(Block& block) : parent_{block.parent_}, radius_{block.radius_}, position_(block.position_), leaf_{block.leaf_}
+  {
+    if (leaf_)
     {
-      for (int y = 0; y < 2; ++y)
+      solid_ = block.solid_;
+      color_ = block.color_;
+    }
+    else
+    {
+      for (int z = 0; z < 2; ++z)
       {
-        for (int x = 0; x < 2; ++x)
+        for (int y = 0; y < 2; ++y)
         {
-          children[z][y][x] = nullptr;
+          for (int x = 0; x < 2; ++x)
+          {
+            children[z][y][x] = std::move(block.children[z][y][x]);
+          }
+        }
+      }
+    }
+  }
+
+  Block::Block(Block&& block) : parent_{block.parent_}, radius_{block.radius_}, position_(block.position_), leaf_{block.leaf_}
+  {
+    if (leaf_)
+    {
+      solid_ = block.solid_;
+      color_ = block.color_;
+    }
+    else
+    {
+      for (int z = 0; z < 2; ++z)
+      {
+        for (int y = 0; y < 2; ++y)
+        {
+          for (int x = 0; x < 2; ++x)
+          {
+            children[z][y][x] = std::move(block.children[z][y][x]);
+          }
         }
       }
     }
@@ -103,13 +140,13 @@ namespace block_game
   const Block* Block::Child(const int x, const int y, const int z) const
   {
     assert(x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 2);
-    return children[z][y][x];
+    return children[z][y][x].get();
   }
 
   Block* Block::Child(const int x, const int y, const int z)
   {
     assert(x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 2);
-    return children[z][y][x];
+    return children[z][y][x].get();
   }
 
   bool Block::solid() const
@@ -142,8 +179,7 @@ namespace block_game
       {
         for (int x = 0; x < 2; ++x)
         {
-          delete children[z][y][x];
-          children[z][y][x] = nullptr;
+          children[z][y][x].reset();
         }
       }
     }
@@ -159,7 +195,8 @@ namespace block_game
       {
         for (int x = 0; x < 2; ++x)
         {
-          children[z][y][x] = new Block{this, radius_ / 2, position_ + radius_ * Vector<3>{x - 0.5F, y - 0.5F, z - 0.5F}};
+          children[z][y][x] = std::make_unique<Block>(this, radius_ / 2,
+            position_ + radius_ * Vector<3>{x - 0.5F, y - 0.5F, z - 0.5F});
           children[z][y][x]->set_solid(solid_);
           Vector<3>& child_color = children[z][y][x]->color();
           child_color[0] = color_[0];

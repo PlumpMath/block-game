@@ -1,6 +1,7 @@
 #ifndef BLOCK_GAME_GAME_BLOCK_H_
 #define BLOCK_GAME_GAME_BLOCK_H_
 
+#include <memory>
 #include <vector>
 
 #include "game/block_vertex.h"
@@ -14,6 +15,10 @@ namespace block_game
   {
   public:
     Block(const Block*, const float, const Vector<3>&);
+    ~Block();
+
+    Block(Block&);
+    Block(Block&&);
 
     const Block* parent() const;
     float radius() const;
@@ -46,7 +51,7 @@ namespace block_game
     bool leaf_;
 
     // leaf_ == false
-    Block* children[2][2][2];
+    std::unique_ptr<Block> children[2][2][2];
 
     // leaf_ == true
     bool solid_;
