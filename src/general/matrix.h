@@ -61,7 +61,6 @@ namespace block_game
   Matrix<order> Matrix<order>::operator+(const Matrix<order>& matrix) const
   {
     Matrix<order> result;
-
     for (int i = 0; i < order; ++i)
     {
       for (int j = 0; j < order; ++j)
@@ -69,7 +68,6 @@ namespace block_game
         result[i][j] = elements[i][j] + matrix[i][j];
       }
     }
-
     return result;
   }
 
@@ -77,7 +75,6 @@ namespace block_game
   Matrix<order> Matrix<order>::operator-(const Matrix<order>& matrix) const
   {
     Matrix<order> result;
-
     for (int i = 0; i < order; ++i)
     {
       for (int j = 0; j < order; ++j)
@@ -85,7 +82,6 @@ namespace block_game
         result[i][j] = elements[i][j] - matrix[i][j];
       }
     }
-
     return result;
   }
 
@@ -97,7 +93,6 @@ namespace block_game
     {
       result[i][i] = 0.0F;
     }
-
     for (int i = 0; i < order; ++i)
     {
       for (int j = 0; j < order; ++j)
@@ -108,7 +103,6 @@ namespace block_game
         }
       }
     }
-
     return result;
   }
 
@@ -122,7 +116,6 @@ namespace block_game
         elements[i][j] += matrix[i][j];
       }
     }
-
     return *this;
   }
 
@@ -136,7 +129,6 @@ namespace block_game
         elements[i][j] -= matrix[i][j];
       }
     }
-
     return *this;
   }
 
