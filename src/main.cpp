@@ -91,14 +91,14 @@ int main()
 {
   if (!glfwInit())
   {
-    return -1;
+    return EXIT_FAILURE;
   }
 
   GLFWwindow* window{glfwCreateWindow(512, 512, "Block Game 0.2.1", nullptr, nullptr)};
   if (!window)
   {
     glfwTerminate();
-    return -1;
+    return EXIT_FAILURE;
   }
 
   glfwMakeContextCurrent(window);
@@ -140,4 +140,5 @@ int main()
 
   glfwDestroyWindow(window);
   glfwTerminate();
+  return EXIT_SUCCESS;
 }
