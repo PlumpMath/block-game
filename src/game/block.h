@@ -45,9 +45,6 @@ namespace block_game
     void Draw(Program&) const;
 
   private:
-    static const BlockVertex vertices_[];
-    static const unsigned char indices_[];
-
     Block* const parent_;
     const float radius_;
     const Vector<3> position_;

@@ -8,57 +8,76 @@
 
 namespace block_game
 {
-  const BlockVertex Block::vertices_[]
+  const Vector<3> points[]
   {
-    // -x
-    {{-1.0F, -1.0F, -1.0F}, {-1.0F, 0.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
-    {{-1.0F, 1.0F, -1.0F}, {-1.0F, 0.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
-    {{-1.0F, -1.0F, 1.0F}, {-1.0F, 0.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
-    {{-1.0F, 1.0F, 1.0F}, {-1.0F, 0.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
-    // +x
-    {{1.0F, -1.0F, -1.0F}, {1.0F, 0.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
-    {{1.0F, 1.0F, -1.0F}, {1.0F, 0.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
-    {{1.0F, -1.0F, 1.0F}, {1.0F, 0.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
-    {{1.0F, 1.0F, 1.0F}, {1.0F, 0.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
-    // -y
-    {{-1.0F, -1.0F, -1.0F}, {0.0F, -1.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
-    {{1.0F, -1.0F, -1.0F}, {0.0F, -1.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
-    {{-1.0F, -1.0F, 1.0F}, {0.0F, -1.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
-    {{1.0F, -1.0F, 1.0F}, {0.0F, -1.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
-    // +y
-    {{-1.0F, 1.0F, -1.0F}, {0.0F, 1.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
-    {{1.0F, 1.0F, -1.0F}, {0.0F, 1.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
-    {{-1.0F, 1.0F, 1.0F}, {0.0F, 1.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
-    {{1.0F, 1.0F, 1.0F}, {0.0F, 1.0F, 0.0F}, {1.0F, 1.0F, 1.0F}},
-    // -z
-    {{-1.0F, -1.0F, -1.0F}, {0.0F, 0.0F, -1.0F}, {1.0F, 1.0F, 1.0F}},
-    {{1.0F, -1.0F, -1.0F}, {0.0F, 0.0F, -1.0F}, {1.0F, 1.0F, 1.0F}},
-    {{-1.0F, 1.0F, -1.0F}, {0.0F, 0.0F, -1.0F}, {1.0F, 1.0F, 1.0F}},
-    {{1.0F, 1.0F, -1.0F}, {0.0F, 0.0F, -1.0F}, {1.0F, 1.0F, 1.0F}},
-    // +z
-    {{-1.0F, -1.0F, 1.0F}, {0.0F, 0.0F, 1.0F}, {1.0F, 1.0F, 1.0F}},
-    {{1.0F, -1.0F, 1.0F}, {0.0F, 0.0F, 1.0F}, {1.0F, 1.0F, 1.0F}},
-    {{-1.0F, 1.0F, 1.0F}, {0.0F, 0.0F, 1.0F}, {1.0F, 1.0F, 1.0F}},
-    {{1.0F, 1.0F, 1.0F}, {0.0F, 0.0F, 1.0F}, {1.0F, 1.0F, 1.0F}}
+    {-1.0F, -1.0F, -1.0f},
+    {1.0F, -1.0F, -1.0f},
+    {-1.0F, 1.0F, -1.0f},
+    {1.0F, 1.0F, -1.0f},
+    {-1.0F, -1.0F, 1.0f},
+    {1.0F, -1.0F, 1.0f},
+    {-1.0F, 1.0F, 1.0f},
+    {1.0F, 1.0F, 1.0f}
   };
-  const unsigned char Block::indices_[]
+  const Vector<3> face_normals[]
   {
-    // -x
+    {-1.0F, 0.0F, 0.0F},
+    {1.0F, 0.0F, 0.0F},
+    {0.0F, -1.0F, 0.0F},
+    {0.0F, 1.0F, 0.0F},
+    {0.0F, 0.0F, -1.0F},
+    {0.0F, 0.0F, 1.0F},
+  };
+  const Vector<3> identity_color{1.0F, 1.0F, 1.0F};
+  const BlockVertex block_vertices[]
+  {
+    {points[0], face_normals[0], identity_color},
+    {points[2], face_normals[0], identity_color},
+    {points[4], face_normals[0], identity_color},
+    {points[6], face_normals[0], identity_color},
+
+    {points[1], face_normals[1], identity_color},
+    {points[3], face_normals[1], identity_color},
+    {points[5], face_normals[1], identity_color},
+    {points[7], face_normals[1], identity_color},
+
+    {points[0], face_normals[2], identity_color},
+    {points[1], face_normals[2], identity_color},
+    {points[4], face_normals[2], identity_color},
+    {points[5], face_normals[2], identity_color},
+
+    {points[2], face_normals[3], identity_color},
+    {points[3], face_normals[3], identity_color},
+    {points[6], face_normals[3], identity_color},
+    {points[7], face_normals[3], identity_color},
+
+    {points[0], face_normals[4], identity_color},
+    {points[1], face_normals[4], identity_color},
+    {points[2], face_normals[4], identity_color},
+    {points[3], face_normals[4], identity_color},
+
+    {points[4], face_normals[5], identity_color},
+    {points[5], face_normals[5], identity_color},
+    {points[6], face_normals[5], identity_color},
+    {points[7], face_normals[5], identity_color}
+  };
+  const unsigned char block_indices[]
+  {
     0, 1, 3,
     0, 3, 2,
-    // +x
+
     4, 6, 7,
     4, 7, 5,
-    // -y
+
     8, 10, 11,
     8, 11, 9,
-    // +y
+
     12, 13, 15,
     12, 15, 14,
-    // -z
+
     16, 17, 19,
     16, 19, 18,
-    // +z
+
     20, 22, 23,
     20, 23, 21
   };
@@ -222,12 +241,12 @@ namespace block_game
       {
         for (int i = 0; i < 36; ++i)
         {
-          indices.emplace_back(vertices.size() + indices_[i]);
+          indices.emplace_back(vertices.size() + block_indices[i]);
         }
 
         for (int i = 0; i < 24; ++i)
         {
-          vertices.emplace_back(position_ + radius_ * vertices_[i].position, vertices_[i].normal, color_);
+          vertices.emplace_back(position_ + radius_ * block_vertices[i].position, block_vertices[i].normal, color_);
         }
       }
     }
