@@ -66,6 +66,8 @@ namespace block_game
     : parent_{parent}, radius_{radius}, position_(position), leaf_{true},
     solid_{false}
   {
+    assert(radius > 0.0F);
+
     for (int z = 0; z < 2; ++z)
     {
       for (int y = 0; y < 2; ++y)
@@ -100,11 +102,13 @@ namespace block_game
 
   const Block* Block::Child(const int x, const int y, const int z) const
   {
+    assert(x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 2);
     return children[z][y][x];
   }
 
   Block* Block::Child(const int x, const int y, const int z)
   {
+    assert(x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 2);
     return children[z][y][x];
   }
 

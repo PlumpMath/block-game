@@ -1,5 +1,7 @@
 #include "opengl/vertex_buffer.h"
 
+#include <cassert>
+
 #include <glad/glad.h>
 
 namespace block_game
@@ -50,6 +52,7 @@ namespace block_game
 
   void VertexBuffer::SetData(const GLsizeiptr size, const GLvoid* data, const GLenum usage)
   {
+    assert(size >= 0 && data != nullptr);
     glBufferData(GL_ARRAY_BUFFER, size, data, usage);
   }
 }

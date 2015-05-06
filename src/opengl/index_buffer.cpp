@@ -1,5 +1,7 @@
 #include "opengl/index_buffer.h"
 
+#include <cassert>
+
 #include <glad/glad.h>
 
 namespace block_game
@@ -50,11 +52,13 @@ namespace block_game
 
   void IndexBuffer::SetData(const GLsizeiptr size, const GLvoid* data, const GLenum usage)
   {
+    assert(size >= 0 && data != nullptr);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, usage);
   }
 
   void IndexBuffer::Draw(const GLsizei count, const GLenum type) const
   {
+    assert(count >= 0);
     glDrawElements(GL_TRIANGLES, count, type, 0);
   }
 }

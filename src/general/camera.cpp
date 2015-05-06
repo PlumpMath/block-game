@@ -1,6 +1,7 @@
 #include "general/camera.h"
 
 #include <algorithm>
+#include <cassert>
 #include <cmath>
 
 #include "general/math.h"
@@ -75,21 +76,25 @@ namespace block_game
 
   void Camera::set_field_of_view(const float field_of_view)
   {
+    assert(field_of_view > 0.0F && field_of_view < kPiF);
     field_of_view_ = field_of_view;
   }
 
   void Camera::set_z_near(const float z_near)
   {
+    assert(z_near > 0.0F);
     z_near_ = z_near;
   }
 
   void Camera::set_z_far(const float z_far)
   {
+    assert(z_far > 0.0F);
     z_far_ = z_far;
   }
 
   void Camera::set_aspect_ratio(const float aspect_ratio)
   {
+    assert(aspect_ratio > 0.0F);
     aspect_ratio_ = aspect_ratio;
   }
 

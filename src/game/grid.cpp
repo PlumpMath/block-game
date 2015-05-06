@@ -1,5 +1,6 @@
 #include "game/grid.h"
 
+#include <cassert>
 #include <vector>
 
 #include <glad/glad.h>
@@ -14,7 +15,9 @@
 namespace block_game
 {
   Grid::Grid(const float radius) : root_{nullptr, radius, {0.0F, 0.0F, 0.0F}}
-  {}
+  {
+    assert(radius > 0.0F);
+  }
 
   const Vector<3>& Grid::position() const
   {
@@ -48,6 +51,8 @@ namespace block_game
 
   void Grid::Update(const double delta)
   {
+    assert(delta >= 0.0);
+
     position_.RotateZ(static_cast<float>(delta));
 
     rotation_[0] += static_cast<float>((1 - root_.color()[0]) * delta);

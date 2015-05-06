@@ -1,5 +1,6 @@
 #include "opengl/shader.h"
 
+#include <cassert>
 #include <iostream>
 #include <string>
 
@@ -9,6 +10,8 @@ namespace block_game
 {
   Shader::Shader(const GLenum type, const GLchar* source) : id_{glCreateShader(type)}
   {
+    assert(source != nullptr);
+
     glShaderSource(id_, 1, &source, nullptr);
     glCompileShader(id_);
 

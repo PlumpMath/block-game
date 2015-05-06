@@ -1,6 +1,7 @@
 #ifndef BLOCK_GAME_GENERAL_MATRIX_H_
 #define BLOCK_GAME_GENERAL_MATRIX_H_
 
+#include <cassert>
 #include <cmath>
 
 namespace block_game
@@ -8,6 +9,8 @@ namespace block_game
   template<int order>
   struct Matrix
   {
+    static_assert(order > 0, "Matrix with nonpositive order");
+
     Matrix();
 
     const float* operator[](const int i) const;
@@ -43,12 +46,14 @@ namespace block_game
   template<int order>
   const float* Matrix<order>::operator[](const int i) const
   {
+    assert(i >= 0 && i < order);
     return elements[i];
   }
 
   template<int order>
   float* Matrix<order>::operator[](const int i)
   {
+    assert(i >= 0 && i < order);
     return elements[i];
   }
 
@@ -138,6 +143,8 @@ namespace block_game
   template<int order>
   void Matrix<order>::RotateX(const float angle)
   {
+    static_assert(order >= 3, "rotate Matrix in x-axis without y-axis and z-axis");
+
     const float sine{sin(angle)};
     const float cosine{cos(angle)};
 
@@ -153,6 +160,8 @@ namespace block_game
   template<int order>
   void Matrix<order>::RotateY(const float angle)
   {
+    static_assert(order >= 3, "rotate Matrix in y-axis without x-axis and z-axis");
+
     const float sine{sin(angle)};
     const float cosine{cos(angle)};
 
@@ -168,6 +177,8 @@ namespace block_game
   template<int order>
   void Matrix<order>::RotateZ(const float angle)
   {
+    static_assert(order >= 2, "rotate Matrix in z-axis without x-axis and y-axis");
+
     const float sine{sin(angle)};
     const float cosine{cos(angle)};
 

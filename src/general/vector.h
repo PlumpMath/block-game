@@ -1,6 +1,7 @@
 #ifndef BLOCK_GAME_GENERAL_VECTOR_H_
 #define BLOCK_GAME_GENERAL_VECTOR_H_
 
+#include <cassert>
 #include <initializer_list>
 
 namespace block_game
@@ -8,6 +9,8 @@ namespace block_game
   template<int dimensions>
   struct Vector
   {
+    static_assert(dimensions > 0, "Vector with nonpositive number of dimensions");
+
     Vector();
     Vector(const std::initializer_list<float>&);
 
@@ -48,6 +51,7 @@ namespace block_game
   template<int dimensions>
   Vector<dimensions>::Vector(const std::initializer_list<float>& initial_components)
   {
+    assert(initial_components.size() == dimensions);
     int i = 0;
     for (const float component : initial_components)
     {
@@ -59,12 +63,14 @@ namespace block_game
   template<int dimensions>
   float Vector<dimensions>::operator[](const int i) const
   {
+    assert(i >= 0 && i < dimensions);
     return components[i];
   }
 
   template<int dimensions>
   float& Vector<dimensions>::operator[](const int i)
   {
+    assert(i >= 0 && i < dimensions);
     return components[i];
   }
 
@@ -104,6 +110,7 @@ namespace block_game
   template<int dimensions>
   Vector<dimensions> Vector<dimensions>::operator/(const float scalar) const
   {
+    assert(scalar != 0.0F);
     Vector<dimensions> new_vector;
     for (int i = 0; i < dimensions; ++i)
     {
@@ -145,6 +152,7 @@ namespace block_game
   template<int dimensions>
   Vector<dimensions>& Vector<dimensions>::operator/=(const float scalar)
   {
+    assert(scalar != 0.0F);
     for (int i = 0; i < dimensions; ++i)
     {
       components[i] /= scalar;
@@ -155,6 +163,8 @@ namespace block_game
   template<int dimensions>
   void Vector<dimensions>::RotateX(const float angle)
   {
+    static_assert(dimensions >= 3, "rotate Vector in x-axis without y-axis and z-axis");
+
     const float sine{sin(angle)};
     const float cosine{cos(angle)};
 
@@ -168,6 +178,8 @@ namespace block_game
   template<int dimensions>
   void Vector<dimensions>::RotateY(const float angle)
   {
+    static_assert(dimensions >= 3, "rotate Vector in y-axis without x-axis and z-axis");
+
     const float sine{sin(angle)};
     const float cosine{cos(angle)};
 
@@ -181,6 +193,8 @@ namespace block_game
   template<int dimensions>
   void Vector<dimensions>::RotateZ(const float angle)
   {
+    static_assert(dimensions >= 2, "rotate Vector in z-axis without x-axis and y-axis");
+
     const float sine{sin(angle)};
     const float cosine{cos(angle)};
 
@@ -208,6 +222,7 @@ namespace block_game
     Vector<dimensions> new_vector;
     for (int i = 0; i < dimensions; ++i)
     {
+      assert(vector[i] != 0.0F);
       new_vector[i] = scalar / vector[i];
     }
     return new_vector;
