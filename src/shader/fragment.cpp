@@ -1,6 +1,8 @@
 #include "shader/fragment.h"
 
-const char* block_game::fragment_glsl{R"(
+#include <string>
+
+const std::string block_game::fragment_glsl{R"(
 
 #version 120
 

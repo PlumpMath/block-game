@@ -1,6 +1,8 @@
 #ifndef BLOCK_GAME_OPENGL_SHADER_H_
 #define BLOCK_GAME_OPENGL_SHADER_H_
 
+#include <string>
+
 #include <glad/glad.h>
 
 namespace block_game
@@ -8,7 +10,7 @@ namespace block_game
   class Shader
   {
   public:
-    Shader(const GLenum, const GLchar*);
+    Shader(const GLenum, const std::string);
     ~Shader();
 
     // The source Shader points to nothing after copy/move

@@ -1,6 +1,8 @@
 #include "shader/vertex.h"
 
-const char* block_game::vertex_glsl{R"(
+#include <string>
+
+const std::string block_game::vertex_glsl{R"(
 
 #version 120
 

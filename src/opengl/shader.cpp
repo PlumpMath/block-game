@@ -8,11 +8,10 @@
 
 namespace block_game
 {
-  Shader::Shader(const GLenum type, const GLchar* source) : id_{glCreateShader(type)}
+  Shader::Shader(const GLenum type, const std::string source) : id_{glCreateShader(type)}
   {
-    assert(source);
-
-    glShaderSource(id_, 1, &source, nullptr);
+    const char* source_c_str = source.c_str();
+    glShaderSource(id_, 1, &source_c_str, nullptr);
     glCompileShader(id_);
 
     GLint is_compiled;
