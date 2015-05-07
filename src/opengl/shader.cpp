@@ -18,11 +18,11 @@ namespace block_game
     glGetShaderiv(id_, GL_COMPILE_STATUS, &is_compiled);
     if (!is_compiled)
     {
-      GLint max_length;
-      glGetShaderiv(id_, GL_INFO_LOG_LENGTH, &max_length);
+      GLint info_log_length;
+      glGetShaderiv(id_, GL_INFO_LOG_LENGTH, &info_log_length);
 
-      std::string error_log(max_length, '\0');
-      glGetShaderInfoLog(id_, max_length, &max_length, &error_log[0]);
+      std::string error_log(info_log_length, '\0');
+      glGetShaderInfoLog(id_, info_log_length, nullptr, &error_log[0]);
 
       std::cerr << "Shader failed to compile as type " << type << "! Source:";
       std::cerr << source;
