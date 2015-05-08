@@ -1,10 +1,16 @@
 #ifndef BLOCK_GAME_OPENGL_PROGRAM_H_
 #define BLOCK_GAME_OPENGL_PROGRAM_H_
 
+#include <string>
+#include <vector>
+
 #include <glad/glad.h>
+
+#include "opengl/vertex_attribute.h"
 
 namespace block_game
 {
+  class Buffer;
   template<int>
   struct Matrix;
   class Shader;
@@ -17,31 +23,26 @@ namespace block_game
     Program(const Shader&, const Shader&);
     ~Program();
 
-    // The source Program points to nothing after copy/move
-    Program(Program&);
+    Program(const Program&);
+    Program& operator=(const Program&);
+
     Program(Program&&);
-    Program& operator=(Program&);
     Program& operator=(Program&&);
 
-    void Bind();
-    static void Unbind();
+    void SetUniformFloat(const std::string&, const GLfloat);
+    void SetUniformVector2(const std::string&, const Vector<2>&);
+    void SetUniformVector3(const std::string&, const Vector<3>&);
+    void SetUniformMatrix2(const std::string&, const Matrix<2>&);
+    void SetUniformMatrix3(const std::string&, const Matrix<3>&);
+    void SetUniformMatrix4(const std::string&, const Matrix<4>&);
 
-    GLint GetAttribLocation(const GLchar*);
-
-    void SetUniformFloat(const GLchar*, const GLfloat);
-    void SetUniformVector2(const GLchar*, const Vector<2>&);
-    void SetUniformVector3(const GLchar*, const Vector<3>&);
-    void SetUniformMatrix2(const GLchar*, const Matrix<2>&);
-    void SetUniformMatrix3(const GLchar*, const Matrix<3>&);
-    void SetUniformMatrix4(const GLchar*, const Matrix<4>&);
+    void Draw(const Buffer&, const Buffer&, const std::vector<const VertexAttribute>&);
 
   private:
-    static Program* bound_;
-
     GLuint id_;
 
-    const Shader& vertex_shader_;
-    const Shader& fragment_shader_;
+    const Shader* vertex_shader_;
+    const Shader* fragment_shader_;
   };
 }
 

@@ -1,18 +1,23 @@
 #include "opengl/program.h"
 
+#include <string>
+#include <vector>
+
 #include <glad/glad.h>
 
 #include "general/matrix.h"
 #include "general/vector.h"
+#include "opengl/buffer.h"
 #include "opengl/shader.h"
+#include "opengl/vertex_attribute.h"
 
 namespace block_game
 {
   Program::Program(const Shader& vertex_shader, const Shader& fragment_shader)
-    : id_{glCreateProgram()}, vertex_shader_{vertex_shader}, fragment_shader_{fragment_shader}
+    : id_{glCreateProgram()}, vertex_shader_{&vertex_shader}, fragment_shader_{&fragment_shader}
   {
-    vertex_shader_.Attach(id_);
-    fragment_shader_.Attach(id_);
+    vertex_shader_->Attach(id_);
+    fragment_shader_->Attach(id_);
 
     glLinkProgram(id_);
     glValidateProgram(id_);
@@ -20,16 +25,18 @@ namespace block_game
 
   Program::~Program()
   {
-    vertex_shader_.Detach(id_);
-    fragment_shader_.Detach(id_);
+    vertex_shader_->Detach(id_);
+    fragment_shader_->Detach(id_);
 
     glDeleteProgram(id_);
   }
 
-  Program::Program(Program& program)
-    : id_{program.id_}, vertex_shader_{program.vertex_shader_}, fragment_shader_{program.fragment_shader_}
+  Program::Program(const Program& program)
+  {}
+
+  Program& Program::operator=(const Program& program)
   {
-    program.id_ = 0;
+    return *this;
   }
 
   Program::Program(Program&& program)
@@ -38,73 +45,87 @@ namespace block_game
     program.id_ = 0;
   }
 
-  Program& Program::operator=(Program& program)
-  {
-    id_ = program.id_;
-    program.id_ = 0;
-    return *this;
-  }
-
   Program& Program::operator=(Program&& program)
   {
     id_ = program.id_;
+    vertex_shader_ = program.vertex_shader_;
+    fragment_shader_ = program.fragment_shader_;
     program.id_ = 0;
     return *this;
   }
 
-  void Program::Bind()
+  void Program::SetUniformFloat(const std::string& name, const GLfloat value)
   {
     glUseProgram(id_);
-    bound_ = this;
-  }
-
-  void Program::Unbind()
-  {
+    glUniform1f(glGetUniformLocation(id_, name.c_str()), value);
     glUseProgram(0);
-    bound_ = nullptr;
   }
 
-  GLint Program::GetAttribLocation(const GLchar* name)
+  void Program::SetUniformVector2(const std::string& name, const Vector<2>& vector_2)
   {
-    assert(bound_ == this && name);
-    return glGetAttribLocation(id_, name);
+    glUseProgram(id_);
+    glUniform2f(glGetUniformLocation(id_, name.c_str()), vector_2[0], vector_2[1]);
+    glUseProgram(0);
   }
 
-  void Program::SetUniformFloat(const GLchar* name, const GLfloat value)
+  void Program::SetUniformVector3(const std::string& name, const Vector<3>& vector_3)
   {
-    assert(bound_ == this && name);
-    glUniform1f(glGetUniformLocation(id_, name), value);
+    glUseProgram(id_);
+    glUniform3f(glGetUniformLocation(id_, name.c_str()), vector_3[0], vector_3[1], vector_3[2]);
+    glUseProgram(0);
   }
 
-  void Program::SetUniformVector2(const GLchar* name, const Vector<2>& vector_2)
+  void Program::SetUniformMatrix2(const std::string& name, const Matrix<2>& matrix)
   {
-    assert(bound_ == this && name);
-    glUniform2f(glGetUniformLocation(id_, name), vector_2[0], vector_2[1]);
+    glUseProgram(id_);
+    glUniformMatrix2fv(glGetUniformLocation(id_, name.c_str()), 1, true, *(matrix.elements));
+    glUseProgram(0);
   }
 
-  void Program::SetUniformVector3(const GLchar* name, const Vector<3>& vector_3)
+  void Program::SetUniformMatrix3(const std::string& name, const Matrix<3>& matrix)
   {
-    assert(bound_ == this && name);
-    glUniform3f(glGetUniformLocation(id_, name), vector_3[0], vector_3[1], vector_3[2]);
+    glUseProgram(id_);
+    glUniformMatrix3fv(glGetUniformLocation(id_, name.c_str()), 1, true, *(matrix.elements));
+    glUseProgram(0);
   }
 
-  void Program::SetUniformMatrix2(const GLchar* name, const Matrix<2>& matrix)
+  void Program::SetUniformMatrix4(const std::string& name, const Matrix<4>& matrix)
   {
-    assert(bound_ == this && name);
-    glUniformMatrix2fv(glGetUniformLocation(id_, name), 1, true, *(matrix.elements));
+    glUseProgram(id_);
+    glUniformMatrix4fv(glGetUniformLocation(id_, name.c_str()), 1, true, *(matrix.elements));
+    glUseProgram(0);
   }
 
-  void Program::SetUniformMatrix3(const GLchar* name, const Matrix<3>& matrix)
+  void Program::Draw(const Buffer& vertex_buffer, const Buffer& index_buffer,
+    const std::vector<const VertexAttribute>& attributes)
   {
-    assert(bound_ == this && name);
-    glUniformMatrix3fv(glGetUniformLocation(id_, name), 1, true, *(matrix.elements));
-  }
+    assert(vertex_buffer.target_ == GL_ARRAY_BUFFER);
+    assert(index_buffer.target_ == GL_ELEMENT_ARRAY_BUFFER);
 
-  void Program::SetUniformMatrix4(const GLchar* name, const Matrix<4>& matrix)
-  {
-    assert(bound_ == this && name);
-    glUniformMatrix4fv(glGetUniformLocation(id_, name), 1, true, *(matrix.elements));
-  }
+    glUseProgram(id_);
+    glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer.id_);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer.id_);
 
-  Program* Program::bound_{nullptr};
+    for (GLuint i = 0; i < attributes.size(); ++i)
+    {
+      glEnableVertexAttribArray(i);
+    }
+
+    for (const VertexAttribute& attribute : attributes)
+    {
+      glVertexAttribPointer(glGetAttribLocation(id_, attribute.name.c_str()), attribute.size, attribute.type,
+        attribute.normalized, attribute.stride, reinterpret_cast<GLvoid*>(attribute.pointer));
+    }
+
+    glDrawElements(GL_TRIANGLES, index_buffer.size_, GL_UNSIGNED_BYTE, 0);
+
+    for (GLuint i = 0; i < attributes.size(); ++i)
+    {
+      glDisableVertexAttribArray(i);
+    }
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glUseProgram(0);
+  }
 }

@@ -94,23 +94,4 @@ namespace block_game
     glBufferSubData(target_, 0, size_, data);
     glBindBuffer(target_, 0);
   }
-
-  void Buffer::Draw(const Buffer& vertex_buffer, const Buffer& index_buffer,
-    const std::vector<const VertexAttribute>& attributes)
-  {
-    assert(vertex_buffer.target_ == GL_ARRAY_BUFFER);
-    assert(index_buffer.target_ == GL_ELEMENT_ARRAY_BUFFER);
-
-    glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer.id_);
-    for (const VertexAttribute& attribute : attributes)
-    {
-      glVertexAttribPointer(attribute.index, attribute.size, attribute.type,
-        attribute.normalized, attribute.stride, reinterpret_cast<GLvoid*>(attribute.pointer));
-    }
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer.id_);
-    glDrawElements(GL_TRIANGLES, index_buffer.size_, GL_UNSIGNED_BYTE, 0);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-  }
 }

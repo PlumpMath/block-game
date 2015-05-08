@@ -90,16 +90,10 @@ namespace block_game
     program.SetUniformMatrix3("rotation", rotation);
 
     std::vector<const VertexAttribute> attributes;
+    attributes.emplace_back("in_Vertex", 3, GL_FLOAT, GL_FALSE, sizeof(BlockVertex), 0);
+    attributes.emplace_back("in_Normal", 3, GL_FLOAT, GL_FALSE, sizeof(BlockVertex), sizeof(Vector<3>));
+    attributes.emplace_back("in_Color", 3, GL_FLOAT, GL_FALSE, sizeof(BlockVertex), 2 * sizeof(Vector<3>));
 
-    attributes.emplace_back(program.GetAttribLocation("in_Vertex"), 3, GL_FLOAT,
-      GL_FALSE, sizeof(BlockVertex), 0);
-
-    attributes.emplace_back(program.GetAttribLocation("in_Normal"), 3, GL_FLOAT,
-      GL_FALSE, sizeof(BlockVertex), sizeof(Vector<3>));
-
-    attributes.emplace_back(program.GetAttribLocation("in_Color"), 3, GL_FLOAT,
-      GL_FALSE, sizeof(BlockVertex), 2 * sizeof(Vector<3>));
-
-    Buffer::Draw(vertex_buffer_, index_buffer_, attributes);
+    program.Draw(vertex_buffer_, index_buffer_, attributes);
   }
 }

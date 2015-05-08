@@ -139,12 +139,6 @@ namespace block_game
       glEnable(GL_CULL_FACE);
       glEnable(GL_DEPTH_TEST);
 
-      glEnableVertexAttribArray(0);
-      glEnableVertexAttribArray(1);
-      glEnableVertexAttribArray(2);
-
-      program_.Bind();
-
       camera_.SetAspectRatio(width / static_cast<float>(height));
       program_.SetUniformMatrix4("viewProjection", camera_.GetMatrix());
 
@@ -152,12 +146,6 @@ namespace block_game
       {
         grid.Draw(program_);
       }
-
-      Program::Unbind();
-
-      glDisableVertexAttribArray(2);
-      glDisableVertexAttribArray(1);
-      glDisableVertexAttribArray(0);
 
       glDisable(GL_DEPTH_TEST);
       glDisable(GL_CULL_FACE);

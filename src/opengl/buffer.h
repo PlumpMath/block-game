@@ -5,6 +5,7 @@
 
 #include <glad/glad.h>
 
+#include "opengl/program.h"
 #include "opengl/vertex_attribute.h"
 
 namespace block_game
@@ -27,7 +28,8 @@ namespace block_game
 
     void Resize(GLsizeiptr);
     void SetData(const GLvoid*);
-    static void Draw(const Buffer&, const Buffer&, const std::vector<const VertexAttribute>&);
+
+    friend void Program::Draw(const Buffer&, const Buffer&, const std::vector<const VertexAttribute>&);
 
   private:
     GLuint id_;
