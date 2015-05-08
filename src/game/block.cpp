@@ -180,7 +180,7 @@ namespace block_game
     children_.clear();
   }
 
-  void Block::BuildDraw(std::vector<const BlockVertex>& vertices, std::vector<const unsigned char>& indices)
+  void Block::BuildDraw(std::vector<BlockVertex>& vertices, std::vector<unsigned char>& indices)
   {
     if (leaf_)
     {

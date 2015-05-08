@@ -149,7 +149,7 @@ namespace block_game
   }
 
   void Program::Draw(const Buffer& vertex_buffer, const Buffer& index_buffer,
-    const std::vector<const VertexAttribute>& attributes) const
+    const std::vector<VertexAttribute>& attributes) const
   {
     assert(vertex_buffer.target_ == GL_ARRAY_BUFFER);
     assert(index_buffer.target_ == GL_ELEMENT_ARRAY_BUFFER);

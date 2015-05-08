@@ -35,7 +35,7 @@ namespace block_game
     void SetUniformMatrix3(const std::string&, const Matrix<3>&);
     void SetUniformMatrix4(const std::string&, const Matrix<4>&);
 
-    void Draw(const Buffer&, const Buffer&, const std::vector<const VertexAttribute>&) const;
+    void Draw(const Buffer&, const Buffer&, const std::vector<VertexAttribute>&) const;
 
   private:
     void Link() const;

@@ -87,7 +87,7 @@ namespace block_game
     glBindBuffer(target_, 0);
   }
 
-  void Buffer::SetData(const GLvoid* data)
+  void Buffer::SetData(const GLvoid* const data)
   {
     assert(data);
     glBindBuffer(target_, id_);

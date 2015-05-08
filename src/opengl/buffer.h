@@ -29,7 +29,7 @@ namespace block_game
     void Resize(GLsizeiptr);
     void SetData(const GLvoid*);
 
-    friend void Program::Draw(const Buffer&, const Buffer&, const std::vector<const VertexAttribute>&) const;
+    friend void Program::Draw(const Buffer&, const Buffer&, const std::vector<VertexAttribute>&) const;
 
   private:
     GLuint id_;

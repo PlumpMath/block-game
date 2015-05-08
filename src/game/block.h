@@ -34,7 +34,7 @@ namespace block_game
     void Split();
     void Merge();
 
-    void BuildDraw(std::vector<const BlockVertex>&, std::vector<const unsigned char>&);
+    void BuildDraw(std::vector<BlockVertex>&, std::vector<unsigned char>&);
 
   private:
     Block* parent_;

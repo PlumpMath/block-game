@@ -68,8 +68,8 @@ namespace block_game
 
   void Grid::RebuildDraw()
   {
-    std::vector<const BlockVertex> vertices;
-    std::vector<const unsigned char> indices;
+    std::vector<BlockVertex> vertices;
+    std::vector<unsigned char> indices;
     root_.BuildDraw(vertices, indices);
 
     vertex_buffer_.Resize(sizeof(BlockVertex) * vertices.size());
@@ -89,7 +89,7 @@ namespace block_game
     program.SetUniformVector3("position", position_);
     program.SetUniformMatrix3("rotation", rotation);
 
-    std::vector<const VertexAttribute> attributes;
+    std::vector<VertexAttribute> attributes;
     attributes.emplace_back("in_Vertex", 3, GL_FLOAT, GL_FALSE, sizeof(BlockVertex), 0);
     attributes.emplace_back("in_Normal", 3, GL_FLOAT, GL_FALSE, sizeof(BlockVertex), sizeof(Vector<3>));
     attributes.emplace_back("in_Color", 3, GL_FLOAT, GL_FALSE, sizeof(BlockVertex), 2 * sizeof(Vector<3>));
