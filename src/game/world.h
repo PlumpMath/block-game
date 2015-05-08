@@ -6,7 +6,6 @@
 #include "game/grid.h"
 #include "general/camera.h"
 #include "opengl/program.h"
-#include "opengl/shader.h"
 
 namespace block_game
 {
@@ -40,8 +39,6 @@ namespace block_game
     float camera_delta_strafe_;
     float camera_delta_roll_;
 
-    const Shader vertex_shader_;
-    const Shader fragment_shader_;
     Program program_;
   };
 }

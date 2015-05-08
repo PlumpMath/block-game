@@ -13,14 +13,13 @@ namespace block_game
   class Buffer;
   template<int>
   struct Matrix;
-  class Shader;
   template<int>
   struct Vector;
 
   class Program
   {
   public:
-    Program(const Shader&, const Shader&);
+    Program(const std::string&, const std::string&);
     ~Program();
 
     Program(const Program&);
@@ -36,13 +35,14 @@ namespace block_game
     void SetUniformMatrix3(const std::string&, const Matrix<3>&);
     void SetUniformMatrix4(const std::string&, const Matrix<4>&);
 
-    void Draw(const Buffer&, const Buffer&, const std::vector<const VertexAttribute>&);
+    void Draw(const Buffer&, const Buffer&, const std::vector<const VertexAttribute>&) const;
 
   private:
-    GLuint id_;
+    void Link() const;
 
-    const Shader* vertex_shader_;
-    const Shader* fragment_shader_;
+    GLuint id_;
+    GLuint vertex_id_;
+    GLuint fragment_id_;
   };
 }
 
