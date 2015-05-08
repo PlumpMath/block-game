@@ -1,6 +1,5 @@
 #include "game/block.h"
 
-#include <memory>
 #include <vector>
 
 #include "game/block_vertex.h"
@@ -89,53 +88,6 @@ namespace block_game
     assert(radius > 0.0F);
   }
 
-  Block::~Block()
-  {}
-
-  Block::Block(Block& block) : parent_{block.parent_}, radius_{block.radius_}, position_(block.position_), leaf_{block.leaf_}
-  {
-    if (leaf_)
-    {
-      solid_ = block.solid_;
-      color_ = block.color_;
-    }
-    else
-    {
-      for (int z = 0; z < 2; ++z)
-      {
-        for (int y = 0; y < 2; ++y)
-        {
-          for (int x = 0; x < 2; ++x)
-          {
-            children_[z][y][x] = std::move(block.children_[z][y][x]);
-          }
-        }
-      }
-    }
-  }
-
-  Block::Block(Block&& block) : parent_{block.parent_}, radius_{block.radius_}, position_(block.position_), leaf_{block.leaf_}
-  {
-    if (leaf_)
-    {
-      solid_ = block.solid_;
-      color_ = block.color_;
-    }
-    else
-    {
-      for (int z = 0; z < 2; ++z)
-      {
-        for (int y = 0; y < 2; ++y)
-        {
-          for (int x = 0; x < 2; ++x)
-          {
-            children_[z][y][x] = std::move(block.children_[z][y][x]);
-          }
-        }
-      }
-    }
-  }
-
   bool Block::IsRoot() const
   {
     return !parent_;
@@ -169,13 +121,13 @@ namespace block_game
   const Block& Block::GetChild(const int x, const int y, const int z) const
   {
     assert(!leaf_ && x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 2);
-    return *children_[z][y][x];
+    return children_[z << 2 | y << 1 | x];
   }
 
   Block& Block::GetChild(const int x, const int y, const int z)
   {
     assert(!leaf_ && x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 2);
-    return *children_[z][y][x];
+    return children_[z << 2 | y << 1 | x];
   }
 
   bool Block::IsSolid() const
@@ -202,24 +154,9 @@ namespace block_game
     color_ = color;
   }
 
-  void Block::Merge()
-  {
-    leaf_ = true;
-
-    for (int z = 0; z < 2; ++z)
-    {
-      for (int y = 0; y < 2; ++y)
-      {
-        for (int x = 0; x < 2; ++x)
-        {
-          children_[z][y][x].reset();
-        }
-      }
-    }
-  }
-
   void Block::Split()
   {
+    assert(leaf_);
     leaf_ = false;
 
     for (int z = 0; z < 2; ++z)
@@ -228,13 +165,19 @@ namespace block_game
       {
         for (int x = 0; x < 2; ++x)
         {
-          children_[z][y][x] = std::make_unique<Block>(this, radius_ / 2,
-            position_ + radius_ * Vector<3>{x - 0.5F, y - 0.5F, z - 0.5F});
-          children_[z][y][x]->SetSolid(solid_);
-          children_[z][y][x]->SetColor(color_);
+          children_.emplace_back(this, radius_ / 2, position_ + radius_ * Vector<3>{x - 0.5F, y - 0.5F, z - 0.5F});
+          GetChild(x, y, z).SetSolid(solid_);
+          GetChild(x, y, z).SetColor(color_);
         }
       }
     }
+  }
+
+  void Block::Merge()
+  {
+    assert(!leaf_);
+    leaf_ = true;
+    children_.clear();
   }
 
   void Block::BuildDraw(std::vector<const BlockVertex>& vertices, std::vector<const unsigned char>& indices)
@@ -256,15 +199,9 @@ namespace block_game
     }
     else
     {
-      for (auto& four : children_)
+      for (auto& child : children_)
       {
-        for (auto& two : four)
-        {
-          for (auto& child : two)
-          {
-            child->BuildDraw(vertices, indices);
-          }
-        }
+        child.BuildDraw(vertices, indices);
       }
     }
   }

@@ -1,7 +1,6 @@
 #ifndef BLOCK_GAME_GAME_BLOCK_H_
 #define BLOCK_GAME_GAME_BLOCK_H_
 
-#include <memory>
 #include <vector>
 
 #include "game/block_vertex.h"
@@ -9,16 +8,10 @@
 
 namespace block_game
 {
-  class Program;
-
   class Block
   {
   public:
     Block(Block* const, const float, const Vector<3>&);
-    ~Block();
-
-    Block(Block&);
-    Block(Block&&);
 
     bool IsRoot() const;
     const Block& GetParent() const;
@@ -38,20 +31,19 @@ namespace block_game
     void SetSolid(const bool);
     void SetColor(const Vector<3>&);
 
-    void Merge();
     void Split();
+    void Merge();
 
     void BuildDraw(std::vector<const BlockVertex>&, std::vector<const unsigned char>&);
-    void Draw(Program&) const;
 
   private:
-    Block* const parent_;
-    const float radius_;
-    const Vector<3> position_;
+    Block* parent_;
+    float radius_;
+    Vector<3> position_;
     bool leaf_;
 
     // leaf_ == false
-    std::unique_ptr<Block> children_[2][2][2];
+    std::vector<Block> children_;
 
     // leaf_ == true
     bool solid_;
