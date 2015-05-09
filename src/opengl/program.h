@@ -12,9 +12,9 @@ namespace block_game
 {
   class Buffer;
   template<int>
-  struct Matrix;
+  class Matrix;
   template<int>
-  struct Vector;
+  class Vector;
 
   class Program
   {

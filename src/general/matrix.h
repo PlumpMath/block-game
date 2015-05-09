@@ -7,8 +7,9 @@
 namespace block_game
 {
   template<int order>
-  struct Matrix
+  class Matrix
   {
+  public:
     static_assert(order > 0, "Matrix with nonpositive order");
 
     Matrix();
@@ -28,6 +29,7 @@ namespace block_game
     void RotateY(const float); // Rotate around the y-axis
     void RotateZ(const float); // Rotate around the z-axis
 
+  private:
     float elements[order][order];
   };
 

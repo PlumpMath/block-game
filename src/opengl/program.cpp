@@ -130,21 +130,21 @@ namespace block_game
   void Program::SetUniformMatrix2(const std::string& name, const Matrix<2>& matrix)
   {
     glUseProgram(id_);
-    glUniformMatrix2fv(glGetUniformLocation(id_, name.c_str()), 1, true, *(matrix.elements));
+    glUniformMatrix2fv(glGetUniformLocation(id_, name.c_str()), 1, true, &matrix[0][0]);
     glUseProgram(0);
   }
 
   void Program::SetUniformMatrix3(const std::string& name, const Matrix<3>& matrix)
   {
     glUseProgram(id_);
-    glUniformMatrix3fv(glGetUniformLocation(id_, name.c_str()), 1, true, *(matrix.elements));
+    glUniformMatrix3fv(glGetUniformLocation(id_, name.c_str()), 1, true, &matrix[0][0]);
     glUseProgram(0);
   }
 
   void Program::SetUniformMatrix4(const std::string& name, const Matrix<4>& matrix)
   {
     glUseProgram(id_);
-    glUniformMatrix4fv(glGetUniformLocation(id_, name.c_str()), 1, true, *(matrix.elements));
+    glUniformMatrix4fv(glGetUniformLocation(id_, name.c_str()), 1, true, &matrix[0][0]);
     glUseProgram(0);
   }
 

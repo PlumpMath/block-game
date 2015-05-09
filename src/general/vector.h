@@ -7,8 +7,9 @@
 namespace block_game
 {
   template<int dimensions>
-  struct Vector
+  class Vector
   {
+  public:
     static_assert(dimensions > 0, "Vector with nonpositive number of dimensions");
 
     Vector();
@@ -31,6 +32,7 @@ namespace block_game
     void RotateY(const float); // Rotate around the y-axis
     void RotateZ(const float); // Rotate around the z-axis
 
+  private:
     float components[dimensions];
   };
 
