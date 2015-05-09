@@ -8,7 +8,7 @@ namespace block_game
   struct BlockVertex
   {
     BlockVertex();
-    BlockVertex(const Vector<3>&, const Vector<3>&, const Vector<3>&);
+    BlockVertex(const Vector<3>& position, const Vector<3>& normal, const Vector<3>& color);
 
     Vector<3> position;
     Vector<3> normal;

@@ -13,33 +13,33 @@ namespace block_game
     static_assert(dimensions > 0, "Vector with nonpositive number of dimensions");
 
     Vector();
-    Vector(const std::initializer_list<float>&);
+    Vector(const std::initializer_list<float>& initial_components);
 
-    float operator[](const int) const;
-    float& operator[](const int);
+    float operator[](int i) const;
+    float& operator[](int i);
 
-    Vector<dimensions> operator+(const Vector<dimensions>&) const;
-    Vector<dimensions> operator-(const Vector<dimensions>&) const;
-    Vector<dimensions> operator*(const float) const;
-    Vector<dimensions> operator/(const float) const;
+    Vector<dimensions> operator+(const Vector<dimensions>& vector) const;
+    Vector<dimensions> operator-(const Vector<dimensions>& vector) const;
+    Vector<dimensions> operator*(float scalar) const;
+    Vector<dimensions> operator/(float scalar) const;
 
-    Vector<dimensions>& operator+=(const Vector<dimensions>&);
-    Vector<dimensions>& operator-=(const Vector<dimensions>&);
-    Vector<dimensions>& operator*=(const float);
-    Vector<dimensions>& operator/=(const float);
+    Vector<dimensions>& operator+=(const Vector<dimensions>& vector);
+    Vector<dimensions>& operator-=(const Vector<dimensions>& vector);
+    Vector<dimensions>& operator*=(float scalar);
+    Vector<dimensions>& operator/=(float scalar);
 
-    void RotateX(const float); // Rotate around the x-axis
-    void RotateY(const float); // Rotate around the y-axis
-    void RotateZ(const float); // Rotate around the z-axis
+    void RotateX(float angle); // Rotate around the x-axis
+    void RotateY(float angle); // Rotate around the y-axis
+    void RotateZ(float angle); // Rotate around the z-axis
 
   private:
     float components[dimensions];
   };
 
   template<int dimensions>
-  Vector<dimensions> operator*(const float, const Vector<dimensions>&);
+  Vector<dimensions> operator*(float scalar, const Vector<dimensions>& vector);
   template<int dimensions>
-  Vector<dimensions> operator/(const float, const Vector<dimensions>&);
+  Vector<dimensions> operator/(float scalar, const Vector<dimensions>& vector);
 
   template<int dimensions>
   Vector<dimensions>::Vector()

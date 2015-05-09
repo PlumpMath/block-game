@@ -22,16 +22,16 @@ namespace block_game
     float GetZFar() const;
     float GetAspectRatio() const;
 
-    void SetPosition(const Vector<3>&);
+    void SetPosition(const Vector<3>& position);
 
-    void SetYaw(const float);
-    void SetPitch(const float);
-    void SetRoll(const float);
+    void SetYaw(float yaw);
+    void SetPitch(float pitch);
+    void SetRoll(float roll);
 
-    void SetFieldOfView(const float);
-    void SetZNear(const float);
-    void SetZFar(const float);
-    void SetAspectRatio(const float);
+    void SetFieldOfView(float field_of_view);
+    void SetZNear(float z_near);
+    void SetZFar(float z_far);
+    void SetAspectRatio(float aspect_ratio);
 
     Matrix<4> GetMatrix() const;
 

@@ -13,20 +13,21 @@ namespace block_game
   class Buffer
   {
   public:
-    Buffer(const GLenum, const GLsizeiptr, const GLenum);
+    Buffer(GLenum target, GLsizeiptr size, GLenum usage);
     ~Buffer();
-    Buffer(const Buffer&);
-    Buffer(Buffer&&);
-    Buffer& operator=(Buffer);
+    Buffer(const Buffer& buffer);
+    Buffer(Buffer&& buffer);
+    Buffer& operator=(Buffer buffer);
 
     GLenum GetTarget() const;
     GLsizeiptr GetSize() const;
     GLenum GetUsage() const;
 
-    void Resize(GLsizeiptr);
-    void SetData(const GLvoid*);
+    void Resize(GLsizeiptr size);
+    void SetData(const GLvoid* data);
 
-    friend void Program::Draw(const Buffer&, const Buffer&, const std::vector<VertexAttribute>&) const;
+    friend void Program::Draw(const Buffer& vertex_buffer, const Buffer& index_buffer,
+      const std::vector<VertexAttribute>& attributes) const;
 
   private:
     GLuint id_;

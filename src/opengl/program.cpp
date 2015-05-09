@@ -117,38 +117,38 @@ namespace block_game
     glUseProgram(0);
   }
 
-  void Program::SetUniformVector2(const std::string& name, const Vector<2>& vector_2)
+  void Program::SetUniformVector2(const std::string& name, const Vector<2>& value)
   {
     glUseProgram(id_);
-    glUniform2f(glGetUniformLocation(id_, name.c_str()), vector_2[0], vector_2[1]);
+    glUniform2f(glGetUniformLocation(id_, name.c_str()), value[0], value[1]);
     glUseProgram(0);
   }
 
-  void Program::SetUniformVector3(const std::string& name, const Vector<3>& vector_3)
+  void Program::SetUniformVector3(const std::string& name, const Vector<3>& value)
   {
     glUseProgram(id_);
-    glUniform3f(glGetUniformLocation(id_, name.c_str()), vector_3[0], vector_3[1], vector_3[2]);
+    glUniform3f(glGetUniformLocation(id_, name.c_str()), value[0], value[1], value[2]);
     glUseProgram(0);
   }
 
-  void Program::SetUniformMatrix2(const std::string& name, const Matrix<2>& matrix)
+  void Program::SetUniformMatrix2(const std::string& name, const Matrix<2>& value)
   {
     glUseProgram(id_);
-    glUniformMatrix2fv(glGetUniformLocation(id_, name.c_str()), 1, true, &matrix[0][0]);
+    glUniformMatrix2fv(glGetUniformLocation(id_, name.c_str()), 1, true, &value[0][0]);
     glUseProgram(0);
   }
 
-  void Program::SetUniformMatrix3(const std::string& name, const Matrix<3>& matrix)
+  void Program::SetUniformMatrix3(const std::string& name, const Matrix<3>& value)
   {
     glUseProgram(id_);
-    glUniformMatrix3fv(glGetUniformLocation(id_, name.c_str()), 1, true, &matrix[0][0]);
+    glUniformMatrix3fv(glGetUniformLocation(id_, name.c_str()), 1, true, &value[0][0]);
     glUseProgram(0);
   }
 
-  void Program::SetUniformMatrix4(const std::string& name, const Matrix<4>& matrix)
+  void Program::SetUniformMatrix4(const std::string& name, const Matrix<4>& value)
   {
     glUseProgram(id_);
-    glUniformMatrix4fv(glGetUniformLocation(id_, name.c_str()), 1, true, &matrix[0][0]);
+    glUniformMatrix4fv(glGetUniformLocation(id_, name.c_str()), 1, true, &value[0][0]);
     glUseProgram(0);
   }
 

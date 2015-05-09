@@ -22,13 +22,13 @@ namespace block_game
     float GetCameraDeltaStrafe() const;
     float GetCameraDeltaRoll() const;
 
-    void SetCameraDeltaVertical(const float);
-    void SetCameraDeltaForward(const float);
-    void SetCameraDeltaStrafe(const float);
-    void SetCameraDeltaRoll(const float);
+    void SetCameraDeltaVertical(float camera_delta_vertical);
+    void SetCameraDeltaForward(float camera_delta_forward);
+    void SetCameraDeltaStrafe(float camera_delta_strafe);
+    void SetCameraDeltaRoll(float camera_delta_roll);
 
-    void Update(const double);
-    void Display(const int, const int);
+    void Update(double delta);
+    void Display(int width, int height);
 
   private:
     std::vector<Grid> grids_;

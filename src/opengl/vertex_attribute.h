@@ -9,7 +9,7 @@ namespace block_game
 {
   struct VertexAttribute
   {
-    VertexAttribute(const std::string&, const GLint, const GLenum, const GLboolean, const GLsizei, const GLsizeiptr);
+    VertexAttribute(const std::string& name, GLint size, GLenum type, GLboolean normalized, GLsizei stride, GLsizeiptr pointer);
 
     std::string name;
     GLint size;

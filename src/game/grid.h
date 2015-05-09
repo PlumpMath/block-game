@@ -17,15 +17,15 @@ namespace block_game
     Vector<3> GetPosition() const;
     Vector<3> GetRotation() const;
 
-    void SetPosition(const Vector<3>&);
-    void SetRotation(const Vector<3>&);
+    void SetPosition(const Vector<3>& position);
+    void SetRotation(const Vector<3>& rotation);
 
     const Block& GetRoot() const;
     Block& GetRoot();
 
-    void Update(const double);
+    void Update(double delta);
     void RebuildDraw();
-    void Draw(Program&);
+    void Draw(Program& program);
 
   private:
     Vector<3> position_;

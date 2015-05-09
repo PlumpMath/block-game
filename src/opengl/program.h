@@ -19,20 +19,20 @@ namespace block_game
   class Program
   {
   public:
-    Program(const std::string&, const std::string&);
+    Program(const std::string& vertex_source, const std::string& fragment_source);
     ~Program();
-    Program(const Program&);
-    Program(Program&&);
-    Program& operator=(Program);
+    Program(const Program& program);
+    Program(Program&& program);
+    Program& operator=(Program program);
 
-    void SetUniformFloat(const std::string&, const GLfloat);
-    void SetUniformVector2(const std::string&, const Vector<2>&);
-    void SetUniformVector3(const std::string&, const Vector<3>&);
-    void SetUniformMatrix2(const std::string&, const Matrix<2>&);
-    void SetUniformMatrix3(const std::string&, const Matrix<3>&);
-    void SetUniformMatrix4(const std::string&, const Matrix<4>&);
+    void SetUniformFloat(const std::string& name, const GLfloat value);
+    void SetUniformVector2(const std::string& name, const Vector<2>& value);
+    void SetUniformVector3(const std::string& name, const Vector<3>& value);
+    void SetUniformMatrix2(const std::string& name, const Matrix<2>& value);
+    void SetUniformMatrix3(const std::string& name, const Matrix<3>& value);
+    void SetUniformMatrix4(const std::string& name, const Matrix<4>& value);
 
-    void Draw(const Buffer&, const Buffer&, const std::vector<VertexAttribute>&) const;
+    void Draw(const Buffer& vertex_buffer, const Buffer& index_buffer, const std::vector<VertexAttribute>& attributes) const;
 
   private:
     GLuint id_;

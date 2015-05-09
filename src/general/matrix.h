@@ -14,20 +14,20 @@ namespace block_game
 
     Matrix();
 
-    const float* operator[](const int) const;
-    float* operator[](const int);
+    const float* operator[](int i) const;
+    float* operator[](int i);
 
-    Matrix<order> operator+(const Matrix<order>&) const;
-    Matrix<order> operator-(const Matrix<order>&) const;
+    Matrix<order> operator+(const Matrix<order>& matrix) const;
+    Matrix<order> operator-(const Matrix<order>& matrix) const;
 
-    Matrix<order> operator*(const Matrix<order>&) const;
+    Matrix<order> operator*(const Matrix<order>& matrix) const;
 
-    Matrix<order>& operator+=(const Matrix<order>&);
-    Matrix<order>& operator-=(const Matrix<order>&);
+    Matrix<order>& operator+=(const Matrix<order>& matrix);
+    Matrix<order>& operator-=(const Matrix<order>& matrix);
 
-    void RotateX(const float); // Rotate around the x-axis
-    void RotateY(const float); // Rotate around the y-axis
-    void RotateZ(const float); // Rotate around the z-axis
+    void RotateX(float angle); // Rotate around the x-axis
+    void RotateY(float angle); // Rotate around the y-axis
+    void RotateZ(float angle); // Rotate around the z-axis
 
   private:
     float elements[order][order];

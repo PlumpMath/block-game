@@ -11,7 +11,7 @@ namespace block_game
   class Block
   {
   public:
-    Block(Block* const, const float, const Vector<3>&);
+    Block(Block* parent, float radius, const Vector<3>& position);
 
     bool IsRoot() const;
     const Block& GetParent() const;
@@ -22,19 +22,19 @@ namespace block_game
     bool IsLeaf() const;
 
     // leaf_ == false
-    const Block& GetChild(const int, const int, const int) const;
-    Block& GetChild(const int, const int, const int);
+    const Block& GetChild(int x, int y, int z) const;
+    Block& GetChild(int x, int y, int z);
 
     // leaf_ == true
     bool IsSolid() const;
     Vector<3> GetColor() const;
-    void SetSolid(const bool);
-    void SetColor(const Vector<3>&);
+    void SetSolid(bool solid);
+    void SetColor(const Vector<3>& color);
 
     void Split();
     void Merge();
 
-    void BuildDraw(std::vector<BlockVertex>&, std::vector<unsigned char>&);
+    void BuildDraw(std::vector<BlockVertex>& vertices, std::vector<unsigned char>& indices);
 
   private:
     Block* parent_;
