@@ -64,7 +64,25 @@ namespace block_game
     glAttachShader(id_, vertex_id_);
     glAttachShader(id_, fragment_id_);
 
-    Link();
+    glLinkProgram(id_);
+
+    GLint is_linked = 0;
+    glGetProgramiv(id_, GL_LINK_STATUS, &is_linked);
+    if (is_linked == GL_FALSE)
+    {
+      GLint info_log_length = 0;
+      glGetProgramiv(id_, GL_INFO_LOG_LENGTH, &info_log_length);
+
+      std::string info_log(info_log_length, '\0');
+      glGetProgramInfoLog(id_, info_log_length, &info_log_length, &info_log[0]);
+
+      std::cerr << "Program failed to link! Error log:" << std::endl;
+      std::cerr << std::endl;
+      std::cerr << info_log << std::endl;
+      std::cerr << std::endl;
+      std::cerr << "End of error log." << std::endl;
+      std::cerr << std::endl;
+    }
   }
 
   Program::~Program()
@@ -165,28 +183,5 @@ namespace block_game
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glUseProgram(0);
-  }
-
-  void Program::Link() const
-  {
-    glLinkProgram(id_);
-
-    GLint is_linked = 0;
-    glGetProgramiv(id_, GL_LINK_STATUS, &is_linked);
-    if (is_linked == GL_FALSE)
-    {
-      GLint info_log_length = 0;
-      glGetProgramiv(id_, GL_INFO_LOG_LENGTH, &info_log_length);
-
-      std::string info_log(info_log_length, '\0');
-      glGetProgramInfoLog(id_, info_log_length, &info_log_length, &info_log[0]);
-
-      std::cerr << "Program failed to link! Error log:" << std::endl;
-      std::cerr << std::endl;
-      std::cerr << info_log << std::endl;
-      std::cerr << std::endl;
-      std::cerr << "End of error log." << std::endl;
-      std::cerr << std::endl;
-    }
   }
 }

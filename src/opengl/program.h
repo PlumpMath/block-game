@@ -35,8 +35,6 @@ namespace block_game
     void Draw(const Buffer&, const Buffer&, const std::vector<VertexAttribute>&) const;
 
   private:
-    void Link() const;
-
     GLuint id_;
     GLuint vertex_id_;
     GLuint fragment_id_;
