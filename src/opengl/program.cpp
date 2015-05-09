@@ -1,5 +1,6 @@
 #include "opengl/program.h"
 
+#include <algorithm>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -76,16 +77,6 @@ namespace block_game
   Program::Program(const Program& program) : Program{GetSource(program.vertex_id_), GetSource(program.fragment_id_)}
   {}
 
-  Program& Program::operator=(const Program& program)
-  {
-    Compile(GL_VERTEX_SHADER, vertex_id_, GetSource(program.vertex_id_));
-    Compile(GL_FRAGMENT_SHADER, fragment_id_, GetSource(program.fragment_id_));
-
-    Link();
-
-    return *this;
-  }
-
   Program::Program(Program&& program) : id_{program.id_}, vertex_id_{program.vertex_id_}, fragment_id_{program.fragment_id_}
   {
     program.id_ = 0;
@@ -93,16 +84,11 @@ namespace block_game
     program.fragment_id_ = 0;
   }
 
-  Program& Program::operator=(Program&& program)
+  Program& Program::operator=(Program program)
   {
-    id_ = program.id_;
-    vertex_id_ = program.vertex_id_;
-    fragment_id_ = program.fragment_id_;
-
-    program.id_ = 0;
-    program.vertex_id_ = 0;
-    program.fragment_id_ = 0;
-
+    std::swap(id_, program.id_);
+    std::swap(vertex_id_, program.vertex_id_);
+    std::swap(fragment_id_, program.fragment_id_);
     return *this;
   }
 

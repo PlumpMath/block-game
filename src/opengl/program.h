@@ -21,12 +21,9 @@ namespace block_game
   public:
     Program(const std::string&, const std::string&);
     ~Program();
-
     Program(const Program&);
-    Program& operator=(const Program&);
-
     Program(Program&&);
-    Program& operator=(Program&&);
+    Program& operator=(Program);
 
     void SetUniformFloat(const std::string&, const GLfloat);
     void SetUniformVector2(const std::string&, const Vector<2>&);

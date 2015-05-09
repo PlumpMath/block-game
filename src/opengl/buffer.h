@@ -15,12 +15,9 @@ namespace block_game
   public:
     Buffer(const GLenum, const GLsizeiptr, const GLenum);
     ~Buffer();
-
     Buffer(const Buffer&);
-    Buffer& operator=(const Buffer&);
-
     Buffer(Buffer&&);
-    Buffer& operator=(Buffer&&);
+    Buffer& operator=(Buffer);
 
     GLenum GetTarget() const;
     GLsizeiptr GetSize() const;

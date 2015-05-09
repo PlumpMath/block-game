@@ -1,5 +1,6 @@
 #include "opengl/buffer.h"
 
+#include <algorithm>
 #include <cassert>
 #include <vector>
 
@@ -32,34 +33,17 @@ namespace block_game
     }
   }
 
-  Buffer& Buffer::operator=(const Buffer& buffer)
-  {
-    target_ = buffer.target_;
-    usage_ = buffer.usage_;
-    Resize(buffer.size_);
-    if (size_ > 0)
-    {
-      std::vector<char> data(size_);
-      glBindBuffer(target_, buffer.id_);
-      glGetBufferSubData(target_, 0, size_, &data[0]);
-      glBindBuffer(target_, 0);
-      SetData(&data[0]);
-    }
-    return *this;
-  }
-
   Buffer::Buffer(Buffer&& buffer) : id_{buffer.id_}, target_{buffer.target_}, size_{buffer.size_}, usage_{buffer.usage_}
   {
     buffer.id_ = 0;
   }
 
-  Buffer& Buffer::operator=(Buffer&& buffer)
+  Buffer& Buffer::operator=(Buffer buffer)
   {
-    id_ = buffer.id_;
-    target_ = buffer.target_;
-    size_ = buffer.size_;
-    usage_ = buffer.usage_;
-    buffer.id_ = 0;
+    std::swap(id_, buffer.id_);
+    std::swap(target_, buffer.target_);
+    std::swap(size_, buffer.size_);
+    std::swap(usage_, buffer.usage_);
     return *this;
   }
 
