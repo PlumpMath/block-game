@@ -12,7 +12,7 @@ namespace block_game
   class Grid
   {
   public:
-    Grid(const float);
+    Grid(float radius);
 
     Vector<3> GetPosition() const;
     Vector<3> GetRotation() const;
