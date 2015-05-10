@@ -2,53 +2,59 @@ cmake_minimum_required(VERSION 3.0)
 project("Block Game")
 set(LIBRARY_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
-set(GLAD_NAME         c)
-set(GLAD_URL          https://github.com/Dav1dde/glad/archive/${GLAD_NAME}.tar.gz)
-set(GLAD_DIRECTORY    ${LIBRARY_DIRECTORY}/glad)
-set(GLAD_TGZ          glad.tgz)
-set(GLAD_TGZ_ABSOLUTE ${GLAD_DIRECTORY}/${GLAD_TGZ})
-set(GLAD_SOURCE       ${GLAD_DIRECTORY}/glad-${GLAD_NAME})
-set(GLAD_CMAKE_LISTS  ${GLAD_SOURCE}/CMakeLists.txt)
-set(GLAD_INCLUDE      ${GLAD_SOURCE}/include)
-set(GLAD_BINARY       ${GLAD_DIRECTORY}/bin)
+include (CMakeParseArguments)
 
-if(NOT EXISTS ${GLAD_CMAKE_LISTS})
-  message(STATUS "Downloading ${GLAD_URL}")
-  file(DOWNLOAD ${GLAD_URL} ${GLAD_TGZ_ABSOLUTE})
-  message(STATUS "Opening ${GLAD_TGZ}")
-  execute_process(
-    COMMAND ${CMAKE_COMMAND} -E tar xzf ${GLAD_TGZ}
-    WORKING_DIRECTORY ${GLAD_DIRECTORY}
+function(add_cmake_dependency)
+  set(ACD_OPTIONS
+    MANUAL
   )
-endif()
-
-file(APPEND ${GLAD_CMAKE_LISTS})
-add_subdirectory(${GLAD_SOURCE} ${GLAD_BINARY})
-add_library(glad ${GLAD_SOURCE}/src/glad.c)
-include_directories(${GLAD_INCLUDE})
-
-set(GLFW_NAME         3.1.1)
-set(GLFW_URL          https://github.com/glfw/glfw/archive/${GLFW_NAME}.tar.gz)
-set(GLFW_DIRECTORY    ${LIBRARY_DIRECTORY}/glfw)
-set(GLFW_TGZ          glfw.tgz)
-set(GLFW_TGZ_ABSOLUTE ${GLFW_DIRECTORY}/${GLFW_TGZ})
-set(GLFW_SOURCE       ${GLFW_DIRECTORY}/glfw-${GLFW_NAME})
-set(GLFW_CMAKE_LISTS  ${GLFW_SOURCE}/CMakeLists.txt)
-set(GLFW_INCLUDE      ${GLFW_SOURCE}/include)
-set(GLFW_BINARY       ${GLFW_DIRECTORY}/bin)
-
-if(NOT EXISTS ${GLFW_CMAKE_LISTS})
-  message(STATUS "Downloading ${GLFW_URL}")
-  file(DOWNLOAD ${GLFW_URL} ${GLFW_TGZ_ABSOLUTE})
-  message(STATUS "Opening ${GLFW_TGZ}")
-  execute_process(
-    COMMAND ${CMAKE_COMMAND} -E tar xzf ${GLFW_TGZ}
-    WORKING_DIRECTORY ${GLFW_DIRECTORY}
+  set(ACD_ONE_VALUE_KEYWORDS
+    NAME
+    URL
+    SOURCE
+    INCLUDE
   )
-endif()
+  cmake_parse_arguments(ACD "${ACD_OPTIONS}" "${ACD_ONE_VALUE_KEYWORDS}" "" ${ARGN})
 
-add_subdirectory(${GLFW_SOURCE} ${GLFW_BINARY})
-include_directories(${GLFW_INCLUDE})
+  set(ACD_DIRECTORY ${LIBRARY_DIRECTORY}/${ACD_NAME})
+  set(ACD_TGZ ${ACD_NAME}.tgz)
+  set(ACD_TGZ_ABSOLUTE ${ACD_DIRECTORY}/${ACD_TGZ})
+  set(ACD_SOURCE_ABSOLUTE ${ACD_DIRECTORY}/${ACD_SOURCE})
+  set(ACD_CMAKE_LISTS ${ACD_SOURCE_ABSOLUTE}/CMakeLists.txt)
+  set(ACD_INCLUDE_ABSOLUTE ${ACD_SOURCE_ABSOLUTE}/${ACD_INCLUDE})
+  set(ACD_BINARY ${ACD_DIRECTORY}/bin)
+
+  if(NOT EXISTS ${ACD_CMAKE_LISTS})
+    message(STATUS "Downloading ${ACD_URL}")
+    file(DOWNLOAD ${ACD_URL} ${ACD_TGZ_ABSOLUTE})
+    message(STATUS "Opening ${ACD_TGZ_ABSOLUTE}")
+    execute_process(
+      COMMAND ${CMAKE_COMMAND} -E tar xzf ${ACD_TGZ}
+      WORKING_DIRECTORY ${ACD_DIRECTORY}
+    )
+  endif()
+
+  if(${ACD_MANUAL})
+    file(APPEND ${ACD_CMAKE_LISTS})
+  endif()
+  add_subdirectory(${ACD_SOURCE_ABSOLUTE} ${ACD_BINARY})
+  include_directories(${ACD_INCLUDE_ABSOLUTE})
+endfunction()
+
+add_cmake_dependency(MANUAL
+  NAME glad
+  URL https://github.com/Dav1dde/glad/archive/c.tar.gz
+  SOURCE glad-c
+  INCLUDE include
+)
+add_library(glad ${LIBRARY_DIRECTORY}/glad/glad-c/src/glad.c)
+
+add_cmake_dependency(
+  NAME glfw
+  URL https://github.com/glfw/glfw/archive/3.1.1.tar.gz
+  SOURCE glfw-3.1.1
+  INCLUDE include
+)
 
 function(add_sources)
   foreach(SOURCE ${ARGN})
