@@ -9,14 +9,13 @@
 #include "general/math.h"
 #include "general/vector.h"
 #include "opengl/program.h"
-#include "shader/fragment.h"
-#include "shader/vertex.h"
+#include "shader/shaders.h"
 
 namespace block_game
 {
   World::World() : camera_delta_vertical_{0.0F}, camera_delta_forward_{0.0F}, camera_delta_strafe_{0.0F},
     camera_delta_roll_{0.0F},
-    program_{vertex_glsl, fragment_glsl}
+    program_{program_vert, program_frag}
   {
     for (size_t i = 0; i < 3; ++i)
     {

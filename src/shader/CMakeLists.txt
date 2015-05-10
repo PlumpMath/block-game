@@ -1,9 +1,7 @@
 add_headers(
-  fragment
-  vertex
+  shaders
 )
 
 add_sources(
-  fragment
-  vertex
+  shaders
 )

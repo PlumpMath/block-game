@@ -1,8 +1,4 @@
-#include "shader/vertex.h"
-
-#include <string>
-
-const std::string block_game::vertex_glsl{R"(
+R"(
 
 #version 120
 
@@ -22,4 +18,4 @@ void main()
   pass_Color = in_Color * -(rotation * in_Normal).z;
 }
 
-)"};
+)"
