@@ -167,7 +167,7 @@ namespace block_game
       glEnableVertexAttribArray(i);
     }
 
-    for (const VertexAttribute& attribute : attributes)
+    for (const auto& attribute : attributes)
     {
       glVertexAttribPointer(glGetAttribLocation(id_, attribute.name.c_str()), attribute.size, attribute.type,
         attribute.normalized, attribute.stride, reinterpret_cast<GLvoid*>(attribute.pointer));

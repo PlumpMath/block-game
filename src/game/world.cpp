@@ -99,7 +99,7 @@ namespace block_game
     assert(delta >= 0.0);
     if (delta > 0.0)
     {
-      for (Grid& grid : grids_)
+      for (auto& grid : grids_)
       {
         grid.Update(delta);
       }
@@ -138,7 +138,7 @@ namespace block_game
       camera_.SetAspectRatio(width / static_cast<float>(height));
       program_.SetUniformMatrix4("viewProjection", camera_.GetMatrix());
 
-      for (Grid& grid : grids_)
+      for (auto& grid : grids_)
       {
         grid.Draw(program_);
       }
