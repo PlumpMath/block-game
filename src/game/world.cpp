@@ -1,5 +1,6 @@
 #include "game/world.h"
 
+#include <fstream>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -26,8 +27,17 @@ namespace block_game
     program_{program_vert, program_frag}
   {
     Json::Value root;
-    std::istringstream stream{world_json};
-    stream >> root;
+
+    std::ifstream file{"world.json"};
+    if (file)
+    {
+      file >> root;
+    }
+    else
+    {
+      std::istringstream stream{world_json};
+      stream >> root;
+    }
 
     for (const auto& grid : root["grids"])
     {
