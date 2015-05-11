@@ -119,18 +119,6 @@ namespace block_game
     return leaf_;
   }
 
-  const Block& Block::GetParent() const
-  {
-    assert(!root_);
-    return *parent_;
-  }
-
-  Block& Block::GetParent()
-  {
-    assert(!root_);
-    return *parent_;
-  }
-
   const Grid& Block::GetGrid() const
   {
     assert(root_);
@@ -143,16 +131,16 @@ namespace block_game
     return *grid_;
   }
 
-  const Block& Block::GetChild(const int x, const int y, const int z) const
+  const Block& Block::GetParent() const
   {
-    assert(!leaf_ && x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 2);
-    return children_[z << 2 | y << 1 | x];
+    assert(!root_);
+    return *parent_;
   }
 
-  Block& Block::GetChild(const int x, const int y, const int z)
+  Block& Block::GetParent()
   {
-    assert(!leaf_ && x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 2);
-    return children_[z << 2 | y << 1 | x];
+    assert(!root_);
+    return *parent_;
   }
 
   bool Block::IsSolid() const
@@ -196,6 +184,18 @@ namespace block_game
         }
       }
     }
+  }
+
+  const Block& Block::GetChild(const int x, const int y, const int z) const
+  {
+    assert(!leaf_ && x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 2);
+    return children_[z << 2 | y << 1 | x];
+  }
+
+  Block& Block::GetChild(const int x, const int y, const int z)
+  {
+    assert(!leaf_ && x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 2);
+    return children_[z << 2 | y << 1 | x];
   }
 
   void Block::Merge()

@@ -21,25 +21,24 @@ namespace block_game
     bool IsRoot() const;
     bool IsLeaf() const;
 
-    // root_ == false
-    const Block& GetParent() const;
-    Block& GetParent();
-
     // root_ == true
     const Grid& GetGrid() const;
     Grid& GetGrid();
 
-    // leaf_ == false
-    const Block& GetChild(int x, int y, int z) const;
-    Block& GetChild(int x, int y, int z);
+    // root_ == false
+    const Block& GetParent() const;
+    Block& GetParent();
 
     // leaf_ == true
     bool IsSolid() const;
     Vector<3> GetColor() const;
     void SetSolid(bool solid);
     void SetColor(const Vector<3>& color);
-
     void Split();
+
+    // leaf_ == false
+    const Block& GetChild(int x, int y, int z) const;
+    Block& GetChild(int x, int y, int z);
     void Merge();
 
     void BuildDraw(std::vector<BlockVertex>& vertices, std::vector<unsigned char>& indices);
@@ -50,18 +49,18 @@ namespace block_game
     bool root_;
     bool leaf_;
 
-    // root_ == false
-    Block* parent_;
-
     // root_ == true
     Grid* grid_;
 
-    // leaf_ == false
-    std::vector<Block> children_;
+    // root_ == false
+    Block* parent_;
 
     // leaf_ == true
     bool solid_;
     Vector<3> color_;
+
+    // leaf_ == false
+    std::vector<Block> children_;
   };
 }
 
