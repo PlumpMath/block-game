@@ -1,6 +1,8 @@
 #include "game/world.h"
 
+#include <exception>
 #include <fstream>
+#include <iostream>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -29,12 +31,21 @@ namespace block_game
     Json::Value root;
 
     std::ifstream file{"world.json"};
-    if (file)
+
+    try
     {
+      if (!file)
+      {
+        throw std::exception{"file missing"};
+      }
+
       file >> root;
     }
-    else
+    catch (const std::exception& exception)
     {
+      std::cerr << "Failed to load world.json: " << exception.what() << std::endl;
+      std::cerr << std::endl;
+
       std::istringstream stream{world_json};
       stream >> root;
     }
