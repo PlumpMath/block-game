@@ -1,9 +1,8 @@
 cmake_minimum_required(VERSION 3.0)
 project("Block Game")
+
 set(LIBRARY_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-
 include (CMakeParseArguments)
-
 function(add_cmake_dependency)
   set(ACD_ONE_VALUE_KEYWORDS
     NAME
