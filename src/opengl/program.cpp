@@ -41,8 +41,10 @@ namespace
       std::string info_log(info_log_length, '\0');
       glGetShaderInfoLog(shader_id, info_log_length, nullptr, &info_log[0]);
 
-      std::cerr << "Shader failed to compile as type " << shader_type << "! Source:";
+      std::cerr << "Shader failed to compile as type " << shader_type << "! Source:" << std::endl;
+      std::cerr << std::endl;
       std::cerr << shader_source;
+      std::cerr << std::endl;
       std::cerr << "Error log:" << std::endl;
       std::cerr << std::endl;
       std::cerr << info_log << std::endl;

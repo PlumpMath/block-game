@@ -5,10 +5,10 @@
 namespace block_game
 {
   const std::string program_vert{
-#include "shader/program.vert"
+#include "shader/program.vert.txt"
   };
 
   const std::string program_frag{
-#include "shader/program.frag"
+#include "shader/program.frag.txt"
   };
 }

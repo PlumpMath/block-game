@@ -1,5 +1,3 @@
-R"(
-
 #version 120
 
 uniform vec3 position;
@@ -17,5 +15,3 @@ void main()
   gl_Position = viewProjection * vec4(position + rotation * in_Vertex, 1.0);
   pass_Color = in_Color * -(rotation * in_Normal).z;
 }
-
-)"
