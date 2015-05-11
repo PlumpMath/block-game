@@ -14,7 +14,7 @@
 
 namespace block_game
 {
-  Grid::Grid(const float radius) : root_{nullptr, radius, {0.0F, 0.0F, 0.0F}},
+  Grid::Grid(const float radius) : root_{*this, radius},
     vertex_buffer_{GL_ARRAY_BUFFER, 0, GL_STATIC_DRAW}, index_buffer_{GL_ELEMENT_ARRAY_BUFFER, 0, GL_STATIC_DRAW}
   {
     assert(radius > 0.0F);

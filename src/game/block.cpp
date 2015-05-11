@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "game/block_vertex.h"
+#include "game/grid.h"
 #include "general/vector.h"
 
 namespace block_game
@@ -81,26 +82,21 @@ namespace block_game
     20, 23, 21
   };
 
-  Block::Block(Block* const parent, const float radius, const Vector<3>& position)
-    : parent_{parent}, radius_{radius}, position_(position), leaf_{true},
+  Block::Block(Block& parent, const int x, const int y, const int z) : radius_{parent.radius_ / 2.0F},
+    position_(parent.position_ + parent.radius_ * Vector<3>{x - 0.5F, y - 0.5F, z - 0.5F}),
+    root_{false}, leaf_{true},
+    parent_{&parent},
+    solid_{parent.solid_}, color_(parent.color_)
+  {
+    assert(x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 2);
+  }
+
+  Block::Block(Grid& grid, const float radius) : radius_{radius},
+    root_{true}, leaf_{true},
+    grid_{&grid},
     solid_{false}
   {
     assert(radius > 0.0F);
-  }
-
-  bool Block::IsRoot() const
-  {
-    return !parent_;
-  }
-
-  const Block& Block::GetParent() const
-  {
-    return *parent_;
-  }
-
-  Block& Block::GetParent()
-  {
-    return *parent_;
   }
 
   float Block::GetRadius() const
@@ -113,9 +109,38 @@ namespace block_game
     return position_;
   }
 
+  bool Block::IsRoot() const
+  {
+    return root_;
+  }
+
   bool Block::IsLeaf() const
   {
     return leaf_;
+  }
+
+  const Block& Block::GetParent() const
+  {
+    assert(!root_);
+    return *parent_;
+  }
+
+  Block& Block::GetParent()
+  {
+    assert(!root_);
+    return *parent_;
+  }
+
+  const Grid& Block::GetGrid() const
+  {
+    assert(root_);
+    return *grid_;
+  }
+
+  Grid& Block::GetGrid()
+  {
+    assert(root_);
+    return *grid_;
   }
 
   const Block& Block::GetChild(const int x, const int y, const int z) const
@@ -165,7 +190,7 @@ namespace block_game
       {
         for (int x = 0; x < 2; ++x)
         {
-          children_.emplace_back(this, radius_ / 2, position_ + radius_ * Vector<3>{x - 0.5F, y - 0.5F, z - 0.5F});
+          children_.emplace_back(*this, x, y, z);
           GetChild(x, y, z).SetSolid(solid_);
           GetChild(x, y, z).SetColor(color_);
         }
