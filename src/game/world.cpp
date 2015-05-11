@@ -1,13 +1,13 @@
 #include "game/world.h"
 
-#include <cmath>
+#include <sstream>
 #include <string>
 #include <vector>
 
 #include <glad/glad.h>
+#include <json/json.h>
 
 #include "general/camera.h"
-#include "general/math.h"
 #include "general/vector.h"
 #include "opengl/program.h"
 #include "shader/shaders.h"
@@ -25,31 +25,17 @@ namespace block_game
     camera_delta_roll_{0.0F},
     program_{program_vert, program_frag}
   {
-    for (size_t i = 0; i < 3; ++i)
+    Json::Value root;
+    std::istringstream stream{world_json};
+    stream >> root;
+
+    for (const auto& grid : root["grids"])
     {
-      grids_.emplace_back(1.0F);
-
-      Grid& grid = grids_[i];
-      grid.SetPosition({cos((i / static_cast<float>(grids_.size())) * 2 * kPiF),
-        sin((i / static_cast<float>(grids_.size())) * 2 * kPiF),
-        0.0F});
-
-      Block& root = grid.GetRoot();
-      root.SetSolid(true);
-
-      Vector<3> root_color = root.GetColor();
-      root_color[i] = 1.0F;
-      root.SetColor(root_color);
-
-      root.Split();
-      root.GetChild(0, 0, 0).SetSolid(false);
-      root.GetChild(1, 1, 1).SetSolid(false);
-
-      grid.RebuildDraw();
+      grids_.emplace_back(grid);
+      grids_.back().RebuildDraw();
     }
 
-    camera_.SetPosition({0.0F, 0.0F, -10.0F});
-    camera_.SetZFar(100.0F);
+    camera_ = Camera{root["camera"]};
   }
 
   const Camera& World::GetCamera() const

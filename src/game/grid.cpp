@@ -4,6 +4,7 @@
 #include <vector>
 
 #include <glad/glad.h>
+#include <json/json.h>
 
 #include "game/block_vertex.h"
 #include "general/matrix.h"
@@ -18,6 +19,23 @@ namespace block_game
     vertex_buffer_{GL_ARRAY_BUFFER, 0, GL_STATIC_DRAW}, index_buffer_{GL_ELEMENT_ARRAY_BUFFER, 0, GL_STATIC_DRAW}
   {
     assert(radius > 0.0F);
+  }
+
+  Grid::Grid(const Json::Value& value) : Grid{value["radius"].asFloat()}
+  {
+    const Json::Value& position{value["position"]};
+    for (size_t i = 0; i < position.size(); ++i)
+    {
+      position_[i] = position[i].asFloat();
+    }
+
+    const Json::Value& rotation{value["rotation"]};
+    for (size_t i = 0; i < rotation.size(); ++i)
+    {
+      rotation_[i] = rotation[i].asFloat();
+    }
+
+    root_.Build(value["root"]);
   }
 
   Vector<3> Grid::GetPosition() const

@@ -2,6 +2,8 @@
 
 #include <vector>
 
+#include <json/json.h>
+
 #include "game/block_vertex.h"
 #include "game/grid.h"
 #include "general/vector.h"
@@ -97,6 +99,27 @@ namespace block_game
     solid_{false}
   {
     assert(radius > 0.0F);
+  }
+
+  void Block::Build(const Json::Value& value)
+  {
+    solid_ = value.get("solid", solid_).asBool();
+
+    const Json::Value& color{value["color"]};
+    for (size_t i = 0; i < color.size(); ++i)
+    {
+      color_[i] = color[i].asFloat();
+    }
+
+    const Json::Value& children{value["children"]};
+    if (children.size() > 0)
+    {
+      Split();
+      for (size_t i = 0; i < children.size(); ++i)
+      {
+        children_[i].Build(children[i]);
+      }
+    }
   }
 
   float Block::GetRadius() const

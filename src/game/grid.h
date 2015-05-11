@@ -1,6 +1,8 @@
 #ifndef BLOCK_GAME_GAME_GRID_H_
 #define BLOCK_GAME_GAME_GRID_H_
 
+#include <json/json.h>
+
 #include "game/block.h"
 #include "general/vector.h"
 #include "opengl/buffer.h"
@@ -13,6 +15,7 @@ namespace block_game
   {
   public:
     Grid(float radius);
+    Grid(const Json::Value& value);
 
     Vector<3> GetPosition() const;
     Vector<3> GetRotation() const;
