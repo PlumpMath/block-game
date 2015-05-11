@@ -50,6 +50,13 @@ add_cmake_dependency(
   INCLUDE include
 )
 
+add_cmake_dependency(
+  NAME jsoncpp
+  URL https://github.com/open-source-parsers/jsoncpp/archive/master.tar.gz
+  SOURCE jsoncpp-master
+  INCLUDE include
+)
+
 add_subdirectory(src)
 include_directories(src)
 
@@ -69,4 +76,8 @@ include_directories(${CMAKE_BINARY_DIR}/src)
 get_property(SOURCES GLOBAL PROPERTY SOURCES_PROPERTY)
 add_executable(block_game ${SOURCES})
 add_dependencies(block_game strings)
-target_link_libraries(block_game glad glfw ${GLFW_LIBRARIES})
+target_link_libraries(block_game
+  glad
+  glfw ${GLFW_LIBRARIES}
+  jsoncpp_lib_static
+)
