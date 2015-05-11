@@ -13,7 +13,7 @@ namespace block_game
   class Block
   {
   public:
-    Block(Block& parent, int x, int y, int z);
+    Block(Block& parent, size_t x, size_t y, size_t z);
     Block(Grid& grid, float radius);
 
     float GetRadius() const;
@@ -37,8 +37,8 @@ namespace block_game
     void Split();
 
     // leaf_ == false
-    const Block& GetChild(int x, int y, int z) const;
-    Block& GetChild(int x, int y, int z);
+    const Block& GetChild(size_t x, size_t y, size_t z) const;
+    Block& GetChild(size_t x, size_t y, size_t z);
     void Merge();
 
     void BuildDraw(std::vector<BlockVertex>& vertices, std::vector<unsigned char>& indices);

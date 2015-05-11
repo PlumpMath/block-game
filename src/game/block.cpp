@@ -82,13 +82,13 @@ namespace block_game
     20, 23, 21
   };
 
-  Block::Block(Block& parent, const int x, const int y, const int z) : radius_{parent.radius_ / 2.0F},
+  Block::Block(Block& parent, const size_t x, const size_t y, const size_t z) : radius_{parent.radius_ / 2.0F},
     position_(parent.position_ + parent.radius_ * Vector<3>{x - 0.5F, y - 0.5F, z - 0.5F}),
     root_{false}, leaf_{true},
     parent_{&parent},
     solid_{parent.solid_}, color_(parent.color_)
   {
-    assert(x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 2);
+    assert(x < 2 && y < 2 && z < 2);
   }
 
   Block::Block(Grid& grid, const float radius) : radius_{radius},
@@ -172,11 +172,11 @@ namespace block_game
     assert(leaf_);
     leaf_ = false;
 
-    for (int z = 0; z < 2; ++z)
+    for (size_t z = 0; z < 2; ++z)
     {
-      for (int y = 0; y < 2; ++y)
+      for (size_t y = 0; y < 2; ++y)
       {
-        for (int x = 0; x < 2; ++x)
+        for (size_t x = 0; x < 2; ++x)
         {
           children_.emplace_back(*this, x, y, z);
           GetChild(x, y, z).SetSolid(solid_);
@@ -186,15 +186,15 @@ namespace block_game
     }
   }
 
-  const Block& Block::GetChild(const int x, const int y, const int z) const
+  const Block& Block::GetChild(const size_t x, const size_t y, const size_t z) const
   {
-    assert(!leaf_ && x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 2);
+    assert(!leaf_ && x < 2 && y < 2 && z < 2);
     return children_[z << 2 | y << 1 | x];
   }
 
-  Block& Block::GetChild(const int x, const int y, const int z)
+  Block& Block::GetChild(const size_t x, const size_t y, const size_t z)
   {
-    assert(!leaf_ && x >= 0 && x < 2 && y >= 0 && y < 2 && z >= 0 && z < 2);
+    assert(!leaf_ && x < 2 && y < 2 && z < 2);
     return children_[z << 2 | y << 1 | x];
   }
 
@@ -211,12 +211,12 @@ namespace block_game
     {
       if (solid_)
       {
-        for (int i = 0; i < 36; ++i)
+        for (size_t i = 0; i < 36; ++i)
         {
           indices.emplace_back(vertices.size() + block_indices[i]);
         }
 
-        for (int i = 0; i < 24; ++i)
+        for (size_t i = 0; i < 24; ++i)
         {
           vertices.emplace_back(position_ + radius_ * block_vertices[i].position, block_vertices[i].normal, color_);
         }
