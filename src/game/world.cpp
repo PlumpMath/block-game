@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -35,7 +36,7 @@ namespace block_game
     {
       if (!file)
       {
-        throw std::exception{"file missing"};
+        throw std::runtime_error{"file missing"};
       }
       file >> root;
     }
