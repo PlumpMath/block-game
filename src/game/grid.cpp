@@ -73,10 +73,16 @@ namespace block_game
     root_.BuildDraw(vertices, indices);
 
     vertex_buffer_.Resize(sizeof(BlockVertex) * vertices.size());
-    vertex_buffer_.SetData(&vertices[0]);
+    if (vertices.size() > 0)
+    {
+      vertex_buffer_.SetData(&vertices[0]);
+    }
 
     index_buffer_.Resize(indices.size());
-    index_buffer_.SetData(&indices[0]);
+    if (indices.size() > 0)
+    {
+      index_buffer_.SetData(&indices[0]);
+    }
   }
 
   void Grid::Draw(Program& program)
