@@ -31,14 +31,12 @@ namespace block_game
     Json::Value root;
 
     std::ifstream file{"world.json"};
-
     try
     {
       if (!file)
       {
         throw std::exception{"file missing"};
       }
-
       file >> root;
     }
     catch (const std::exception& exception)
