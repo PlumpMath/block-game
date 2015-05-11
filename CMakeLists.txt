@@ -5,16 +5,13 @@ set(LIBRARY_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 include (CMakeParseArguments)
 
 function(add_cmake_dependency)
-  set(ACD_OPTIONS
-    MANUAL
-  )
   set(ACD_ONE_VALUE_KEYWORDS
     NAME
     URL
     SOURCE
     INCLUDE
   )
-  cmake_parse_arguments(ACD "${ACD_OPTIONS}" "${ACD_ONE_VALUE_KEYWORDS}" "" ${ARGN})
+  cmake_parse_arguments(ACD "" "${ACD_ONE_VALUE_KEYWORDS}" "" ${ARGN})
 
   set(ACD_DIRECTORY ${LIBRARY_DIRECTORY}/${ACD_NAME})
   set(ACD_TGZ ${ACD_NAME}.tgz)
@@ -34,14 +31,12 @@ function(add_cmake_dependency)
     )
   endif()
 
-  if(${ACD_MANUAL})
-    file(APPEND ${ACD_CMAKE_LISTS})
-  endif()
+  file(APPEND ${ACD_CMAKE_LISTS})
   add_subdirectory(${ACD_SOURCE_ABSOLUTE} ${ACD_BINARY})
   include_directories(${ACD_INCLUDE_ABSOLUTE})
 endfunction()
 
-add_cmake_dependency(MANUAL
+add_cmake_dependency(
   NAME glad
   URL https://github.com/Dav1dde/glad/archive/c.tar.gz
   SOURCE glad-c
