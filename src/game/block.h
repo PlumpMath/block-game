@@ -13,8 +13,8 @@ namespace block_game
   class Block
   {
   public:
-    Block(Block& parent, size_t x, size_t y, size_t z);
     Block(Grid& grid, float radius);
+    Block(Block& parent, size_t x, size_t y, size_t z);
 
     float GetRadius() const;
     Vector<3> GetPosition() const;

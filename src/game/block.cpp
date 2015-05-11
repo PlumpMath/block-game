@@ -82,6 +82,14 @@ namespace block_game
     20, 23, 21
   };
 
+  Block::Block(Grid& grid, const float radius) : radius_{radius},
+    root_{true}, leaf_{true},
+    grid_{&grid},
+    solid_{false}
+  {
+    assert(radius > 0.0F);
+  }
+
   Block::Block(Block& parent, const size_t x, const size_t y, const size_t z) : radius_{parent.radius_ / 2.0F},
     position_(parent.position_ + parent.radius_ * Vector<3>{x - 0.5F, y - 0.5F, z - 0.5F}),
     root_{false}, leaf_{true},
@@ -89,14 +97,6 @@ namespace block_game
     solid_{parent.solid_}, color_(parent.color_)
   {
     assert(x < 2 && y < 2 && z < 2);
-  }
-
-  Block::Block(Grid& grid, const float radius) : radius_{radius},
-    root_{true}, leaf_{true},
-    grid_{&grid},
-    solid_{false}
-  {
-    assert(radius > 0.0F);
   }
 
   float Block::GetRadius() const
