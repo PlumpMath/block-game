@@ -1,6 +1,7 @@
 #include "game/world.h"
 
 #include <cmath>
+#include <string>
 #include <vector>
 
 #include <glad/glad.h>
@@ -10,6 +11,13 @@
 #include "general/vector.h"
 #include "opengl/program.h"
 #include "shader/shaders.h"
+
+namespace
+{
+  const std::string world_json{
+#include "game/world.json.txt"
+  };
+}
 
 namespace block_game
 {
