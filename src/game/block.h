@@ -3,6 +3,8 @@
 
 #include <vector>
 
+#include <json/json.h>
+
 #include "game/block_vertex.h"
 #include "general/vector.h"
 
@@ -15,6 +17,8 @@ namespace block_game
   public:
     Block(Grid& grid, float radius);
     Block(Block& parent, size_t x, size_t y, size_t z);
+
+    void Build(const Json::Value& value);
 
     float GetRadius() const;
     Vector<3> GetPosition() const;

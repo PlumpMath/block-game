@@ -1,6 +1,9 @@
 #include "game/block.h"
 
+#include <stdexcept>
 #include <vector>
+
+#include <json/json.h>
 
 #include "game/block_vertex.h"
 #include "game/grid.h"
@@ -97,6 +100,30 @@ namespace block_game
     solid_{parent.solid_}, color_(parent.color_)
   {
     assert(x < 2 && y < 2 && z < 2);
+  }
+
+  void Block::Build(const Json::Value& value)
+  {
+    solid_ = value.get("solid", solid_).asBool();
+
+    if (value.isMember("color"))
+    {
+      color_ = value["color"];
+    }
+
+    if (value.isMember("children"))
+    {
+      Split();
+      const Json::Value& children{value["children"]};
+      if (children.size() != children_.size())
+      {
+        throw std::runtime_error{"incorrect number of Block children"};
+      }
+      for (size_t i = 0; i < children.size(); ++i)
+      {
+        children_[i].Build(children[i]);
+      }
+    }
   }
 
   float Block::GetRadius() const

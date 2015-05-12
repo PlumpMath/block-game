@@ -4,6 +4,7 @@
 #include <vector>
 
 #include <glad/glad.h>
+#include <json/json.h>
 
 #include "game/block_vertex.h"
 #include "general/matrix.h"
@@ -18,6 +19,21 @@ namespace block_game
     vertex_buffer_{GL_ARRAY_BUFFER, 0, GL_STATIC_DRAW}, index_buffer_{GL_ELEMENT_ARRAY_BUFFER, 0, GL_STATIC_DRAW}
   {
     assert(radius > 0.0F);
+  }
+
+  Grid::Grid(const Json::Value& value) : Grid{value["radius"].asFloat()}
+  {
+    if (value.isMember("position"))
+    {
+      position_ = value["position"];
+    }
+
+    if (value.isMember("rotation"))
+    {
+      rotation_ = value["rotation"];
+    }
+
+    root_.Build(value["root"]);
   }
 
   Vector<3> Grid::GetPosition() const
@@ -53,17 +69,6 @@ namespace block_game
   void Grid::Update(const double delta)
   {
     assert(delta >= 0.0);
-    if (delta > 0.0)
-    {
-      position_.RotateZ(static_cast<float>(delta));
-
-      const Block* color_block{&root_};
-      while (!color_block->IsLeaf())
-      {
-        color_block = &color_block->GetChild(0, 0, 0);
-      }
-      rotation_ += (Vector<3>{1.0F, 1.0F, 1.0f} - color_block->GetColor()) * static_cast<float>(delta);
-    }
   }
 
   void Grid::RebuildDraw()

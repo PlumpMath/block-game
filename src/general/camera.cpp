@@ -4,6 +4,8 @@
 #include <cassert>
 #include <cmath>
 
+#include <json/json.h>
+
 #include "general/math.h"
 #include "general/matrix.h"
 #include "general/vector.h"
@@ -13,6 +15,23 @@ namespace block_game
   Camera::Camera() : yaw_{0.0F}, pitch_{0.0F}, roll_{0.0F},
     field_of_view_{1.0F}, z_near_{0.1F}, z_far_{1.0F}, aspect_ratio_{1.0F}
   {}
+
+  Camera::Camera(const Json::Value& value) : Camera{}
+  {
+    if (value.isMember("position"))
+    {
+      position_ = value["position"];
+    }
+
+    yaw_ = value.get("yaw", yaw_).asFloat();
+    pitch_ = value.get("pitch", pitch_).asFloat();
+    roll_ = value.get("roll", roll_).asFloat();
+
+    field_of_view_ = value.get("fieldOfView", field_of_view_).asFloat();
+    z_near_ = value.get("zNear", z_near_).asFloat();
+    z_far_ = value.get("zFar", z_far_).asFloat();
+    aspect_ratio_ = value.get("aspectRatio", aspect_ratio_).asFloat();
+  }
 
   Vector<3> Camera::GetPosition() const
   {

@@ -1,6 +1,8 @@
 #ifndef BLOCK_GAME_GENERAL_CAMERA_H_
 #define BLOCK_GAME_GENERAL_CAMERA_H_
 
+#include <json/json.h>
+
 #include "general/matrix.h"
 #include "general/vector.h"
 
@@ -10,6 +12,7 @@ namespace block_game
   {
   public:
     Camera();
+    Camera(const Json::Value& value);
 
     Vector<3> GetPosition() const;
 

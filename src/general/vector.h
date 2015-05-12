@@ -3,6 +3,9 @@
 
 #include <cassert>
 #include <initializer_list>
+#include <stdexcept>
+
+#include <json/json.h>
 
 namespace block_game
 {
@@ -14,6 +17,7 @@ namespace block_game
 
     Vector();
     Vector(const std::initializer_list<float>& initial_components);
+    Vector(const Json::Value& value);
 
     float operator[](int i) const;
     float& operator[](int i);
@@ -59,6 +63,23 @@ namespace block_game
     {
       components[i] = component;
       ++i;
+    }
+  }
+
+  template<int dimensions>
+  Vector<dimensions>::Vector(const Json::Value& value)
+  {
+    if (!value.isArray())
+    {
+      throw std::runtime_error{"non-array JSON value cannot be used to construct Vector"};
+    }
+    else if (value.size() != dimensions)
+    {
+      throw std::runtime_error{"JSON value size does not match number of dimensions in Vector"};
+    }
+    for (int i = 0; i < dimensions; ++i)
+    {
+      components[i] = value[i].asFloat();
     }
   }
 

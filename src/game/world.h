@@ -1,6 +1,7 @@
 #ifndef BLOCK_GAME_GAME_WORLD_H_
 #define BLOCK_GAME_GAME_WORLD_H_
 
+#include <istream>
 #include <vector>
 
 #include "game/grid.h"
@@ -31,6 +32,8 @@ namespace block_game
     void Display(int width, int height);
 
   private:
+    void Build(std::istream& stream);
+
     std::vector<Grid> grids_;
 
     Camera camera_;

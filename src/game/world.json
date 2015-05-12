@@ -1,0 +1,77 @@
+{
+  "camera": {
+    "position": [0.0, 0.0, -10.0],
+    "zFar": 100.0
+  },
+  "grids": [
+    {
+      "radius": 1.0,
+      "position": [1.0, 0.0, 0.0],
+      "rotation": [0.0, 1.0, 1.0],
+      "root": {
+        "solid": true,
+        "color": [1.0, 0.0, 0.0],
+        "children": [
+          {
+            "solid": false
+          },
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {
+            "solid": false
+          }
+        ]
+      }
+    },
+    {
+      "radius": 1.0,
+      "position": [-1.0, 1.0, 0.0],
+      "rotation": [1.0, 0.0, 1.0],
+      "root": {
+        "solid": true,
+        "color": [0.0, 1.0, 0.0],
+        "children": [
+          {
+            "solid": false
+          },
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {
+            "solid": false
+          }
+        ]
+      }
+    },
+    {
+      "radius": 1.0,
+      "position": [-1.0, -1.0, 0.0],
+      "rotation": [1.0, 1.0, 0.0],
+      "root": {
+        "solid": true,
+        "color": [0.0, 0.0, 1.0],
+        "children": [
+          {
+            "solid": false
+          },
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {
+            "solid": false
+          }
+        ]
+      }
+    }
+  ]
+}
