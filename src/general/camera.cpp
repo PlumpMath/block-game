@@ -18,10 +18,9 @@ namespace block_game
 
   Camera::Camera(const Json::Value& value) : Camera{}
   {
-    const Json::Value& position{value["position"]};
-    for (size_t i = 0; i < position.size(); ++i)
+    if (value.isMember("position"))
     {
-      position_[i] = position[i].asFloat();
+      position_ = value["position"];
     }
 
     yaw_ = value.get("yaw", yaw_).asFloat();

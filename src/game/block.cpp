@@ -105,10 +105,9 @@ namespace block_game
   {
     solid_ = value.get("solid", solid_).asBool();
 
-    const Json::Value& color{value["color"]};
-    for (size_t i = 0; i < color.size(); ++i)
+    if (value.isMember("color"))
     {
-      color_[i] = color[i].asFloat();
+      color_ = value["color"];
     }
 
     const Json::Value& children{value["children"]};

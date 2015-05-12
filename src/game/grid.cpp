@@ -23,16 +23,14 @@ namespace block_game
 
   Grid::Grid(const Json::Value& value) : Grid{value["radius"].asFloat()}
   {
-    const Json::Value& position{value["position"]};
-    for (size_t i = 0; i < position.size(); ++i)
+    if (value.isMember("position"))
     {
-      position_[i] = position[i].asFloat();
+      position_ = value["position"];
     }
 
-    const Json::Value& rotation{value["rotation"]};
-    for (size_t i = 0; i < rotation.size(); ++i)
+    if (value.isMember("rotation"))
     {
-      rotation_[i] = rotation[i].asFloat();
+      rotation_ = value["rotation"];
     }
 
     root_.Build(value["root"]);
