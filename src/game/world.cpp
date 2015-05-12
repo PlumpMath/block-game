@@ -39,6 +39,7 @@ namespace block_game
       std::cerr << "Failed to load world.json: " << exception.what() << std::endl;
       std::cerr << std::endl;
 
+      grids_.clear();
       Build(std::istringstream{world_json});
     }
   }
