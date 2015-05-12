@@ -3,9 +3,9 @@
 
 namespace block_game
 {
-  extern const long double kPiL;
-  extern const double kPi;
-  extern const float kPiF;
+extern const long double kPiL;
+extern const double kPi;
+extern const float kPiF;
 }
 
 #endif

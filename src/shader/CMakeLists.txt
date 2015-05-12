@@ -1,9 +1,8 @@
-add_headers(
-  fragment.h
-  vertex.h
+add_sources(
+  shaders
 )
 
-add_sources(
-  fragment.cpp
-  vertex.cpp
+add_strings(
+  program.vert
+  program.frag
 )

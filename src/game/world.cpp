@@ -1,112 +1,164 @@
 #include "game/world.h"
 
-#include <cmath>
+#include <exception>
+#include <fstream>
+#include <iostream>
+#include <istream>
+#include <sstream>
+#include <stdexcept>
+#include <string>
+#include <vector>
 
 #include <glad/glad.h>
+#include <json/json.h>
 
 #include "general/camera.h"
-#include "general/math.h"
-#include "general/vector_2f.h"
-#include "shader/vertex.h"
-#include "shader/fragment.h"
+#include "general/vector.h"
+#include "opengl/program.h"
+#include "shader/shaders.h"
+
+namespace
+{
+const std::string world_json{
+#include "game/world.json.txt"
+};
+}
 
 namespace block_game
 {
-  World::World() : camera_delta_vertical_{0.0F}, camera_delta_forward_{0.0F}, camera_delta_strafe_{0.0F},
-    camera_delta_roll_{0.0F},
-    vertex_shader_{GL_VERTEX_SHADER, vertex_glsl},
-    fragment_shader_{GL_FRAGMENT_SHADER, fragment_glsl},
-    program_{vertex_shader_, fragment_shader_}
+World::World()
+  : camera_delta_vertical_{0.0F}, camera_delta_forward_{0.0F}, camera_delta_strafe_{0.0F}, camera_delta_roll_{0.0F},
+  program_{program_vert, program_frag}
+{
+  try
   {
-    blocks_.emplace_back(0.5F, Color3F{1.0F, 0.0F, 0.0F});
-    blocks_.emplace_back(0.5F, Color3F{0.0F, 1.0F, 0.0F});
-    blocks_.emplace_back(0.5F, Color3F{0.0F, 0.0F, 1.0F});
+    Build(std::ifstream{"world.json"});
+  }
+  catch (const std::exception& exception)
+  {
+    std::cerr << "Failed to load world.json: " << exception.what() << std::endl;
+    std::cerr << std::endl;
 
-    for (size_t i = 0; i < blocks_.size(); ++i)
+    grids_.clear();
+    Build(std::istringstream{world_json});
+  }
+}
+
+const Camera& World::GetCamera() const
+{
+  return camera_;
+}
+
+Camera& World::GetCamera()
+{
+  return camera_;
+}
+
+float World::GetCameraDeltaVertical() const
+{
+  return camera_delta_vertical_;
+}
+
+float World::GetCameraDeltaForward() const
+{
+  return camera_delta_forward_;
+}
+
+float World::GetCameraDeltaStrafe() const
+{
+  return camera_delta_strafe_;
+}
+
+float World::GetCameraDeltaRoll() const
+{
+  return camera_delta_roll_;
+}
+
+void World::SetCameraDeltaVertical(const float camera_delta_vertical)
+{
+  camera_delta_vertical_ = camera_delta_vertical;
+}
+
+void World::SetCameraDeltaForward(const float camera_delta_forward)
+{
+  camera_delta_forward_ = camera_delta_forward;
+}
+
+void World::SetCameraDeltaStrafe(const float camera_delta_strafe)
+{
+  camera_delta_strafe_ = camera_delta_strafe;
+}
+
+void World::SetCameraDeltaRoll(const float camera_delta_roll)
+{
+  camera_delta_roll_ = camera_delta_roll;
+}
+
+void World::Update(const double delta)
+{
+  assert(delta >= 0.0);
+  if (delta > 0.0)
+  {
+    for (auto& grid : grids_)
     {
-      blocks_[i].position().x = 0.375F * cos((i / (float) blocks_.size()) * 2 * kPiF);
-      blocks_[i].position().y = 0.375F * sin((i / (float) blocks_.size()) * 2 * kPiF);
+      grid.Update(delta);
     }
 
-    camera_.position().z = -5.0F;
-    camera_.set_z_far(10.0F);
+    Vector<2> camera_forward_direction{0.0F, -1.0F};
+    Vector<2> camera_strafe_direction{1.0F, 0.0F};
+    camera_forward_direction.RotateZ(camera_.GetYaw());
+    camera_strafe_direction.RotateZ(camera_.GetYaw());
+
+    Vector<3> camera_position = camera_.GetPosition();
+    camera_position[0] += static_cast<float>(camera_delta_forward_ * camera_forward_direction[0] * delta);
+    camera_position[1] += static_cast<float>(camera_delta_forward_ * camera_forward_direction[1] * delta);
+
+    camera_position[0] += static_cast<float>(camera_delta_strafe_ * camera_strafe_direction[0] * delta);
+    camera_position[1] += static_cast<float>(camera_delta_strafe_ * camera_strafe_direction[1] * delta);
+
+    camera_position[2] += static_cast<float>(camera_delta_vertical_ * delta);
+    camera_.SetPosition(camera_position);
+
+    camera_.SetRoll(static_cast<float>(camera_.GetRoll() + camera_delta_roll_ * delta));
   }
+}
 
-  Camera& World::camera()
-  {
-    return camera_;
-  }
-
-  void World::set_camera_delta_vertical(const float camera_delta_vertical)
-  {
-    camera_delta_vertical_ = camera_delta_vertical;
-  }
-
-  void World::set_camera_delta_forward(const float camera_delta_forward)
-  {
-    camera_delta_forward_ = camera_delta_forward;
-  }
-
-  void World::set_camera_delta_strafe(const float camera_delta_strafe)
-  {
-    camera_delta_strafe_ = camera_delta_strafe;
-  }
-
-  void World::set_camera_delta_roll(const float camera_delta_roll)
-  {
-    camera_delta_roll_ = camera_delta_roll;
-  }
-
-  void World::Update(const double delta)
-  {
-    for (Block& block : blocks_)
-    {
-      block.Update(delta);
-    }
-
-    Vector2F camera_forward_direction{0.0F, -1.0F};
-    Vector2F camera_strafe_direction{1.0F, 0.0F};
-    camera_forward_direction.Rotate(camera_.yaw());
-    camera_strafe_direction.Rotate(camera_.yaw());
-
-    camera_.position().x += camera_delta_forward_ * camera_forward_direction.x * (float) delta;
-    camera_.position().y += camera_delta_forward_ * camera_forward_direction.y * (float) delta;
-
-    camera_.position().x += camera_delta_strafe_ * camera_strafe_direction.x * (float) delta;
-    camera_.position().y += camera_delta_strafe_ * camera_strafe_direction.y * (float) delta;
-
-    camera_.position().z += camera_delta_vertical_ * (float) delta;
-
-    camera_.set_roll(camera_.roll() + camera_delta_roll_ * (float) delta);
-  }
-
-  void World::Display(const int width, const int height)
+void World::Display(const int width, const int height)
+{
+  assert(width >= 0 && height >= 0);
+  if (width > 0 && height > 0)
   {
     glViewport(0, 0, width, height);
+    glClearColor(0.5F, 0.5F, 1.0F, 1.0F);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
 
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
-
-    program_.Bind();
-
-    camera_.set_aspect_ratio(width / (float) height);
+    camera_.SetAspectRatio(width / static_cast<float>(height));
     program_.SetUniformMatrix4("viewProjection", camera_.GetMatrix());
 
-    for (const Block& block : blocks_)
+    for (auto& grid : grids_)
     {
-      block.Draw(program_);
+      grid.Draw(program_);
     }
-
-    Program::Unbind();
-
-    glDisableVertexAttribArray(1);
-    glDisableVertexAttribArray(0);
 
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);
   }
+}
+
+void World::Build(std::istream& stream)
+{
+  Json::Value root;
+  stream >> root;
+
+  for (const auto& grid : root["grids"])
+  {
+    grids_.emplace_back(grid);
+    grids_.back().RebuildDraw();
+  }
+
+  camera_ = root["camera"];
+}
 }

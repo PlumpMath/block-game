@@ -1,43 +1,71 @@
 #ifndef BLOCK_GAME_GAME_BLOCK_H_
 #define BLOCK_GAME_GAME_BLOCK_H_
 
-#include "general/color_3f.h"
-#include "general/vector_3f.h"
-#include "opengl/vertex_buffer.h"
-#include "opengl/index_buffer.h"
+#include <vector>
+
+#include <json/json.h>
+
+#include "game/block_vertex.h"
+#include "general/vector.h"
 
 namespace block_game
 {
-  class Program;
+class Grid;
 
-  class Block
-  {
-  public:
-    Block(const float, const Color3F&);
+class Block
+{
+public:
+  Block(Grid& grid, float radius);
+  Block(Block& parent, size_t x, size_t y, size_t z);
 
-    float radius() const;
-    const Color3F& color() const;
-    const Vector3F& position() const;
-    const Vector3F& rotation() const;
+  void Build(const Json::Value& value);
 
-    Vector3F& position();
-    Vector3F& rotation();
+  float GetRadius() const;
+  Vector<3> GetPosition() const;
+  bool IsRoot() const;
+  bool IsLeaf() const;
 
-    void Update(const double);
-    void Draw(Program&) const;
+  // root_ == true
+  const Grid& GetGrid() const;
+  Grid& GetGrid();
 
-  private:
-    static const Vector3F vertices_[][2];
-    static const unsigned char indices_[];
+  // root_ == false
+  const Block& GetParent() const;
+  Block& GetParent();
 
-    const float radius_;
-    const Color3F color_;
-    Vector3F position_;
-    Vector3F rotation_;
+  // leaf_ == true
+  bool IsSolid() const;
+  Vector<3> GetColor() const;
+  void SetSolid(bool solid);
+  void SetColor(const Vector<3>& color);
+  void Split();
 
-    VertexBuffer vertex_buffer_;
-    IndexBuffer index_buffer_;
-  };
+  // leaf_ == false
+  const Block& GetChild(size_t x, size_t y, size_t z) const;
+  Block& GetChild(size_t x, size_t y, size_t z);
+  void Merge();
+
+  void BuildDraw(std::vector<BlockVertex>& vertices, std::vector<unsigned char>& indices);
+
+private:
+  float radius_;
+  Vector<3> position_;
+  bool root_;
+  bool leaf_;
+
+  // root_ == true
+  Grid* grid_;
+
+  // root_ == false
+  Block* parent_;
+
+  // leaf_ == true
+  bool solid_;
+  Vector<3> color_;
+
+  // leaf_ == false
+  std::vector<Block> children_;
+};
 }
 
 #endif

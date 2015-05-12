@@ -1,42 +1,49 @@
 #ifndef BLOCK_GAME_GAME_WORLD_H_
 #define BLOCK_GAME_GAME_WORLD_H_
 
+#include <istream>
 #include <vector>
 
-#include "game/block.h"
+#include "game/grid.h"
 #include "general/camera.h"
-#include "opengl/shader.h"
 #include "opengl/program.h"
 
 namespace block_game
 {
-  class World
-  {
-  public:
-    World();
+class World
+{
+public:
+  World();
 
-    Camera& camera();
-    void set_camera_delta_vertical(const float);
-    void set_camera_delta_forward(const float);
-    void set_camera_delta_strafe(const float);
-    void set_camera_delta_roll(const float);
+  const Camera& GetCamera() const;
+  Camera& GetCamera();
 
-    void Update(const double);
-    void Display(const int, const int);
+  float GetCameraDeltaVertical() const;
+  float GetCameraDeltaForward() const;
+  float GetCameraDeltaStrafe() const;
+  float GetCameraDeltaRoll() const;
 
-  private:
-    std::vector<Block> blocks_;
+  void SetCameraDeltaVertical(float camera_delta_vertical);
+  void SetCameraDeltaForward(float camera_delta_forward);
+  void SetCameraDeltaStrafe(float camera_delta_strafe);
+  void SetCameraDeltaRoll(float camera_delta_roll);
 
-    Camera camera_;
-    float camera_delta_vertical_;
-    float camera_delta_forward_;
-    float camera_delta_strafe_;
-    float camera_delta_roll_;
+  void Update(double delta);
+  void Display(int width, int height);
 
-    const Shader vertex_shader_;
-    const Shader fragment_shader_;
-    Program program_;
-  };
+private:
+  void Build(std::istream& stream);
+
+  std::vector<Grid> grids_;
+
+  Camera camera_;
+  float camera_delta_vertical_;
+  float camera_delta_forward_;
+  float camera_delta_strafe_;
+  float camera_delta_roll_;
+
+  Program program_;
+};
 }
 
 #endif

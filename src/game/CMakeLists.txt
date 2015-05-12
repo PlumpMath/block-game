@@ -1,9 +1,10 @@
-add_headers(
-  block.h
-  world.h
+add_sources(
+  block
+  block_vertex
+  grid
+  world
 )
 
-add_sources(
-  block.cpp
-  world.cpp
+add_strings(
+  world.json
 )

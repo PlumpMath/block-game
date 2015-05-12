@@ -1,3 +1,4 @@
+#include <cassert>
 #include <iostream>
 
 #include <glad/glad.h>
@@ -5,27 +6,31 @@
 
 #include "game/world.h"
 #include "general/camera.h"
-#include "general/vector_2f.h"
+#include "general/vector.h"
 
-block_game::Vector2F previous_cursor_pos;
+block_game::Vector<2> previous_cursor_pos;
 
 block_game::World* world;
 
 void CursorPosCallback(GLFWwindow* window, const double x_pos, const double y_pos)
 {
+  assert(world);
+
   if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED)
   {
-    block_game::Camera& camera{world->camera()};
-    camera.set_yaw(camera.yaw() + 0.001F * (((float) x_pos) - previous_cursor_pos.x));
-    camera.set_pitch(camera.pitch() + 0.001F * (((float) y_pos) - previous_cursor_pos.y));
+    block_game::Camera& camera{world->GetCamera()};
+    camera.SetYaw(static_cast<float>(camera.GetYaw() + 0.001F * (x_pos - previous_cursor_pos[0])));
+    camera.SetPitch(static_cast<float>(camera.GetPitch() + 0.001F * (y_pos - previous_cursor_pos[1])));
   }
 
-  previous_cursor_pos.x = x_pos;
-  previous_cursor_pos.y = y_pos;
+  previous_cursor_pos[0] = static_cast<float>(x_pos);
+  previous_cursor_pos[1] = static_cast<float>(y_pos);
 }
 
 void KeyCallback(GLFWwindow* window, const int key, const int scancode, const int action, const int mods)
 {
+  assert(world);
+
   if (action == GLFW_PRESS)
   {
     if (key == GLFW_KEY_ESCAPE)
@@ -33,56 +38,56 @@ void KeyCallback(GLFWwindow* window, const int key, const int scancode, const in
       glfwSetInputMode(window, GLFW_CURSOR,
         glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_NORMAL ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
     }
-    if (key == GLFW_KEY_MINUS)
+    if (key == GLFW_KEY_LEFT_CONTROL)
     {
-      world->set_camera_delta_vertical(-1.0F);
+      world->SetCameraDeltaVertical(-10.0F);
     }
-    else if (key == GLFW_KEY_EQUAL)
+    else if (key == GLFW_KEY_SPACE)
     {
-      world->set_camera_delta_vertical(1.0F);
+      world->SetCameraDeltaVertical(10.0F);
     }
     else if (key == GLFW_KEY_W)
     {
-      world->set_camera_delta_forward(1.0F);
+      world->SetCameraDeltaForward(10.0F);
     }
     else if (key == GLFW_KEY_S)
     {
-      world->set_camera_delta_forward(-1.0F);
+      world->SetCameraDeltaForward(-10.0F);
     }
     else if (key == GLFW_KEY_A)
     {
-      world->set_camera_delta_strafe(-1.0F);
+      world->SetCameraDeltaStrafe(-10.0F);
     }
     else if (key == GLFW_KEY_D)
     {
-      world->set_camera_delta_strafe(1.0F);
+      world->SetCameraDeltaStrafe(10.0F);
     }
     else if (key == GLFW_KEY_LEFT_BRACKET)
     {
-      world->set_camera_delta_roll(1.0F);
+      world->SetCameraDeltaRoll(1.0F);
     }
     else if (key == GLFW_KEY_RIGHT_BRACKET)
     {
-      world->set_camera_delta_roll(-1.0F);
+      world->SetCameraDeltaRoll(-1.0F);
     }
   }
   else if (action == GLFW_RELEASE)
   {
-    if (key == GLFW_KEY_MINUS || key == GLFW_KEY_EQUAL)
+    if (key == GLFW_KEY_LEFT_CONTROL || key == GLFW_KEY_SPACE)
     {
-      world->set_camera_delta_vertical(0.0F);
+      world->SetCameraDeltaVertical(0.0F);
     }
     else if (key == GLFW_KEY_W || key == GLFW_KEY_S)
     {
-      world->set_camera_delta_forward(0.0F);
+      world->SetCameraDeltaForward(0.0F);
     }
     else if (key == GLFW_KEY_A || key == GLFW_KEY_D)
     {
-      world->set_camera_delta_strafe(0.0F);
+      world->SetCameraDeltaStrafe(0.0F);
     }
     else if (key == GLFW_KEY_LEFT_BRACKET || key == GLFW_KEY_RIGHT_BRACKET)
     {
-      world->set_camera_delta_roll(0.0F);
+      world->SetCameraDeltaRoll(0.0F);
     }
   }
 }
@@ -91,14 +96,14 @@ int main()
 {
   if (!glfwInit())
   {
-    return -1;
+    return EXIT_FAILURE;
   }
 
-  GLFWwindow* window{glfwCreateWindow(512, 512, "Block Game 0.2.1", nullptr, nullptr)};
+  GLFWwindow* window{glfwCreateWindow(512, 512, "Block Game 0.3.0", nullptr, nullptr)};
   if (!window)
   {
     glfwTerminate();
-    return -1;
+    return EXIT_FAILURE;
   }
 
   glfwMakeContextCurrent(window);
@@ -140,4 +145,5 @@ int main()
 
   glfwDestroyWindow(window);
   glfwTerminate();
+  return EXIT_SUCCESS;
 }

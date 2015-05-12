@@ -1,98 +1,83 @@
-cmake_minimum_required(VERSION 2.8.9)
+cmake_minimum_required(VERSION 3.0)
 project("Block Game")
+
 set(LIBRARY_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-
-set(GLFW_NAME         3.1.1)
-set(GLFW_URL          https://github.com/glfw/glfw/archive/${GLFW_NAME}.tar.gz)
-set(GLFW_DIRECTORY    ${LIBRARY_DIRECTORY}/glfw)
-set(GLFW_TGZ          glfw.tgz)
-set(GLFW_TGZ_ABSOLUTE ${GLFW_DIRECTORY}/${GLFW_TGZ})
-set(GLFW_SOURCE       ${GLFW_DIRECTORY}/glfw-${GLFW_NAME})
-set(GLFW_CMAKE_LISTS  ${GLFW_SOURCE}/CMakeLists.txt)
-set(GLFW_INCLUDE      ${GLFW_SOURCE}/include)
-set(GLFW_BINARY       ${GLFW_DIRECTORY}/bin)
-
-if(NOT EXISTS ${GLFW_CMAKE_LISTS})
-
-  message(STATUS "Downloading ${GLFW_URL}")
-  file(DOWNLOAD ${GLFW_URL} ${GLFW_TGZ_ABSOLUTE})
-
-  message(STATUS "Opening ${GLFW_TGZ}")
-  execute_process(
-    COMMAND ${CMAKE_COMMAND} -E tar xzf ${GLFW_TGZ}
-    WORKING_DIRECTORY ${GLFW_DIRECTORY}
+include(CMakeParseArguments)
+function(add_cmake_dependency)
+  set(ACD_ONE_VALUE_KEYWORDS
+    NAME
+    URL
+    SOURCE
+    INCLUDE
   )
+  cmake_parse_arguments(ACD "" "${ACD_ONE_VALUE_KEYWORDS}" "" ${ARGN})
 
-endif()
+  set(ACD_DIRECTORY ${LIBRARY_DIRECTORY}/${ACD_NAME})
+  set(ACD_TGZ ${ACD_NAME}.tgz)
+  set(ACD_TGZ_ABSOLUTE ${ACD_DIRECTORY}/${ACD_TGZ})
+  set(ACD_SOURCE_ABSOLUTE ${ACD_DIRECTORY}/${ACD_SOURCE})
+  set(ACD_CMAKE_LISTS ${ACD_SOURCE_ABSOLUTE}/CMakeLists.txt)
+  set(ACD_INCLUDE_ABSOLUTE ${ACD_SOURCE_ABSOLUTE}/${ACD_INCLUDE})
+  set(ACD_BINARY ${ACD_DIRECTORY}/bin)
 
-file(APPEND ${GLFW_CMAKE_LISTS})
-add_subdirectory(${GLFW_SOURCE} ${GLFW_BINARY})
-include_directories(${GLFW_INCLUDE})
+  if(NOT EXISTS ${ACD_CMAKE_LISTS})
+    message(STATUS "Downloading ${ACD_URL}")
+    file(DOWNLOAD ${ACD_URL} ${ACD_TGZ_ABSOLUTE})
+    message(STATUS "Opening ${ACD_TGZ_ABSOLUTE}")
+    execute_process(
+      COMMAND ${CMAKE_COMMAND} -E tar xzf ${ACD_TGZ}
+      WORKING_DIRECTORY ${ACD_DIRECTORY}
+    )
+  endif()
 
-set(GLAD_NAME         c)
-set(GLAD_URL          https://github.com/Dav1dde/glad/archive/${GLAD_NAME}.tar.gz)
-set(GLAD_DIRECTORY    ${LIBRARY_DIRECTORY}/glad)
-set(GLAD_TGZ          glad.tgz)
-set(GLAD_TGZ_ABSOLUTE ${GLAD_DIRECTORY}/${GLAD_TGZ})
-set(GLAD_SOURCE       ${GLAD_DIRECTORY}/glad-${GLAD_NAME})
-set(GLAD_CMAKE_LISTS  ${GLAD_SOURCE}/CMakeLists.txt)
-set(GLAD_INCLUDE      ${GLAD_SOURCE}/include)
-set(GLAD_BINARY       ${GLAD_DIRECTORY}/bin)
+  file(APPEND ${ACD_CMAKE_LISTS})
+  add_subdirectory(${ACD_SOURCE_ABSOLUTE} ${ACD_BINARY})
+  include_directories(${ACD_INCLUDE_ABSOLUTE})
+endfunction()
 
-if(NOT EXISTS ${GLAD_CMAKE_LISTS})
+add_cmake_dependency(
+  NAME glad
+  URL https://github.com/Dav1dde/glad/archive/c.tar.gz
+  SOURCE glad-c
+  INCLUDE include
+)
+add_library(glad ${LIBRARY_DIRECTORY}/glad/glad-c/src/glad.c)
 
-  message(STATUS "Downloading ${GLAD_URL}")
-  file(DOWNLOAD ${GLAD_URL} ${GLAD_TGZ_ABSOLUTE})
-
-  message(STATUS "Opening ${GLAD_TGZ}")
-  execute_process(
-    COMMAND ${CMAKE_COMMAND} -E tar xzf ${GLAD_TGZ}
-    WORKING_DIRECTORY ${GLAD_DIRECTORY}
-  )
-
-endif()
-
-file(APPEND ${GLAD_CMAKE_LISTS})
-add_subdirectory(${GLAD_SOURCE} ${GLAD_BINARY})
-include_directories(${GLAD_INCLUDE})
-
-macro(add_headers)
-  file(RELATIVE_PATH REL_PATH "${CMAKE_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}")
-  foreach(HEADER ${ARGN})
-    if(REL_PATH)
-      list(APPEND HEADERS "${REL_PATH}/${HEADER}")
-    else()
-      list(APPEND HEADERS "${HEADER}")
-    endif()
-  endforeach()
-  set_property(GLOBAL APPEND PROPERTY HEADERS_PROPERTY ${HEADERS})
-endmacro()
-
-macro(add_sources)
-  file(RELATIVE_PATH REL_PATH "${CMAKE_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}")
-  foreach(SOURCE ${ARGN})
-    if(REL_PATH)
-      list(APPEND SOURCES "${REL_PATH}/${SOURCE}")
-    else()
-      list(APPEND SOURCES "${SOURCE}")
-    endif()
-  endforeach()
-  set_property(GLOBAL APPEND PROPERTY SOURCES_PROPERTY ${SOURCES})
-endmacro()
-
-add_headers(
-  ${GLAD_INCLUDE}/glad/glad.h
-  ${GLAD_INCLUDE}/KHR/khrplatform.h
+add_cmake_dependency(
+  NAME glfw
+  URL https://github.com/glfw/glfw/archive/3.1.1.tar.gz
+  SOURCE glfw-3.1.1
+  INCLUDE include
 )
 
-add_sources(
-  ${GLAD_SOURCE}/src/glad.c
+add_cmake_dependency(
+  NAME jsoncpp
+  URL https://github.com/open-source-parsers/jsoncpp/archive/master.tar.gz
+  SOURCE jsoncpp-master
+  INCLUDE include
 )
 
 add_subdirectory(src)
 include_directories(src)
 
-get_property(FINAL_HEADERS GLOBAL PROPERTY HEADERS_PROPERTY)
-get_property(FINAL_SOURCES GLOBAL PROPERTY SOURCES_PROPERTY)
-add_executable(block_game ${FINAL_HEADERS} ${FINAL_SOURCES})
-target_link_libraries(block_game glfw ${GLFW_LIBRARIES})
+get_property(STRING_PATHS GLOBAL PROPERTY STRING_PATHS_PROPERTY)
+foreach(STRING_PATH ${STRING_PATHS})
+  add_custom_command(
+    OUTPUT ${CMAKE_BINARY_DIR}/${STRING_PATH}.txt
+    COMMAND ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${STRING_PATH} -P add_string.cmake
+    DEPENDS ${CMAKE_SOURCE_DIR}/${STRING_PATH}
+	WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  )
+  list(APPEND STRINGS_DEPENDS ${CMAKE_BINARY_DIR}/${STRING_PATH}.txt)
+endforeach()
+add_custom_target(strings DEPENDS ${STRINGS_DEPENDS})
+include_directories(${CMAKE_BINARY_DIR}/src)
+
+get_property(SOURCES GLOBAL PROPERTY SOURCES_PROPERTY)
+add_executable(block_game ${SOURCES})
+add_dependencies(block_game strings)
+target_link_libraries(block_game
+  glad
+  glfw ${GLFW_LIBRARIES}
+  jsoncpp_lib_static
+)

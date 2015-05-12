@@ -1,52 +1,55 @@
 #ifndef BLOCK_GAME_GENERAL_CAMERA_H_
 #define BLOCK_GAME_GENERAL_CAMERA_H_
 
+#include <json/json.h>
+
 #include "general/matrix.h"
-#include "general/vector_3f.h"
+#include "general/vector.h"
 
 namespace block_game
 {
-  class Camera
-  {
-  public:
-    Camera();
+class Camera
+{
+public:
+  Camera();
+  Camera(const Json::Value& value);
 
-    const Vector3F& position() const;
+  Vector<3> GetPosition() const;
 
-    float yaw() const;
-    float pitch() const;
-    float roll() const;
+  float GetYaw() const;
+  float GetPitch() const;
+  float GetRoll() const;
 
-    float field_of_view() const;
-    float z_near() const;
-    float z_far() const;
-    float aspect_ratio() const;
+  float GetFieldOfView() const;
+  float GetZNear() const;
+  float GetZFar() const;
+  float GetAspectRatio() const;
 
-    Vector3F& position();
+  void SetPosition(const Vector<3>& position);
 
-    void set_yaw(const float);
-    void set_pitch(const float);
-    void set_roll(const float);
+  void SetYaw(float yaw);
+  void SetPitch(float pitch);
+  void SetRoll(float roll);
 
-    void set_field_of_view(const float);
-    void set_z_near(const float);
-    void set_z_far(const float);
-    void set_aspect_ratio(const float);
+  void SetFieldOfView(float field_of_view);
+  void SetZNear(float z_near);
+  void SetZFar(float z_far);
+  void SetAspectRatio(float aspect_ratio);
 
-    Matrix<4> GetMatrix() const;
+  Matrix<4> GetMatrix() const;
 
-  private:
-    Vector3F position_;
+private:
+  Vector<3> position_;
 
-    float yaw_;
-    float pitch_;
-    float roll_;
+  float yaw_;
+  float pitch_;
+  float roll_;
 
-    float field_of_view_;
-    float z_near_;
-    float z_far_;
-    float aspect_ratio_;
-  };
+  float field_of_view_;
+  float z_near_;
+  float z_far_;
+  float aspect_ratio_;
+};
 }
 
 #endif
