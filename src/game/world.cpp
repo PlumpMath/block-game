@@ -3,6 +3,7 @@
 #include <exception>
 #include <fstream>
 #include <iostream>
+#include <istream>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -29,33 +30,17 @@ namespace block_game
     camera_delta_roll_{0.0F},
     program_{program_vert, program_frag}
   {
-    Json::Value root;
-
-    std::ifstream file{"world.json"};
     try
     {
-      if (!file)
-      {
-        throw std::runtime_error{"file missing"};
-      }
-      file >> root;
+      Build(std::ifstream{"world.json"});
     }
     catch (const std::exception& exception)
     {
       std::cerr << "Failed to load world.json: " << exception.what() << std::endl;
       std::cerr << std::endl;
 
-      std::istringstream stream{world_json};
-      stream >> root;
+      Build(std::istringstream{world_json});
     }
-
-    for (const auto& grid : root["grids"])
-    {
-      grids_.emplace_back(grid);
-      grids_.back().RebuildDraw();
-    }
-
-    camera_ = Camera{root["camera"]};
   }
 
   const Camera& World::GetCamera() const
@@ -160,5 +145,19 @@ namespace block_game
       glDisable(GL_DEPTH_TEST);
       glDisable(GL_CULL_FACE);
     }
+  }
+
+  void World::Build(std::istream& stream)
+  {
+    Json::Value root;
+    stream >> root;
+
+    for (const auto& grid : root["grids"])
+    {
+      grids_.emplace_back(grid);
+      grids_.back().RebuildDraw();
+    }
+
+    camera_ = Camera{root["camera"]};
   }
 }
