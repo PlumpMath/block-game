@@ -4,7 +4,7 @@
 
 namespace block_game
 {
-  BlockVertex::BlockVertex(const Vector<3>& position, const Vector<3>& normal, const Vector<3>& color)
-    : position(position), normal(normal), color(color)
-  {}
+BlockVertex::BlockVertex(const Vector<3>& position, const Vector<3>& normal, const Vector<3>& color)
+  : position(position), normal(normal), color(color)
+{}
 }

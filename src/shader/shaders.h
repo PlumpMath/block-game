@@ -5,8 +5,8 @@
 
 namespace block_game
 {
-  extern const std::string program_vert;
-  extern const std::string program_frag;
+extern const std::string program_vert;
+extern const std::string program_frag;
 }
 
 #endif

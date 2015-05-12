@@ -6,8 +6,8 @@
 
 namespace block_game
 {
-  VertexAttribute::VertexAttribute(const std::string& name, const GLint size, const GLenum type,
-    const GLboolean normalized, const GLsizei stride, const GLsizeiptr pointer)
-    : name(name), size{size}, type{type}, normalized{normalized}, stride{stride}, pointer{pointer}
-  {}
+VertexAttribute::VertexAttribute(const std::string& name, const GLint size, const GLenum type,
+  const GLboolean normalized, const GLsizei stride, const GLsizeiptr pointer)
+  : name(name), size{size}, type{type}, normalized{normalized}, stride{stride}, pointer{pointer}
+{}
 }

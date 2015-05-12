@@ -9,35 +9,35 @@
 
 namespace block_game
 {
-  class Program;
+class Program;
 
-  class Grid
-  {
-  public:
-    Grid(float radius);
-    Grid(const Json::Value& value);
+class Grid
+{
+public:
+  Grid(float radius);
+  Grid(const Json::Value& value);
 
-    Vector<3> GetPosition() const;
-    Vector<3> GetRotation() const;
+  Vector<3> GetPosition() const;
+  Vector<3> GetRotation() const;
 
-    void SetPosition(const Vector<3>& position);
-    void SetRotation(const Vector<3>& rotation);
+  void SetPosition(const Vector<3>& position);
+  void SetRotation(const Vector<3>& rotation);
 
-    const Block& GetRoot() const;
-    Block& GetRoot();
+  const Block& GetRoot() const;
+  Block& GetRoot();
 
-    void Update(double delta);
-    void RebuildDraw();
-    void Draw(Program& program);
+  void Update(double delta);
+  void RebuildDraw();
+  void Draw(Program& program);
 
-  private:
-    Vector<3> position_;
-    Vector<3> rotation_;
-    Block root_;
+private:
+  Vector<3> position_;
+  Vector<3> rotation_;
+  Block root_;
 
-    Buffer vertex_buffer_;
-    Buffer index_buffer_;
-  };
+  Buffer vertex_buffer_;
+  Buffer index_buffer_;
+};
 }
 
 #endif

@@ -5,14 +5,14 @@
 
 namespace block_game
 {
-  struct BlockVertex
-  {
-    BlockVertex(const Vector<3>& position, const Vector<3>& normal, const Vector<3>& color);
+struct BlockVertex
+{
+  BlockVertex(const Vector<3>& position, const Vector<3>& normal, const Vector<3>& color);
 
-    Vector<3> position;
-    Vector<3> normal;
-    Vector<3> color;
-  };
+  Vector<3> position;
+  Vector<3> normal;
+  Vector<3> color;
+};
 }
 
 #endif
