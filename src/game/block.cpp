@@ -1,5 +1,6 @@
 #include "game/block.h"
 
+#include <stdexcept>
 #include <vector>
 
 #include <json/json.h>
@@ -110,10 +111,14 @@ namespace block_game
       color_ = value["color"];
     }
 
-    const Json::Value& children{value["children"]};
-    if (children.size() > 0)
+    if (value.isMember("children"))
     {
       Split();
+      const Json::Value& children{value["children"]};
+      if (children.size() != children_.size())
+      {
+        throw std::runtime_error{"incorrect number of Block children"};
+      }
       for (size_t i = 0; i < children.size(); ++i)
       {
         children_[i].Build(children[i]);
