@@ -159,6 +159,6 @@ namespace block_game
       grids_.back().RebuildDraw();
     }
 
-    camera_ = Camera{root["camera"]};
+    camera_ = root["camera"];
   }
 }
