@@ -240,7 +240,7 @@ namespace block_game
       {
         for (size_t i = 0; i < 36; ++i)
         {
-          indices.emplace_back(vertices.size() + block_indices[i]);
+          indices.emplace_back(static_cast<unsigned char>(vertices.size() + block_indices[i]));
         }
 
         for (size_t i = 0; i < 24; ++i)
