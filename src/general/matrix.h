@@ -14,8 +14,8 @@ namespace block_game
 
     Matrix();
 
-    const float* operator[](int i) const;
-    float* operator[](int i);
+    const float* operator[](size_t i) const;
+    float* operator[](size_t i);
 
     Matrix<order> operator+(const Matrix<order>& matrix) const;
     Matrix<order> operator-(const Matrix<order>& matrix) const;
@@ -36,9 +36,9 @@ namespace block_game
   template<int order>
   Matrix<order>::Matrix()
   {
-    for (int i = 0; i < order; ++i)
+    for (size_t i = 0; i < order; ++i)
     {
-      for (int j = 0; j < order; ++j)
+      for (size_t j = 0; j < order; ++j)
       {
         elements[i][j] = i == j ? 1.0F : 0.0F;
       }
@@ -46,16 +46,16 @@ namespace block_game
   }
 
   template<int order>
-  const float* Matrix<order>::operator[](const int i) const
+  const float* Matrix<order>::operator[](const size_t i) const
   {
-    assert(i >= 0 && i < order);
+    assert(i < order);
     return elements[i];
   }
 
   template<int order>
-  float* Matrix<order>::operator[](const int i)
+  float* Matrix<order>::operator[](const size_t i)
   {
-    assert(i >= 0 && i < order);
+    assert(i < order);
     return elements[i];
   }
 
@@ -63,9 +63,9 @@ namespace block_game
   Matrix<order> Matrix<order>::operator+(const Matrix<order>& matrix) const
   {
     Matrix<order> result;
-    for (int i = 0; i < order; ++i)
+    for (size_t i = 0; i < order; ++i)
     {
-      for (int j = 0; j < order; ++j)
+      for (size_t j = 0; j < order; ++j)
       {
         result[i][j] = elements[i][j] + matrix[i][j];
       }
@@ -77,9 +77,9 @@ namespace block_game
   Matrix<order> Matrix<order>::operator-(const Matrix<order>& matrix) const
   {
     Matrix<order> result;
-    for (int i = 0; i < order; ++i)
+    for (size_t i = 0; i < order; ++i)
     {
-      for (int j = 0; j < order; ++j)
+      for (size_t j = 0; j < order; ++j)
       {
         result[i][j] = elements[i][j] - matrix[i][j];
       }
@@ -91,15 +91,15 @@ namespace block_game
   Matrix<order> Matrix<order>::operator*(const Matrix<order>& matrix) const
   {
     Matrix<order> result;
-    for (int i = 0; i < order; ++i)
+    for (size_t i = 0; i < order; ++i)
     {
       result[i][i] = 0.0F;
     }
-    for (int i = 0; i < order; ++i)
+    for (size_t i = 0; i < order; ++i)
     {
-      for (int j = 0; j < order; ++j)
+      for (size_t j = 0; j < order; ++j)
       {
-        for (int k = 0; k < order; ++k)
+        for (size_t k = 0; k < order; ++k)
         {
           result[i][j] += elements[i][k] * matrix[k][j];
         }
@@ -111,9 +111,9 @@ namespace block_game
   template<int order>
   Matrix<order>& Matrix<order>::operator+=(const Matrix<order>& matrix)
   {
-    for (int i = 0; i < order; ++i)
+    for (size_t i = 0; i < order; ++i)
     {
-      for (int j = 0; j < order; ++j)
+      for (size_t j = 0; j < order; ++j)
       {
         elements[i][j] += matrix[i][j];
       }
@@ -124,9 +124,9 @@ namespace block_game
   template<int order>
   Matrix<order>& Matrix<order>::operator-=(const Matrix<order>& matrix)
   {
-    for (int i = 0; i < order; ++i)
+    for (size_t i = 0; i < order; ++i)
     {
-      for (int j = 0; j < order; ++j)
+      for (size_t j = 0; j < order; ++j)
       {
         elements[i][j] -= matrix[i][j];
       }

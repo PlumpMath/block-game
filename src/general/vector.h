@@ -19,8 +19,8 @@ namespace block_game
     Vector(const std::initializer_list<float>& initial_components);
     Vector(const Json::Value& value);
 
-    float operator[](int i) const;
-    float& operator[](int i);
+    float operator[](size_t i) const;
+    float& operator[](size_t i);
 
     Vector<dimensions> operator+(const Vector<dimensions>& vector) const;
     Vector<dimensions> operator-(const Vector<dimensions>& vector) const;
@@ -48,7 +48,7 @@ namespace block_game
   template<int dimensions>
   Vector<dimensions>::Vector()
   {
-    for (int i = 0; i < dimensions; ++i)
+    for (size_t i = 0; i < dimensions; ++i)
     {
       components[i] = 0.0F;
     }
@@ -58,7 +58,7 @@ namespace block_game
   Vector<dimensions>::Vector(const std::initializer_list<float>& initial_components)
   {
     assert(initial_components.size() == dimensions);
-    int i = 0;
+    size_t i = 0;
     for (const float component : initial_components)
     {
       components[i] = component;
@@ -77,23 +77,23 @@ namespace block_game
     {
       throw std::runtime_error{"JSON value size does not match number of dimensions in Vector"};
     }
-    for (int i = 0; i < dimensions; ++i)
+    for (size_t i = 0; i < dimensions; ++i)
     {
       components[i] = value[i].asFloat();
     }
   }
 
   template<int dimensions>
-  float Vector<dimensions>::operator[](const int i) const
+  float Vector<dimensions>::operator[](const size_t i) const
   {
-    assert(i >= 0 && i < dimensions);
+    assert(i < dimensions);
     return components[i];
   }
 
   template<int dimensions>
-  float& Vector<dimensions>::operator[](const int i)
+  float& Vector<dimensions>::operator[](const size_t i)
   {
-    assert(i >= 0 && i < dimensions);
+    assert(i < dimensions);
     return components[i];
   }
 
@@ -101,7 +101,7 @@ namespace block_game
   Vector<dimensions> Vector<dimensions>::operator+(const Vector<dimensions>& vector) const
   {
     Vector<dimensions> new_vector;
-    for (int i = 0; i < dimensions; ++i)
+    for (size_t i = 0; i < dimensions; ++i)
     {
       new_vector[i] = components[i] + vector[i];
     }
@@ -112,7 +112,7 @@ namespace block_game
   Vector<dimensions> Vector<dimensions>::operator-(const Vector<dimensions>& vector) const
   {
     Vector<dimensions> new_vector;
-    for (int i = 0; i < dimensions; ++i)
+    for (size_t i = 0; i < dimensions; ++i)
     {
       new_vector[i] = components[i] - vector[i];
     }
@@ -123,7 +123,7 @@ namespace block_game
   Vector<dimensions> Vector<dimensions>::operator*(const float scalar) const
   {
     Vector<dimensions> new_vector;
-    for (int i = 0; i < dimensions; ++i)
+    for (size_t i = 0; i < dimensions; ++i)
     {
       new_vector[i] = components[i] * scalar;
     }
@@ -135,7 +135,7 @@ namespace block_game
   {
     assert(scalar != 0.0F);
     Vector<dimensions> new_vector;
-    for (int i = 0; i < dimensions; ++i)
+    for (size_t i = 0; i < dimensions; ++i)
     {
       new_vector[i] = components[i] / scalar;
     }
@@ -145,7 +145,7 @@ namespace block_game
   template<int dimensions>
   Vector<dimensions>& Vector<dimensions>::operator+=(const Vector<dimensions>& vector)
   {
-    for (int i = 0; i < dimensions; ++i)
+    for (size_t i = 0; i < dimensions; ++i)
     {
       components[i] += vector[i];
     }
@@ -155,7 +155,7 @@ namespace block_game
   template<int dimensions>
   Vector<dimensions>& Vector<dimensions>::operator-=(const Vector<dimensions>& vector)
   {
-    for (int i = 0; i < dimensions; ++i)
+    for (size_t i = 0; i < dimensions; ++i)
     {
       components[i] -= vector[i];
     }
@@ -165,7 +165,7 @@ namespace block_game
   template<int dimensions>
   Vector<dimensions>& Vector<dimensions>::operator*=(const float scalar)
   {
-    for (int i = 0; i < dimensions; ++i)
+    for (size_t i = 0; i < dimensions; ++i)
     {
       components[i] *= scalar;
     }
@@ -176,7 +176,7 @@ namespace block_game
   Vector<dimensions>& Vector<dimensions>::operator/=(const float scalar)
   {
     assert(scalar != 0.0F);
-    for (int i = 0; i < dimensions; ++i)
+    for (size_t i = 0; i < dimensions; ++i)
     {
       components[i] /= scalar;
     }
@@ -232,7 +232,7 @@ namespace block_game
   Vector<dimensions> operator*(const float scalar, const Vector<dimensions>& vector)
   {
     Vector<dimensions> new_vector;
-    for (int i = 0; i < dimensions; ++i)
+    for (size_t i = 0; i < dimensions; ++i)
     {
       new_vector[i] = scalar * vector[i];
     }
@@ -243,7 +243,7 @@ namespace block_game
   Vector<dimensions> operator/(const float scalar, const Vector<dimensions>& vector)
   {
     Vector<dimensions> new_vector;
-    for (int i = 0; i < dimensions; ++i)
+    for (size_t i = 0; i < dimensions; ++i)
     {
       assert(vector[i] != 0.0F);
       new_vector[i] = scalar / vector[i];
