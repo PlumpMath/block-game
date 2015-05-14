@@ -64,8 +64,6 @@ GLenum Buffer::GetUsage() const
 
 void Buffer::Resize(const GLsizeiptr size)
 {
-  assert(size >= 0);
-
   size_ = size;
   glBindBuffer(target_, id_);
   glBufferData(target_, size_, nullptr, usage_);

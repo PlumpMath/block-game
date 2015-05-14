@@ -1,6 +1,7 @@
 #include "opengl/program.h"
 
 #include <algorithm>
+#include <cassert>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -16,6 +17,8 @@ namespace
 {
 std::string GetSource(const GLuint shader_id)
 {
+  assert(shader_id > 0);
+
   GLint source_length;
   glGetShaderiv(shader_id, GL_SHADER_SOURCE_LENGTH, &source_length);
 
@@ -27,6 +30,8 @@ std::string GetSource(const GLuint shader_id)
 
 void Compile(const GLenum shader_type, const GLuint shader_id, const std::string& shader_source)
 {
+  assert(shader_id > 0);
+
   const char* source_c_str = shader_source.c_str();
   glShaderSource(shader_id, 1, &source_c_str, nullptr);
   glCompileShader(shader_id);

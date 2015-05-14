@@ -94,7 +94,8 @@ void Camera::SetRoll(const float roll)
 
 void Camera::SetFieldOfView(const float field_of_view)
 {
-  assert(field_of_view > 0.0F && field_of_view < kPiF);
+  assert(field_of_view > 0.0F);
+  assert(field_of_view < kPiF);
 
   field_of_view_ = field_of_view;
 }

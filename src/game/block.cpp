@@ -102,7 +102,9 @@ Block::Block(Block& parent, const size_t x, const size_t y, const size_t z)
   parent_{&parent},
   solid_{parent.solid_}, color_(parent.color_)
 {
-  assert(x < 2 && y < 2 && z < 2);
+  assert(x < 2);
+  assert(y < 2);
+  assert(z < 2);
 }
 
 void Block::Build(const Json::Value& value)
@@ -111,7 +113,7 @@ void Block::Build(const Json::Value& value)
 
   if (value.isMember("color"))
   {
-    color_ = value["color"];
+    SetColor(value["color"]);
   }
 
   if (value.isMember("children"))
@@ -203,6 +205,11 @@ void Block::SetSolid(const bool solid)
 void Block::SetColor(const Vector<3>& color)
 {
   assert(leaf_);
+  for (size_t i = 0; i < 3; ++i)
+  {
+    assert(color[i] >= 0.0F);
+    assert(color[i] <= 1.0F);
+  }
 
   color_ = color;
 }
@@ -229,14 +236,20 @@ void Block::Split()
 
 const Block& Block::GetChild(const size_t x, const size_t y, const size_t z) const
 {
-  assert(!leaf_ && x < 2 && y < 2 && z < 2);
+  assert(!leaf_);
+  assert(x < 2);
+  assert(y < 2);
+  assert(z < 2);
 
   return children_[z << 2 | y << 1 | x];
 }
 
 Block& Block::GetChild(const size_t x, const size_t y, const size_t z)
 {
-  assert(!leaf_ && x < 2 && y < 2 && z < 2);
+  assert(!leaf_);
+  assert(x < 2);
+  assert(y < 2);
+  assert(z < 2);
 
   return children_[z << 2 | y << 1 | x];
 }

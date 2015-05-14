@@ -127,7 +127,8 @@ void World::Update(const double delta)
 
 void World::Display(const int width, const int height)
 {
-  assert(width >= 0 && height >= 0);
+  assert(width >= 0);
+  assert(height >= 0);
 
   if (width > 0 && height > 0)
   {
