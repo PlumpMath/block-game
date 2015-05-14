@@ -1,5 +1,6 @@
 #include "game/world.h"
 
+#include <cassert>
 #include <exception>
 #include <fstream>
 #include <iostream>
