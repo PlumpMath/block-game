@@ -49,6 +49,7 @@ template<int order>
 const float* Matrix<order>::operator[](const size_t i) const
 {
   assert(i < order);
+
   return elements[i];
 }
 
@@ -56,6 +57,7 @@ template<int order>
 float* Matrix<order>::operator[](const size_t i)
 {
   assert(i < order);
+
   return elements[i];
 }
 

@@ -118,10 +118,12 @@ void Block::Build(const Json::Value& value)
   {
     Split();
     const Json::Value& children{value["children"]};
+
     if (children.size() != children_.size())
     {
       throw std::runtime_error{"incorrect number of Block children"};
     }
+
     for (size_t i = 0; i < children.size(); ++i)
     {
       children_[i].Build(children[i]);
@@ -152,54 +154,63 @@ bool Block::IsLeaf() const
 const Grid& Block::GetGrid() const
 {
   assert(root_);
+
   return *grid_;
 }
 
 Grid& Block::GetGrid()
 {
   assert(root_);
+
   return *grid_;
 }
 
 const Block& Block::GetParent() const
 {
   assert(!root_);
+
   return *parent_;
 }
 
 Block& Block::GetParent()
 {
   assert(!root_);
+
   return *parent_;
 }
 
 bool Block::IsSolid() const
 {
   assert(leaf_);
+
   return solid_;
 }
 
 Vector<3> Block::GetColor() const
 {
   assert(leaf_);
+
   return color_;
 }
 
 void Block::SetSolid(const bool solid)
 {
   assert(leaf_);
+
   solid_ = solid;
 }
 
 void Block::SetColor(const Vector<3>& color)
 {
   assert(leaf_);
+
   color_ = color;
 }
 
 void Block::Split()
 {
   assert(leaf_);
+
   leaf_ = false;
 
   for (size_t z = 0; z < 2; ++z)
@@ -219,18 +230,21 @@ void Block::Split()
 const Block& Block::GetChild(const size_t x, const size_t y, const size_t z) const
 {
   assert(!leaf_ && x < 2 && y < 2 && z < 2);
+
   return children_[z << 2 | y << 1 | x];
 }
 
 Block& Block::GetChild(const size_t x, const size_t y, const size_t z)
 {
   assert(!leaf_ && x < 2 && y < 2 && z < 2);
+
   return children_[z << 2 | y << 1 | x];
 }
 
 void Block::Merge()
 {
   assert(!leaf_);
+
   leaf_ = true;
   children_.clear();
 }

@@ -95,24 +95,28 @@ void Camera::SetRoll(const float roll)
 void Camera::SetFieldOfView(const float field_of_view)
 {
   assert(field_of_view > 0.0F && field_of_view < kPiF);
+
   field_of_view_ = field_of_view;
 }
 
 void Camera::SetZNear(const float z_near)
 {
   assert(z_near > 0.0F);
+
   z_near_ = z_near;
 }
 
 void Camera::SetZFar(const float z_far)
 {
   assert(z_far > 0.0F);
+
   z_far_ = z_far;
 }
 
 void Camera::SetAspectRatio(const float aspect_ratio)
 {
   assert(aspect_ratio > 0.0F);
+
   aspect_ratio_ = aspect_ratio;
 }
 

@@ -97,6 +97,7 @@ void World::SetCameraDeltaRoll(const float camera_delta_roll)
 void World::Update(const double delta)
 {
   assert(delta >= 0.0);
+
   if (delta > 0.0)
   {
     for (auto& grid : grids_)
@@ -126,6 +127,7 @@ void World::Update(const double delta)
 void World::Display(const int width, const int height)
 {
   assert(width >= 0 && height >= 0);
+
   if (width > 0 && height > 0)
   {
     glViewport(0, 0, width, height);

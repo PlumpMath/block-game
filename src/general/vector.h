@@ -58,6 +58,7 @@ template<int dimensions>
 Vector<dimensions>::Vector(const std::initializer_list<float>& initial_components)
 {
   assert(initial_components.size() == dimensions);
+
   size_t i = 0;
   for (const float component : initial_components)
   {
@@ -77,6 +78,7 @@ Vector<dimensions>::Vector(const Json::Value& value)
   {
     throw std::runtime_error{"JSON value size does not match number of dimensions in Vector"};
   }
+
   for (size_t i = 0; i < dimensions; ++i)
   {
     components[i] = value[i].asFloat();
@@ -87,6 +89,7 @@ template<int dimensions>
 float Vector<dimensions>::operator[](const size_t i) const
 {
   assert(i < dimensions);
+
   return components[i];
 }
 
@@ -94,6 +97,7 @@ template<int dimensions>
 float& Vector<dimensions>::operator[](const size_t i)
 {
   assert(i < dimensions);
+
   return components[i];
 }
 
@@ -134,6 +138,7 @@ template<int dimensions>
 Vector<dimensions> Vector<dimensions>::operator/(const float scalar) const
 {
   assert(scalar != 0.0F);
+
   Vector<dimensions> new_vector;
   for (size_t i = 0; i < dimensions; ++i)
   {
@@ -176,6 +181,7 @@ template<int dimensions>
 Vector<dimensions>& Vector<dimensions>::operator/=(const float scalar)
 {
   assert(scalar != 0.0F);
+
   for (size_t i = 0; i < dimensions; ++i)
   {
     components[i] /= scalar;
@@ -242,10 +248,14 @@ Vector<dimensions> operator*(const float scalar, const Vector<dimensions>& vecto
 template<int dimensions>
 Vector<dimensions> operator/(const float scalar, const Vector<dimensions>& vector)
 {
+  for (const auto component : vector.components)
+  {
+    assert(vector[i] != 0.0F);
+  }
+
   Vector<dimensions> new_vector;
   for (size_t i = 0; i < dimensions; ++i)
   {
-    assert(vector[i] != 0.0F);
     new_vector[i] = scalar / vector[i];
   }
   return new_vector;
