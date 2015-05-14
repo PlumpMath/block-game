@@ -12,19 +12,19 @@ block_game::Vector<2> previous_cursor_pos;
 
 block_game::World* world;
 
-void CursorPosCallback(GLFWwindow* window, const double x_pos, const double y_pos)
+void CursorPosCallback(GLFWwindow* window, const double xpos, const double ypos)
 {
   assert(world);
 
   if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED)
   {
     block_game::Camera& camera{world->GetCamera()};
-    camera.SetYaw(static_cast<float>(camera.GetYaw() + 0.001F * (x_pos - previous_cursor_pos[0])));
-    camera.SetPitch(static_cast<float>(camera.GetPitch() + 0.001F * (y_pos - previous_cursor_pos[1])));
+    camera.SetYaw(static_cast<float>(camera.GetYaw() + 0.001F * (xpos - previous_cursor_pos[0])));
+    camera.SetPitch(static_cast<float>(camera.GetPitch() + 0.001F * (ypos - previous_cursor_pos[1])));
   }
 
-  previous_cursor_pos[0] = static_cast<float>(x_pos);
-  previous_cursor_pos[1] = static_cast<float>(y_pos);
+  previous_cursor_pos[0] = static_cast<float>(xpos);
+  previous_cursor_pos[1] = static_cast<float>(ypos);
 }
 
 void KeyCallback(GLFWwindow* window, const int key, const int scancode, const int action, const int mods)
