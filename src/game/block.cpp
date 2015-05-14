@@ -1,5 +1,6 @@
 #include "game/block.h"
 
+#include <cassert>
 #include <stdexcept>
 #include <vector>
 
