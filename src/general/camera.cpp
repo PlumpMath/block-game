@@ -84,7 +84,7 @@ void Camera::SetYaw(const float yaw)
 
 void Camera::SetPitch(const float pitch)
 {
-  pitch_ = std::min<float>(kPiF, std::max<float>(0.0F, pitch));
+  pitch_ = std::min<float>(std::max<float>(0.0F, pitch), kPiF);
 }
 
 void Camera::SetRoll(const float roll)
