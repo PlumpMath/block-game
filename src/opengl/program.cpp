@@ -32,7 +32,7 @@ void Compile(const GLenum shader_type, const GLuint shader_id, const std::string
 {
   assert(shader_id > 0);
 
-  const char* source_c_str = shader_source.c_str();
+  const char* source_c_str{shader_source.c_str()};
   glShaderSource(shader_id, 1, &source_c_str, nullptr);
   glCompileShader(shader_id);
 
@@ -73,11 +73,11 @@ Program::Program(const std::string& vertex_source, const std::string& fragment_s
 
   glLinkProgram(id_);
 
-  GLint is_linked = 0;
+  GLint is_linked{0};
   glGetProgramiv(id_, GL_LINK_STATUS, &is_linked);
   if (is_linked == GL_FALSE)
   {
-    GLint info_log_length = 0;
+    GLint info_log_length{0};
     glGetProgramiv(id_, GL_INFO_LOG_LENGTH, &info_log_length);
 
     std::string info_log(info_log_length, '\0');
@@ -169,7 +169,7 @@ void Program::Draw(const Buffer& vertex_buffer, const Buffer& index_buffer,
   glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer.id_);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer.id_);
 
-  for (GLuint i = 0; i < attributes.size(); ++i)
+  for (GLuint i{0}; i < attributes.size(); ++i)
   {
     glEnableVertexAttribArray(i);
   }
@@ -182,7 +182,7 @@ void Program::Draw(const Buffer& vertex_buffer, const Buffer& index_buffer,
 
   glDrawElements(GL_TRIANGLES, index_buffer.GetSize(), GL_UNSIGNED_BYTE, 0);
 
-  for (GLuint i = 0; i < attributes.size(); ++i)
+  for (GLuint i{0}; i < attributes.size(); ++i)
   {
     glDisableVertexAttribArray(i);
   }

@@ -126,7 +126,7 @@ void Block::Build(const Json::Value& value)
       throw std::runtime_error{"incorrect number of Block children"};
     }
 
-    for (size_t i = 0; i < children.size(); ++i)
+    for (size_t i{0}; i < children.size(); ++i)
     {
       children_[i].Build(children[i]);
     }
@@ -205,7 +205,7 @@ void Block::SetSolid(const bool solid)
 void Block::SetColor(const Vector<3>& color)
 {
   assert(leaf_);
-  for (size_t i = 0; i < 3; ++i)
+  for (size_t i{0}; i < 3; ++i)
   {
     assert(color[i] >= 0.0F);
     assert(color[i] <= 1.0F);
@@ -220,11 +220,11 @@ void Block::Split()
 
   leaf_ = false;
 
-  for (size_t z = 0; z < 2; ++z)
+  for (size_t z{0}; z < 2; ++z)
   {
-    for (size_t y = 0; y < 2; ++y)
+    for (size_t y{0}; y < 2; ++y)
     {
-      for (size_t x = 0; x < 2; ++x)
+      for (size_t x{0}; x < 2; ++x)
       {
         children_.emplace_back(*this, x, y, z);
         GetChild(x, y, z).SetSolid(solid_);
@@ -268,12 +268,12 @@ void Block::BuildDraw(std::vector<BlockVertex>& vertices, std::vector<unsigned c
   {
     if (solid_)
     {
-      for (size_t i = 0; i < 36; ++i)
+      for (size_t i{0}; i < 36; ++i)
       {
         indices.emplace_back(static_cast<unsigned char>(vertices.size() + block_indices[i]));
       }
 
-      for (size_t i = 0; i < 24; ++i)
+      for (size_t i{0}; i < 24; ++i)
       {
         vertices.emplace_back(position_ + radius_ * block_vertices[i].position, block_vertices[i].normal, color_);
       }
