@@ -10,8 +10,7 @@ attribute vec3 in_Color;
 
 varying vec3 pass_Color;
 
-void main()
-{
+void main() {
   gl_Position = viewProjection * vec4(position + rotation * in_Vertex, 1.0);
   pass_Color = in_Color * -(rotation * in_Normal).z;
 }
