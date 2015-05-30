@@ -11,10 +11,11 @@
 namespace block_game {
 Buffer::Buffer(const GLenum target, const GLsizeiptr size, const GLenum usage) :
   target_{target},
+  size_{size},
   usage_{usage}
 {
   glGenBuffers(1, &id_);
-  Resize(size);
+  Resize(size_);
 }
 
 Buffer::~Buffer() {
