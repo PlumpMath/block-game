@@ -10,10 +10,8 @@
 
 namespace block_game {
 class Buffer;
-template<int>
-class Matrix;
-template<int>
-class Vector;
+template<int> class Matrix;
+template<int> class Vector;
 
 class Program {
 public:

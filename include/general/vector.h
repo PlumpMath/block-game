@@ -8,8 +8,7 @@
 #include <json/json.h>
 
 namespace block_game {
-template<int dimensions>
-class Vector {
+template<int dimensions> class Vector {
 public:
   static_assert(dimensions > 0, "Vector with nonpositive number of dimensions");
 
@@ -38,20 +37,16 @@ private:
   float components[dimensions];
 };
 
-template<int dimensions>
-Vector<dimensions> operator*(float scalar, const Vector<dimensions>& vector);
-template<int dimensions>
-Vector<dimensions> operator/(float scalar, const Vector<dimensions>& vector);
+template<int dimensions> Vector<dimensions> operator*(float scalar, const Vector<dimensions>& vector);
+template<int dimensions> Vector<dimensions> operator/(float scalar, const Vector<dimensions>& vector);
 
-template<int dimensions>
-Vector<dimensions>::Vector() {
+template<int dimensions> Vector<dimensions>::Vector() {
   for (size_t i = 0; i < dimensions; ++i) {
     components[i] = 0.0F;
   }
 }
 
-template<int dimensions>
-Vector<dimensions>::Vector(const std::initializer_list<float>& initial_components) {
+template<int dimensions> Vector<dimensions>::Vector(const std::initializer_list<float>& initial_components) {
   assert(initial_components.size() == dimensions);
 
   size_t i = 0;
@@ -61,8 +56,7 @@ Vector<dimensions>::Vector(const std::initializer_list<float>& initial_component
   }
 }
 
-template<int dimensions>
-Vector<dimensions>::Vector(const Json::Value& value) {
+template<int dimensions> Vector<dimensions>::Vector(const Json::Value& value) {
   if (!value.isArray()) {
     throw std::runtime_error{"non-array JSON value cannot be used to construct Vector"};
   } else if (value.size() != dimensions) {
@@ -74,22 +68,19 @@ Vector<dimensions>::Vector(const Json::Value& value) {
   }
 }
 
-template<int dimensions>
-float Vector<dimensions>::operator[](const size_t i) const {
+template<int dimensions> float Vector<dimensions>::operator[](const size_t i) const {
   assert(i < dimensions);
 
   return components[i];
 }
 
-template<int dimensions>
-float& Vector<dimensions>::operator[](const size_t i) {
+template<int dimensions> float& Vector<dimensions>::operator[](const size_t i) {
   assert(i < dimensions);
 
   return components[i];
 }
 
-template<int dimensions>
-Vector<dimensions> Vector<dimensions>::operator+(const Vector<dimensions>& vector) const {
+template<int dimensions> Vector<dimensions> Vector<dimensions>::operator+(const Vector<dimensions>& vector) const {
   Vector<dimensions> new_vector;
   for (size_t i = 0; i < dimensions; ++i) {
     new_vector[i] = components[i] + vector[i];
@@ -97,8 +88,7 @@ Vector<dimensions> Vector<dimensions>::operator+(const Vector<dimensions>& vecto
   return new_vector;
 }
 
-template<int dimensions>
-Vector<dimensions> Vector<dimensions>::operator-(const Vector<dimensions>& vector) const {
+template<int dimensions> Vector<dimensions> Vector<dimensions>::operator-(const Vector<dimensions>& vector) const {
   Vector<dimensions> new_vector;
   for (size_t i = 0; i < dimensions; ++i) {
     new_vector[i] = components[i] - vector[i];
@@ -106,8 +96,7 @@ Vector<dimensions> Vector<dimensions>::operator-(const Vector<dimensions>& vecto
   return new_vector;
 }
 
-template<int dimensions>
-Vector<dimensions> Vector<dimensions>::operator*(const float scalar) const {
+template<int dimensions> Vector<dimensions> Vector<dimensions>::operator*(const float scalar) const {
   Vector<dimensions> new_vector;
   for (size_t i = 0; i < dimensions; ++i) {
     new_vector[i] = components[i] * scalar;
@@ -115,8 +104,7 @@ Vector<dimensions> Vector<dimensions>::operator*(const float scalar) const {
   return new_vector;
 }
 
-template<int dimensions>
-Vector<dimensions> Vector<dimensions>::operator/(const float scalar) const {
+template<int dimensions> Vector<dimensions> Vector<dimensions>::operator/(const float scalar) const {
   assert(scalar != 0.0F);
 
   Vector<dimensions> new_vector;
@@ -126,32 +114,28 @@ Vector<dimensions> Vector<dimensions>::operator/(const float scalar) const {
   return new_vector;
 }
 
-template<int dimensions>
-Vector<dimensions>& Vector<dimensions>::operator+=(const Vector<dimensions>& vector) {
+template<int dimensions> Vector<dimensions>& Vector<dimensions>::operator+=(const Vector<dimensions>& vector) {
   for (size_t i = 0; i < dimensions; ++i) {
     components[i] += vector[i];
   }
   return *this;
 }
 
-template<int dimensions>
-Vector<dimensions>& Vector<dimensions>::operator-=(const Vector<dimensions>& vector) {
+template<int dimensions> Vector<dimensions>& Vector<dimensions>::operator-=(const Vector<dimensions>& vector) {
   for (size_t i = 0; i < dimensions; ++i) {
     components[i] -= vector[i];
   }
   return *this;
 }
 
-template<int dimensions>
-Vector<dimensions>& Vector<dimensions>::operator*=(const float scalar) {
+template<int dimensions> Vector<dimensions>& Vector<dimensions>::operator*=(const float scalar) {
   for (size_t i = 0; i < dimensions; ++i) {
     components[i] *= scalar;
   }
   return *this;
 }
 
-template<int dimensions>
-Vector<dimensions>& Vector<dimensions>::operator/=(const float scalar) {
+template<int dimensions> Vector<dimensions>& Vector<dimensions>::operator/=(const float scalar) {
   assert(scalar != 0.0F);
 
   for (size_t i = 0; i < dimensions; ++i) {
@@ -160,8 +144,7 @@ Vector<dimensions>& Vector<dimensions>::operator/=(const float scalar) {
   return *this;
 }
 
-template<int dimensions>
-void Vector<dimensions>::RotateX(const float angle) {
+template<int dimensions> void Vector<dimensions>::RotateX(const float angle) {
   static_assert(dimensions >= 3, "rotate Vector in x-axis without y-axis and z-axis");
 
   const float sine{sin(angle)};
@@ -174,8 +157,7 @@ void Vector<dimensions>::RotateX(const float angle) {
   components[2] = new_z;
 }
 
-template<int dimensions>
-void Vector<dimensions>::RotateY(const float angle) {
+template<int dimensions> void Vector<dimensions>::RotateY(const float angle) {
   static_assert(dimensions >= 3, "rotate Vector in y-axis without x-axis and z-axis");
 
   const float sine{sin(angle)};
@@ -188,8 +170,7 @@ void Vector<dimensions>::RotateY(const float angle) {
   components[2] = new_z;
 }
 
-template<int dimensions>
-void Vector<dimensions>::RotateZ(const float angle) {
+template<int dimensions> void Vector<dimensions>::RotateZ(const float angle) {
   static_assert(dimensions >= 2, "rotate Vector in z-axis without x-axis and y-axis");
 
   const float sine{sin(angle)};
@@ -202,8 +183,7 @@ void Vector<dimensions>::RotateZ(const float angle) {
   components[1] = new_y;
 }
 
-template<int dimensions>
-Vector<dimensions> operator*(const float scalar, const Vector<dimensions>& vector) {
+template<int dimensions> Vector<dimensions> operator*(const float scalar, const Vector<dimensions>& vector) {
   Vector<dimensions> new_vector;
   for (size_t i = 0; i < dimensions; ++i) {
     new_vector[i] = scalar * vector[i];
@@ -211,8 +191,7 @@ Vector<dimensions> operator*(const float scalar, const Vector<dimensions>& vecto
   return new_vector;
 }
 
-template<int dimensions>
-Vector<dimensions> operator/(const float scalar, const Vector<dimensions>& vector) {
+template<int dimensions> Vector<dimensions> operator/(const float scalar, const Vector<dimensions>& vector) {
   for (const auto component : vector.components) {
     assert(vector[i] != 0.0F);
   }
