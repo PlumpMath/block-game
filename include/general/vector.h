@@ -7,11 +7,9 @@
 
 #include <json/json.h>
 
-namespace block_game
-{
+namespace block_game {
 template<int dimensions>
-class Vector
-{
+class Vector {
 public:
   static_assert(dimensions > 0, "Vector with nonpositive number of dimensions");
 
@@ -46,152 +44,124 @@ template<int dimensions>
 Vector<dimensions> operator/(float scalar, const Vector<dimensions>& vector);
 
 template<int dimensions>
-Vector<dimensions>::Vector()
-{
-  for (size_t i = 0; i < dimensions; ++i)
-  {
+Vector<dimensions>::Vector() {
+  for (size_t i = 0; i < dimensions; ++i) {
     components[i] = 0.0F;
   }
 }
 
 template<int dimensions>
-Vector<dimensions>::Vector(const std::initializer_list<float>& initial_components)
-{
+Vector<dimensions>::Vector(const std::initializer_list<float>& initial_components) {
   assert(initial_components.size() == dimensions);
 
   size_t i = 0;
-  for (const float component : initial_components)
-  {
+  for (const float component : initial_components) {
     components[i] = component;
     ++i;
   }
 }
 
 template<int dimensions>
-Vector<dimensions>::Vector(const Json::Value& value)
-{
-  if (!value.isArray())
-  {
+Vector<dimensions>::Vector(const Json::Value& value) {
+  if (!value.isArray()) {
     throw std::runtime_error{"non-array JSON value cannot be used to construct Vector"};
-  }
-  else if (value.size() != dimensions)
-  {
+  } else if (value.size() != dimensions) {
     throw std::runtime_error{"JSON value size does not match number of dimensions in Vector"};
   }
 
-  for (size_t i = 0; i < dimensions; ++i)
-  {
+  for (size_t i = 0; i < dimensions; ++i) {
     components[i] = value[i].asFloat();
   }
 }
 
 template<int dimensions>
-float Vector<dimensions>::operator[](const size_t i) const
-{
+float Vector<dimensions>::operator[](const size_t i) const {
   assert(i < dimensions);
 
   return components[i];
 }
 
 template<int dimensions>
-float& Vector<dimensions>::operator[](const size_t i)
-{
+float& Vector<dimensions>::operator[](const size_t i) {
   assert(i < dimensions);
 
   return components[i];
 }
 
 template<int dimensions>
-Vector<dimensions> Vector<dimensions>::operator+(const Vector<dimensions>& vector) const
-{
+Vector<dimensions> Vector<dimensions>::operator+(const Vector<dimensions>& vector) const {
   Vector<dimensions> new_vector;
-  for (size_t i = 0; i < dimensions; ++i)
-  {
+  for (size_t i = 0; i < dimensions; ++i) {
     new_vector[i] = components[i] + vector[i];
   }
   return new_vector;
 }
 
 template<int dimensions>
-Vector<dimensions> Vector<dimensions>::operator-(const Vector<dimensions>& vector) const
-{
+Vector<dimensions> Vector<dimensions>::operator-(const Vector<dimensions>& vector) const {
   Vector<dimensions> new_vector;
-  for (size_t i = 0; i < dimensions; ++i)
-  {
+  for (size_t i = 0; i < dimensions; ++i) {
     new_vector[i] = components[i] - vector[i];
   }
   return new_vector;
 }
 
 template<int dimensions>
-Vector<dimensions> Vector<dimensions>::operator*(const float scalar) const
-{
+Vector<dimensions> Vector<dimensions>::operator*(const float scalar) const {
   Vector<dimensions> new_vector;
-  for (size_t i = 0; i < dimensions; ++i)
-  {
+  for (size_t i = 0; i < dimensions; ++i) {
     new_vector[i] = components[i] * scalar;
   }
   return new_vector;
 }
 
 template<int dimensions>
-Vector<dimensions> Vector<dimensions>::operator/(const float scalar) const
-{
+Vector<dimensions> Vector<dimensions>::operator/(const float scalar) const {
   assert(scalar != 0.0F);
 
   Vector<dimensions> new_vector;
-  for (size_t i = 0; i < dimensions; ++i)
-  {
+  for (size_t i = 0; i < dimensions; ++i) {
     new_vector[i] = components[i] / scalar;
   }
   return new_vector;
 }
 
 template<int dimensions>
-Vector<dimensions>& Vector<dimensions>::operator+=(const Vector<dimensions>& vector)
-{
-  for (size_t i = 0; i < dimensions; ++i)
-  {
+Vector<dimensions>& Vector<dimensions>::operator+=(const Vector<dimensions>& vector) {
+  for (size_t i = 0; i < dimensions; ++i) {
     components[i] += vector[i];
   }
   return *this;
 }
 
 template<int dimensions>
-Vector<dimensions>& Vector<dimensions>::operator-=(const Vector<dimensions>& vector)
-{
-  for (size_t i = 0; i < dimensions; ++i)
-  {
+Vector<dimensions>& Vector<dimensions>::operator-=(const Vector<dimensions>& vector) {
+  for (size_t i = 0; i < dimensions; ++i) {
     components[i] -= vector[i];
   }
   return *this;
 }
 
 template<int dimensions>
-Vector<dimensions>& Vector<dimensions>::operator*=(const float scalar)
-{
-  for (size_t i = 0; i < dimensions; ++i)
-  {
+Vector<dimensions>& Vector<dimensions>::operator*=(const float scalar) {
+  for (size_t i = 0; i < dimensions; ++i) {
     components[i] *= scalar;
   }
   return *this;
 }
 
 template<int dimensions>
-Vector<dimensions>& Vector<dimensions>::operator/=(const float scalar)
-{
+Vector<dimensions>& Vector<dimensions>::operator/=(const float scalar) {
   assert(scalar != 0.0F);
 
-  for (size_t i = 0; i < dimensions; ++i)
-  {
+  for (size_t i = 0; i < dimensions; ++i) {
     components[i] /= scalar;
   }
   return *this;
 }
 
 template<int dimensions>
-void Vector<dimensions>::RotateX(const float angle)
-{
+void Vector<dimensions>::RotateX(const float angle) {
   static_assert(dimensions >= 3, "rotate Vector in x-axis without y-axis and z-axis");
 
   const float sine{sin(angle)};
@@ -205,8 +175,7 @@ void Vector<dimensions>::RotateX(const float angle)
 }
 
 template<int dimensions>
-void Vector<dimensions>::RotateY(const float angle)
-{
+void Vector<dimensions>::RotateY(const float angle) {
   static_assert(dimensions >= 3, "rotate Vector in y-axis without x-axis and z-axis");
 
   const float sine{sin(angle)};
@@ -220,8 +189,7 @@ void Vector<dimensions>::RotateY(const float angle)
 }
 
 template<int dimensions>
-void Vector<dimensions>::RotateZ(const float angle)
-{
+void Vector<dimensions>::RotateZ(const float angle) {
   static_assert(dimensions >= 2, "rotate Vector in z-axis without x-axis and y-axis");
 
   const float sine{sin(angle)};
@@ -235,27 +203,22 @@ void Vector<dimensions>::RotateZ(const float angle)
 }
 
 template<int dimensions>
-Vector<dimensions> operator*(const float scalar, const Vector<dimensions>& vector)
-{
+Vector<dimensions> operator*(const float scalar, const Vector<dimensions>& vector) {
   Vector<dimensions> new_vector;
-  for (size_t i = 0; i < dimensions; ++i)
-  {
+  for (size_t i = 0; i < dimensions; ++i) {
     new_vector[i] = scalar * vector[i];
   }
   return new_vector;
 }
 
 template<int dimensions>
-Vector<dimensions> operator/(const float scalar, const Vector<dimensions>& vector)
-{
-  for (const auto component : vector.components)
-  {
+Vector<dimensions> operator/(const float scalar, const Vector<dimensions>& vector) {
+  for (const auto component : vector.components) {
     assert(vector[i] != 0.0F);
   }
 
   Vector<dimensions> new_vector;
-  for (size_t i = 0; i < dimensions; ++i)
-  {
+  for (size_t i = 0; i < dimensions; ++i) {
     new_vector[i] = scalar / vector[i];
   }
   return new_vector;

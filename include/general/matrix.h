@@ -4,11 +4,9 @@
 #include <cassert>
 #include <cmath>
 
-namespace block_game
-{
+namespace block_game {
 template<int order>
-class Matrix
-{
+class Matrix {
 public:
   static_assert(order > 0, "Matrix with nonpositive order");
 
@@ -34,41 +32,33 @@ private:
 };
 
 template<int order>
-Matrix<order>::Matrix()
-{
-  for (size_t i = 0; i < order; ++i)
-  {
-    for (size_t j = 0; j < order; ++j)
-    {
+Matrix<order>::Matrix() {
+  for (size_t i = 0; i < order; ++i) {
+    for (size_t j = 0; j < order; ++j) {
       elements[i][j] = i == j ? 1.0F : 0.0F;
     }
   }
 }
 
 template<int order>
-const float* Matrix<order>::operator[](const size_t i) const
-{
+const float* Matrix<order>::operator[](const size_t i) const {
   assert(i < order);
 
   return elements[i];
 }
 
 template<int order>
-float* Matrix<order>::operator[](const size_t i)
-{
+float* Matrix<order>::operator[](const size_t i) {
   assert(i < order);
 
   return elements[i];
 }
 
 template<int order>
-Matrix<order> Matrix<order>::operator+(const Matrix<order>& matrix) const
-{
+Matrix<order> Matrix<order>::operator+(const Matrix<order>& matrix) const {
   Matrix<order> result;
-  for (size_t i = 0; i < order; ++i)
-  {
-    for (size_t j = 0; j < order; ++j)
-    {
+  for (size_t i = 0; i < order; ++i) {
+    for (size_t j = 0; j < order; ++j) {
       result[i][j] = elements[i][j] + matrix[i][j];
     }
   }
@@ -76,13 +66,10 @@ Matrix<order> Matrix<order>::operator+(const Matrix<order>& matrix) const
 }
 
 template<int order>
-Matrix<order> Matrix<order>::operator-(const Matrix<order>& matrix) const
-{
+Matrix<order> Matrix<order>::operator-(const Matrix<order>& matrix) const {
   Matrix<order> result;
-  for (size_t i = 0; i < order; ++i)
-  {
-    for (size_t j = 0; j < order; ++j)
-    {
+  for (size_t i = 0; i < order; ++i) {
+    for (size_t j = 0; j < order; ++j) {
       result[i][j] = elements[i][j] - matrix[i][j];
     }
   }
@@ -90,19 +77,14 @@ Matrix<order> Matrix<order>::operator-(const Matrix<order>& matrix) const
 }
 
 template<int order>
-Matrix<order> Matrix<order>::operator*(const Matrix<order>& matrix) const
-{
+Matrix<order> Matrix<order>::operator*(const Matrix<order>& matrix) const {
   Matrix<order> result;
-  for (size_t i = 0; i < order; ++i)
-  {
+  for (size_t i = 0; i < order; ++i) {
     result[i][i] = 0.0F;
   }
-  for (size_t i = 0; i < order; ++i)
-  {
-    for (size_t j = 0; j < order; ++j)
-    {
-      for (size_t k = 0; k < order; ++k)
-      {
+  for (size_t i = 0; i < order; ++i) {
+    for (size_t j = 0; j < order; ++j) {
+      for (size_t k = 0; k < order; ++k) {
         result[i][j] += elements[i][k] * matrix[k][j];
       }
     }
@@ -111,12 +93,9 @@ Matrix<order> Matrix<order>::operator*(const Matrix<order>& matrix) const
 }
 
 template<int order>
-Matrix<order>& Matrix<order>::operator+=(const Matrix<order>& matrix)
-{
-  for (size_t i = 0; i < order; ++i)
-  {
-    for (size_t j = 0; j < order; ++j)
-    {
+Matrix<order>& Matrix<order>::operator+=(const Matrix<order>& matrix) {
+  for (size_t i = 0; i < order; ++i) {
+    for (size_t j = 0; j < order; ++j) {
       elements[i][j] += matrix[i][j];
     }
   }
@@ -124,12 +103,9 @@ Matrix<order>& Matrix<order>::operator+=(const Matrix<order>& matrix)
 }
 
 template<int order>
-Matrix<order>& Matrix<order>::operator-=(const Matrix<order>& matrix)
-{
-  for (size_t i = 0; i < order; ++i)
-  {
-    for (size_t j = 0; j < order; ++j)
-    {
+Matrix<order>& Matrix<order>::operator-=(const Matrix<order>& matrix) {
+  for (size_t i = 0; i < order; ++i) {
+    for (size_t j = 0; j < order; ++j) {
       elements[i][j] -= matrix[i][j];
     }
   }
@@ -137,8 +113,7 @@ Matrix<order>& Matrix<order>::operator-=(const Matrix<order>& matrix)
 }
 
 template<int order>
-void Matrix<order>::RotateX(const float angle)
-{
+void Matrix<order>::RotateX(const float angle) {
   static_assert(order >= 3, "rotate Matrix in x-axis without y-axis and z-axis");
 
   const float sine{sin(angle)};
@@ -154,8 +129,7 @@ void Matrix<order>::RotateX(const float angle)
 }
 
 template<int order>
-void Matrix<order>::RotateY(const float angle)
-{
+void Matrix<order>::RotateY(const float angle) {
   static_assert(order >= 3, "rotate Matrix in y-axis without x-axis and z-axis");
 
   const float sine{sin(angle)};
@@ -171,8 +145,7 @@ void Matrix<order>::RotateY(const float angle)
 }
 
 template<int order>
-void Matrix<order>::RotateZ(const float angle)
-{
+void Matrix<order>::RotateZ(const float angle) {
   static_assert(order >= 2, "rotate Matrix in z-axis without x-axis and y-axis");
 
   const float sine{sin(angle)};
