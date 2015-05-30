@@ -69,7 +69,7 @@ void Buffer::Resize(const GLsizeiptr size) {
 }
 
 void Buffer::SetData(const GLvoid* const data) {
-  assert(data);
+  assert(data != nullptr);
 
   glBindBuffer(target_, id_);
   glBufferSubData(target_, 0, size_, data);

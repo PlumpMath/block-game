@@ -13,7 +13,7 @@ block_game::Vector<2> previous_cursor_pos;
 block_game::World* world;
 
 void CursorPosCallback(GLFWwindow* window, const double xpos, const double ypos) {
-  assert(world);
+  assert(world != nullptr);
 
   if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED) {
     block_game::Camera& camera{world->GetCamera()};
@@ -26,7 +26,7 @@ void CursorPosCallback(GLFWwindow* window, const double xpos, const double ypos)
 }
 
 void KeyCallback(GLFWwindow* window, const int key, const int scancode, const int action, const int mods) {
-  assert(world);
+  assert(world != nullptr);
 
   if (action == GLFW_PRESS) {
     if (key == GLFW_KEY_ESCAPE) {
