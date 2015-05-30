@@ -4,7 +4,3 @@ add_sources(
   grid
   world
 )
-
-add_strings(
-  world.json
-)

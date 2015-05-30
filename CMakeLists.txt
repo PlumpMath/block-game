@@ -57,8 +57,7 @@ add_cmake_dependency(
   INCLUDE include
 )
 
-add_subdirectory(src)
-include_directories(src)
+add_subdirectory(res)
 
 get_property(STRING_PATHS GLOBAL PROPERTY STRING_PATHS_PROPERTY)
 foreach(STRING_PATH ${STRING_PATHS})
@@ -71,7 +70,10 @@ foreach(STRING_PATH ${STRING_PATHS})
   list(APPEND STRINGS_DEPENDS ${CMAKE_BINARY_DIR}/${STRING_PATH}.txt)
 endforeach()
 add_custom_target(strings DEPENDS ${STRINGS_DEPENDS})
-include_directories(${CMAKE_BINARY_DIR}/src)
+include_directories(${CMAKE_BINARY_DIR}/res)
+
+add_subdirectory(src)
+include_directories(include)
 
 get_property(SOURCES GLOBAL PROPERTY SOURCES_PROPERTY)
 add_executable(block_game ${SOURCES})
