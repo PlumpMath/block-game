@@ -29,6 +29,9 @@ public:
   Vector<dimensions>& operator*=(float scalar);
   Vector<dimensions>& operator/=(float scalar);
 
+  bool ContainsZero() const;
+  bool IsInColorRange() const;
+
   void RotateX(float angle); // Rotate around the x-axis
   void RotateY(float angle); // Rotate around the y-axis
   void RotateZ(float angle); // Rotate around the z-axis
@@ -144,6 +147,24 @@ template<int dimensions> Vector<dimensions>& Vector<dimensions>::operator/=(cons
   return *this;
 }
 
+template<int dimensions> bool Vector<dimensions>::ContainsZero() const {
+  for (const auto component : components) {
+    if (component == 0.0F) {
+      return true;
+    }
+  }
+  return false;
+}
+
+template<int dimensions> bool Vector<dimensions>::IsInColorRange() const {
+  for (const auto component : components) {
+    if (component < 0.0F || 1.0F < component) {
+      return false;
+    }
+  }
+  return true;
+}
+
 template<int dimensions> void Vector<dimensions>::RotateX(const float angle) {
   static_assert(dimensions >= 3, "rotate Vector in x-axis without y-axis and z-axis");
 
@@ -192,9 +213,7 @@ template<int dimensions> Vector<dimensions> operator*(const float scalar, const 
 }
 
 template<int dimensions> Vector<dimensions> operator/(const float scalar, const Vector<dimensions>& vector) {
-  for (const auto component : vector.components) {
-    assert(vector[i] != 0.0F);
-  }
+  assert(!vector.ContainsZero());
 
   Vector<dimensions> new_vector;
   for (size_t i = 0; i < dimensions; ++i) {

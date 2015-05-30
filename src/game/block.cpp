@@ -190,10 +190,7 @@ void Block::SetSolid(const bool solid) {
 
 void Block::SetColor(const Vector<3>& color) {
   assert(leaf_);
-  for (size_t i{0}; i < 3; ++i) {
-    assert(color[i] >= 0.0F);
-    assert(color[i] <= 1.0F);
-  }
+  assert(color.IsInColorRange());
 
   color_ = color;
 }
