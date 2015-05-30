@@ -10,15 +10,21 @@
 #include "general/matrix.h"
 #include "general/vector.h"
 
-namespace block_game
-{
-Camera::Camera() : yaw_{0.0F}, pitch_{0.0F}, roll_{0.0F}, field_of_view_{1.0F}, z_near_{0.1F}, z_far_{1.0F}, aspect_ratio_{1.0F}
-{}
+namespace block_game {
+Camera::Camera() :
+  yaw_{0.0F},
+  pitch_{0.0F},
+  roll_{0.0F},
 
-Camera::Camera(const Json::Value& value) : Camera{}
+  field_of_view_{1.0F},
+  z_near_{0.1F},
+  z_far_{1.0F},
+  aspect_ratio_{1.0F}
 {
-  if (value.isMember("position"))
-  {
+}
+
+Camera::Camera(const Json::Value& value) : Camera{} {
+  if (value.isMember("position")) {
     position_ = value["position"];
   }
 
@@ -32,97 +38,80 @@ Camera::Camera(const Json::Value& value) : Camera{}
   aspect_ratio_ = value.get("aspectRatio", aspect_ratio_).asFloat();
 }
 
-Vector<3> Camera::GetPosition() const
-{
+Vector<3> Camera::GetPosition() const {
   return position_;
 }
 
-float Camera::GetYaw() const
-{
+float Camera::GetYaw() const {
   return yaw_;
 }
 
-float Camera::GetPitch() const
-{
+float Camera::GetPitch() const {
   return pitch_;
 }
 
-float Camera::GetRoll() const
-{
+float Camera::GetRoll() const {
   return roll_;
 }
 
-float Camera::GetFieldOfView() const
-{
+float Camera::GetFieldOfView() const {
   return field_of_view_;
 }
 
-float Camera::GetZNear() const
-{
+float Camera::GetZNear() const {
   return z_near_;
 }
 
-float Camera::GetZFar() const
-{
+float Camera::GetZFar() const {
   return z_far_;
 }
 
-float Camera::GetAspectRatio() const
-{
+float Camera::GetAspectRatio() const {
   return aspect_ratio_;
 }
 
-void Camera::SetPosition(const Vector<3>& position)
-{
+void Camera::SetPosition(const Vector<3>& position) {
   position_ = position;
 }
 
-void Camera::SetYaw(const float yaw)
-{
+void Camera::SetYaw(const float yaw) {
   yaw_ = fmod(yaw, 2 * kPiF);
 }
 
-void Camera::SetPitch(const float pitch)
-{
+void Camera::SetPitch(const float pitch) {
   pitch_ = std::min<float>(std::max<float>(0.0F, pitch), kPiF);
 }
 
-void Camera::SetRoll(const float roll)
-{
+void Camera::SetRoll(const float roll) {
   roll_ = fmod(roll, 2 * kPiF);
 }
 
-void Camera::SetFieldOfView(const float field_of_view)
-{
+void Camera::SetFieldOfView(const float field_of_view) {
   assert(field_of_view > 0.0F);
   assert(field_of_view < kPiF);
 
   field_of_view_ = field_of_view;
 }
 
-void Camera::SetZNear(const float z_near)
-{
+void Camera::SetZNear(const float z_near) {
   assert(z_near > 0.0F);
 
   z_near_ = z_near;
 }
 
-void Camera::SetZFar(const float z_far)
-{
+void Camera::SetZFar(const float z_far) {
   assert(z_far > 0.0F);
 
   z_far_ = z_far;
 }
 
-void Camera::SetAspectRatio(const float aspect_ratio)
-{
+void Camera::SetAspectRatio(const float aspect_ratio) {
   assert(aspect_ratio > 0.0F);
 
   aspect_ratio_ = aspect_ratio;
 }
 
-Matrix<4> Camera::GetMatrix() const
-{
+Matrix<4> Camera::GetMatrix() const {
   Matrix<4> translation;
   translation[0][3] = -position_[0];
   translation[1][3] = -position_[1];

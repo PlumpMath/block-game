@@ -7,12 +7,10 @@
 #include "general/vector.h"
 #include "opengl/buffer.h"
 
-namespace block_game
-{
+namespace block_game {
 class Program;
 
-class Grid
-{
+class Grid {
 public:
   Grid(float radius);
   Grid(const Json::Value& value);

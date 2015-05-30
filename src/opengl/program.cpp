@@ -13,10 +13,8 @@
 #include "opengl/buffer.h"
 #include "opengl/vertex_attribute.h"
 
-namespace
-{
-std::string GetSource(const GLuint shader_id)
-{
+namespace {
+std::string GetSource(const GLuint shader_id) {
   assert(shader_id > 0);
 
   GLint source_length;
@@ -28,8 +26,7 @@ std::string GetSource(const GLuint shader_id)
   return source;
 }
 
-void Compile(const GLenum shader_type, const GLuint shader_id, const std::string& shader_source)
-{
+void Compile(const GLenum shader_type, const GLuint shader_id, const std::string& shader_source) {
   assert(shader_id > 0);
 
   const char* source_c_str{shader_source.c_str()};
@@ -38,8 +35,7 @@ void Compile(const GLenum shader_type, const GLuint shader_id, const std::string
 
   GLint is_compiled;
   glGetShaderiv(shader_id, GL_COMPILE_STATUS, &is_compiled);
-  if (!is_compiled)
-  {
+  if (!is_compiled) {
     GLint info_log_length;
     glGetShaderiv(shader_id, GL_INFO_LOG_LENGTH, &info_log_length);
 
@@ -60,10 +56,11 @@ void Compile(const GLenum shader_type, const GLuint shader_id, const std::string
 }
 }
 
-namespace block_game
-{
-Program::Program(const std::string& vertex_source, const std::string& fragment_source)
-  : id_{glCreateProgram()}, vertex_id_{glCreateShader(GL_VERTEX_SHADER)}, fragment_id_{glCreateShader(GL_FRAGMENT_SHADER)}
+namespace block_game {
+Program::Program(const std::string& vertex_source, const std::string& fragment_source) :
+  id_{glCreateProgram()},
+  vertex_id_{glCreateShader(GL_VERTEX_SHADER)},
+  fragment_id_{glCreateShader(GL_FRAGMENT_SHADER)}
 {
   Compile(GL_VERTEX_SHADER, vertex_id_, vertex_source);
   Compile(GL_FRAGMENT_SHADER, fragment_id_, fragment_source);
@@ -75,8 +72,7 @@ Program::Program(const std::string& vertex_source, const std::string& fragment_s
 
   GLint is_linked{0};
   glGetProgramiv(id_, GL_LINK_STATUS, &is_linked);
-  if (is_linked == GL_FALSE)
-  {
+  if (is_linked == GL_FALSE) {
     GLint info_log_length{0};
     glGetProgramiv(id_, GL_INFO_LOG_LENGTH, &info_log_length);
 
@@ -92,76 +88,73 @@ Program::Program(const std::string& vertex_source, const std::string& fragment_s
   }
 }
 
-Program::~Program()
-{
+Program::~Program() {
   glDeleteProgram(id_);
   glDeleteShader(vertex_id_);
   glDeleteShader(fragment_id_);
 }
 
-Program::Program(const Program& program) : Program{GetSource(program.vertex_id_), GetSource(program.fragment_id_)}
-{}
+Program::Program(const Program& program) : Program{GetSource(program.vertex_id_), GetSource(program.fragment_id_)} {
+}
 
-Program::Program(Program&& program) : id_{program.id_}, vertex_id_{program.vertex_id_}, fragment_id_{program.fragment_id_}
+Program::Program(Program&& program) :
+  id_{program.id_},
+  vertex_id_{program.vertex_id_},
+  fragment_id_{program.fragment_id_}
 {
   program.id_ = 0;
   program.vertex_id_ = 0;
   program.fragment_id_ = 0;
 }
 
-Program& Program::operator=(Program program)
-{
+Program& Program::operator=(Program program) {
   std::swap(id_, program.id_);
   std::swap(vertex_id_, program.vertex_id_);
   std::swap(fragment_id_, program.fragment_id_);
   return *this;
 }
 
-void Program::SetUniformFloat(const std::string& name, const GLfloat value)
-{
+void Program::SetUniformFloat(const std::string& name, const GLfloat value) {
   glUseProgram(id_);
   glUniform1f(glGetUniformLocation(id_, name.c_str()), value);
   glUseProgram(0);
 }
 
-void Program::SetUniformVector2(const std::string& name, const Vector<2>& value)
-{
+void Program::SetUniformVector2(const std::string& name, const Vector<2>& value) {
   glUseProgram(id_);
   glUniform2f(glGetUniformLocation(id_, name.c_str()), value[0], value[1]);
   glUseProgram(0);
 }
 
-void Program::SetUniformVector3(const std::string& name, const Vector<3>& value)
-{
+void Program::SetUniformVector3(const std::string& name, const Vector<3>& value) {
   glUseProgram(id_);
   glUniform3f(glGetUniformLocation(id_, name.c_str()), value[0], value[1], value[2]);
   glUseProgram(0);
 }
 
-void Program::SetUniformMatrix2(const std::string& name, const Matrix<2>& value)
-{
+void Program::SetUniformMatrix2(const std::string& name, const Matrix<2>& value) {
   glUseProgram(id_);
   glUniformMatrix2fv(glGetUniformLocation(id_, name.c_str()), 1, true, &value[0][0]);
   glUseProgram(0);
 }
 
-void Program::SetUniformMatrix3(const std::string& name, const Matrix<3>& value)
-{
+void Program::SetUniformMatrix3(const std::string& name, const Matrix<3>& value) {
   glUseProgram(id_);
   glUniformMatrix3fv(glGetUniformLocation(id_, name.c_str()), 1, true, &value[0][0]);
   glUseProgram(0);
 }
 
-void Program::SetUniformMatrix4(const std::string& name, const Matrix<4>& value)
-{
+void Program::SetUniformMatrix4(const std::string& name, const Matrix<4>& value) {
   glUseProgram(id_);
   glUniformMatrix4fv(glGetUniformLocation(id_, name.c_str()), 1, true, &value[0][0]);
   glUseProgram(0);
 }
 
-void Program::Draw(const Buffer& vertex_buffer, const Buffer& index_buffer,
-  const std::vector<VertexAttribute>& attributes) const
-{
+void Program::Draw(
+  const Buffer& vertex_buffer,
+  const Buffer& index_buffer,
+  const std::vector<VertexAttribute>& attributes
+) const {
   assert(vertex_buffer.target_ == GL_ARRAY_BUFFER);
   assert(index_buffer.target_ == GL_ELEMENT_ARRAY_BUFFER);
 
@@ -169,21 +162,24 @@ void Program::Draw(const Buffer& vertex_buffer, const Buffer& index_buffer,
   glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer.id_);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer.id_);
 
-  for (GLuint i{0}; i < attributes.size(); ++i)
-  {
+  for (GLuint i{0}; i < attributes.size(); ++i) {
     glEnableVertexAttribArray(i);
   }
 
-  for (const auto& attribute : attributes)
-  {
-    glVertexAttribPointer(glGetAttribLocation(id_, attribute.name.c_str()), attribute.size, attribute.type,
-      attribute.normalized, attribute.stride, reinterpret_cast<GLvoid*>(attribute.pointer));
+  for (const auto& attribute : attributes) {
+    glVertexAttribPointer(
+      glGetAttribLocation(id_, attribute.name.c_str()),
+      attribute.size,
+      attribute.type,
+      attribute.normalized,
+      attribute.stride,
+      reinterpret_cast<GLvoid*>(attribute.pointer)
+    );
   }
 
   glDrawElements(GL_TRIANGLES, index_buffer.GetSize(), GL_UNSIGNED_BYTE, 0);
 
-  for (GLuint i{0}; i < attributes.size(); ++i)
-  {
+  for (GLuint i{0}; i < attributes.size(); ++i) {
     glDisableVertexAttribArray(i);
   }
 

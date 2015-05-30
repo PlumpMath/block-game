@@ -18,25 +18,24 @@
 #include "opengl/program.h"
 #include "shader/shaders.h"
 
-namespace
-{
+namespace {
 const std::string world_json{
 #include "game/world.json.txt"
 };
 }
 
-namespace block_game
-{
-World::World()
-  : camera_delta_vertical_{0.0F}, camera_delta_forward_{0.0F}, camera_delta_strafe_{0.0F}, camera_delta_roll_{0.0F},
+namespace block_game {
+World::World() :
+  camera_delta_vertical_{0.0F},
+  camera_delta_forward_{0.0F},
+  camera_delta_strafe_{0.0F},
+  camera_delta_roll_{0.0F},
+
   program_{program_vert, program_frag}
 {
-  try
-  {
+  try {
     Build(std::ifstream{"world.json"});
-  }
-  catch (const std::exception& exception)
-  {
+  } catch (const std::exception& exception) {
     std::cerr << "Failed to load world.json: " << exception.what() << std::endl;
     std::cerr << std::endl;
 
@@ -45,64 +44,51 @@ World::World()
   }
 }
 
-const Camera& World::GetCamera() const
-{
+const Camera& World::GetCamera() const {
   return camera_;
 }
 
-Camera& World::GetCamera()
-{
+Camera& World::GetCamera() {
   return camera_;
 }
 
-float World::GetCameraDeltaVertical() const
-{
+float World::GetCameraDeltaVertical() const {
   return camera_delta_vertical_;
 }
 
-float World::GetCameraDeltaForward() const
-{
+float World::GetCameraDeltaForward() const {
   return camera_delta_forward_;
 }
 
-float World::GetCameraDeltaStrafe() const
-{
+float World::GetCameraDeltaStrafe() const {
   return camera_delta_strafe_;
 }
 
-float World::GetCameraDeltaRoll() const
-{
+float World::GetCameraDeltaRoll() const {
   return camera_delta_roll_;
 }
 
-void World::SetCameraDeltaVertical(const float camera_delta_vertical)
-{
+void World::SetCameraDeltaVertical(const float camera_delta_vertical) {
   camera_delta_vertical_ = camera_delta_vertical;
 }
 
-void World::SetCameraDeltaForward(const float camera_delta_forward)
-{
+void World::SetCameraDeltaForward(const float camera_delta_forward) {
   camera_delta_forward_ = camera_delta_forward;
 }
 
-void World::SetCameraDeltaStrafe(const float camera_delta_strafe)
-{
+void World::SetCameraDeltaStrafe(const float camera_delta_strafe) {
   camera_delta_strafe_ = camera_delta_strafe;
 }
 
-void World::SetCameraDeltaRoll(const float camera_delta_roll)
-{
+void World::SetCameraDeltaRoll(const float camera_delta_roll) {
   camera_delta_roll_ = camera_delta_roll;
 }
 
-void World::Update(const double delta)
-{
+void World::Update(const double delta) {
   assert(delta >= 0.0);
 
-  if (delta > 0.0)
-  {
-    for (auto& grid : grids_)
-    {
+  if (delta > 0.0) {
+    for (auto& grid : grids_) {
       grid.Update(delta);
     }
 
@@ -125,13 +111,11 @@ void World::Update(const double delta)
   }
 }
 
-void World::Display(const int width, const int height)
-{
+void World::Display(const int width, const int height) {
   assert(width >= 0);
   assert(height >= 0);
 
-  if (width > 0 && height > 0)
-  {
+  if (width > 0 && height > 0) {
     glViewport(0, 0, width, height);
     glClearColor(0.5F, 0.5F, 1.0F, 1.0F);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -142,8 +126,7 @@ void World::Display(const int width, const int height)
     camera_.SetAspectRatio(width / static_cast<float>(height));
     program_.SetUniformMatrix4("viewProjection", camera_.GetMatrix());
 
-    for (auto& grid : grids_)
-    {
+    for (auto& grid : grids_) {
       grid.Draw(program_);
     }
 
@@ -152,13 +135,11 @@ void World::Display(const int width, const int height)
   }
 }
 
-void World::Build(std::istream& stream)
-{
+void World::Build(std::istream& stream) {
   Json::Value root;
   stream >> root;
 
-  for (const auto& grid : root["grids"])
-  {
+  for (const auto& grid : root["grids"]) {
     grids_.emplace_back(grid);
     grids_.back().RebuildDraw();
   }

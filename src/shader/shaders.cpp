@@ -2,8 +2,7 @@
 
 #include <string>
 
-namespace block_game
-{
+namespace block_game {
 const std::string program_vert{
 #include "shader/program.vert.txt"
 };

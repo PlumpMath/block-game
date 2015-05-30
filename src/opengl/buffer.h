@@ -8,10 +8,8 @@
 #include "opengl/program.h"
 #include "opengl/vertex_attribute.h"
 
-namespace block_game
-{
-class Buffer
-{
+namespace block_game {
+class Buffer {
 public:
   Buffer(GLenum target, GLsizeiptr size, GLenum usage);
   ~Buffer();
@@ -26,8 +24,11 @@ public:
   void Resize(GLsizeiptr size);
   void SetData(const GLvoid* data);
 
-  friend void Program::Draw(const Buffer& vertex_buffer, const Buffer& index_buffer,
-    const std::vector<VertexAttribute>& attributes) const;
+  friend void Program::Draw(
+    const Buffer& vertex_buffer,
+    const Buffer& index_buffer,
+    const std::vector<VertexAttribute>& attributes
+  ) const;
 
 private:
   GLuint id_;

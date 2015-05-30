@@ -8,23 +8,21 @@
 
 #include "opengl/vertex_attribute.h"
 
-namespace block_game
-{
-Buffer::Buffer(const GLenum target, const GLsizeiptr size, const GLenum usage) : target_{target}, usage_{usage}
+namespace block_game {
+Buffer::Buffer(const GLenum target, const GLsizeiptr size, const GLenum usage) :
+  target_{target},
+  usage_{usage}
 {
   glGenBuffers(1, &id_);
   Resize(size);
 }
 
-Buffer::~Buffer()
-{
+Buffer::~Buffer() {
   glDeleteBuffers(1, &id_);
 }
 
-Buffer::Buffer(const Buffer& buffer) : Buffer{buffer.target_, buffer.size_, buffer.usage_}
-{
-  if (size_ > 0)
-  {
+Buffer::Buffer(const Buffer& buffer) : Buffer{buffer.target_, buffer.size_, buffer.usage_} {
+  if (size_ > 0) {
     std::vector<char> data(size_);
     glBindBuffer(target_, buffer.id_);
     glGetBufferSubData(target_, 0, size_, &data[0]);
@@ -33,13 +31,16 @@ Buffer::Buffer(const Buffer& buffer) : Buffer{buffer.target_, buffer.size_, buff
   }
 }
 
-Buffer::Buffer(Buffer&& buffer) : id_{buffer.id_}, target_{buffer.target_}, size_{buffer.size_}, usage_{buffer.usage_}
+Buffer::Buffer(Buffer&& buffer) :
+  id_{buffer.id_},
+  target_{buffer.target_},
+  size_{buffer.size_},
+  usage_{buffer.usage_}
 {
   buffer.id_ = 0;
 }
 
-Buffer& Buffer::operator=(Buffer buffer)
-{
+Buffer& Buffer::operator=(Buffer buffer) {
   std::swap(id_, buffer.id_);
   std::swap(target_, buffer.target_);
   std::swap(size_, buffer.size_);
@@ -47,31 +48,26 @@ Buffer& Buffer::operator=(Buffer buffer)
   return *this;
 }
 
-GLenum Buffer::GetTarget() const
-{
+GLenum Buffer::GetTarget() const {
   return target_;
 }
 
-GLsizeiptr Buffer::GetSize() const
-{
+GLsizeiptr Buffer::GetSize() const {
   return size_;
 }
 
-GLenum Buffer::GetUsage() const
-{
+GLenum Buffer::GetUsage() const {
   return usage_;
 }
 
-void Buffer::Resize(const GLsizeiptr size)
-{
+void Buffer::Resize(const GLsizeiptr size) {
   size_ = size;
   glBindBuffer(target_, id_);
   glBufferData(target_, size_, nullptr, usage_);
   glBindBuffer(target_, 0);
 }
 
-void Buffer::SetData(const GLvoid* const data)
-{
+void Buffer::SetData(const GLvoid* const data) {
   assert(data);
 
   glBindBuffer(target_, id_);

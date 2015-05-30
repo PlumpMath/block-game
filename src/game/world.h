@@ -8,10 +8,8 @@
 #include "general/camera.h"
 #include "opengl/program.h"
 
-namespace block_game
-{
-class World
-{
+namespace block_game {
+class World {
 public:
   World();
 

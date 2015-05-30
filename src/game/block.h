@@ -8,12 +8,10 @@
 #include "game/block_vertex.h"
 #include "general/vector.h"
 
-namespace block_game
-{
+namespace block_game {
 class Grid;
 
-class Block
-{
+class Block {
 public:
   Block(Grid& grid, float radius);
   Block(Block& parent, size_t x, size_t y, size_t z);

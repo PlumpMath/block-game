@@ -8,16 +8,14 @@
 
 #include "opengl/vertex_attribute.h"
 
-namespace block_game
-{
+namespace block_game {
 class Buffer;
 template<int>
 class Matrix;
 template<int>
 class Vector;
 
-class Program
-{
+class Program {
 public:
   Program(const std::string& vertex_source, const std::string& fragment_source);
   ~Program();

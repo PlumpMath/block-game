@@ -6,10 +6,8 @@
 #include "general/matrix.h"
 #include "general/vector.h"
 
-namespace block_game
-{
-class Camera
-{
+namespace block_game {
+class Camera {
 public:
   Camera();
   Camera(const Json::Value& value);

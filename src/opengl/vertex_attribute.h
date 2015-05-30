@@ -5,10 +5,8 @@
 
 #include <glad/glad.h>
 
-namespace block_game
-{
-struct VertexAttribute
-{
+namespace block_game {
+struct VertexAttribute {
   VertexAttribute(const std::string& name, GLint size, GLenum type, GLboolean normalized, GLsizei stride, GLsizeiptr pointer);
 
   std::string name;

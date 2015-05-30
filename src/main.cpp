@@ -12,12 +12,10 @@ block_game::Vector<2> previous_cursor_pos;
 
 block_game::World* world;
 
-void CursorPosCallback(GLFWwindow* window, const double xpos, const double ypos)
-{
+void CursorPosCallback(GLFWwindow* window, const double xpos, const double ypos) {
   assert(world);
 
-  if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED)
-  {
+  if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED) {
     block_game::Camera& camera{world->GetCamera()};
     camera.SetYaw(static_cast<float>(camera.GetYaw() + 0.001F * (xpos - previous_cursor_pos[0])));
     camera.SetPitch(static_cast<float>(camera.GetPitch() + 0.001F * (ypos - previous_cursor_pos[1])));
@@ -27,81 +25,54 @@ void CursorPosCallback(GLFWwindow* window, const double xpos, const double ypos)
   previous_cursor_pos[1] = static_cast<float>(ypos);
 }
 
-void KeyCallback(GLFWwindow* window, const int key, const int scancode, const int action, const int mods)
-{
+void KeyCallback(GLFWwindow* window, const int key, const int scancode, const int action, const int mods) {
   assert(world);
 
-  if (action == GLFW_PRESS)
-  {
-    if (key == GLFW_KEY_ESCAPE)
-    {
-      glfwSetInputMode(window, GLFW_CURSOR,
-        glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_NORMAL ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
+  if (action == GLFW_PRESS) {
+    if (key == GLFW_KEY_ESCAPE) {
+      glfwSetInputMode(
+        window,
+        GLFW_CURSOR,
+        glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_NORMAL ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL
+      );
     }
-    if (key == GLFW_KEY_LEFT_CONTROL)
-    {
+    if (key == GLFW_KEY_LEFT_CONTROL) {
       world->SetCameraDeltaVertical(-10.0F);
-    }
-    else if (key == GLFW_KEY_SPACE)
-    {
+    } else if (key == GLFW_KEY_SPACE) {
       world->SetCameraDeltaVertical(10.0F);
-    }
-    else if (key == GLFW_KEY_W)
-    {
+    } else if (key == GLFW_KEY_W) {
       world->SetCameraDeltaForward(10.0F);
-    }
-    else if (key == GLFW_KEY_S)
-    {
+    } else if (key == GLFW_KEY_S) {
       world->SetCameraDeltaForward(-10.0F);
-    }
-    else if (key == GLFW_KEY_A)
-    {
+    } else if (key == GLFW_KEY_A) {
       world->SetCameraDeltaStrafe(-10.0F);
-    }
-    else if (key == GLFW_KEY_D)
-    {
+    } else if (key == GLFW_KEY_D) {
       world->SetCameraDeltaStrafe(10.0F);
-    }
-    else if (key == GLFW_KEY_LEFT_BRACKET)
-    {
+    } else if (key == GLFW_KEY_LEFT_BRACKET) {
       world->SetCameraDeltaRoll(1.0F);
-    }
-    else if (key == GLFW_KEY_RIGHT_BRACKET)
-    {
+    } else if (key == GLFW_KEY_RIGHT_BRACKET) {
       world->SetCameraDeltaRoll(-1.0F);
     }
-  }
-  else if (action == GLFW_RELEASE)
-  {
-    if (key == GLFW_KEY_LEFT_CONTROL || key == GLFW_KEY_SPACE)
-    {
+  } else if (action == GLFW_RELEASE) {
+    if (key == GLFW_KEY_LEFT_CONTROL || key == GLFW_KEY_SPACE) {
       world->SetCameraDeltaVertical(0.0F);
-    }
-    else if (key == GLFW_KEY_W || key == GLFW_KEY_S)
-    {
+    } else if (key == GLFW_KEY_W || key == GLFW_KEY_S) {
       world->SetCameraDeltaForward(0.0F);
-    }
-    else if (key == GLFW_KEY_A || key == GLFW_KEY_D)
-    {
+    } else if (key == GLFW_KEY_A || key == GLFW_KEY_D) {
       world->SetCameraDeltaStrafe(0.0F);
-    }
-    else if (key == GLFW_KEY_LEFT_BRACKET || key == GLFW_KEY_RIGHT_BRACKET)
-    {
+    } else if (key == GLFW_KEY_LEFT_BRACKET || key == GLFW_KEY_RIGHT_BRACKET) {
       world->SetCameraDeltaRoll(0.0F);
     }
   }
 }
 
-int main()
-{
-  if (!glfwInit())
-  {
+int main() {
+  if (!glfwInit()) {
     return EXIT_FAILURE;
   }
 
   GLFWwindow* window{glfwCreateWindow(512, 512, "Block Game 0.3.0", nullptr, nullptr)};
-  if (!window)
-  {
+  if (!window) {
     glfwTerminate();
     return EXIT_FAILURE;
   }
@@ -127,8 +98,7 @@ int main()
   glfwSetKeyCallback(window, KeyCallback);
   glfwSetCursorPosCallback(window, CursorPosCallback);
 
-  while (!glfwWindowShouldClose(window))
-  {
+  while (!glfwWindowShouldClose(window)) {
     glfwPollEvents();
 
     new_time = glfwGetTime();
