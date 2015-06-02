@@ -8,24 +8,24 @@
 #include "general/camera.h"
 #include "general/vector.h"
 
-block_game::Vector<2> previous_cursor_pos;
+block_game::Vector<2> previous_cursor_position;
 
 block_game::World* world;
 
-void CursorPosCallback(GLFWwindow* window, const double xpos, const double ypos) {
+void CursorPosCallback(GLFWwindow* const window, const double xpos, const double ypos) {
   assert(world != nullptr);
 
   if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED) {
     block_game::Camera& camera{world->GetCamera()};
-    camera.SetYaw(static_cast<float>(camera.GetYaw() + 0.001F * (xpos - previous_cursor_pos[0])));
-    camera.SetPitch(static_cast<float>(camera.GetPitch() + 0.001F * (ypos - previous_cursor_pos[1])));
+    camera.SetYaw(static_cast<float>(camera.GetYaw() + 0.001F * (xpos - previous_cursor_position[0])));
+    camera.SetPitch(static_cast<float>(camera.GetPitch() + 0.001F * (ypos - previous_cursor_position[1])));
   }
 
-  previous_cursor_pos[0] = static_cast<float>(xpos);
-  previous_cursor_pos[1] = static_cast<float>(ypos);
+  previous_cursor_position[0] = static_cast<float>(xpos);
+  previous_cursor_position[1] = static_cast<float>(ypos);
 }
 
-void KeyCallback(GLFWwindow* window, const int key, const int scancode, const int action, const int mods) {
+void KeyCallback(GLFWwindow* const window, const int key, const int scancode, const int action, const int mods) {
   assert(world != nullptr);
 
   if (action == GLFW_PRESS) {
@@ -70,15 +70,13 @@ int main() {
   if (!glfwInit()) {
     return EXIT_FAILURE;
   }
-
-  GLFWwindow* window{glfwCreateWindow(512, 512, "Block Game 0.3.0", nullptr, nullptr)};
-  if (!window) {
+  GLFWwindow* const window{glfwCreateWindow(512, 512, "Block Game 0.3.0", nullptr, nullptr)};
+  if (window == nullptr) {
     glfwTerminate();
     return EXIT_FAILURE;
   }
-
   glfwMakeContextCurrent(window);
-  gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
+  gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
 
   std::clog << "OpenGL vendor: " << glGetString(GL_VENDOR) << std::endl;
   std::clog << "OpenGL renderer: " << glGetString(GL_RENDERER) << std::endl;
@@ -86,34 +84,27 @@ int main() {
   std::clog << "GLSL version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
   std::clog << std::endl;
 
-  double time{0.0};
-  double new_time;
-  double delta;
-
-  int width;
-  int height;
-
   world = new block_game::World;
-
-  glfwSetKeyCallback(window, KeyCallback);
   glfwSetCursorPosCallback(window, CursorPosCallback);
+  glfwSetKeyCallback(window, KeyCallback);
+  double previous_time{glfwGetTime()};
 
   while (!glfwWindowShouldClose(window)) {
     glfwPollEvents();
 
-    new_time = glfwGetTime();
-    delta = new_time - time;
-    time = new_time;
-    world->Update(delta);
+    const double current_time{glfwGetTime()};
+    const double delta_seconds{current_time - previous_time};
+    previous_time = current_time;
+    world->Update(delta_seconds);
 
-    glfwGetFramebufferSize(window, &width, &height);
-    world->Display(width, height);
+    int screen_width;
+    int screen_height;
+    glfwGetFramebufferSize(window, &screen_width, &screen_height);
+    world->Display(screen_width, screen_height);
     glfwSwapBuffers(window);
   }
 
   delete world;
-
-  glfwDestroyWindow(window);
   glfwTerminate();
   return EXIT_SUCCESS;
 }
