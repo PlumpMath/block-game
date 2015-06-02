@@ -94,8 +94,7 @@ Program::~Program() {
   glDeleteShader(fragment_id_);
 }
 
-Program::Program(const Program& program) : Program{GetSource(program.vertex_id_), GetSource(program.fragment_id_)} {
-}
+Program::Program(const Program& program) : Program{GetSource(program.vertex_id_), GetSource(program.fragment_id_)} {}
 
 Program::Program(Program&& program) :
   id_{program.id_},

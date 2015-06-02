@@ -20,8 +20,7 @@ Camera::Camera() :
   z_near_{0.1F},
   z_far_{1.0F},
   aspect_ratio_{1.0F}
-{
-}
+{}
 
 Camera::Camera(const Json::Value& value) : Camera{} {
   if (value.isMember("position")) {

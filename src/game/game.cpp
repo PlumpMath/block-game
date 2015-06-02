@@ -10,8 +10,7 @@
 namespace block_game {
 Game::Game(GLFWwindow* const window) :
   window_{window}
-{
-}
+{}
 
 void Game::Loop() {
   double previous_time{glfwGetTime()};
