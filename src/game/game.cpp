@@ -7,6 +7,10 @@
 #include "general/camera.h"
 #include "general/vector.h"
 
+namespace {
+const float kMouseSensitivity{0.001F};
+}
+
 namespace block_game {
 Game::Game(GLFWwindow* const window) :
   window_{window}
@@ -19,8 +23,8 @@ void Game::Loop() {
 
     const double current_time{glfwGetTime()};
     const double delta_seconds{current_time - previous_time};
-    previous_time = current_time;
     world_.Update(delta_seconds);
+    previous_time = current_time;
 
     int screen_width;
     int screen_height;
@@ -31,20 +35,21 @@ void Game::Loop() {
 }
 
 void Game::CursorPosCallback(const double xpos, const double ypos) {
+  const Vector<2> current_cursor_position{static_cast<float>(xpos), static_cast<float>(ypos)};
+  const Vector<2> delta_cursor_position{current_cursor_position - previous_cursor_position_};
   if (glfwGetInputMode(window_, GLFW_CURSOR) == GLFW_CURSOR_DISABLED) {
     block_game::Camera& camera{world_.GetCamera()};
-    camera.SetYaw(static_cast<float>(camera.GetYaw() + 0.001F * (xpos - previous_cursor_position_[0])));
-    camera.SetPitch(static_cast<float>(camera.GetPitch() + 0.001F * (ypos - previous_cursor_position_[1])));
+    camera.SetYaw(static_cast<float>(camera.GetYaw() + kMouseSensitivity * delta_cursor_position[0]));
+    camera.SetPitch(static_cast<float>(camera.GetPitch() + kMouseSensitivity * delta_cursor_position[1]));
   }
-
-  previous_cursor_position_[0] = static_cast<float>(xpos);
-  previous_cursor_position_[1] = static_cast<float>(ypos);
+  previous_cursor_position_ = current_cursor_position;
 }
 
 void Game::KeyCallback(const int key, const int scancode, const int action, const int mods) {
   if (action == GLFW_PRESS) {
     switch (key) {
       case GLFW_KEY_ESCAPE:
+        // toggle cursor input mode
         glfwSetInputMode(
           window_,
           GLFW_CURSOR,
