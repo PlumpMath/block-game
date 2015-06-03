@@ -22,6 +22,8 @@ namespace {
 const std::string world_json{
 #include "game/world.json.txt"
 };
+
+const std::string world_filename{"world.json"};
 }
 
 namespace block_game {
@@ -34,9 +36,9 @@ World::World() :
   program_{program_vert, program_frag}
 {
   try {
-    Build(std::ifstream{"world.json"});
+    Build(std::ifstream{world_filename});
   } catch (const std::exception& exception) {
-    std::cerr << "Failed to load world.json: " << exception.what() << std::endl;
+    std::cerr << "Failed to load " << world_filename << ": " << exception.what() << std::endl;
     std::cerr << std::endl;
 
     grids_.clear();
