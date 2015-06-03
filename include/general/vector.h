@@ -10,7 +10,7 @@
 namespace block_game {
 template<int dimensions> class Vector {
 public:
-  static_assert(dimensions > 0, "Vector with nonpositive number of dimensions");
+  static_assert(0 < dimensions, "Vector with nonpositive number of dimensions");
 
   Vector();
   Vector(const std::initializer_list<float>& initial_components);
@@ -166,7 +166,7 @@ template<int dimensions> bool Vector<dimensions>::IsInColorRange() const {
 }
 
 template<int dimensions> void Vector<dimensions>::RotateAboutX(const float angle) {
-  static_assert(dimensions >= 3, "rotate Vector about x-axis without y-axis and z-axis");
+  static_assert(3 <= dimensions, "rotate Vector about x-axis without y-axis and z-axis");
 
   const float sine{sin(angle)};
   const float cosine{cos(angle)};
@@ -179,7 +179,7 @@ template<int dimensions> void Vector<dimensions>::RotateAboutX(const float angle
 }
 
 template<int dimensions> void Vector<dimensions>::RotateAboutY(const float angle) {
-  static_assert(dimensions >= 3, "rotate Vector about y-axis without x-axis and z-axis");
+  static_assert(3 <= dimensions, "rotate Vector about y-axis without x-axis and z-axis");
 
   const float sine{sin(angle)};
   const float cosine{cos(angle)};
@@ -192,7 +192,7 @@ template<int dimensions> void Vector<dimensions>::RotateAboutY(const float angle
 }
 
 template<int dimensions> void Vector<dimensions>::RotateAboutZ(const float angle) {
-  static_assert(dimensions >= 2, "rotate Vector about z-axis without x-axis and y-axis");
+  static_assert(2 <= dimensions, "rotate Vector about z-axis without x-axis and y-axis");
 
   const float sine{sin(angle)};
   const float cosine{cos(angle)};

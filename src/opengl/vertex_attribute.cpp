@@ -21,7 +21,7 @@ VertexAttribute::VertexAttribute(
   stride{stride},
   pointer{pointer}
 {
-  assert(size > 0);
-  assert(stride >= 0);
+  assert(0 < size);
+  assert(0 <= stride);
 }
 }

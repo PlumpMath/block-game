@@ -89,9 +89,9 @@ void World::SetCameraRollSpeed(const float camera_roll_speed) {
 }
 
 void World::Update(const double delta_seconds) {
-  assert(delta_seconds >= 0.0);
+  assert(0.0 <= delta_seconds);
 
-  if (delta_seconds > 0.0) {
+  if (0.0 < delta_seconds) {
     for (auto& grid : grids_) {
       grid.Update(delta_seconds);
     }
@@ -113,10 +113,10 @@ void World::Update(const double delta_seconds) {
 }
 
 void World::Display(const int screen_width, const int screen_height) {
-  assert(screen_width >= 0);
-  assert(screen_height >= 0);
+  assert(0 <= screen_width);
+  assert(0 <= screen_height);
 
-  if (screen_width > 0 && screen_height > 0) {
+  if (0 < screen_width && 0 < screen_height) {
     glViewport(0, 0, screen_width, screen_height);
     glClearColor(background_color[0], background_color[1], background_color[2], 1.0F);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

@@ -23,7 +23,7 @@ Buffer::~Buffer() {
 }
 
 Buffer::Buffer(const Buffer& buffer) : Buffer{buffer.target_, buffer.size_, buffer.usage_} {
-  if (size_ > 0) {
+  if (0 < size_) {
     std::vector<char> data(size_);
     glBindBuffer(target_, buffer.id_);
     glGetBufferSubData(target_, 0, size_, &data[0]);

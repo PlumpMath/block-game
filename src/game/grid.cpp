@@ -20,7 +20,7 @@ Grid::Grid(const float radius) :
   vertex_buffer_{GL_ARRAY_BUFFER, 0, GL_STATIC_DRAW},
   index_buffer_{GL_ELEMENT_ARRAY_BUFFER, 0, GL_STATIC_DRAW}
 {
-  assert(radius > 0.0F);
+  assert(0.0F < radius);
 }
 
 Grid::Grid(const Json::Value& value) : Grid{value["radius"].asFloat()} {
@@ -58,7 +58,7 @@ Block& Grid::GetRoot() {
 }
 
 void Grid::Update(const double delta_seconds) {
-  assert(delta_seconds >= 0.0);
+  assert(0.0 <= delta_seconds);
 }
 
 void Grid::RebuildDraw() {
@@ -67,12 +67,12 @@ void Grid::RebuildDraw() {
   root_.BuildDraw(vertices, indices);
 
   vertex_buffer_.Resize(sizeof(BlockVertex) * vertices.size());
-  if (vertices.size() > 0) {
+  if (0 < vertices.size()) {
     vertex_buffer_.SetData(&vertices[0]);
   }
 
   index_buffer_.Resize(indices.size());
-  if (indices.size() > 0) {
+  if (0 < indices.size()) {
     index_buffer_.SetData(&indices[0]);
   }
 }

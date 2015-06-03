@@ -7,7 +7,7 @@
 namespace block_game {
 template<int order> class Matrix {
 public:
-  static_assert(order > 0, "Matrix with nonpositive order");
+  static_assert(0 < order, "Matrix with nonpositive order");
 
   Matrix();
 
@@ -104,7 +104,7 @@ template<int order> Matrix<order>& Matrix<order>::operator-=(const Matrix<order>
 }
 
 template<int order> void Matrix<order>::RotateAboutX(const float angle) {
-  static_assert(order >= 3, "rotate Matrix about x-axis without y-axis and z-axis");
+  static_assert(3 <= order, "rotate Matrix about x-axis without y-axis and z-axis");
 
   const float sine{sin(angle)};
   const float cosine{cos(angle)};
@@ -119,7 +119,7 @@ template<int order> void Matrix<order>::RotateAboutX(const float angle) {
 }
 
 template<int order> void Matrix<order>::RotateAboutY(const float angle) {
-  static_assert(order >= 3, "rotate Matrix about y-axis without x-axis and z-axis");
+  static_assert(3 <= order, "rotate Matrix about y-axis without x-axis and z-axis");
 
   const float sine{sin(angle)};
   const float cosine{cos(angle)};
@@ -134,7 +134,7 @@ template<int order> void Matrix<order>::RotateAboutY(const float angle) {
 }
 
 template<int order> void Matrix<order>::RotateAboutZ(const float angle) {
-  static_assert(order >= 2, "rotate Matrix about z-axis without x-axis and y-axis");
+  static_assert(2 <= order, "rotate Matrix about z-axis without x-axis and y-axis");
 
   const float sine{sin(angle)};
   const float cosine{cos(angle)};

@@ -15,7 +15,7 @@
 
 namespace {
 std::string GetSource(const GLuint shader_id) {
-  assert(shader_id > 0);
+  assert(0 < shader_id);
 
   GLint source_length;
   glGetShaderiv(shader_id, GL_SHADER_SOURCE_LENGTH, &source_length);
@@ -27,7 +27,7 @@ std::string GetSource(const GLuint shader_id) {
 }
 
 void Compile(const GLenum shader_type, const GLuint shader_id, const std::string& shader_source) {
-  assert(shader_id > 0);
+  assert(0 < shader_id);
 
   const char* source_c_str{shader_source.c_str()};
   glShaderSource(shader_id, 1, &source_c_str, nullptr);

@@ -96,7 +96,7 @@ Block::Block(Grid& grid, const float radius) :
 
   solid_{false}
 {
-  assert(radius > 0.0F);
+  assert(0.0F < radius);
 }
 
 Block::Block(Block& parent, const size_t x, const size_t y, const size_t z) :
