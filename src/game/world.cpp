@@ -100,11 +100,11 @@ void World::Update(const double delta_seconds) {
     camera_delta_vertical *= static_cast<float>(camera_vertical_speed_ * delta_seconds);
 
     Vector<3> camera_delta_forward{0.0F, -1.0F, 0.0F};
-    camera_delta_forward.RotateZ(camera_.GetYaw());
+    camera_delta_forward.RotateAboutZ(camera_.GetYaw());
     camera_delta_forward *= static_cast<float>(camera_forward_speed_ * delta_seconds);
 
     Vector<3> camera_delta_strafe{1.0F, 0.0F, 0.0F};
-    camera_delta_strafe.RotateZ(camera_.GetYaw());
+    camera_delta_strafe.RotateAboutZ(camera_.GetYaw());
     camera_delta_strafe *= static_cast<float>(camera_strafe_speed_ * delta_seconds);
 
     camera_.SetPosition(camera_.GetPosition() + camera_delta_vertical + camera_delta_forward + camera_delta_strafe);

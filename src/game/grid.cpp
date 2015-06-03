@@ -79,9 +79,9 @@ void Grid::RebuildDraw() {
 
 void Grid::Draw(Program& program) {
   Matrix<3> rotation;
-  rotation.RotateY(rotation_[1]);
-  rotation.RotateX(rotation_[0]);
-  rotation.RotateZ(rotation_[2]);
+  rotation.RotateAboutY(rotation_[1]);
+  rotation.RotateAboutX(rotation_[0]);
+  rotation.RotateAboutZ(rotation_[2]);
 
   program.SetUniformVector3("u_Position", position_);
   program.SetUniformMatrix3("u_Rotation", rotation);

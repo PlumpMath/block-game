@@ -117,9 +117,9 @@ Matrix<4> Camera::GetMatrix() const {
   translation[2][3] = -position_[2];
 
   Matrix<4> rotation;
-  rotation.RotateZ(-yaw_);
-  rotation.RotateX(-pitch_);
-  rotation.RotateZ(-roll_);
+  rotation.RotateAboutZ(-yaw_);
+  rotation.RotateAboutX(-pitch_);
+  rotation.RotateAboutZ(-roll_);
 
   Matrix<4> projection;
   projection[0][0] = 1 / tan(field_of_view_ / 2);

@@ -32,9 +32,9 @@ public:
   bool ContainsZero() const;
   bool IsInColorRange() const;
 
-  void RotateX(float angle); // Rotate around the x-axis
-  void RotateY(float angle); // Rotate around the y-axis
-  void RotateZ(float angle); // Rotate around the z-axis
+  void RotateAboutX(float angle);
+  void RotateAboutY(float angle);
+  void RotateAboutZ(float angle);
 
 private:
   float components[dimensions];
@@ -165,8 +165,8 @@ template<int dimensions> bool Vector<dimensions>::IsInColorRange() const {
   return true;
 }
 
-template<int dimensions> void Vector<dimensions>::RotateX(const float angle) {
-  static_assert(dimensions >= 3, "rotate Vector in x-axis without y-axis and z-axis");
+template<int dimensions> void Vector<dimensions>::RotateAboutX(const float angle) {
+  static_assert(dimensions >= 3, "rotate Vector about x-axis without y-axis and z-axis");
 
   const float sine{sin(angle)};
   const float cosine{cos(angle)};
@@ -178,8 +178,8 @@ template<int dimensions> void Vector<dimensions>::RotateX(const float angle) {
   components[2] = new_z;
 }
 
-template<int dimensions> void Vector<dimensions>::RotateY(const float angle) {
-  static_assert(dimensions >= 3, "rotate Vector in y-axis without x-axis and z-axis");
+template<int dimensions> void Vector<dimensions>::RotateAboutY(const float angle) {
+  static_assert(dimensions >= 3, "rotate Vector about y-axis without x-axis and z-axis");
 
   const float sine{sin(angle)};
   const float cosine{cos(angle)};
@@ -191,8 +191,8 @@ template<int dimensions> void Vector<dimensions>::RotateY(const float angle) {
   components[2] = new_z;
 }
 
-template<int dimensions> void Vector<dimensions>::RotateZ(const float angle) {
-  static_assert(dimensions >= 2, "rotate Vector in z-axis without x-axis and y-axis");
+template<int dimensions> void Vector<dimensions>::RotateAboutZ(const float angle) {
+  static_assert(dimensions >= 2, "rotate Vector about z-axis without x-axis and y-axis");
 
   const float sine{sin(angle)};
   const float cosine{cos(angle)};
