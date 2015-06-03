@@ -1,6 +1,6 @@
 function(add_sources)
   foreach(SOURCE ${ARGN})
-    list(APPEND SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE}.cpp)
+    list(APPEND SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE}.cc)
   endforeach()
   set_property(GLOBAL APPEND PROPERTY SOURCES_PROPERTY ${SOURCES})
 endfunction()
