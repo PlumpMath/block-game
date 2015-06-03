@@ -16,15 +16,15 @@ public:
   const Camera& GetCamera() const;
   Camera& GetCamera();
 
-  float GetCameraDeltaVertical() const;
-  float GetCameraDeltaForward() const;
-  float GetCameraDeltaStrafe() const;
-  float GetCameraDeltaRoll() const;
+  float GetCameraVerticalSpeed() const;
+  float GetCameraForwardSpeed() const;
+  float GetCameraStrafeSpeed() const;
+  float GetCameraRollSpeed() const;
 
-  void SetCameraDeltaVertical(float camera_delta_vertical);
-  void SetCameraDeltaForward(float camera_delta_forward);
-  void SetCameraDeltaStrafe(float camera_delta_strafe);
-  void SetCameraDeltaRoll(float camera_delta_roll);
+  void SetCameraVerticalSpeed(float camera_vertical_speed);
+  void SetCameraForwardSpeed(float camera_forward_speed);
+  void SetCameraStrafeSpeed(float camera_strafe_speed);
+  void SetCameraRollSpeed(float camera_roll_speed);
 
   void Update(double delta_seconds);
   void Display(int screen_width, int screen_height);
@@ -35,10 +35,10 @@ private:
   std::vector<Grid> grids_;
 
   Camera camera_;
-  float camera_delta_vertical_;
-  float camera_delta_forward_;
-  float camera_delta_strafe_;
-  float camera_delta_roll_;
+  float camera_vertical_speed_;
+  float camera_forward_speed_;
+  float camera_strafe_speed_;
+  float camera_roll_speed_;
 
   Program program_;
 };

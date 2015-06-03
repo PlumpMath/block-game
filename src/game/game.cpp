@@ -57,28 +57,28 @@ void Game::KeyCallback(const int key, const int scancode, const int action, cons
         );
         break;
       case GLFW_KEY_LEFT_CONTROL:
-        world_.SetCameraDeltaVertical(-10.0F);
+        world_.SetCameraVerticalSpeed(-10.0F);
         break;
       case GLFW_KEY_SPACE:
-        world_.SetCameraDeltaVertical(10.0F);
+        world_.SetCameraVerticalSpeed(10.0F);
         break;
       case GLFW_KEY_W:
-        world_.SetCameraDeltaForward(10.0F);
+        world_.SetCameraForwardSpeed(10.0F);
         break;
       case GLFW_KEY_S:
-        world_.SetCameraDeltaForward(-10.0F);
+        world_.SetCameraForwardSpeed(-10.0F);
         break;
       case GLFW_KEY_A:
-        world_.SetCameraDeltaStrafe(-10.0F);
+        world_.SetCameraStrafeSpeed(-10.0F);
         break;
       case GLFW_KEY_D:
-        world_.SetCameraDeltaStrafe(10.0F);
+        world_.SetCameraStrafeSpeed(10.0F);
         break;
       case GLFW_KEY_LEFT_BRACKET:
-        world_.SetCameraDeltaRoll(1.0F);
+        world_.SetCameraRollSpeed(1.0F);
         break;
       case GLFW_KEY_RIGHT_BRACKET:
-        world_.SetCameraDeltaRoll(-1.0F);
+        world_.SetCameraRollSpeed(-1.0F);
         break;
       default:
         break;
@@ -87,19 +87,19 @@ void Game::KeyCallback(const int key, const int scancode, const int action, cons
     switch (key) {
       case GLFW_KEY_LEFT_CONTROL:
       case GLFW_KEY_SPACE:
-        world_.SetCameraDeltaVertical(0.0F);
+        world_.SetCameraVerticalSpeed(0.0F);
         break;
       case GLFW_KEY_W:
       case GLFW_KEY_S:
-        world_.SetCameraDeltaForward(0.0F);
+        world_.SetCameraForwardSpeed(0.0F);
         break;
       case GLFW_KEY_A:
       case GLFW_KEY_D:
-        world_.SetCameraDeltaStrafe(0.0F);
+        world_.SetCameraStrafeSpeed(0.0F);
         break;
       case GLFW_KEY_LEFT_BRACKET:
       case GLFW_KEY_RIGHT_BRACKET:
-        world_.SetCameraDeltaRoll(0.0F);
+        world_.SetCameraRollSpeed(0.0F);
         break;
       default:
         break;
