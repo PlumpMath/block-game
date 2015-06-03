@@ -10,8 +10,8 @@
 #include "game/grid.h"
 #include "general/vector.h"
 
-namespace block_game {
-const Vector<3> points[]{
+namespace {
+const block_game::Vector<3> points[]{
   {-1.0F, -1.0F, -1.0f},
   {1.0F, -1.0F, -1.0f},
   {-1.0F, 1.0F, -1.0f},
@@ -21,7 +21,7 @@ const Vector<3> points[]{
   {-1.0F, 1.0F, 1.0f},
   {1.0F, 1.0F, 1.0f}
 };
-const Vector<3> face_normals[]{
+const block_game::Vector<3> face_normals[]{
   {-1.0F, 0.0F, 0.0F},
   {1.0F, 0.0F, 0.0F},
   {0.0F, -1.0F, 0.0F},
@@ -29,8 +29,8 @@ const Vector<3> face_normals[]{
   {0.0F, 0.0F, -1.0F},
   {0.0F, 0.0F, 1.0F},
 };
-const Vector<3> identity_color{1.0F, 1.0F, 1.0F};
-const BlockVertex block_vertices[]{
+const block_game::Vector<3> identity_color{1.0F, 1.0F, 1.0F};
+const block_game::BlockVertex block_vertices[]{
   {points[0], face_normals[0], identity_color},
   {points[2], face_normals[0], identity_color},
   {points[4], face_normals[0], identity_color},
@@ -80,7 +80,9 @@ const unsigned char block_indices[]{
   20, 22, 23,
   20, 23, 21
 };
+}
 
+namespace block_game {
 Block::Block(Grid& grid, const float radius) :
   radius_{radius},
   root_{true},
