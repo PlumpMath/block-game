@@ -80,6 +80,10 @@ const unsigned char block_indices[]{
   20, 22, 23,
   20, 23, 21
 };
+
+const size_t kNumFaces{6};
+const size_t kNumVertices{kNumFaces * 4};
+const size_t kNumIndices{kNumFaces * 2 * 3};
 }
 
 namespace block_game {
@@ -113,11 +117,9 @@ Block::Block(Block& parent, const size_t x, const size_t y, const size_t z) :
 
 void Block::Build(const Json::Value& value) {
   solid_ = value.get("solid", solid_).asBool();
-
   if (value.isMember("color")) {
     SetColor(value["color"]);
   }
-
   if (value.isMember("children")) {
     Split();
     const Json::Value& children{value["children"]};
@@ -241,11 +243,11 @@ void Block::Merge() {
 void Block::BuildDraw(std::vector<BlockVertex>& vertices, std::vector<unsigned char>& indices) {
   if (leaf_) {
     if (solid_) {
-      for (size_t i{0}; i < 36; ++i) {
+      for (size_t i{0}; i < kNumIndices; ++i) {
         indices.emplace_back(static_cast<unsigned char>(vertices.size() + block_indices[i]));
       }
 
-      for (size_t i{0}; i < 24; ++i) {
+      for (size_t i{0}; i < kNumVertices; ++i) {
         vertices.emplace_back(position_ + radius_ * block_vertices[i].position, block_vertices[i].normal, color_);
       }
     }
