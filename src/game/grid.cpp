@@ -27,11 +27,9 @@ Grid::Grid(const Json::Value& value) : Grid{value["radius"].asFloat()} {
   if (value.isMember("position")) {
     position_ = value["position"];
   }
-
   if (value.isMember("rotation")) {
     rotation_ = value["rotation"];
   }
-
   root_.Build(value["root"]);
 }
 
