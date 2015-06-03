@@ -154,8 +154,8 @@ void Program::Draw(
   const Buffer& index_buffer,
   const std::vector<VertexAttribute>& attributes
 ) const {
-  assert(vertex_buffer.target_ == GL_ARRAY_BUFFER);
-  assert(index_buffer.target_ == GL_ELEMENT_ARRAY_BUFFER);
+  assert(vertex_buffer.GetTarget() == GL_ARRAY_BUFFER);
+  assert(index_buffer.GetTarget() == GL_ELEMENT_ARRAY_BUFFER);
 
   glUseProgram(id_);
   glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer.id_);
