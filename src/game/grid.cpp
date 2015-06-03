@@ -83,13 +83,13 @@ void Grid::Draw(Program& program) {
   rotation.RotateX(rotation_[0]);
   rotation.RotateZ(rotation_[2]);
 
-  program.SetUniformVector3("position", position_);
-  program.SetUniformMatrix3("rotation", rotation);
+  program.SetUniformVector3("u_Position", position_);
+  program.SetUniformMatrix3("u_Rotation", rotation);
 
   std::vector<VertexAttribute> attributes;
-  attributes.emplace_back("in_Vertex", 3, GL_FLOAT, GL_FALSE, sizeof(BlockVertex), 0);
-  attributes.emplace_back("in_Normal", 3, GL_FLOAT, GL_FALSE, sizeof(BlockVertex), sizeof(Vector<3>));
-  attributes.emplace_back("in_Color", 3, GL_FLOAT, GL_FALSE, sizeof(BlockVertex), 2 * sizeof(Vector<3>));
+  attributes.emplace_back("a_Vertex", 3, GL_FLOAT, GL_FALSE, sizeof(BlockVertex), 0);
+  attributes.emplace_back("a_Normal", 3, GL_FLOAT, GL_FALSE, sizeof(BlockVertex), sizeof(Vector<3>));
+  attributes.emplace_back("a_Color", 3, GL_FLOAT, GL_FALSE, sizeof(BlockVertex), 2 * sizeof(Vector<3>));
 
   program.Draw(vertex_buffer_, index_buffer_, attributes);
 }

@@ -125,7 +125,7 @@ void World::Display(const int screen_width, const int screen_height) {
     glEnable(GL_DEPTH_TEST);
 
     camera_.SetAspectRatio(screen_width / static_cast<float>(screen_height));
-    program_.SetUniformMatrix4("viewProjection", camera_.GetMatrix());
+    program_.SetUniformMatrix4("u_ViewProjection", camera_.GetMatrix());
 
     for (auto& grid : grids_) {
       grid.Draw(program_);
