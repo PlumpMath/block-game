@@ -24,7 +24,7 @@ public:
   const Block& GetRoot() const;
   Block& GetRoot();
 
-  void Update(double delta);
+  void Update(double delta_seconds);
   void RebuildDraw();
   void Draw(Program& program);
 

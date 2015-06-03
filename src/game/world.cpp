@@ -84,12 +84,12 @@ void World::SetCameraDeltaRoll(const float camera_delta_roll) {
   camera_delta_roll_ = camera_delta_roll;
 }
 
-void World::Update(const double delta) {
-  assert(delta >= 0.0);
+void World::Update(const double delta_seconds) {
+  assert(delta_seconds >= 0.0);
 
-  if (delta > 0.0) {
+  if (delta_seconds > 0.0) {
     for (auto& grid : grids_) {
-      grid.Update(delta);
+      grid.Update(delta_seconds);
     }
 
     Vector<2> camera_forward_direction{0.0F, -1.0F};
@@ -98,32 +98,32 @@ void World::Update(const double delta) {
     camera_strafe_direction.RotateZ(camera_.GetYaw());
 
     Vector<3> camera_position = camera_.GetPosition();
-    camera_position[0] += static_cast<float>(camera_delta_forward_ * camera_forward_direction[0] * delta);
-    camera_position[1] += static_cast<float>(camera_delta_forward_ * camera_forward_direction[1] * delta);
+    camera_position[0] += static_cast<float>(camera_delta_forward_ * camera_forward_direction[0] * delta_seconds);
+    camera_position[1] += static_cast<float>(camera_delta_forward_ * camera_forward_direction[1] * delta_seconds);
 
-    camera_position[0] += static_cast<float>(camera_delta_strafe_ * camera_strafe_direction[0] * delta);
-    camera_position[1] += static_cast<float>(camera_delta_strafe_ * camera_strafe_direction[1] * delta);
+    camera_position[0] += static_cast<float>(camera_delta_strafe_ * camera_strafe_direction[0] * delta_seconds);
+    camera_position[1] += static_cast<float>(camera_delta_strafe_ * camera_strafe_direction[1] * delta_seconds);
 
-    camera_position[2] += static_cast<float>(camera_delta_vertical_ * delta);
+    camera_position[2] += static_cast<float>(camera_delta_vertical_ * delta_seconds);
     camera_.SetPosition(camera_position);
 
-    camera_.SetRoll(static_cast<float>(camera_.GetRoll() + camera_delta_roll_ * delta));
+    camera_.SetRoll(static_cast<float>(camera_.GetRoll() + camera_delta_roll_ * delta_seconds));
   }
 }
 
-void World::Display(const int width, const int height) {
-  assert(width >= 0);
-  assert(height >= 0);
+void World::Display(const int screen_width, const int screen_height) {
+  assert(screen_width >= 0);
+  assert(screen_height >= 0);
 
-  if (width > 0 && height > 0) {
-    glViewport(0, 0, width, height);
+  if (screen_width > 0 && screen_height > 0) {
+    glViewport(0, 0, screen_width, screen_height);
     glClearColor(0.5F, 0.5F, 1.0F, 1.0F);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
 
-    camera_.SetAspectRatio(width / static_cast<float>(height));
+    camera_.SetAspectRatio(screen_width / static_cast<float>(screen_height));
     program_.SetUniformMatrix4("viewProjection", camera_.GetMatrix());
 
     for (auto& grid : grids_) {

@@ -59,8 +59,8 @@ Block& Grid::GetRoot() {
   return root_;
 }
 
-void Grid::Update(const double delta) {
-  assert(delta >= 0.0);
+void Grid::Update(const double delta_seconds) {
+  assert(delta_seconds >= 0.0);
 }
 
 void Grid::RebuildDraw() {

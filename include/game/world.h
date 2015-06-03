@@ -26,8 +26,8 @@ public:
   void SetCameraDeltaStrafe(float camera_delta_strafe);
   void SetCameraDeltaRoll(float camera_delta_roll);
 
-  void Update(double delta);
-  void Display(int width, int height);
+  void Update(double delta_seconds);
+  void Display(int screen_width, int screen_height);
 
 private:
   void Build(std::istream& stream);
