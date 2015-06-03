@@ -24,6 +24,8 @@ const std::string world_json{
 };
 
 const std::string world_filename{"world.json"};
+
+const block_game::Vector<3> background_color{0.5F, 0.5F, 1.0F};
 }
 
 namespace block_game {
@@ -116,7 +118,7 @@ void World::Display(const int screen_width, const int screen_height) {
 
   if (screen_width > 0 && screen_height > 0) {
     glViewport(0, 0, screen_width, screen_height);
-    glClearColor(0.5F, 0.5F, 1.0F, 1.0F);
+    glClearColor(background_color[0], background_color[1], background_color[2], 1.0F);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glEnable(GL_CULL_FACE);
