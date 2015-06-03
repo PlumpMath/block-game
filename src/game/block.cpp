@@ -120,6 +120,7 @@ void Block::Build(const Json::Value& value) {
   if (value.isMember("color")) {
     SetColor(value["color"]);
   }
+
   if (value.isMember("children")) {
     Split();
     const Json::Value& children{value["children"]};
