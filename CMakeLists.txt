@@ -79,10 +79,13 @@ include_directories(${CMAKE_BINARY_DIR}/res)
 
 add_subdirectory(src)
 get_property(SOURCES GLOBAL PROPERTY SOURCES_PROPERTY)
-add_executable(block_game ${SOURCES})
-add_dependencies(block_game strings)
-target_link_libraries(block_game
+add_library(block_game_lib ${SOURCES})
+add_dependencies(block_game_lib strings)
+target_link_libraries(block_game_lib
   glad
   glfw ${GLFW_LIBRARIES}
   jsoncpp_lib_static
 )
+
+add_executable(block_game src/main.cc)
+target_link_libraries(block_game block_game_lib)

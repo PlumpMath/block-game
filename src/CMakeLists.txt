@@ -5,10 +5,6 @@ function(add_sources)
   set_property(GLOBAL APPEND PROPERTY SOURCES_PROPERTY ${SOURCES})
 endfunction()
 
-add_sources(
-  main
-)
-
 add_subdirectory(game)
 add_subdirectory(general)
 add_subdirectory(opengl)
