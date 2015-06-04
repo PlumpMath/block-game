@@ -45,9 +45,7 @@ add_cmake_dependency(
   SOURCE glad-c
   INCLUDE include
 )
-add_library(glad
-  ${LIBRARY_DIRECTORY}/glad/glad-c/src/glad.c
-)
+add_library(glad ${LIBRARY_DIRECTORY}/glad/glad-c/src/glad.c)
 
 add_cmake_dependency(
   NAME glfw
