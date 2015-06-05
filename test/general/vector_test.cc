@@ -7,10 +7,17 @@
 #include "general/vector.h"
 
 namespace {
-void TestDefaultConstructor(bool& success) {
+void Update(bool& success, bool test_result) {
+  if (test_result) {
+    success = true;
+  }
+}
+
+bool TestDefaultConstructor() {
   block_game::Vector<10> vector;
   float expected[10]{0.0F};
 
+  bool success{true};
   for (size_t i{0}; i < 10; ++i) {
     if (vector[i] != expected[i]) {
       std::cerr << "default constructor failed: ";
@@ -18,12 +25,14 @@ void TestDefaultConstructor(bool& success) {
       success = false;
     }
   }
+  return success;
 }
 
-void TestInitializerListConstructor(bool& success) {
+bool TestInitializerListConstructor() {
   block_game::Vector<10> vector{1.0F, 2.0F, 3.0F, 4.0F, 5.0F, 6.0F, 7.0F, 8.0F, 9.0F, 10.0F};
   float expected[]{1.0F, 2.0F, 3.0F, 4.0F, 5.0F, 6.0F, 7.0F, 8.0F, 9.0F, 10.0F};
 
+  bool success{true};
   for (size_t i{0}; i < 10; ++i) {
     if (vector[i] != expected[i]) {
       std::cerr << "initializer list constructor failed: ";
@@ -31,9 +40,10 @@ void TestInitializerListConstructor(bool& success) {
       success = false;
     }
   }
+  return success;
 }
 
-void TestJSONConstructor(bool& success) {
+bool TestJSONConstructor() {
   Json::Value value{Json::arrayValue};
   value.append(1.0F);
   value.append(2.0F);
@@ -46,6 +56,7 @@ void TestJSONConstructor(bool& success) {
   value.append(9.0F);
   value.append(10.0F);
 
+  bool success{true};
   try {
     block_game::Vector<10> vector{value};
     for (size_t i{0}; i < 10; ++i) {
@@ -58,11 +69,13 @@ void TestJSONConstructor(bool& success) {
     std::cerr << "JSON constructor failed: exception thrown for valid input" << std::endl;
     success = false;
   }
+  return success;
 }
 
-void TestJSONConstructorNonArray(bool& success) {
+bool TestJSONConstructorNonArray() {
   Json::Value value;
 
+  bool success{true};
   bool exception_thrown{false};
   try {
     block_game::Vector<10> vector{value};
@@ -73,14 +86,16 @@ void TestJSONConstructorNonArray(bool& success) {
     std::cerr << "JSON constructor failed: no exception thrown for non-array JSON value" << std::endl;
     success = false;
   }
+  return success;
 }
 
-void TestJSONConstructorMismatchedDimensions(Json::ArrayIndex num_dimensions, bool& success) {
+bool TestJSONConstructorMismatchedDimensions(Json::ArrayIndex num_dimensions) {
   Json::Value value{Json::arrayValue};
   for (Json::ArrayIndex i{1}; i <= num_dimensions; ++i) {
     value.append(static_cast<float>(i));
   }
 
+  bool success{true};
   bool exception_thrown{false};
   try {
     block_game::Vector<10> vector{value};
@@ -94,20 +109,22 @@ void TestJSONConstructorMismatchedDimensions(Json::ArrayIndex num_dimensions, bo
     std::cerr << 10 << std::endl;
     success = false;
   }
+  return success;
 }
 
-void TestJSONConstructorTooFewDimensions(bool& success) {
-  TestJSONConstructorMismatchedDimensions(5, success);
+bool TestJSONConstructorTooFewDimensions() {
+  return TestJSONConstructorMismatchedDimensions(5);
 }
 
-void TestJSONConstructorTooManyDimensions(bool& success) {
-  TestJSONConstructorMismatchedDimensions(20, success);
+bool TestJSONConstructorTooManyDimensions() {
+  TestJSONConstructorMismatchedDimensions(20);
 }
 
-void TestJSONConstructorNonNumericChild(bool& success) {
+bool TestJSONConstructorNonNumericChild() {
   Json::Value value{Json::arrayValue};
   value.resize(10);
 
+  bool success{true};
   bool exception_thrown{false};
   try {
     block_game::Vector<10> vector{value};
@@ -118,17 +135,18 @@ void TestJSONConstructorNonNumericChild(bool& success) {
     std::cerr << "JSON constructor failed: no exception thrown for non-numeric JSON child value" << std::endl;
     success = false;
   }
+  return success;
 }
 }
 
 int main() {
   bool success{true};
-  TestDefaultConstructor(success);
-  TestInitializerListConstructor(success);
-  TestJSONConstructor(success);
-  TestJSONConstructorNonArray(success);
-  TestJSONConstructorTooFewDimensions(success);
-  TestJSONConstructorTooManyDimensions(success);
-  TestJSONConstructorNonNumericChild(success);
+  Update(success, TestDefaultConstructor());
+  Update(success, TestInitializerListConstructor());
+  Update(success, TestJSONConstructor());
+  Update(success, TestJSONConstructorNonArray());
+  Update(success, TestJSONConstructorTooFewDimensions());
+  Update(success, TestJSONConstructorTooManyDimensions());
+  Update(success, TestJSONConstructorNonNumericChild());
   return success ? EXIT_SUCCESS : EXIT_FAILURE;
 }
