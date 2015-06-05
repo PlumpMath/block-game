@@ -64,6 +64,12 @@ template<int dimensions> Vector<dimensions>::Vector(const Json::Value& value) {
     throw std::runtime_error{"non-array JSON value cannot be used to construct Vector"};
   } else if (value.size() != dimensions) {
     throw std::runtime_error{"JSON value size does not match number of dimensions in Vector"};
+  } else {
+    for (size_t i{0}; i < dimensions; ++i) {
+      if (!value[i].isNumeric()) {
+        throw std::runtime_error{"non-numeric JSON value cannot be converted to Vector member"};
+      }
+    }
   }
 
   for (size_t i{0}; i < dimensions; ++i) {
