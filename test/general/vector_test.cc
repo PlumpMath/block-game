@@ -117,7 +117,7 @@ bool TestJSONConstructorTooFewDimensions() {
 }
 
 bool TestJSONConstructorTooManyDimensions() {
-  TestJSONConstructorMismatchedDimensions(20);
+  return TestJSONConstructorMismatchedDimensions(20);
 }
 
 bool TestJSONConstructorNonNumericChild() {
