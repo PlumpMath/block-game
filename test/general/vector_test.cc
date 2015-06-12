@@ -13,12 +13,14 @@ void Update(bool& success, bool test_result) {
   }
 }
 
+const size_t kTestDimensions{3};
+
 bool TestDefaultConstructor() {
-  const block_game::Vector<10> vector;
-  float expected[10]{0.0F};
+  const block_game::Vector<kTestDimensions> vector;
+  float expected[kTestDimensions]{0.0F};
 
   bool success{true};
-  for (size_t i{0}; i < 10; ++i) {
+  for (size_t i{0}; i < kTestDimensions; ++i) {
     if (vector[i] != expected[i]) {
       std::cerr << "default constructor failed: ";
       std::cerr << "element " << i << " is " << vector[i] << " instead of " << expected[i] << std::endl;
@@ -29,11 +31,11 @@ bool TestDefaultConstructor() {
 }
 
 bool TestInitializerListConstructor() {
-  const block_game::Vector<10> vector{1.0F, 2.0F, 3.0F, 4.0F, 5.0F, 6.0F, 7.0F, 8.0F, 9.0F, 10.0F};
-  const float expected[]{1.0F, 2.0F, 3.0F, 4.0F, 5.0F, 6.0F, 7.0F, 8.0F, 9.0F, 10.0F};
+  const block_game::Vector<kTestDimensions> vector{1.0F, 2.0F, 3.0F};
+  const float expected[]{1.0F, 2.0F, 3.0F};
 
   bool success{true};
-  for (size_t i{0}; i < 10; ++i) {
+  for (size_t i{0}; i < kTestDimensions; ++i) {
     if (vector[i] != expected[i]) {
       std::cerr << "initializer list constructor failed: ";
       std::cerr << "element " << i << " is " << vector[i] << " instead of " << expected[i] << std::endl;
@@ -45,21 +47,14 @@ bool TestInitializerListConstructor() {
 
 bool TestJSONConstructor() {
   Json::Value value{Json::arrayValue};
-  value.append(1.0F);
-  value.append(2.0F);
-  value.append(3.0F);
-  value.append(4.0F);
-  value.append(5.0F);
-  value.append(6.0F);
-  value.append(7.0F);
-  value.append(8.0F);
-  value.append(9.0F);
-  value.append(10.0F);
+  for (size_t i{1}; i <= kTestDimensions; ++i) {
+    value.append(static_cast<float>(i));
+  }
 
   bool success{true};
   try {
-    const block_game::Vector<10> vector{value};
-    for (size_t i{0}; i < 10; ++i) {
+    const block_game::Vector<kTestDimensions> vector{value};
+    for (size_t i{0}; i < kTestDimensions; ++i) {
       if (vector[i] != value[i].asFloat()) {
         std::cerr << "JSON constructor failed: element " << i << " is " << vector[i] << " instead of " << value[i] << std::endl;
         success = false;
@@ -78,7 +73,7 @@ bool TestJSONConstructorNonArray() {
   bool success{true};
   bool exception_thrown{false};
   try {
-    const block_game::Vector<10> vector{value};
+    const block_game::Vector<kTestDimensions> vector{value};
   } catch (const std::exception&) {
     exception_thrown = true;
   }
@@ -98,7 +93,7 @@ bool TestJSONConstructorMismatchedDimensions(Json::ArrayIndex num_dimensions) {
   bool success{true};
   bool exception_thrown{false};
   try {
-    const block_game::Vector<10> vector{value};
+    const block_game::Vector<kTestDimensions> vector{value};
   } catch (const std::exception&) {
     exception_thrown = true;
   }
@@ -106,28 +101,28 @@ bool TestJSONConstructorMismatchedDimensions(Json::ArrayIndex num_dimensions) {
     std::cerr << "JSON constructor failed: ";
     std::cerr << "no exception thrown for JSON value with ";
     std::cerr << value.size() << " dimensions instead of ";
-    std::cerr << 10 << std::endl;
+    std::cerr << kTestDimensions << std::endl;
     success = false;
   }
   return success;
 }
 
 bool TestJSONConstructorTooFewDimensions() {
-  return TestJSONConstructorMismatchedDimensions(5);
+  return TestJSONConstructorMismatchedDimensions(kTestDimensions - 1);
 }
 
 bool TestJSONConstructorTooManyDimensions() {
-  return TestJSONConstructorMismatchedDimensions(20);
+  return TestJSONConstructorMismatchedDimensions(kTestDimensions + 1);
 }
 
 bool TestJSONConstructorNonNumericChild() {
   Json::Value value{Json::arrayValue};
-  value.resize(10);
+  value.resize(kTestDimensions);
 
   bool success{true};
   bool exception_thrown{false};
   try {
-    const block_game::Vector<10> vector{value};
+    const block_game::Vector<kTestDimensions> vector{value};
   } catch (const std::exception&) {
     exception_thrown = true;
   }
