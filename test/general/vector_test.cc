@@ -229,6 +229,19 @@ bool TestPlus() {
     return false;
   }
 }
+
+bool TestMinus() {
+  const block_game::Vector<kTestDimensions> minuend{5.0F, 7.0F, 9.0F};
+  const block_game::Vector<kTestDimensions> subtrahend{1.0F, 2.0F, 3.0F};
+  const block_game::Vector<kTestDimensions> difference{4.0F, 5.0F, 6.0F};
+
+  if (minuend - subtrahend == difference) {
+    return true;
+  } else {
+    std::cerr << "binary - operator failed: incorrect result" << std::endl;
+    return false;
+  }
+}
 }
 
 int main() {
@@ -240,5 +253,6 @@ int main() {
   Update(success, TestNotEquals());
   Update(success, TestNegative());
   Update(success, TestPlus());
+  Update(success, TestMinus());
   return success ? EXIT_SUCCESS : EXIT_FAILURE;
 }
