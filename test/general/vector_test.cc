@@ -150,7 +150,7 @@ bool TestEqualityTrue() {
   if (vector_0 == vector_1) {
     return true;
   } else {
-    std::cerr << "== operator failed: comparison of equal Vector objects returns false" << std::endl;
+    std::cerr << "equality operator failed: comparison of equal Vector objects returns false" << std::endl;
     return false;
   }
 }
@@ -160,7 +160,7 @@ bool TestEqualityFalse() {
   const block_game::Vector<kTestDimensions> vector_1{3.0F, 2.0F, 1.0F};
 
   if (vector_0 == vector_1) {
-    std::cerr << "== operator failed: comparison of unequal Vector objects returns true" << std::endl;
+    std::cerr << "equality operator failed: comparison of unequal Vector objects returns true" << std::endl;
     return false;
   } else {
     return true;
@@ -181,7 +181,7 @@ bool TestInequalityTrue() {
   if (vector_0 != vector_1) {
     return true;
   } else {
-    std::cerr << "!= operator failed: comparison of unequal Vector objects returns false" << std::endl;
+    std::cerr << "inequality operator failed: comparison of unequal Vector objects returns false" << std::endl;
     return false;
   }
 }
@@ -191,7 +191,7 @@ bool TestInequalityFalse() {
   const block_game::Vector<kTestDimensions> vector_1{1.0F, 2.0F, 3.0F};
 
   if (vector_0 != vector_1) {
-    std::cerr << "!= operator failed: comparison of equal Vector objects returns true" << std::endl;
+    std::cerr << "inequality operator failed: comparison of equal Vector objects returns true" << std::endl;
     return false;
   } else {
     return true;
@@ -212,7 +212,7 @@ bool TestNegation() {
   if (-positive == negative) {
     return true;
   } else {
-    std::cerr << "unary - operator failed: incorrect result" << std::endl;
+    std::cerr << "negation operator failed: incorrect result" << std::endl;
     return false;
   }
 }
@@ -225,7 +225,7 @@ bool TestAddition() {
   if (addend_0 + addend_1 == expected_sum) {
     return true;
   } else {
-    std::cerr << "+ operator failed: incorrect result" << std::endl;
+    std::cerr << "addition operator failed: incorrect result" << std::endl;
     return false;
   }
 }
@@ -238,7 +238,7 @@ bool TestSubtraction() {
   if (minuend - subtrahend == difference) {
     return true;
   } else {
-    std::cerr << "binary - operator failed: incorrect result" << std::endl;
+    std::cerr << "subtraction operator failed: incorrect result" << std::endl;
     return false;
   }
 }
