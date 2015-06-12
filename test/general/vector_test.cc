@@ -259,6 +259,58 @@ bool TestDivision() {
   }
   return success;
 }
+
+bool TestAdditionAssignment() {
+  block_game::Vector<kTestDimensions> original{1.0F, 2.0F, 3.0F};
+  const block_game::Vector<kTestDimensions> addend{4.0F, 5.0F, 6.0F};
+  const block_game::Vector<kTestDimensions> expected_sum{5.0F, 7.0F, 9.0F};
+
+  const block_game::Vector<kTestDimensions> sum{original += addend};
+  bool success{original == expected_sum && sum == expected_sum};
+  if (!success) {
+    std::cerr << "addition assignment operator failed: incorrect result" << std::endl;
+  }
+  return success;
+}
+
+bool TestSubtractionAssignment() {
+  block_game::Vector<kTestDimensions> original{5.0F, 7.0F, 9.0F};
+  const block_game::Vector<kTestDimensions> subtrahend{1.0F, 2.0F, 3.0F};
+  const block_game::Vector<kTestDimensions> expected_difference{4.0F, 5.0F, 6.0F};
+
+  const block_game::Vector<kTestDimensions> difference{original -= subtrahend};
+  bool success{original == expected_difference && difference == expected_difference};
+  if (!success) {
+    std::cerr << "subtraction assignment operator failed: incorrect result" << std::endl;
+  }
+  return success;
+}
+
+bool TestMultiplicationAssignment() {
+  block_game::Vector<kTestDimensions> original{1.0F, 2.0F, 3.0F};
+  const float scalar{10.0F};
+  const block_game::Vector<kTestDimensions> expected_product{10.0F, 20.0F, 30.0F};
+
+  const block_game::Vector<kTestDimensions> product{original *= scalar};
+  bool success{original == expected_product && product == expected_product};
+  if (!success) {
+    std::cerr << "multiplication assignment operator failed: incorrect result" << std::endl;
+  }
+  return success;
+}
+
+bool TestDivisionAssignment() {
+  block_game::Vector<kTestDimensions> original{10.0F, 20.0F, 30.0F};
+  const float scalar{10.0F};
+  const block_game::Vector<kTestDimensions> expected_quotient{1.0F, 2.0F, 3.0F};
+
+  const block_game::Vector<kTestDimensions> quotient{original /= scalar};
+  bool success{original == expected_quotient && quotient == expected_quotient};
+  if (!success) {
+    std::cerr << "division assignment operator failed: incorrect result" << std::endl;
+  }
+  return success;
+}
 }
 
 int main() {
@@ -277,6 +329,11 @@ int main() {
   Update(success, TestSubtraction());
   Update(success, TestMultiplication());
   Update(success, TestDivision());
+
+  Update(success, TestAdditionAssignment());
+  Update(success, TestSubtractionAssignment());
+  Update(success, TestMultiplicationAssignment());
+  Update(success, TestDivisionAssignment());
 
   return success ? EXIT_SUCCESS : EXIT_FAILURE;
 }
