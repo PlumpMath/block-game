@@ -45,7 +45,7 @@ bool TestInitializerListConstructor() {
   return success;
 }
 
-bool TestJSONConstructor() {
+bool TestJSONConstructorNominal() {
   Json::Value value{Json::arrayValue};
   for (size_t i{1}; i <= kTestDimensions; ++i) {
     value.append(static_cast<float>(i));
@@ -133,6 +133,16 @@ bool TestJSONConstructorNonNumericChild() {
   return success;
 }
 
+bool TestJSONConstructor() {
+  bool success{true};
+  Update(success, TestJSONConstructorNominal());
+  Update(success, TestJSONConstructorNonArray());
+  Update(success, TestJSONConstructorTooFewDimensions());
+  Update(success, TestJSONConstructorTooManyDimensions());
+  Update(success, TestJSONConstructorNonNumericChild());
+  return success;
+}
+
 bool TestEqualsTrue() {
   const block_game::Vector<kTestDimensions> vector_0{1.0F, 2.0F, 3.0F};
   const block_game::Vector<kTestDimensions> vector_1{1.0F, 2.0F, 3.0F};
@@ -153,6 +163,13 @@ bool TestEqualsFalse() {
   } else {
     return true;
   }
+}
+
+bool TestEquals() {
+  bool success{true};
+  Update(success, TestEqualsTrue());
+  Update(success, TestEqualsFalse());
+  return success;
 }
 
 bool TestNotEqualsTrue() {
@@ -176,6 +193,13 @@ bool TestNotEqualsFalse() {
     return true;
   }
 }
+
+bool TestNotEquals() {
+  bool success{true};
+  Update(success, TestNotEqualsTrue());
+  Update(success, TestNotEqualsFalse());
+  return success;
+}
 }
 
 int main() {
@@ -183,13 +207,7 @@ int main() {
   Update(success, TestDefaultConstructor());
   Update(success, TestInitializerListConstructor());
   Update(success, TestJSONConstructor());
-  Update(success, TestJSONConstructorNonArray());
-  Update(success, TestJSONConstructorTooFewDimensions());
-  Update(success, TestJSONConstructorTooManyDimensions());
-  Update(success, TestJSONConstructorNonNumericChild());
-  Update(success, TestEqualsTrue());
-  Update(success, TestEqualsFalse());
-  Update(success, TestNotEqualsTrue());
-  Update(success, TestNotEqualsFalse());
+  Update(success, TestEquals());
+  Update(success, TestNotEquals());
   return success ? EXIT_SUCCESS : EXIT_FAILURE;
 }
