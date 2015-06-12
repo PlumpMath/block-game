@@ -216,6 +216,19 @@ bool TestNegative() {
     return false;
   }
 }
+
+bool TestPlus() {
+  const block_game::Vector<kTestDimensions> addend_0{1.0F, 2.0F, 3.0F};
+  const block_game::Vector<kTestDimensions> addend_1{4.0F, 5.0F, 6.0F};
+  const block_game::Vector<kTestDimensions> expected_sum{5.0F, 7.0F, 9.0F};
+
+  if (addend_0 + addend_1 == expected_sum) {
+    return true;
+  } else {
+    std::cerr << "+ operator failed: incorrect result" << std::endl;
+    return false;
+  }
+}
 }
 
 int main() {
@@ -226,5 +239,6 @@ int main() {
   Update(success, TestEquals());
   Update(success, TestNotEquals());
   Update(success, TestNegative());
+  Update(success, TestPlus());
   return success ? EXIT_SUCCESS : EXIT_FAILURE;
 }
