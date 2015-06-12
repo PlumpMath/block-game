@@ -1,11 +1,3 @@
-function(add_tests)
-  foreach(TEST ${ARGN})
-    file(RELATIVE_PATH TEST_PATH ${CMAKE_SOURCE_DIR}/test ${CMAKE_CURRENT_SOURCE_DIR}/${TEST})
-    list(APPEND TESTS ${TEST_PATH})
-  endforeach()
-  set_property(GLOBAL APPEND PROPERTY TESTS_PROPERTY ${TESTS})
-endfunction()
-
 add_subdirectory(game)
 add_subdirectory(general)
 add_subdirectory(opengl)

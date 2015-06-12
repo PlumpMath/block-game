@@ -1,4 +1,4 @@
-add_tests(
+add_lightests(
   block
   game
   grid
