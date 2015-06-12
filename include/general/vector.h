@@ -108,11 +108,7 @@ template<int dimensions> bool Vector<dimensions>::operator!=(const Vector<dimens
 }
 
 template<int dimensions> Vector<dimensions> Vector<dimensions>::operator-() const {
-  Vector<dimensions> vector;
-  for (size_t i{0}; i < dimensions; ++i) {
-    vector[i] = -components[i];
-  }
-  return vector;
+  return *this * -1.0F;
 }
 
 template<int dimensions> Vector<dimensions> Vector<dimensions>::operator+(const Vector<dimensions>& vector) const {
