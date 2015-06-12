@@ -14,9 +14,10 @@ void Update(bool& success, bool test_result) {
 }
 
 const size_t kTestDimensions{3};
+typedef block_game::Vector<kTestDimensions> TestVector;
 
 bool TestDefaultConstructor() {
-  const block_game::Vector<kTestDimensions> vector;
+  const TestVector vector;
   float expected[kTestDimensions]{0.0F};
 
   bool success{true};
@@ -31,7 +32,7 @@ bool TestDefaultConstructor() {
 }
 
 bool TestInitializerListConstructor() {
-  const block_game::Vector<kTestDimensions> vector{1.0F, 2.0F, 3.0F};
+  const TestVector vector{1.0F, 2.0F, 3.0F};
   const float expected[]{1.0F, 2.0F, 3.0F};
 
   bool success{true};
@@ -53,7 +54,7 @@ bool TestJSONConstructorNominal() {
 
   bool success{true};
   try {
-    const block_game::Vector<kTestDimensions> vector{value};
+    const TestVector vector{value};
     for (size_t i{0}; i < kTestDimensions; ++i) {
       if (vector[i] != value[i].asFloat()) {
         std::cerr << "JSON constructor failed: element " << i << " is " << vector[i] << " instead of " << value[i] << std::endl;
@@ -73,7 +74,7 @@ bool TestJSONConstructorNonArray() {
   bool success{true};
   bool exception_thrown{false};
   try {
-    const block_game::Vector<kTestDimensions> vector{value};
+    const TestVector vector{value};
   } catch (const std::exception&) {
     exception_thrown = true;
   }
@@ -93,7 +94,7 @@ bool TestJSONConstructorMismatchedDimensions(Json::ArrayIndex num_dimensions) {
   bool success{true};
   bool exception_thrown{false};
   try {
-    const block_game::Vector<kTestDimensions> vector{value};
+    const TestVector vector{value};
   } catch (const std::exception&) {
     exception_thrown = true;
   }
@@ -122,7 +123,7 @@ bool TestJSONConstructorNonNumericChild() {
   bool success{true};
   bool exception_thrown{false};
   try {
-    const block_game::Vector<kTestDimensions> vector{value};
+    const TestVector vector{value};
   } catch (const std::exception&) {
     exception_thrown = true;
   }
@@ -144,8 +145,8 @@ bool TestJSONConstructor() {
 }
 
 bool TestEqualityTrue() {
-  const block_game::Vector<kTestDimensions> vector_0{1.0F, 2.0F, 3.0F};
-  const block_game::Vector<kTestDimensions> vector_1{1.0F, 2.0F, 3.0F};
+  const TestVector vector_0{1.0F, 2.0F, 3.0F};
+  const TestVector vector_1{1.0F, 2.0F, 3.0F};
 
   bool success{vector_0 == vector_1};
   if (!success) {
@@ -155,8 +156,8 @@ bool TestEqualityTrue() {
 }
 
 bool TestEqualityFalse() {
-  const block_game::Vector<kTestDimensions> vector_0{1.0F, 2.0F, 3.0F};
-  const block_game::Vector<kTestDimensions> vector_1{3.0F, 2.0F, 1.0F};
+  const TestVector vector_0{1.0F, 2.0F, 3.0F};
+  const TestVector vector_1{3.0F, 2.0F, 1.0F};
 
   bool success{!(vector_0 == vector_1)};
   if (!success) {
@@ -173,8 +174,8 @@ bool TestEquality() {
 }
 
 bool TestInequalityTrue() {
-  const block_game::Vector<kTestDimensions> vector_0{1.0F, 2.0F, 3.0F};
-  const block_game::Vector<kTestDimensions> vector_1{3.0F, 2.0F, 1.0F};
+  const TestVector vector_0{1.0F, 2.0F, 3.0F};
+  const TestVector vector_1{3.0F, 2.0F, 1.0F};
 
   bool success{vector_0 != vector_1};
   if (!success) {
@@ -184,8 +185,8 @@ bool TestInequalityTrue() {
 }
 
 bool TestInequalityFalse() {
-  const block_game::Vector<kTestDimensions> vector_0{1.0F, 2.0F, 3.0F};
-  const block_game::Vector<kTestDimensions> vector_1{1.0F, 2.0F, 3.0F};
+  const TestVector vector_0{1.0F, 2.0F, 3.0F};
+  const TestVector vector_1{1.0F, 2.0F, 3.0F};
 
   bool success{!(vector_0 != vector_1)};
   if (!success) {
@@ -202,8 +203,8 @@ bool TestInequality() {
 }
 
 bool TestNegation() {
-  const block_game::Vector<kTestDimensions> positive{1.0F, 2.0F, 3.0F};
-  const block_game::Vector<kTestDimensions> expected_negative{-1.0F, -2.0F, -3.0F};
+  const TestVector positive{1.0F, 2.0F, 3.0F};
+  const TestVector expected_negative{-1.0F, -2.0F, -3.0F};
 
   bool success{-positive == expected_negative};
   if (!success) {
@@ -213,9 +214,9 @@ bool TestNegation() {
 }
 
 bool TestAddition() {
-  const block_game::Vector<kTestDimensions> addend_0{1.0F, 2.0F, 3.0F};
-  const block_game::Vector<kTestDimensions> addend_1{4.0F, 5.0F, 6.0F};
-  const block_game::Vector<kTestDimensions> expected_sum{5.0F, 7.0F, 9.0F};
+  const TestVector addend_0{1.0F, 2.0F, 3.0F};
+  const TestVector addend_1{4.0F, 5.0F, 6.0F};
+  const TestVector expected_sum{5.0F, 7.0F, 9.0F};
 
   bool success{addend_0 + addend_1 == expected_sum};
   if (!success) {
@@ -225,9 +226,9 @@ bool TestAddition() {
 }
 
 bool TestSubtraction() {
-  const block_game::Vector<kTestDimensions> minuend{5.0F, 7.0F, 9.0F};
-  const block_game::Vector<kTestDimensions> subtrahend{1.0F, 2.0F, 3.0F};
-  const block_game::Vector<kTestDimensions> expected_difference{4.0F, 5.0F, 6.0F};
+  const TestVector minuend{5.0F, 7.0F, 9.0F};
+  const TestVector subtrahend{1.0F, 2.0F, 3.0F};
+  const TestVector expected_difference{4.0F, 5.0F, 6.0F};
 
   bool success{minuend - subtrahend == expected_difference};
   if (!success) {
@@ -237,9 +238,9 @@ bool TestSubtraction() {
 }
 
 bool TestMultiplication() {
-  const block_game::Vector<kTestDimensions> vector{1.0F, 2.0F, 3.0F};
+  const TestVector vector{1.0F, 2.0F, 3.0F};
   const float scalar{10.0F};
-  const block_game::Vector<kTestDimensions> expected_product{10.0F, 20.0F, 30.0F};
+  const TestVector expected_product{10.0F, 20.0F, 30.0F};
 
   bool success{vector * scalar == expected_product};
   if (!success) {
@@ -249,9 +250,9 @@ bool TestMultiplication() {
 }
 
 bool TestDivision() {
-  const block_game::Vector<kTestDimensions> vector{10.0F, 20.0F, 30.0F};
+  const TestVector vector{10.0F, 20.0F, 30.0F};
   const float scalar{10.0F};
-  const block_game::Vector<kTestDimensions> expected_quotient{1.0F, 2.0F, 3.0F};
+  const TestVector expected_quotient{1.0F, 2.0F, 3.0F};
 
   bool success{vector / scalar == expected_quotient};
   if (!success) {
@@ -261,11 +262,11 @@ bool TestDivision() {
 }
 
 bool TestAdditionAssignment() {
-  block_game::Vector<kTestDimensions> original{1.0F, 2.0F, 3.0F};
-  const block_game::Vector<kTestDimensions> addend{4.0F, 5.0F, 6.0F};
-  const block_game::Vector<kTestDimensions> expected_sum{5.0F, 7.0F, 9.0F};
+  TestVector original{1.0F, 2.0F, 3.0F};
+  const TestVector addend{4.0F, 5.0F, 6.0F};
+  const TestVector expected_sum{5.0F, 7.0F, 9.0F};
 
-  const block_game::Vector<kTestDimensions> sum{original += addend};
+  const TestVector sum{original += addend};
   bool success{original == expected_sum && sum == expected_sum};
   if (!success) {
     std::cerr << "addition assignment operator failed: incorrect result" << std::endl;
@@ -274,11 +275,11 @@ bool TestAdditionAssignment() {
 }
 
 bool TestSubtractionAssignment() {
-  block_game::Vector<kTestDimensions> original{5.0F, 7.0F, 9.0F};
-  const block_game::Vector<kTestDimensions> subtrahend{1.0F, 2.0F, 3.0F};
-  const block_game::Vector<kTestDimensions> expected_difference{4.0F, 5.0F, 6.0F};
+  TestVector original{5.0F, 7.0F, 9.0F};
+  const TestVector subtrahend{1.0F, 2.0F, 3.0F};
+  const TestVector expected_difference{4.0F, 5.0F, 6.0F};
 
-  const block_game::Vector<kTestDimensions> difference{original -= subtrahend};
+  const TestVector difference{original -= subtrahend};
   bool success{original == expected_difference && difference == expected_difference};
   if (!success) {
     std::cerr << "subtraction assignment operator failed: incorrect result" << std::endl;
@@ -287,11 +288,11 @@ bool TestSubtractionAssignment() {
 }
 
 bool TestMultiplicationAssignment() {
-  block_game::Vector<kTestDimensions> original{1.0F, 2.0F, 3.0F};
+  TestVector original{1.0F, 2.0F, 3.0F};
   const float scalar{10.0F};
-  const block_game::Vector<kTestDimensions> expected_product{10.0F, 20.0F, 30.0F};
+  const TestVector expected_product{10.0F, 20.0F, 30.0F};
 
-  const block_game::Vector<kTestDimensions> product{original *= scalar};
+  const TestVector product{original *= scalar};
   bool success{original == expected_product && product == expected_product};
   if (!success) {
     std::cerr << "multiplication assignment operator failed: incorrect result" << std::endl;
@@ -300,11 +301,11 @@ bool TestMultiplicationAssignment() {
 }
 
 bool TestDivisionAssignment() {
-  block_game::Vector<kTestDimensions> original{10.0F, 20.0F, 30.0F};
+  TestVector original{10.0F, 20.0F, 30.0F};
   const float scalar{10.0F};
-  const block_game::Vector<kTestDimensions> expected_quotient{1.0F, 2.0F, 3.0F};
+  const TestVector expected_quotient{1.0F, 2.0F, 3.0F};
 
-  const block_game::Vector<kTestDimensions> quotient{original /= scalar};
+  const TestVector quotient{original /= scalar};
   bool success{original == expected_quotient && quotient == expected_quotient};
   if (!success) {
     std::cerr << "division assignment operator failed: incorrect result" << std::endl;
