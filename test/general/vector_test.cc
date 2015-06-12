@@ -147,24 +147,22 @@ bool TestEqualityTrue() {
   const block_game::Vector<kTestDimensions> vector_0{1.0F, 2.0F, 3.0F};
   const block_game::Vector<kTestDimensions> vector_1{1.0F, 2.0F, 3.0F};
 
-  if (vector_0 == vector_1) {
-    return true;
-  } else {
+  bool success{vector_0 == vector_1};
+  if (!success) {
     std::cerr << "equality operator failed: comparison of equal Vector objects returns false" << std::endl;
-    return false;
   }
+  return success;
 }
 
 bool TestEqualityFalse() {
   const block_game::Vector<kTestDimensions> vector_0{1.0F, 2.0F, 3.0F};
   const block_game::Vector<kTestDimensions> vector_1{3.0F, 2.0F, 1.0F};
 
-  if (vector_0 == vector_1) {
+  bool success{!(vector_0 == vector_1)};
+  if (!success) {
     std::cerr << "equality operator failed: comparison of unequal Vector objects returns true" << std::endl;
-    return false;
-  } else {
-    return true;
   }
+  return success;
 }
 
 bool TestEquality() {
@@ -178,24 +176,22 @@ bool TestInequalityTrue() {
   const block_game::Vector<kTestDimensions> vector_0{1.0F, 2.0F, 3.0F};
   const block_game::Vector<kTestDimensions> vector_1{3.0F, 2.0F, 1.0F};
 
-  if (vector_0 != vector_1) {
-    return true;
-  } else {
+  bool success{vector_0 != vector_1};
+  if (!success) {
     std::cerr << "inequality operator failed: comparison of unequal Vector objects returns false" << std::endl;
-    return false;
   }
+  return success;
 }
 
 bool TestInequalityFalse() {
   const block_game::Vector<kTestDimensions> vector_0{1.0F, 2.0F, 3.0F};
   const block_game::Vector<kTestDimensions> vector_1{1.0F, 2.0F, 3.0F};
 
-  if (vector_0 != vector_1) {
+  bool success{!(vector_0 != vector_1)};
+  if (!success) {
     std::cerr << "inequality operator failed: comparison of equal Vector objects returns true" << std::endl;
-    return false;
-  } else {
-    return true;
   }
+  return success;
 }
 
 bool TestInequality() {
@@ -209,12 +205,11 @@ bool TestNegation() {
   const block_game::Vector<kTestDimensions> positive{1.0F, 2.0F, 3.0F};
   const block_game::Vector<kTestDimensions> negative{-1.0F, -2.0F, -3.0F};
 
-  if (-positive == negative) {
-    return true;
-  } else {
+  bool success{-positive == negative};
+  if (!success) {
     std::cerr << "negation operator failed: incorrect result" << std::endl;
-    return false;
   }
+  return success;
 }
 
 bool TestAddition() {
@@ -222,12 +217,11 @@ bool TestAddition() {
   const block_game::Vector<kTestDimensions> addend_1{4.0F, 5.0F, 6.0F};
   const block_game::Vector<kTestDimensions> expected_sum{5.0F, 7.0F, 9.0F};
 
-  if (addend_0 + addend_1 == expected_sum) {
-    return true;
-  } else {
+  bool success{addend_0 + addend_1 == expected_sum};
+  if (!success) {
     std::cerr << "addition operator failed: incorrect result" << std::endl;
-    return false;
   }
+  return success;
 }
 
 bool TestSubtraction() {
@@ -235,12 +229,11 @@ bool TestSubtraction() {
   const block_game::Vector<kTestDimensions> subtrahend{1.0F, 2.0F, 3.0F};
   const block_game::Vector<kTestDimensions> difference{4.0F, 5.0F, 6.0F};
 
-  if (minuend - subtrahend == difference) {
-    return true;
-  } else {
+  bool success{minuend - subtrahend == difference};
+  if (!success) {
     std::cerr << "subtraction operator failed: incorrect result" << std::endl;
-    return false;
   }
+  return success;
 }
 }
 
