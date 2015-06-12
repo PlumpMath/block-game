@@ -235,6 +235,30 @@ bool TestSubtraction() {
   }
   return success;
 }
+
+bool TestMultiplication() {
+  const block_game::Vector<kTestDimensions> vector{1.0F, 2.0F, 3.0F};
+  const float scalar{10.0F};
+  const block_game::Vector<kTestDimensions> expected_product{10.0F, 20.0F, 30.0F};
+
+  bool success{vector * scalar == expected_product};
+  if (!success) {
+    std::cerr << "multiplication operator failed: incorrect result" << std::endl;
+  }
+  return success;
+}
+
+bool TestDivision() {
+  const block_game::Vector<kTestDimensions> vector{10.0F, 20.0F, 30.0F};
+  const float scalar{10.0F};
+  const block_game::Vector<kTestDimensions> expected_quotient{1.0F, 2.0F, 3.0F};
+
+  bool success{vector / scalar == expected_quotient};
+  if (!success) {
+    std::cerr << "division operator failed: incorrect result" << std::endl;
+  }
+  return success;
+}
 }
 
 int main() {
@@ -251,6 +275,8 @@ int main() {
 
   Update(success, TestAddition());
   Update(success, TestSubtraction());
+  Update(success, TestMultiplication());
+  Update(success, TestDivision());
 
   return success ? EXIT_SUCCESS : EXIT_FAILURE;
 }
