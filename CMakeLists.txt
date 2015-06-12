@@ -61,6 +61,13 @@ add_cmake_dependency(
   INCLUDE include
 )
 
+add_cmake_dependency(
+  NAME lightest
+  URL https://github.com/RedRoboHood/lightest/archive/master.tar.gz
+  SOURCE lightest-master
+  INCLUDE include
+)
+
 include_directories(include)
 
 add_subdirectory(res)
@@ -97,7 +104,7 @@ get_property(TESTS GLOBAL PROPERTY TESTS_PROPERTY)
 foreach(TEST ${TESTS})
   string(REPLACE / _ TEST_ID ${TEST})
   add_executable(${TEST_ID} test/${TEST}_test.cc)
-  target_link_libraries(${TEST_ID} block_game_lib)
+  target_link_libraries(${TEST_ID} block_game_lib lightest)
   set_target_properties(${TEST_ID} PROPERTIES FOLDER test)
   add_test(${TEST} ${TEST_ID})
 endforeach()

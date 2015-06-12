@@ -3,16 +3,13 @@
 #include <iostream>
 
 #include <json/json.h>
+#include <lightest.h>
 
 #include "general/vector.h"
 
-namespace {
-void Update(bool& success, bool test_result) {
-  if (!test_result) {
-    success = false;
-  }
-}
+using lightest::Update;
 
+namespace {
 const size_t kTestDimensions{3};
 typedef block_game::Vector<kTestDimensions> TestVector;
 
