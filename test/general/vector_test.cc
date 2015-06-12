@@ -14,7 +14,7 @@ void Update(bool& success, bool test_result) {
 }
 
 bool TestDefaultConstructor() {
-  block_game::Vector<10> vector;
+  const block_game::Vector<10> vector;
   float expected[10]{0.0F};
 
   bool success{true};
@@ -29,8 +29,8 @@ bool TestDefaultConstructor() {
 }
 
 bool TestInitializerListConstructor() {
-  block_game::Vector<10> vector{1.0F, 2.0F, 3.0F, 4.0F, 5.0F, 6.0F, 7.0F, 8.0F, 9.0F, 10.0F};
-  float expected[]{1.0F, 2.0F, 3.0F, 4.0F, 5.0F, 6.0F, 7.0F, 8.0F, 9.0F, 10.0F};
+  const block_game::Vector<10> vector{1.0F, 2.0F, 3.0F, 4.0F, 5.0F, 6.0F, 7.0F, 8.0F, 9.0F, 10.0F};
+  const float expected[]{1.0F, 2.0F, 3.0F, 4.0F, 5.0F, 6.0F, 7.0F, 8.0F, 9.0F, 10.0F};
 
   bool success{true};
   for (size_t i{0}; i < 10; ++i) {
@@ -58,7 +58,7 @@ bool TestJSONConstructor() {
 
   bool success{true};
   try {
-    block_game::Vector<10> vector{value};
+    const block_game::Vector<10> vector{value};
     for (size_t i{0}; i < 10; ++i) {
       if (vector[i] != value[i].asFloat()) {
         std::cerr << "JSON constructor failed: element " << i << " is " << vector[i] << " instead of " << value[i] << std::endl;
@@ -78,7 +78,7 @@ bool TestJSONConstructorNonArray() {
   bool success{true};
   bool exception_thrown{false};
   try {
-    block_game::Vector<10> vector{value};
+    const block_game::Vector<10> vector{value};
   } catch (const std::exception&) {
     exception_thrown = true;
   }
@@ -98,7 +98,7 @@ bool TestJSONConstructorMismatchedDimensions(Json::ArrayIndex num_dimensions) {
   bool success{true};
   bool exception_thrown{false};
   try {
-    block_game::Vector<10> vector{value};
+    const block_game::Vector<10> vector{value};
   } catch (const std::exception&) {
     exception_thrown = true;
   }
@@ -127,7 +127,7 @@ bool TestJSONConstructorNonNumericChild() {
   bool success{true};
   bool exception_thrown{false};
   try {
-    block_game::Vector<10> vector{value};
+    const block_game::Vector<10> vector{value};
   } catch (const std::exception&) {
     exception_thrown = true;
   }
