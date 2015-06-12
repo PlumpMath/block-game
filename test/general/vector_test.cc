@@ -377,6 +377,30 @@ bool TestIsInColorRange() {
   Update(success, TestIsInColorRangeTooLarge());
   return success;
 }
+
+bool TestNonmemberMultiplication() {
+  const float scalar{10.0F};
+  const TestVector vector{1.0F, 2.0F, 3.0F};
+  const TestVector expected_product{10.0F, 20.0F, 30.0F};
+
+  bool success{scalar * vector == expected_product};
+  if (!success) {
+    std::cerr << "nonmember multiplication operator failed: incorrect result" << std::endl;
+  }
+  return success;
+}
+
+bool TestNonmemberDivision() {
+  const float scalar{30.0F};
+  const TestVector vector{2.0F, 3.0F, 5.0F};
+  const TestVector expected_quotient{15.0F, 10.0F, 6.0F};
+
+  bool success{scalar / vector == expected_quotient};
+  if (!success) {
+    std::cerr << "nonmember division operator failed: incorrect result" << std::endl;
+  }
+  return success;
+}
 }
 
 int main() {
@@ -403,6 +427,9 @@ int main() {
 
   Update(success, TestContainsZero());
   Update(success, TestIsInColorRange());
+
+  Update(success, TestNonmemberMultiplication());
+  Update(success, TestNonmemberDivision());
 
   return success ? EXIT_SUCCESS : EXIT_FAILURE;
 }
