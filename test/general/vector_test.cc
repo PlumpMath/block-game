@@ -213,6 +213,7 @@ bool TestNegative() {
     return true;
   } else {
     std::cerr << "- operator failed: incorrect result" << std::endl;
+    return false;
   }
 }
 }
