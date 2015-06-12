@@ -204,6 +204,17 @@ bool TestNotEquals() {
   Update(success, TestNotEqualsFalse());
   return success;
 }
+
+bool TestNegative() {
+  const block_game::Vector<kTestDimensions> positive{1.0F, 2.0F, 3.0F};
+  const block_game::Vector<kTestDimensions> negative{-1.0F, -2.0F, -3.0F};
+
+  if (-positive == negative) {
+    return true;
+  } else {
+    std::cerr << "- operator failed: incorrect result" << std::endl;
+  }
+}
 }
 
 int main() {
@@ -213,5 +224,6 @@ int main() {
   Update(success, TestJSONConstructor());
   Update(success, TestEquals());
   Update(success, TestNotEquals());
+  Update(success, TestNegative());
   return success ? EXIT_SUCCESS : EXIT_FAILURE;
 }

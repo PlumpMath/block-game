@@ -22,6 +22,8 @@ public:
   bool operator==(const Vector<dimensions>& vector) const;
   bool operator!=(const Vector<dimensions>& vector) const;
 
+  Vector<dimensions> operator-() const;
+
   Vector<dimensions> operator+(const Vector<dimensions>& vector) const;
   Vector<dimensions> operator-(const Vector<dimensions>& vector) const;
   Vector<dimensions> operator*(float scalar) const;
@@ -103,6 +105,14 @@ template<int dimensions> bool Vector<dimensions>::operator==(const Vector<dimens
 
 template<int dimensions> bool Vector<dimensions>::operator!=(const Vector<dimensions>& vector) const {
   return !(*this == vector);
+}
+
+template<int dimensions> Vector<dimensions> Vector<dimensions>::operator-() const {
+  Vector<dimensions> vector;
+  for (size_t i{0}; i < dimensions; ++i) {
+    vector[i] = -components[i];
+  }
+  return vector;
 }
 
 template<int dimensions> Vector<dimensions> Vector<dimensions>::operator+(const Vector<dimensions>& vector) const {
