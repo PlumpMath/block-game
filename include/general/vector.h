@@ -19,6 +19,9 @@ public:
   float operator[](size_t i) const;
   float& operator[](size_t i);
 
+  bool operator==(const Vector<dimensions>& vector) const;
+  bool operator!=(const Vector<dimensions>& vector) const;
+
   Vector<dimensions> operator+(const Vector<dimensions>& vector) const;
   Vector<dimensions> operator-(const Vector<dimensions>& vector) const;
   Vector<dimensions> operator*(float scalar) const;
@@ -87,6 +90,19 @@ template<int dimensions> float& Vector<dimensions>::operator[](const size_t i) {
   assert(i < dimensions);
 
   return components[i];
+}
+
+template<int dimensions> bool Vector<dimensions>::operator==(const Vector<dimensions>& vector) const {
+  for (size_t i{0}; i < dimensions; ++i) {
+    if (components[i] != vector[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+template<int dimensions> bool Vector<dimensions>::operator!=(const Vector<dimensions>& vector) const {
+  return !(*this == vector);
 }
 
 template<int dimensions> Vector<dimensions> Vector<dimensions>::operator+(const Vector<dimensions>& vector) const {
