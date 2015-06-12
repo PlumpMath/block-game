@@ -143,7 +143,7 @@ bool TestJSONConstructor() {
   return success;
 }
 
-bool TestEqualsTrue() {
+bool TestEqualityTrue() {
   const block_game::Vector<kTestDimensions> vector_0{1.0F, 2.0F, 3.0F};
   const block_game::Vector<kTestDimensions> vector_1{1.0F, 2.0F, 3.0F};
 
@@ -155,7 +155,7 @@ bool TestEqualsTrue() {
   }
 }
 
-bool TestEqualsFalse() {
+bool TestEqualityFalse() {
   const block_game::Vector<kTestDimensions> vector_0{1.0F, 2.0F, 3.0F};
   const block_game::Vector<kTestDimensions> vector_1{3.0F, 2.0F, 1.0F};
 
@@ -167,14 +167,14 @@ bool TestEqualsFalse() {
   }
 }
 
-bool TestEquals() {
+bool TestEquality() {
   bool success{true};
-  Update(success, TestEqualsTrue());
-  Update(success, TestEqualsFalse());
+  Update(success, TestEqualityTrue());
+  Update(success, TestEqualityFalse());
   return success;
 }
 
-bool TestNotEqualsTrue() {
+bool TestInequalityTrue() {
   const block_game::Vector<kTestDimensions> vector_0{1.0F, 2.0F, 3.0F};
   const block_game::Vector<kTestDimensions> vector_1{3.0F, 2.0F, 1.0F};
 
@@ -186,7 +186,7 @@ bool TestNotEqualsTrue() {
   }
 }
 
-bool TestNotEqualsFalse() {
+bool TestInequalityFalse() {
   const block_game::Vector<kTestDimensions> vector_0{1.0F, 2.0F, 3.0F};
   const block_game::Vector<kTestDimensions> vector_1{1.0F, 2.0F, 3.0F};
 
@@ -198,14 +198,14 @@ bool TestNotEqualsFalse() {
   }
 }
 
-bool TestNotEquals() {
+bool TestInequality() {
   bool success{true};
-  Update(success, TestNotEqualsTrue());
-  Update(success, TestNotEqualsFalse());
+  Update(success, TestInequalityTrue());
+  Update(success, TestInequalityFalse());
   return success;
 }
 
-bool TestNegative() {
+bool TestNegation() {
   const block_game::Vector<kTestDimensions> positive{1.0F, 2.0F, 3.0F};
   const block_game::Vector<kTestDimensions> negative{-1.0F, -2.0F, -3.0F};
 
@@ -217,7 +217,7 @@ bool TestNegative() {
   }
 }
 
-bool TestPlus() {
+bool TestAddition() {
   const block_game::Vector<kTestDimensions> addend_0{1.0F, 2.0F, 3.0F};
   const block_game::Vector<kTestDimensions> addend_1{4.0F, 5.0F, 6.0F};
   const block_game::Vector<kTestDimensions> expected_sum{5.0F, 7.0F, 9.0F};
@@ -230,7 +230,7 @@ bool TestPlus() {
   }
 }
 
-bool TestMinus() {
+bool TestSubtraction() {
   const block_game::Vector<kTestDimensions> minuend{5.0F, 7.0F, 9.0F};
   const block_game::Vector<kTestDimensions> subtrahend{1.0F, 2.0F, 3.0F};
   const block_game::Vector<kTestDimensions> difference{4.0F, 5.0F, 6.0F};
@@ -251,13 +251,13 @@ int main() {
   Update(success, TestInitializerListConstructor());
   Update(success, TestJSONConstructor());
 
-  Update(success, TestEquals());
-  Update(success, TestNotEquals());
+  Update(success, TestEquality());
+  Update(success, TestInequality());
 
-  Update(success, TestNegative());
+  Update(success, TestNegation());
 
-  Update(success, TestPlus());
-  Update(success, TestMinus());
+  Update(success, TestAddition());
+  Update(success, TestSubtraction());
 
   return success ? EXIT_SUCCESS : EXIT_FAILURE;
 }
