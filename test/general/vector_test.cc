@@ -246,13 +246,18 @@ bool TestMinus() {
 
 int main() {
   bool success{true};
+
   Update(success, TestDefaultConstructor());
   Update(success, TestInitializerListConstructor());
   Update(success, TestJSONConstructor());
+
   Update(success, TestEquals());
   Update(success, TestNotEquals());
+
   Update(success, TestNegative());
+
   Update(success, TestPlus());
   Update(success, TestMinus());
+
   return success ? EXIT_SUCCESS : EXIT_FAILURE;
 }
