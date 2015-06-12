@@ -203,9 +203,9 @@ bool TestInequality() {
 
 bool TestNegation() {
   const block_game::Vector<kTestDimensions> positive{1.0F, 2.0F, 3.0F};
-  const block_game::Vector<kTestDimensions> negative{-1.0F, -2.0F, -3.0F};
+  const block_game::Vector<kTestDimensions> expected_negative{-1.0F, -2.0F, -3.0F};
 
-  bool success{-positive == negative};
+  bool success{-positive == expected_negative};
   if (!success) {
     std::cerr << "negation operator failed: incorrect result" << std::endl;
   }
@@ -227,9 +227,9 @@ bool TestAddition() {
 bool TestSubtraction() {
   const block_game::Vector<kTestDimensions> minuend{5.0F, 7.0F, 9.0F};
   const block_game::Vector<kTestDimensions> subtrahend{1.0F, 2.0F, 3.0F};
-  const block_game::Vector<kTestDimensions> difference{4.0F, 5.0F, 6.0F};
+  const block_game::Vector<kTestDimensions> expected_difference{4.0F, 5.0F, 6.0F};
 
-  bool success{minuend - subtrahend == difference};
+  bool success{minuend - subtrahend == expected_difference};
   if (!success) {
     std::cerr << "subtraction operator failed: incorrect result" << std::endl;
   }
