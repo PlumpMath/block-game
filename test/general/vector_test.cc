@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include <json/json.h>
-#include <lightest.h>
+#include <lightest/lightest.h>
 
 #include "general/vector.h"
 
