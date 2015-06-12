@@ -8,8 +8,8 @@
 
 namespace {
 void Update(bool& success, bool test_result) {
-  if (test_result) {
-    success = true;
+  if (!test_result) {
+    success = false;
   }
 }
 
