@@ -150,7 +150,7 @@ bool TestEqualsTrue() {
   if (vector_0 == vector_1) {
     return true;
   } else {
-    std::cerr << "== operator failed: comparison of equal Vector objects returns false";
+    std::cerr << "== operator failed: comparison of equal Vector objects returns false" << std::endl;
     return false;
   }
 }
@@ -160,7 +160,7 @@ bool TestEqualsFalse() {
   const block_game::Vector<kTestDimensions> vector_1{3.0F, 2.0F, 1.0F};
 
   if (vector_0 == vector_1) {
-    std::cerr << "== operator failed: comparison of unequal Vector objects returns true";
+    std::cerr << "== operator failed: comparison of unequal Vector objects returns true" << std::endl;
     return false;
   } else {
     return true;
@@ -181,7 +181,7 @@ bool TestNotEqualsTrue() {
   if (vector_0 != vector_1) {
     return true;
   } else {
-    std::cerr << "!= operator failed: comparison of unequal Vector objects returns false";
+    std::cerr << "!= operator failed: comparison of unequal Vector objects returns false" << std::endl;
     return false;
   }
 }
@@ -191,7 +191,7 @@ bool TestNotEqualsFalse() {
   const block_game::Vector<kTestDimensions> vector_1{1.0F, 2.0F, 3.0F};
 
   if (vector_0 != vector_1) {
-    std::cerr << "!= operator failed: comparison of equal Vector objects returns true";
+    std::cerr << "!= operator failed: comparison of equal Vector objects returns true" << std::endl;
     return false;
   } else {
     return true;
