@@ -312,6 +312,71 @@ bool TestDivisionAssignment() {
   }
   return success;
 }
+
+bool TestContainsZeroTrue() {
+  const TestVector vector{1.0F, 0.0F, 1.0F};
+
+  bool success{vector.ContainsZero()};
+  if (!success) {
+    std::cerr << "ContainsZero failed: returns false for a Vector containing zero" << std::endl;
+  }
+  return success;
+}
+
+bool TestContainsZeroFalse() {
+  const TestVector vector{1.0F, 2.0F, 3.0F};
+
+  bool success{!vector.ContainsZero()};
+  if (!success) {
+    std::cerr << "ContainsZero failed: returns true for a Vector not containing zero" << std::endl;
+  }
+  return success;
+}
+
+bool TestContainsZero() {
+  bool success{true};
+  Update(success, TestContainsZeroTrue());
+  Update(success, TestContainsZeroFalse());
+  return success;
+}
+
+bool TestIsInColorRangeTrue() {
+  const TestVector vector{0.0F, 0.5F, 1.0F};
+
+  bool success{vector.IsInColorRange()};
+  if (!success) {
+    std::cerr << "IsInColorRange failed: returns false for a Vector in color range" << std::endl;
+  }
+  return success;
+}
+
+bool TestIsInColorRangeTooSmall() {
+  const TestVector vector{0.0F, -1.0F, -2.0F};
+
+  bool success{!vector.IsInColorRange()};
+  if (!success) {
+    std::cerr << "IsInColorRange failed: returns true for a Vector with element smaller than color range" << std::endl;
+  }
+  return success;
+}
+
+bool TestIsInColorRangeTooLarge() {
+  const TestVector vector{0.0F, 1.0F, 2.0F};
+
+  bool success{!vector.IsInColorRange()};
+  if (!success) {
+    std::cerr << "IsInColorRange failed: returns true for a Vector with element larger than color range" << std::endl;
+  }
+  return success;
+}
+
+bool TestIsInColorRange() {
+  bool success{true};
+  Update(success, TestIsInColorRangeTrue());
+  Update(success, TestIsInColorRangeTooSmall());
+  Update(success, TestIsInColorRangeTooLarge());
+  return success;
+}
 }
 
 int main() {
@@ -335,6 +400,9 @@ int main() {
   Update(success, TestSubtractionAssignment());
   Update(success, TestMultiplicationAssignment());
   Update(success, TestDivisionAssignment());
+
+  Update(success, TestContainsZero());
+  Update(success, TestIsInColorRange());
 
   return success ? EXIT_SUCCESS : EXIT_FAILURE;
 }
