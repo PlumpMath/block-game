@@ -124,11 +124,7 @@ template<int dimensions> Vector<dimensions> Vector<dimensions>::operator+(const 
 }
 
 template<int dimensions> Vector<dimensions> Vector<dimensions>::operator-(const Vector<dimensions>& vector) const {
-  Vector<dimensions> new_vector;
-  for (size_t i{0}; i < dimensions; ++i) {
-    new_vector[i] = components[i] - vector[i];
-  }
-  return new_vector;
+  return *this + -vector;
 }
 
 template<int dimensions> Vector<dimensions> Vector<dimensions>::operator*(const float scalar) const {
@@ -150,33 +146,21 @@ template<int dimensions> Vector<dimensions> Vector<dimensions>::operator/(const 
 }
 
 template<int dimensions> Vector<dimensions>& Vector<dimensions>::operator+=(const Vector<dimensions>& vector) {
-  for (size_t i{0}; i < dimensions; ++i) {
-    components[i] += vector[i];
-  }
-  return *this;
+  return *this = *this + vector;
 }
 
 template<int dimensions> Vector<dimensions>& Vector<dimensions>::operator-=(const Vector<dimensions>& vector) {
-  for (size_t i{0}; i < dimensions; ++i) {
-    components[i] -= vector[i];
-  }
-  return *this;
+  return *this = *this - vector;
 }
 
 template<int dimensions> Vector<dimensions>& Vector<dimensions>::operator*=(const float scalar) {
-  for (size_t i{0}; i < dimensions; ++i) {
-    components[i] *= scalar;
-  }
-  return *this;
+  return *this = *this * scalar;
 }
 
 template<int dimensions> Vector<dimensions>& Vector<dimensions>::operator/=(const float scalar) {
   assert(scalar != 0.0F);
 
-  for (size_t i{0}; i < dimensions; ++i) {
-    components[i] /= scalar;
-  }
-  return *this;
+  return *this = *this / scalar;
 }
 
 template<int dimensions> bool Vector<dimensions>::ContainsZero() const {
@@ -237,11 +221,7 @@ template<int dimensions> void Vector<dimensions>::RotateAboutZ(const float angle
 }
 
 template<int dimensions> Vector<dimensions> operator*(const float scalar, const Vector<dimensions>& vector) {
-  Vector<dimensions> new_vector;
-  for (size_t i{0}; i < dimensions; ++i) {
-    new_vector[i] = scalar * vector[i];
-  }
-  return new_vector;
+  return vector * scalar;
 }
 
 template<int dimensions> Vector<dimensions> operator/(const float scalar, const Vector<dimensions>& vector) {
