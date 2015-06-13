@@ -31,12 +31,75 @@ bool TestDefaultConstructor() {
   }
   return success;
 }
+
+bool TestEqualityTrue() {
+  const TestMatrix matrix_0;
+  const TestMatrix matrix_1;
+
+  const bool success{matrix_0 == matrix_1};
+  if (!success) {
+    std::cerr << "equality operator failed: comparison of equal Matrix objects returns false" << std::endl;
+  }
+  return success;
+}
+
+bool TestEqualityFalse() {
+  const TestMatrix matrix_0;
+  TestMatrix matrix_1;
+  matrix_1[1][1] = 0.0F;
+
+  const bool success{!(matrix_0 == matrix_1)};
+  if (!success) {
+    std::cerr << "equality operator failed: comparison of unequal Matrix objects returns true" << std::endl;
+  }
+  return success;
+}
+
+bool TestEquality() {
+  bool success{true};
+  Update(success, TestEqualityTrue());
+  Update(success, TestEqualityFalse());
+  return success;
+}
+
+bool TestInequalityTrue() {
+  const TestMatrix matrix_0;
+  TestMatrix matrix_1;
+  matrix_1[1][1] = 0.0F;
+
+  const bool success{matrix_0 != matrix_1};
+  if (!success) {
+    std::cerr << "inequality operator failed: comparison of unequal Matrix objects returns false" << std::endl;
+  }
+  return success;
+}
+
+bool TestInequalityFalse() {
+  const TestMatrix matrix_0;
+  const TestMatrix matrix_1;
+
+  const bool success{!(matrix_0 != matrix_1)};
+  if (!success) {
+    std::cerr << "inequality operator failed: comparison of equal Matrix objects returns true" << std::endl;
+  }
+  return success;
+}
+
+bool TestInequality() {
+  bool success{true};
+  Update(success, TestInequalityTrue());
+  Update(success, TestInequalityFalse());
+  return success;
+}
 }
 
 int main() {
   bool success{true};
 
   Update(success, TestDefaultConstructor());
+
+  Update(success, TestEquality());
+  Update(success, TestInequality());
 
   return success ? EXIT_SUCCESS : EXIT_FAILURE;
 }

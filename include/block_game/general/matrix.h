@@ -14,6 +14,9 @@ public:
   const float* operator[](size_t i) const;
   float* operator[](size_t i);
 
+  bool operator==(const Matrix<order>& matrix) const;
+  bool operator!=(const Matrix<order>& matrix) const;
+
   Matrix<order> operator+(const Matrix<order>& matrix) const;
   Matrix<order> operator-(const Matrix<order>& matrix) const;
 
@@ -48,6 +51,21 @@ template<int order> float* Matrix<order>::operator[](const size_t i) {
   assert(i < order);
 
   return elements[i];
+}
+
+template<int order> bool Matrix<order>::operator==(const Matrix<order>& matrix) const {
+  for (size_t i = 0; i < order; ++i) {
+    for (size_t j = 0; j < order; ++j) {
+      if (elements[i][j] != matrix[i][j]) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+template<int order> bool Matrix<order>::operator!=(const Matrix<order>& matrix) const {
+  return !(*this == matrix);
 }
 
 template<int order> Matrix<order> Matrix<order>::operator+(const Matrix<order>& matrix) const {
