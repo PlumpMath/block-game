@@ -18,7 +18,7 @@ function(add_cmake_dependency)
   set(ACD_SOURCE_ABSOLUTE ${ACD_DIRECTORY_ABSOLUTE}/${ACD_SOURCE})
   set(ACD_CMAKE_LISTS_ABSOLUTE ${ACD_SOURCE_ABSOLUTE}/CMakeLists.txt)
   set(ACD_INCLUDE_ABSOLUTE ${ACD_SOURCE_ABSOLUTE}/${ACD_INCLUDE})
-  set(ACD_BINARY_ABSOLUTE ${ACD_DIRECTORY_ABSOLUTE}/bin)
+  set(ACD_BUILD_ABSOLUTE ${ACD_DIRECTORY_ABSOLUTE}/build)
 
   if(NOT EXISTS ${ACD_CMAKE_LISTS_ABSOLUTE})
     message(STATUS "Downloading ${ACD_URL}")
@@ -36,7 +36,7 @@ function(add_cmake_dependency)
   # cause CMake to automatically rerun when non-CMake dependency is deleted
   file(APPEND ${ACD_CMAKE_LISTS_ABSOLUTE})
 
-  add_subdirectory(${ACD_SOURCE_ABSOLUTE} ${ACD_BINARY_ABSOLUTE})
+  add_subdirectory(${ACD_SOURCE_ABSOLUTE} ${ACD_BUILD_ABSOLUTE})
 endfunction()
 
 add_cmake_dependency(
