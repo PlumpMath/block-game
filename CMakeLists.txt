@@ -63,7 +63,7 @@ add_cmake_dependency(
 
 add_cmake_dependency(
   NAME lightest
-  URL https://github.com/RedRoboHood/lightest/archive/master.tar.gz
+  URL https://github.com/redrobohood/lightest/archive/master.tar.gz
   SOURCE lightest-master
   INCLUDE include
 )
