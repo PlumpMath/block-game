@@ -1,4 +1,4 @@
-#include "opengl/buffer.h"
+#include "block_game/opengl/buffer.h"
 
 #include <algorithm>
 #include <cassert>
@@ -6,7 +6,7 @@
 
 #include <glad/glad.h>
 
-#include "opengl/vertex_attribute.h"
+#include "block_game/opengl/vertex_attribute.h"
 
 namespace block_game {
 Buffer::Buffer(const GLenum target, const GLsizeiptr size, const GLenum usage) :

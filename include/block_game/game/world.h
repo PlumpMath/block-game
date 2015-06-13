@@ -4,9 +4,9 @@
 #include <istream>
 #include <vector>
 
-#include "game/grid.h"
-#include "general/camera.h"
-#include "opengl/program.h"
+#include "block_game/game/grid.h"
+#include "block_game/general/camera.h"
+#include "block_game/opengl/program.h"
 
 namespace block_game {
 class World {

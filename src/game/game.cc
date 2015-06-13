@@ -1,11 +1,11 @@
-#include "game/game.h"
+#include "block_game/game/game.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "game/world.h"
-#include "general/camera.h"
-#include "general/vector.h"
+#include "block_game/game/world.h"
+#include "block_game/general/camera.h"
+#include "block_game/general/vector.h"
 
 namespace {
 const float kMouseSensitivity{0.001F};

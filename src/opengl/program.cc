@@ -1,4 +1,4 @@
-#include "opengl/program.h"
+#include "block_game/opengl/program.h"
 
 #include <algorithm>
 #include <cassert>
@@ -8,10 +8,10 @@
 
 #include <glad/glad.h>
 
-#include "general/matrix.h"
-#include "general/vector.h"
-#include "opengl/buffer.h"
-#include "opengl/vertex_attribute.h"
+#include "block_game/general/matrix.h"
+#include "block_game/general/vector.h"
+#include "block_game/opengl/buffer.h"
+#include "block_game/opengl/vertex_attribute.h"
 
 namespace {
 std::string GetSource(const GLuint shader_id) {

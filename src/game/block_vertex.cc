@@ -1,8 +1,8 @@
-#include "game/block_vertex.h"
+#include "block_game/game/block_vertex.h"
 
 #include <cassert>
 
-#include "general/vector.h"
+#include "block_game/general/vector.h"
 
 namespace block_game {
 BlockVertex::BlockVertex(const Vector<3>& position, const Vector<3>& normal, const Vector<3>& color) :

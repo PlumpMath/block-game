@@ -4,9 +4,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "game/world.h"
-#include "general/camera.h"
-#include "general/vector.h"
+#include "block_game/game/world.h"
+#include "block_game/general/camera.h"
+#include "block_game/general/vector.h"
 
 namespace block_game {
 class Game {

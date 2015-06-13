@@ -5,7 +5,7 @@
 #include <json/json.h>
 #include <lightest/lightest.h>
 
-#include "general/vector.h"
+#include "block_game/general/vector.h"
 
 using lightest::Update;
 

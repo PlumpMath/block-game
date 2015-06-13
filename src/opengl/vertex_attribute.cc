@@ -1,4 +1,4 @@
-#include "opengl/vertex_attribute.h"
+#include "block_game/opengl/vertex_attribute.h"
 
 #include <cassert>
 #include <string>

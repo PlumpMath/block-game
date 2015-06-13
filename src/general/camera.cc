@@ -1,4 +1,4 @@
-#include "general/camera.h"
+#include "block_game/general/camera.h"
 
 #include <algorithm>
 #include <cassert>
@@ -6,9 +6,9 @@
 
 #include <json/json.h>
 
-#include "general/math.h"
-#include "general/matrix.h"
-#include "general/vector.h"
+#include "block_game/general/math.h"
+#include "block_game/general/matrix.h"
+#include "block_game/general/vector.h"
 
 namespace block_game {
 Camera::Camera() :

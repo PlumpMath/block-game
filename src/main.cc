@@ -5,7 +5,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "game/game.h"
+#include "block_game/game/game.h"
 
 namespace {
 block_game::Game* game;

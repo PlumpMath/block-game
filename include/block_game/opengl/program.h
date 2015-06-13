@@ -6,7 +6,7 @@
 
 #include <glad/glad.h>
 
-#include "opengl/vertex_attribute.h"
+#include "block_game/opengl/vertex_attribute.h"
 
 namespace block_game {
 class Buffer;

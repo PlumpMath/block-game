@@ -3,8 +3,8 @@
 
 #include <json/json.h>
 
-#include "general/matrix.h"
-#include "general/vector.h"
+#include "block_game/general/matrix.h"
+#include "block_game/general/vector.h"
 
 namespace block_game {
 class Camera {

@@ -1,4 +1,4 @@
-#include "game/world.h"
+#include "block_game/game/world.h"
 
 #include <cassert>
 #include <exception>
@@ -13,10 +13,10 @@
 #include <glad/glad.h>
 #include <json/json.h>
 
-#include "general/camera.h"
-#include "general/vector.h"
-#include "opengl/program.h"
-#include "shader/shaders.h"
+#include "block_game/general/camera.h"
+#include "block_game/general/vector.h"
+#include "block_game/opengl/program.h"
+#include "block_game/shader/shaders.h"
 
 namespace {
 const std::string world_json{

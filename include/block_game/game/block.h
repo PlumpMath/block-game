@@ -5,8 +5,8 @@
 
 #include <json/json.h>
 
-#include "game/block_vertex.h"
-#include "general/vector.h"
+#include "block_game/game/block_vertex.h"
+#include "block_game/general/vector.h"
 
 namespace block_game {
 class Grid;

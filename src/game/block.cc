@@ -1,4 +1,4 @@
-#include "game/block.h"
+#include "block_game/game/block.h"
 
 #include <cassert>
 #include <stdexcept>
@@ -6,9 +6,9 @@
 
 #include <json/json.h>
 
-#include "game/block_vertex.h"
-#include "game/grid.h"
-#include "general/vector.h"
+#include "block_game/game/block_vertex.h"
+#include "block_game/game/grid.h"
+#include "block_game/general/vector.h"
 
 namespace {
 const block_game::Vector<3> points[]{

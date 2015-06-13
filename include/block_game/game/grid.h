@@ -3,9 +3,9 @@
 
 #include <json/json.h>
 
-#include "game/block.h"
-#include "general/vector.h"
-#include "opengl/buffer.h"
+#include "block_game/game/block.h"
+#include "block_game/general/vector.h"
+#include "block_game/opengl/buffer.h"
 
 namespace block_game {
 class Program;

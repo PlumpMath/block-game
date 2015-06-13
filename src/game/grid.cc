@@ -1,4 +1,4 @@
-#include "game/grid.h"
+#include "block_game/game/grid.h"
 
 #include <cassert>
 #include <vector>
@@ -6,12 +6,12 @@
 #include <glad/glad.h>
 #include <json/json.h>
 
-#include "game/block_vertex.h"
-#include "general/matrix.h"
-#include "general/vector.h"
-#include "opengl/buffer.h"
-#include "opengl/program.h"
-#include "opengl/vertex_attribute.h"
+#include "block_game/game/block_vertex.h"
+#include "block_game/general/matrix.h"
+#include "block_game/general/vector.h"
+#include "block_game/opengl/buffer.h"
+#include "block_game/opengl/program.h"
+#include "block_game/opengl/vertex_attribute.h"
 
 namespace block_game {
 Grid::Grid(const float radius) :
