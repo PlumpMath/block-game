@@ -116,6 +116,54 @@ bool TestInequality() {
   Update(success, TestInequalityFalse());
   return success;
 }
+
+bool TestAddition() {
+  const TestMatrix addend_0{
+    1.0F, 2.0F, 3.0F,
+    4.0F, 5.0F, 6.0F,
+    7.0F, 8.0F, 9.0F
+  };
+  const TestMatrix addend_1{
+    10.0F, 11.0F, 12.0F,
+    13.0F, 14.0F, 15.0F,
+    16.0F, 17.0F, 18.0F
+  };
+  const TestMatrix expected_sum{
+    11.0F, 13.0F, 15.0F,
+    17.0F, 19.0F, 21.0F,
+    23.0F, 25.0F, 27.0F
+  };
+
+  const bool success{addend_0 + addend_1 == expected_sum};
+  if (!success) {
+    std::cerr << "addition operator failed: incorrect result" << std::endl;
+  }
+  return success;
+}
+
+bool TestSubtraction() {
+  const TestMatrix minuend{
+    11.0F, 13.0F, 15.0F,
+    17.0F, 19.0F, 21.0F,
+    23.0F, 25.0F, 27.0F
+  };
+  const TestMatrix subtrahend{
+    1.0F, 2.0F, 3.0F,
+    4.0F, 5.0F, 6.0F,
+    7.0F, 8.0F, 9.0F
+  };
+  const TestMatrix expected_difference{
+    10.0F, 11.0F, 12.0F,
+    13.0F, 14.0F, 15.0F,
+    16.0F, 17.0F, 18.0F
+  };
+
+  const bool success{minuend - subtrahend == expected_difference};
+  if (!success) {
+    std::cerr << "subtraction operator failed: incorrect result" << std::endl;
+  }
+  return success;
+}
 }
 
 int main() {
@@ -126,6 +174,9 @@ int main() {
 
   Update(success, TestEquality());
   Update(success, TestInequality());
+
+  Update(success, TestAddition());
+  Update(success, TestSubtraction());
 
   return success ? EXIT_SUCCESS : EXIT_FAILURE;
 }
