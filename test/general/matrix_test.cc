@@ -32,6 +32,31 @@ bool TestDefaultConstructor() {
   return success;
 }
 
+bool TestInitializerListConstructor() {
+  const TestMatrix matrix{
+    9.0F, 8.0F, 7.0F,
+    6.0F, 5.0F, 4.0F,
+    3.0F, 2.0F, 1.0F
+  };
+  const float expected[kTestOrder][kTestOrder]{
+    {9.0F, 8.0F, 7.0F},
+    {6.0F, 5.0F, 4.0F},
+    {3.0F, 2.0F, 1.0F}
+  };
+
+  bool success{true};
+  for (size_t i{0}; i < kTestOrder; ++i) {
+    for (size_t j{0}; j < kTestOrder; ++j) {
+      if (matrix[i][j] != expected[i][j]) {
+        std::cerr << "initializer list constructor failed: ";
+        std::cerr << "element [" << i << "][" << j << "] is " << matrix[i][j] << " instead of " << expected[i][j] << std::endl;
+        success = false;
+      }
+    }
+  }
+  return success;
+}
+
 bool TestEqualityTrue() {
   const TestMatrix matrix_0;
   const TestMatrix matrix_1;
@@ -97,6 +122,7 @@ int main() {
   bool success{true};
 
   Update(success, TestDefaultConstructor());
+  Update(success, TestInitializerListConstructor());
 
   Update(success, TestEquality());
   Update(success, TestInequality());

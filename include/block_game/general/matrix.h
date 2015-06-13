@@ -10,6 +10,7 @@ public:
   static_assert(0 < order, "Matrix with nonpositive order");
 
   Matrix();
+  Matrix(const std::initializer_list<float>& initial_components);
 
   const float* operator[](size_t i) const;
   float* operator[](size_t i);
@@ -38,6 +39,16 @@ template<int order> Matrix<order>::Matrix() {
     for (size_t j = 0; j < order; ++j) {
       elements[i][j] = i == j ? 1.0F : 0.0F;
     }
+  }
+}
+
+template<int order> Matrix<order>::Matrix(const std::initializer_list<float>& initial_elements) {
+  assert(initial_elements.size() == order * order);
+
+  size_t i{0};
+  for (const float element : initial_elements) {
+    elements[i / order][i % order] = element;
+    ++i;
   }
 }
 
