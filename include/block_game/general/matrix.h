@@ -100,10 +100,11 @@ template<int order> Matrix<order> Matrix<order>::operator-(const Matrix<order>& 
 }
 
 template<int order> Matrix<order> Matrix<order>::operator*(const Matrix<order>& matrix) const {
-  Matrix<order> result;
-  for (size_t i = 0; i < order; ++i) {
-    result[i][i] = 0.0F;
-  }
+  Matrix<order> result{
+    0.0F, 0.0F, 0.0F,
+    0.0F, 0.0F, 0.0F,
+    0.0F, 0.0F, 0.0F
+  };
   for (size_t i = 0; i < order; ++i) {
     for (size_t j = 0; j < order; ++j) {
       for (size_t k = 0; k < order; ++k) {
