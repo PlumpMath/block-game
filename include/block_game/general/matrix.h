@@ -116,21 +116,11 @@ template<int order> Matrix<order> Matrix<order>::operator*(const Matrix<order>& 
 }
 
 template<int order> Matrix<order>& Matrix<order>::operator+=(const Matrix<order>& matrix) {
-  for (size_t i = 0; i < order; ++i) {
-    for (size_t j = 0; j < order; ++j) {
-      elements[i][j] += matrix[i][j];
-    }
-  }
-  return *this;
+  return *this = *this + matrix;
 }
 
 template<int order> Matrix<order>& Matrix<order>::operator-=(const Matrix<order>& matrix) {
-  for (size_t i = 0; i < order; ++i) {
-    for (size_t j = 0; j < order; ++j) {
-      elements[i][j] -= matrix[i][j];
-    }
-  }
-  return *this;
+  return *this = *this - matrix;
 }
 
 template<int order> void Matrix<order>::RotateAboutX(const float angle) {
