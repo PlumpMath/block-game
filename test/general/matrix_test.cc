@@ -164,6 +164,30 @@ bool TestSubtraction() {
   }
   return success;
 }
+
+bool TestMultiplication() {
+  const TestMatrix left{
+    10.0F, 10.0F, 10.0F,
+    10.0F, 0.0F, 0.0F,
+    10.0F, 0.0F, 0.0F
+  };
+  const TestMatrix right{
+    0.0F, 0.0F, 10.0F,
+    0.0F, 0.0F, 10.0F,
+    10.0F, 10.0F, 10.0F
+  };
+  const TestMatrix expected_product{
+    100.0F, 100.0F, 300.0F,
+    0.0F, 0.0F, 100.0F,
+    0.0F, 0.0F, 100.0F
+  };
+
+  const bool success{left * right == expected_product};
+  if (!success) {
+    std::cerr << "multiplication operator failed: incorrect result" << std::endl;
+  }
+  return success;
+}
 }
 
 int main() {
@@ -177,6 +201,8 @@ int main() {
 
   Update(success, TestAddition());
   Update(success, TestSubtraction());
+
+  Update(success, TestMultiplication());
 
   return success ? EXIT_SUCCESS : EXIT_FAILURE;
 }
