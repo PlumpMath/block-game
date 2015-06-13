@@ -1,4 +1,3 @@
-#include <cstdlib>
 #include <exception>
 #include <iostream>
 
@@ -428,5 +427,5 @@ int main() {
   Update(success, TestNonmemberMultiplication());
   Update(success, TestNonmemberDivision());
 
-  return success ? EXIT_SUCCESS : EXIT_FAILURE;
+  return lightest::ToExitStatus(success);
 }

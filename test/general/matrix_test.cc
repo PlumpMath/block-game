@@ -1,4 +1,3 @@
-#include <cstdlib>
 #include <iostream>
 
 #include <lightest/lightest.h>
@@ -257,5 +256,5 @@ int main() {
   Update(success, TestAdditionAssignment());
   Update(success, TestSubtractionAssignment());
 
-  return success ? EXIT_SUCCESS : EXIT_FAILURE;
+  return lightest::ToExitStatus(success);
 }
