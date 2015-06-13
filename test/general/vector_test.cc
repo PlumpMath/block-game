@@ -145,7 +145,7 @@ bool TestEqualityTrue() {
   const TestVector vector_0{1.0F, 2.0F, 3.0F};
   const TestVector vector_1{1.0F, 2.0F, 3.0F};
 
-  bool success{vector_0 == vector_1};
+  const bool success{vector_0 == vector_1};
   if (!success) {
     std::cerr << "equality operator failed: comparison of equal Vector objects returns false" << std::endl;
   }
@@ -156,7 +156,7 @@ bool TestEqualityFalse() {
   const TestVector vector_0{1.0F, 2.0F, 3.0F};
   const TestVector vector_1{3.0F, 2.0F, 1.0F};
 
-  bool success{!(vector_0 == vector_1)};
+  const bool success{!(vector_0 == vector_1)};
   if (!success) {
     std::cerr << "equality operator failed: comparison of unequal Vector objects returns true" << std::endl;
   }
@@ -174,7 +174,7 @@ bool TestInequalityTrue() {
   const TestVector vector_0{1.0F, 2.0F, 3.0F};
   const TestVector vector_1{3.0F, 2.0F, 1.0F};
 
-  bool success{vector_0 != vector_1};
+  const bool success{vector_0 != vector_1};
   if (!success) {
     std::cerr << "inequality operator failed: comparison of unequal Vector objects returns false" << std::endl;
   }
@@ -185,7 +185,7 @@ bool TestInequalityFalse() {
   const TestVector vector_0{1.0F, 2.0F, 3.0F};
   const TestVector vector_1{1.0F, 2.0F, 3.0F};
 
-  bool success{!(vector_0 != vector_1)};
+  const bool success{!(vector_0 != vector_1)};
   if (!success) {
     std::cerr << "inequality operator failed: comparison of equal Vector objects returns true" << std::endl;
   }
@@ -203,7 +203,7 @@ bool TestNegation() {
   const TestVector positive{1.0F, 2.0F, 3.0F};
   const TestVector expected_negative{-1.0F, -2.0F, -3.0F};
 
-  bool success{-positive == expected_negative};
+  const bool success{-positive == expected_negative};
   if (!success) {
     std::cerr << "negation operator failed: incorrect result" << std::endl;
   }
@@ -215,7 +215,7 @@ bool TestAddition() {
   const TestVector addend_1{4.0F, 5.0F, 6.0F};
   const TestVector expected_sum{5.0F, 7.0F, 9.0F};
 
-  bool success{addend_0 + addend_1 == expected_sum};
+  const bool success{addend_0 + addend_1 == expected_sum};
   if (!success) {
     std::cerr << "addition operator failed: incorrect result" << std::endl;
   }
@@ -227,7 +227,7 @@ bool TestSubtraction() {
   const TestVector subtrahend{1.0F, 2.0F, 3.0F};
   const TestVector expected_difference{4.0F, 5.0F, 6.0F};
 
-  bool success{minuend - subtrahend == expected_difference};
+  const bool success{minuend - subtrahend == expected_difference};
   if (!success) {
     std::cerr << "subtraction operator failed: incorrect result" << std::endl;
   }
@@ -239,7 +239,7 @@ bool TestMultiplication() {
   const float scalar{10.0F};
   const TestVector expected_product{10.0F, 20.0F, 30.0F};
 
-  bool success{vector * scalar == expected_product};
+  const bool success{vector * scalar == expected_product};
   if (!success) {
     std::cerr << "multiplication operator failed: incorrect result" << std::endl;
   }
@@ -251,7 +251,7 @@ bool TestDivision() {
   const float scalar{10.0F};
   const TestVector expected_quotient{1.0F, 2.0F, 3.0F};
 
-  bool success{vector / scalar == expected_quotient};
+  const bool success{vector / scalar == expected_quotient};
   if (!success) {
     std::cerr << "division operator failed: incorrect result" << std::endl;
   }
@@ -264,7 +264,7 @@ bool TestAdditionAssignment() {
   const TestVector expected_sum{5.0F, 7.0F, 9.0F};
 
   const TestVector sum{original += addend};
-  bool success{original == expected_sum && sum == expected_sum};
+  const bool success{original == expected_sum && sum == expected_sum};
   if (!success) {
     std::cerr << "addition assignment operator failed: incorrect result" << std::endl;
   }
@@ -277,7 +277,7 @@ bool TestSubtractionAssignment() {
   const TestVector expected_difference{4.0F, 5.0F, 6.0F};
 
   const TestVector difference{original -= subtrahend};
-  bool success{original == expected_difference && difference == expected_difference};
+  const bool success{original == expected_difference && difference == expected_difference};
   if (!success) {
     std::cerr << "subtraction assignment operator failed: incorrect result" << std::endl;
   }
@@ -290,7 +290,7 @@ bool TestMultiplicationAssignment() {
   const TestVector expected_product{10.0F, 20.0F, 30.0F};
 
   const TestVector product{original *= scalar};
-  bool success{original == expected_product && product == expected_product};
+  const bool success{original == expected_product && product == expected_product};
   if (!success) {
     std::cerr << "multiplication assignment operator failed: incorrect result" << std::endl;
   }
@@ -303,7 +303,7 @@ bool TestDivisionAssignment() {
   const TestVector expected_quotient{1.0F, 2.0F, 3.0F};
 
   const TestVector quotient{original /= scalar};
-  bool success{original == expected_quotient && quotient == expected_quotient};
+  const bool success{original == expected_quotient && quotient == expected_quotient};
   if (!success) {
     std::cerr << "division assignment operator failed: incorrect result" << std::endl;
   }
@@ -313,7 +313,7 @@ bool TestDivisionAssignment() {
 bool TestContainsZeroTrue() {
   const TestVector vector{1.0F, 0.0F, 1.0F};
 
-  bool success{vector.ContainsZero()};
+  const bool success{vector.ContainsZero()};
   if (!success) {
     std::cerr << "ContainsZero failed: returns false for a Vector containing zero" << std::endl;
   }
@@ -323,7 +323,7 @@ bool TestContainsZeroTrue() {
 bool TestContainsZeroFalse() {
   const TestVector vector{1.0F, 2.0F, 3.0F};
 
-  bool success{!vector.ContainsZero()};
+  const bool success{!vector.ContainsZero()};
   if (!success) {
     std::cerr << "ContainsZero failed: returns true for a Vector not containing zero" << std::endl;
   }
@@ -340,7 +340,7 @@ bool TestContainsZero() {
 bool TestIsInColorRangeTrue() {
   const TestVector vector{0.0F, 0.5F, 1.0F};
 
-  bool success{vector.IsInColorRange()};
+  const bool success{vector.IsInColorRange()};
   if (!success) {
     std::cerr << "IsInColorRange failed: returns false for a Vector in color range" << std::endl;
   }
@@ -350,7 +350,7 @@ bool TestIsInColorRangeTrue() {
 bool TestIsInColorRangeTooSmall() {
   const TestVector vector{0.0F, -1.0F, -2.0F};
 
-  bool success{!vector.IsInColorRange()};
+  const bool success{!vector.IsInColorRange()};
   if (!success) {
     std::cerr << "IsInColorRange failed: returns true for a Vector with element smaller than color range" << std::endl;
   }
@@ -360,7 +360,7 @@ bool TestIsInColorRangeTooSmall() {
 bool TestIsInColorRangeTooLarge() {
   const TestVector vector{0.0F, 1.0F, 2.0F};
 
-  bool success{!vector.IsInColorRange()};
+  const bool success{!vector.IsInColorRange()};
   if (!success) {
     std::cerr << "IsInColorRange failed: returns true for a Vector with element larger than color range" << std::endl;
   }
@@ -380,7 +380,7 @@ bool TestNonmemberMultiplication() {
   const TestVector vector{1.0F, 2.0F, 3.0F};
   const TestVector expected_product{10.0F, 20.0F, 30.0F};
 
-  bool success{scalar * vector == expected_product};
+  const bool success{scalar * vector == expected_product};
   if (!success) {
     std::cerr << "nonmember multiplication operator failed: incorrect result" << std::endl;
   }
@@ -392,7 +392,7 @@ bool TestNonmemberDivision() {
   const TestVector vector{2.0F, 3.0F, 5.0F};
   const TestVector expected_quotient{15.0F, 10.0F, 6.0F};
 
-  bool success{scalar / vector == expected_quotient};
+  const bool success{scalar / vector == expected_quotient};
   if (!success) {
     std::cerr << "nonmember division operator failed: incorrect result" << std::endl;
   }
