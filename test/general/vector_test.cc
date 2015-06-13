@@ -15,7 +15,7 @@ typedef block_game::Vector<kTestDimensions> TestVector;
 
 bool TestDefaultConstructor() {
   const TestVector vector;
-  float expected[kTestDimensions]{0.0F};
+  const float expected[kTestDimensions]{0.0F};
 
   bool success{true};
   for (size_t i{0}; i < kTestDimensions; ++i) {
