@@ -188,6 +188,56 @@ bool TestMultiplication() {
   }
   return success;
 }
+
+bool TestAdditionAssignment() {
+  TestMatrix original{
+    1.0F, 2.0F, 3.0F,
+    4.0F, 5.0F, 6.0F,
+    7.0F, 8.0F, 9.0F
+  };
+  const TestMatrix addend{
+    10.0F, 11.0F, 12.0F,
+    13.0F, 14.0F, 15.0F,
+    16.0F, 17.0F, 18.0F
+  };
+  const TestMatrix expected_sum{
+    11.0F, 13.0F, 15.0F,
+    17.0F, 19.0F, 21.0F,
+    23.0F, 25.0F, 27.0F
+  };
+
+  const TestMatrix sum{original += addend};
+  const bool success{original == expected_sum && sum == expected_sum};
+  if (!success) {
+    std::cerr << "addition assignment operator failed: incorrect result" << std::endl;
+  }
+  return success;
+}
+
+bool TestSubtractionAssignment() {
+  TestMatrix original{
+    11.0F, 13.0F, 15.0F,
+    17.0F, 19.0F, 21.0F,
+    23.0F, 25.0F, 27.0F
+  };
+  const TestMatrix subtrahend{
+    1.0F, 2.0F, 3.0F,
+    4.0F, 5.0F, 6.0F,
+    7.0F, 8.0F, 9.0F
+  };
+  const TestMatrix expected_difference{
+    10.0F, 11.0F, 12.0F,
+    13.0F, 14.0F, 15.0F,
+    16.0F, 17.0F, 18.0F
+  };
+
+  const TestMatrix difference{original -= subtrahend};
+  const bool success{original == expected_difference && difference == expected_difference};
+  if (!success) {
+    std::cerr << "subtraction assignment operator failed: incorrect result" << std::endl;
+  }
+  return success;
+}
 }
 
 int main() {
@@ -203,6 +253,9 @@ int main() {
   Update(success, TestSubtraction());
 
   Update(success, TestMultiplication());
+
+  Update(success, TestAdditionAssignment());
+  Update(success, TestSubtractionAssignment());
 
   return success ? EXIT_SUCCESS : EXIT_FAILURE;
 }
