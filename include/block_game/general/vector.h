@@ -2,6 +2,7 @@
 #define BLOCK_GAME_GENERAL_VECTOR_H_
 
 #include <cassert>
+#include <cmath>
 #include <initializer_list>
 #include <stdexcept>
 
@@ -180,8 +181,8 @@ template<int dimensions> bool Vector<dimensions>::IsInColorRange() const {
 template<int dimensions> void Vector<dimensions>::RotateAboutX(const float angle) {
   static_assert(3 <= dimensions, "rotate Vector about x-axis without y-axis and z-axis");
 
-  const float sine{sin(angle)};
-  const float cosine{cos(angle)};
+  const float sine{std::sin(angle)};
+  const float cosine{std::cos(angle)};
 
   const float new_y{components[1] * cosine - components[2] * sine};
   const float new_z{components[1] * sine + components[2] * cosine};
@@ -193,8 +194,8 @@ template<int dimensions> void Vector<dimensions>::RotateAboutX(const float angle
 template<int dimensions> void Vector<dimensions>::RotateAboutY(const float angle) {
   static_assert(3 <= dimensions, "rotate Vector about y-axis without x-axis and z-axis");
 
-  const float sine{sin(angle)};
-  const float cosine{cos(angle)};
+  const float sine{std::sin(angle)};
+  const float cosine{std::cos(angle)};
 
   const float new_x{components[2] * sine + components[0] * cosine};
   const float new_z{components[2] * cosine - components[0] * sine};
@@ -206,8 +207,8 @@ template<int dimensions> void Vector<dimensions>::RotateAboutY(const float angle
 template<int dimensions> void Vector<dimensions>::RotateAboutZ(const float angle) {
   static_assert(2 <= dimensions, "rotate Vector about z-axis without x-axis and y-axis");
 
-  const float sine{sin(angle)};
-  const float cosine{cos(angle)};
+  const float sine{std::sin(angle)};
+  const float cosine{std::cos(angle)};
 
   const float new_x{components[0] * cosine - components[1] * sine};
   const float new_y{components[0] * sine + components[1] * cosine};

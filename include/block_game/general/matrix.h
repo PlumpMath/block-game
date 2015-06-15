@@ -125,8 +125,8 @@ template<int order> Matrix<order>& Matrix<order>::operator-=(const Matrix<order>
 template<int order> void Matrix<order>::RotateAboutX(const float angle) {
   static_assert(3 <= order, "rotate Matrix about x-axis without y-axis and z-axis");
 
-  const float sine{sin(angle)};
-  const float cosine{cos(angle)};
+  const float sine{std::sin(angle)};
+  const float cosine{std::cos(angle)};
 
   Matrix<order> rotation;
   rotation[1][1] = cosine;
@@ -140,8 +140,8 @@ template<int order> void Matrix<order>::RotateAboutX(const float angle) {
 template<int order> void Matrix<order>::RotateAboutY(const float angle) {
   static_assert(3 <= order, "rotate Matrix about y-axis without x-axis and z-axis");
 
-  const float sine{sin(angle)};
-  const float cosine{cos(angle)};
+  const float sine{std::sin(angle)};
+  const float cosine{std::cos(angle)};
 
   Matrix<order> rotation;
   rotation[0][0] = cosine;
@@ -155,8 +155,8 @@ template<int order> void Matrix<order>::RotateAboutY(const float angle) {
 template<int order> void Matrix<order>::RotateAboutZ(const float angle) {
   static_assert(2 <= order, "rotate Matrix about z-axis without x-axis and y-axis");
 
-  const float sine{sin(angle)};
-  const float cosine{cos(angle)};
+  const float sine{std::sin(angle)};
+  const float cosine{std::cos(angle)};
 
   Matrix<order> rotation;
   rotation[0][0] = cosine;
