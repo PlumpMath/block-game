@@ -38,13 +38,15 @@ World::World() :
   program_{program_vert, program_frag}
 {
   try {
-    Build(std::ifstream{world_filename});
+    std::ifstream world_stream{world_filename};
+    Build(world_stream);
   } catch (const std::exception& exception) {
     std::cerr << "Failed to load " << world_filename << ": " << exception.what() << std::endl;
     std::cerr << std::endl;
 
     grids_.clear();
-    Build(std::istringstream{world_json});
+    std::istringstream world_stream{world_json};
+    Build(world_stream);
   }
 }
 
