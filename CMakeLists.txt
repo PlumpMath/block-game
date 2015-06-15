@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.1)
 project("Block Game")
 
 set(LIBRARY_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -67,6 +67,9 @@ add_cmake_dependency(
   SOURCE lightest-master
   INCLUDE include
 )
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include_directories(include)
 
