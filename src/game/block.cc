@@ -129,7 +129,7 @@ void Block::Build(const Json::Value& value) {
       throw std::runtime_error{"incorrect number of Block children"};
     }
 
-    for (size_t i{0}; i < children.size(); ++i) {
+    for (Json::ArrayIndex i{0}; i < children.size(); ++i) {
       children_[i].Build(children[i]);
     }
   }

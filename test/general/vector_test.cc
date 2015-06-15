@@ -44,14 +44,14 @@ bool TestInitializerListConstructor() {
 
 bool TestJSONConstructorNominal() {
   Json::Value value{Json::arrayValue};
-  for (size_t i{1}; i <= kTestDimensions; ++i) {
+  for (Json::ArrayIndex i{1}; i <= kTestDimensions; ++i) {
     value.append(static_cast<float>(i));
   }
 
   bool success{true};
   try {
     const TestVector vector{value};
-    for (size_t i{0}; i < kTestDimensions; ++i) {
+    for (Json::ArrayIndex i{0}; i < kTestDimensions; ++i) {
       if (vector[i] != value[i].asFloat()) {
         std::cerr << "JSON constructor failed: element " << i << " is " << vector[i] << " instead of " << value[i] << std::endl;
         success = false;
