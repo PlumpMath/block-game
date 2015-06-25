@@ -1,2 +1,2 @@
 # commonly used CMake build directory
-build
+/build
