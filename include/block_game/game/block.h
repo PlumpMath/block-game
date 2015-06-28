@@ -14,7 +14,7 @@ class Grid;
 class Block {
 public:
   Block(Grid& grid, float radius);
-  Block(Block& parent, size_t x, size_t y, size_t z);
+  Block(Block& parent, int x, int y, int z);
 
   void Build(const Json::Value& value);
 
@@ -39,8 +39,8 @@ public:
   void Split();
 
   // leaf_ == false
-  const Block& GetChild(size_t x, size_t y, size_t z) const;
-  Block& GetChild(size_t x, size_t y, size_t z);
+  const Block& GetChild(int x, int y, int z) const;
+  Block& GetChild(int x, int y, int z);
   void Merge();
 
   void BuildDraw(std::vector<BlockVertex>& vertices, std::vector<unsigned char>& indices);

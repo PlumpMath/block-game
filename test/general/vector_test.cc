@@ -9,7 +9,7 @@
 using lightest::Update;
 
 namespace {
-const size_t kTestDimensions{3};
+const int kTestDimensions{3};
 typedef block_game::Vector<kTestDimensions> TestVector;
 
 bool TestDefaultConstructor() {
@@ -17,7 +17,7 @@ bool TestDefaultConstructor() {
   const float expected[kTestDimensions]{0.0F};
 
   bool success{true};
-  for (size_t i{0}; i < kTestDimensions; ++i) {
+  for (int i{0}; i < kTestDimensions; ++i) {
     if (vector[i] != expected[i]) {
       std::cerr << "default constructor failed: ";
       std::cerr << "element " << i << " is " << vector[i] << " instead of " << expected[i] << std::endl;
@@ -32,7 +32,7 @@ bool TestInitializerListConstructor() {
   const float expected[]{1.0F, 2.0F, 3.0F};
 
   bool success{true};
-  for (size_t i{0}; i < kTestDimensions; ++i) {
+  for (int i{0}; i < kTestDimensions; ++i) {
     if (vector[i] != expected[i]) {
       std::cerr << "initializer list constructor failed: ";
       std::cerr << "element " << i << " is " << vector[i] << " instead of " << expected[i] << std::endl;

@@ -81,9 +81,9 @@ const unsigned char block_indices[]{
   20, 23, 21
 };
 
-const size_t kNumFaces{6};
-const size_t kNumVertices{kNumFaces * 4};
-const size_t kNumIndices{kNumFaces * 2 * 3};
+const int kNumFaces{6};
+const int kNumVertices{kNumFaces * 4};
+const int kNumIndices{kNumFaces * 2 * 3};
 }
 
 namespace block_game {
@@ -99,7 +99,7 @@ Block::Block(Grid& grid, const float radius) :
   assert(0.0F < radius);
 }
 
-Block::Block(Block& parent, const size_t x, const size_t y, const size_t z) :
+Block::Block(Block& parent, const int x, const int y, const int z) :
   radius_{parent.radius_ / 2.0F},
   position_(parent.position_ + parent.radius_ * Vector<3>{x - 0.5F, y - 0.5F, z - 0.5F}),
   root_{false},
@@ -110,9 +110,9 @@ Block::Block(Block& parent, const size_t x, const size_t y, const size_t z) :
   solid_{parent.solid_},
   color_(parent.color_)
 {
-  assert(x < 2);
-  assert(y < 2);
-  assert(z < 2);
+  assert(0 <= x && x < 2);
+  assert(0 <= y && y < 2);
+  assert(0 <= z && z < 2);
 }
 
 void Block::Build(const Json::Value& value) {
@@ -205,9 +205,9 @@ void Block::Split() {
 
   leaf_ = false;
 
-  for (size_t z{0}; z < 2; ++z) {
-    for (size_t y{0}; y < 2; ++y) {
-      for (size_t x{0}; x < 2; ++x) {
+  for (int z{0}; z < 2; ++z) {
+    for (int y{0}; y < 2; ++y) {
+      for (int x{0}; x < 2; ++x) {
         children_.emplace_back(*this, x, y, z);
         GetChild(x, y, z).SetSolid(solid_);
         GetChild(x, y, z).SetColor(color_);
@@ -216,20 +216,20 @@ void Block::Split() {
   }
 }
 
-const Block& Block::GetChild(const size_t x, const size_t y, const size_t z) const {
+const Block& Block::GetChild(const int x, const int y, const int z) const {
   assert(!leaf_);
-  assert(x < 2);
-  assert(y < 2);
-  assert(z < 2);
+  assert(0 <= x && x < 2);
+  assert(0 <= y && y < 2);
+  assert(0 <= z && z < 2);
 
   return children_[z << 2 | y << 1 | x];
 }
 
-Block& Block::GetChild(const size_t x, const size_t y, const size_t z) {
+Block& Block::GetChild(const int x, const int y, const int z) {
   assert(!leaf_);
-  assert(x < 2);
-  assert(y < 2);
-  assert(z < 2);
+  assert(0 <= x && x < 2);
+  assert(0 <= y && y < 2);
+  assert(0 <= z && z < 2);
 
   return children_[z << 2 | y << 1 | x];
 }
@@ -244,11 +244,11 @@ void Block::Merge() {
 void Block::BuildDraw(std::vector<BlockVertex>& vertices, std::vector<unsigned char>& indices) {
   if (leaf_) {
     if (solid_) {
-      for (size_t i{0}; i < kNumIndices; ++i) {
+      for (int i{0}; i < kNumIndices; ++i) {
         indices.emplace_back(static_cast<unsigned char>(vertices.size() + block_indices[i]));
       }
 
-      for (size_t i{0}; i < kNumVertices; ++i) {
+      for (int i{0}; i < kNumVertices; ++i) {
         vertices.emplace_back(position_ + radius_ * block_vertices[i].position, block_vertices[i].normal, color_);
       }
     }

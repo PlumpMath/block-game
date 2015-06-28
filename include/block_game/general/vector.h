@@ -17,8 +17,8 @@ public:
   Vector(const std::initializer_list<float>& initial_components);
   Vector(const Json::Value& value);
 
-  float operator[](size_t i) const;
-  float& operator[](size_t i);
+  float operator[](int i) const;
+  float& operator[](int i);
 
   bool operator==(const Vector<dimensions>& vector) const;
   bool operator!=(const Vector<dimensions>& vector) const;
@@ -50,7 +50,7 @@ template<int dimensions> Vector<dimensions> operator*(float scalar, const Vector
 template<int dimensions> Vector<dimensions> operator/(float scalar, const Vector<dimensions>& vector);
 
 template<int dimensions> Vector<dimensions>::Vector() {
-  for (size_t i{0}; i < dimensions; ++i) {
+  for (int i{0}; i < dimensions; ++i) {
     components[i] = 0.0F;
   }
 }
@@ -58,7 +58,7 @@ template<int dimensions> Vector<dimensions>::Vector() {
 template<int dimensions> Vector<dimensions>::Vector(const std::initializer_list<float>& initial_components) {
   assert(initial_components.size() == dimensions);
 
-  size_t i{0};
+  int i{0};
   for (const float component : initial_components) {
     components[i] = component;
     ++i;
@@ -83,20 +83,20 @@ template<int dimensions> Vector<dimensions>::Vector(const Json::Value& value) {
   }
 }
 
-template<int dimensions> float Vector<dimensions>::operator[](const size_t i) const {
-  assert(i < dimensions);
+template<int dimensions> float Vector<dimensions>::operator[](const int i) const {
+  assert(0 <= i && i < dimensions);
 
   return components[i];
 }
 
-template<int dimensions> float& Vector<dimensions>::operator[](const size_t i) {
-  assert(i < dimensions);
+template<int dimensions> float& Vector<dimensions>::operator[](const int i) {
+  assert(0 <= i && i < dimensions);
 
   return components[i];
 }
 
 template<int dimensions> bool Vector<dimensions>::operator==(const Vector<dimensions>& vector) const {
-  for (size_t i{0}; i < dimensions; ++i) {
+  for (int i{0}; i < dimensions; ++i) {
     if (components[i] != vector[i]) {
       return false;
     }
@@ -114,7 +114,7 @@ template<int dimensions> Vector<dimensions> Vector<dimensions>::operator-() cons
 
 template<int dimensions> Vector<dimensions> Vector<dimensions>::operator+(const Vector<dimensions>& vector) const {
   Vector<dimensions> new_vector;
-  for (size_t i{0}; i < dimensions; ++i) {
+  for (int i{0}; i < dimensions; ++i) {
     new_vector[i] = components[i] + vector[i];
   }
   return new_vector;
@@ -126,7 +126,7 @@ template<int dimensions> Vector<dimensions> Vector<dimensions>::operator-(const 
 
 template<int dimensions> Vector<dimensions> Vector<dimensions>::operator*(const float scalar) const {
   Vector<dimensions> new_vector;
-  for (size_t i{0}; i < dimensions; ++i) {
+  for (int i{0}; i < dimensions; ++i) {
     new_vector[i] = components[i] * scalar;
   }
   return new_vector;
@@ -136,7 +136,7 @@ template<int dimensions> Vector<dimensions> Vector<dimensions>::operator/(const 
   assert(scalar != 0.0F);
 
   Vector<dimensions> new_vector;
-  for (size_t i{0}; i < dimensions; ++i) {
+  for (int i{0}; i < dimensions; ++i) {
     new_vector[i] = components[i] / scalar;
   }
   return new_vector;
@@ -225,7 +225,7 @@ template<int dimensions> Vector<dimensions> operator/(const float scalar, const 
   assert(!vector.ContainsZero());
 
   Vector<dimensions> new_vector;
-  for (size_t i{0}; i < dimensions; ++i) {
+  for (int i{0}; i < dimensions; ++i) {
     new_vector[i] = scalar / vector[i];
   }
   return new_vector;

@@ -12,8 +12,8 @@ public:
   Matrix();
   Matrix(const std::initializer_list<float>& initial_components);
 
-  const float* operator[](size_t i) const;
-  float* operator[](size_t i);
+  const float* operator[](int i) const;
+  float* operator[](int i);
 
   bool operator==(const Matrix<order>& matrix) const;
   bool operator!=(const Matrix<order>& matrix) const;
@@ -35,8 +35,8 @@ private:
 };
 
 template<int order> Matrix<order>::Matrix() {
-  for (size_t i{0}; i < order; ++i) {
-    for (size_t j{0}; j < order; ++j) {
+  for (int i{0}; i < order; ++i) {
+    for (int j{0}; j < order; ++j) {
       elements[i][j] = i == j ? 1.0F : 0.0F;
     }
   }
@@ -45,28 +45,28 @@ template<int order> Matrix<order>::Matrix() {
 template<int order> Matrix<order>::Matrix(const std::initializer_list<float>& initial_elements) {
   assert(initial_elements.size() == order * order);
 
-  size_t i{0};
+  int i{0};
   for (const float element : initial_elements) {
     elements[i / order][i % order] = element;
     ++i;
   }
 }
 
-template<int order> const float* Matrix<order>::operator[](const size_t i) const {
-  assert(i < order);
+template<int order> const float* Matrix<order>::operator[](const int i) const {
+  assert(0 <= i && i < order);
 
   return elements[i];
 }
 
-template<int order> float* Matrix<order>::operator[](const size_t i) {
-  assert(i < order);
+template<int order> float* Matrix<order>::operator[](const int i) {
+  assert(0 <= i && i < order);
 
   return elements[i];
 }
 
 template<int order> bool Matrix<order>::operator==(const Matrix<order>& matrix) const {
-  for (size_t i{0}; i < order; ++i) {
-    for (size_t j{0}; j < order; ++j) {
+  for (int i{0}; i < order; ++i) {
+    for (int j{0}; j < order; ++j) {
       if (elements[i][j] != matrix[i][j]) {
         return false;
       }
@@ -81,8 +81,8 @@ template<int order> bool Matrix<order>::operator!=(const Matrix<order>& matrix) 
 
 template<int order> Matrix<order> Matrix<order>::operator+(const Matrix<order>& matrix) const {
   Matrix<order> result;
-  for (size_t i{0}; i < order; ++i) {
-    for (size_t j{0}; j < order; ++j) {
+  for (int i{0}; i < order; ++i) {
+    for (int j{0}; j < order; ++j) {
       result[i][j] = elements[i][j] + matrix[i][j];
     }
   }
@@ -91,8 +91,8 @@ template<int order> Matrix<order> Matrix<order>::operator+(const Matrix<order>& 
 
 template<int order> Matrix<order> Matrix<order>::operator-(const Matrix<order>& matrix) const {
   Matrix<order> result;
-  for (size_t i{0}; i < order; ++i) {
-    for (size_t j{0}; j < order; ++j) {
+  for (int i{0}; i < order; ++i) {
+    for (int j{0}; j < order; ++j) {
       result[i][j] = elements[i][j] - matrix[i][j];
     }
   }
@@ -101,12 +101,12 @@ template<int order> Matrix<order> Matrix<order>::operator-(const Matrix<order>& 
 
 template<int order> Matrix<order> Matrix<order>::operator*(const Matrix<order>& matrix) const {
   Matrix<order> result;
-  for (size_t i{0}; i < order; ++i) {
+  for (int i{0}; i < order; ++i) {
     result[i][i] = 0.0F;
   }
-  for (size_t i{0}; i < order; ++i) {
-    for (size_t j{0}; j < order; ++j) {
-      for (size_t k{0}; k < order; ++k) {
+  for (int i{0}; i < order; ++i) {
+    for (int j{0}; j < order; ++j) {
+      for (int k{0}; k < order; ++k) {
         result[i][j] += elements[i][k] * matrix[k][j];
       }
     }
