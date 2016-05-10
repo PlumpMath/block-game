@@ -63,7 +63,7 @@ add_cmake_dependency(
 
 add_cmake_dependency(
   NAME lightest
-  URL https://github.com/elogent/lightest/archive/master.tar.gz
+  URL https://github.com/samestep/lightest/archive/master.tar.gz
   SOURCE lightest-master
   INCLUDE include
 )
